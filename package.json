@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@fabric/core": "martindale/fabric#faucet",
-    "@fabric/http": "martindale/fabric-http#portal-develop",
+    "@fabric/http": "file:../fabric-http",
     "bitcoinjs-lib": "^6.0.0",
     "lodash.merge": "^4.6.2"
   },
