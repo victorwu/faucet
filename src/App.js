@@ -35,11 +35,11 @@ import Actor from '@fabric/core/types/actor';
 import FabricComponent from './types/component';
 
 // Fabric Components
-import FabricBridge from './components/FabricBridge';
-import FabricDebugger from './components/FabricDebugger';
-// import FabricIdentityManager from './components/FabricIdentityManager';
-// import FabricNodeList from './components/FabricNodeList';
-import FabricTransactionList from './components/FabricTransactionList';
+import FabricBridge from '@fabric/http';
+import FabricDebugger from '@fabric/http';
+// import FabricIdentityManager from '@fabric/http';
+// import FabricNodeList from '@fabric/http';
+import FabricTransactionList from '@fabric/http';
 
 // Portal
 import Home from './Home';
