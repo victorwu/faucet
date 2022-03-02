@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.17.5",
-    "@fabric/core": "martindale/fabric#faucet",
+    "@fabric/core": "file:.yalc/@fabric/core",
     "@fabric/http": "file:../fabric-http",
     "@octokit/core": "^3.5.1",
     "@reduxjs/toolkit": "^1.7.2",
