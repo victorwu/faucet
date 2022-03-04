@@ -21,7 +21,7 @@ import { store } from '../app/store';
 import FabricComponent from '../types/component';
 
 // Fabric Components
-import FabricModal from './FabricModal';
+import FabricModal from '@fabric/http';
 
 // Fabric Services
 // import Bitcoin from '@fabric/core/services/bitcoin';
