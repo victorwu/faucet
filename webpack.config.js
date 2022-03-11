@@ -17,7 +17,7 @@ const commonLoaders = [
 const config = 
 {
   name: 'client',
-  target: 'web',
+  target: 'node',
   mode: 'development',
   devtool: 'eval',
   entry: [
