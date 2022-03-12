@@ -27,6 +27,9 @@ const config =
     'webpack-dev-server/client?http://localhost:8081' // WebpackDevServer host & port
 
   ],
+  externals: {
+    re2: 're2',
+  },
   output: {
     path: buildPath,
     filename: '[name].js',
