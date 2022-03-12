@@ -49,8 +49,12 @@ const config =
       {
         test: /\.css$/,
         use: [
+          // Creates `style` nodes from JS strings
           'style-loader',
-          'css-loader'
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          // 'sass-loader',
         ]
       },
       {
@@ -66,6 +70,10 @@ const config =
         ]
       },
       {
+        test: /\.node$/,
+        loader: "node-loader",
+      },
+      {
         test: /\.svg$/,
         use: 'file-loader'
       },
@@ -79,7 +87,7 @@ const config =
             }
           }
         ]
-      }
+      },
     ]
   },
   devServer: {
@@ -95,7 +103,7 @@ const config =
           template: __dirname + '/public/index.html',
           filename: 'index.html',
           inject: 'body'
-      })
+      }),
   ]
 };
 
