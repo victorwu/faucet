@@ -17,7 +17,7 @@ import {
 // import FabricStateMapper from '../StateMapper';
 
 // Fabric Types
-import FabricComponent from '../types/component';
+import FabricComponent from '@fabric/http';
 
 // Fabric Components
 import FabricModal from '@fabric/http';

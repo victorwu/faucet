@@ -32,7 +32,7 @@ import './index.css';
 
 // Fabric Types
 import Actor from '@fabric/core/types/actor';
-import FabricComponent from './types/component';
+import FabricComponent from '@fabric/http';
 
 // Fabric Components
 import FabricBridge from '@fabric/http';

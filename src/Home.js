@@ -24,7 +24,7 @@ import {
   Visibility
 } from 'semantic-ui-react';
 
-import FabricComponent from './types/component';
+import FabricComponent from '@fabric/http';
 
 import FabricBridge from '@fabric/http';
 // import FabricDebugger from '@fabric/http';
