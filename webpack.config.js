@@ -35,7 +35,8 @@ const config =
     filename: '[name].js',
     // Everything related to Webpack should go through a build path,
     // localhost:3000/build. That makes proxying easier to handle
-    publicPath: 'http://localhost:8081/assets/'
+    publicPath: 'http://localhost:8081/assets/',
+    chunkFilename: '[id]-[chunkhash].js'
   },
   resolve: {
       alias: {
