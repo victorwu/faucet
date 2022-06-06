@@ -105,7 +105,7 @@ class Home extends FabricComponent {
           <Visibility onBottomPassed={this._handleMastheadBottomPassed.bind(this)}>
             <Segment className='ui inverted vertical masthead center aligned segment'>
               <Container className='ui text container'>
-                <h1 className='ui inverted header'><Icon name='tint' /> bitfaucet</h1>
+                <h1 className='ui inverted header'><Icon name='tint' /> bitfaucetasdfasdfasfd</h1>
                 <h2>The official <code>@fabric/playnet</code> faucet.</h2>
                 <Container className='left aligned' style={{ marginTop: '5em' }}>
                   <Card fluid>

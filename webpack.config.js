@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
+const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 const buildPath = path.resolve(__dirname, 'assets');
 const commonLoaders = [
@@ -88,26 +90,42 @@ const config =
             options: {
               mimetype: 'image/png'
             }
-          }
-        ]
+          ]
+        },
+      ]
+    },
+    resolve: {
+      fallback: {
+        child_process: false,
+        dgram: false,
+        fs: false,
+        tls: false,
+        net: false,
+        // path: require.resolve('path-browserify'),
+        // zlib: false,
+        // http: require.resolve('stream-http'),
+        // https: require.resolve('https-browserify'),
+        // os: require.resolve('os-browserify'),
+        // stream: require.resolve('stream-browserify'),
+        // crypto: require.resolve('crypto-browserify'),
       },
-    ]
-  },
-  devServer: {
-    hot: true,
-    port: 3000,
-    historyApiFallback: true,
-    'static': {
-      directory: buildPath
-    }
-  },
-  plugins: [
+      alias: {
+        semantic: path.resolve(__dirname, 'semantic/src/'),
+      }
+    },
+    plugins: [
       new HtmlWebpackPlugin({
-          template: __dirname + '/public/index.html',
-          filename: 'index.html',
-          inject: 'body'
+        template: path.resolve(__dirname, 'public', 'index.html'),
+        filename: 'index.html',
+        inject: 'body'
       }),
-  ]
-};
-
-module.exports = [ config ];
+      // new webpack.ProvidePlugin({
+      //     Buffer: ['buffer', 'Buffer'],
+      // }),
+      // new webpack.ProvidePlugin({
+      //     process: 'process/browser',
+      // }),
+      new NodePolyfillPlugin()
+    ]
+  }
+}
