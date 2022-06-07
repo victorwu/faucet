@@ -17,12 +17,12 @@ function handleWarning (warning, warn) {
 
 const builds = [
   {
-    input: 'scripts/index.js',
+    input: 'src/index.js',
     output: [
       {
         file: 'assets/index.js',
         format: 'iife',
-        name: 'PortalFeedMonitor'
+        name: 'BitFaucet'
       }
     ],
     plugins: [
