@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "npm run build:fomantic && npm run build:app",
-    "build:app": "react-scripts build && cp -r build/* assets",
+    "build:app": "rollup -c",
     "build:fomantic": "cd libraries/fomantic && npx gulp build && cp -r dist/themes ../../assets && cd ../..",
     "build:semantic": "npm run build:fomantic",
     "debug": "react-scripts start",
