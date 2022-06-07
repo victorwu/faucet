@@ -29,12 +29,10 @@
     "example",
     "money"
   ],
-  "author": "Eric Martindale",
+  "author": "Fabric Labs",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.17.5",
-    "@fabric/core": "martindale/fabric#faucet",
-    "@fabric/http": "file:../fabric-http",
     "@octokit/core": "^3.5.1",
     "@reduxjs/toolkit": "^1.7.2",
     "acorn": "^8.7.0",
@@ -62,6 +60,10 @@
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
+  },
+  "peerDependencies": {
+    "@fabric/core": "FabricLabs/fabric#feature/node-16",
+    "@fabric/http": "FabricLabs/fabric-http#feature/node-16"
   },
   "browserslist": {
     "production": [
