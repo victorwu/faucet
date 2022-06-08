@@ -3,7 +3,7 @@ import {
   createAsyncThunk
 } from '@reduxjs/toolkit';
 
-import * as initialState from '../settings/state';
+import * as initialState from '../../settings/state';
 
 export const faucetSlice = createSlice({
   name: 'faucet',

@@ -7,8 +7,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 // Redux
-import { store } from './app/store'
 import { Provider } from 'react-redux';
+import { store } from '../stores/redux';
 
 // Styles
 import '../styles/index.css';
@@ -17,9 +17,7 @@ import '../styles/index.css';
 import BitFaucet from '../components/BitFaucet';
 
 // Settings
-const settings = {
-  currency: 'USD'
-};
+const settings = {}; // TODO: canonicalize settings / state
 
 // Main Process Definition
 async function main (input = {}) {
@@ -34,7 +32,7 @@ async function main (input = {}) {
 
   return {
     react: { root }
-  }
+  };
 }
 
 // Run Main Process

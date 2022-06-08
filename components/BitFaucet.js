@@ -3,7 +3,7 @@ import * as merge from 'lodash.merge';
 
 // React
 import React, { Component } from 'react';
-import { store } from './app/store'
+import { store } from '../stores/redux';
 
 import {
   BrowserRouter as Router,
@@ -12,15 +12,14 @@ import {
 } from 'react-router-dom';
 
 // Stylesheets
-import './styles/app.css';
-import './styles/semantic.css';
-import './index.css';
+import '../libraries/fomantic/dist/semantic.css';
+import '../styles/index.css';
 
 // Fabric Types
 import Actor from '@fabric/core/types/actor';
 
 // Fabric Components
-import FabricBridge from './FabricBridge';
+// import FabricBridge from './FabricBridge';
 // import FabricDebugger from '@fabric/http';
 // import FabricIdentityManager from '@fabric/http';
 // import FabricNodeList from '@fabric/http';
