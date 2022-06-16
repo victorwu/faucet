@@ -22,9 +22,28 @@ const builds = [
       {
         file: 'assets/index.js',
         format: 'iife',
-        name: 'BitFaucet'
+        name: 'BitFaucet',
+        globals: {
+          '@fabric/core/types/actor': 'Actor',
+          '@fabric/http': 'FabricComponent',
+          'buffer': 'buffer',
+          'crypto': 'crypto',
+          'lodash.merge': 'merge',
+          'react-dom/client': 'client',
+        }
       }
     ],
+    external: [
+      '@fabric/core/types/actor',
+      '@fabric/core/types/environment',
+      '@fabric/http',
+      'lodash.merge',
+      'react-dom/client',
+    ],
+    onwarn(warning, warn) {
+        if (warning.code === 'THIS_IS_UNDEFINED') return;
+        warn(warning);
+    },
     plugins: [
       resolve({
         extensions: ['.js'],

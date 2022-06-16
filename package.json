@@ -35,8 +35,11 @@
   "author": "Fabric Labs",
   "license": "MIT",
   "dependencies": {
+    "@rollup/plugin-replace": "^4.0.0",
     "bitcoinjs-lib": "^6.0.0",
-    "lodash.merge": "^4.6.2"
+    "http-server": "^14.1.1",
+    "lodash.merge": "^4.6.2",
+    "serve": "^13.0.2"
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.7.2",
