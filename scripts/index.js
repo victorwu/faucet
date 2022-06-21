@@ -4,7 +4,7 @@
 
 // React
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -21,13 +21,11 @@ const settings = {}; // TODO: canonicalize settings / state
 
 // Main Process Definition
 async function main (input = {}) {
-  const container = document.getElementById('root');
-  const root = createRoot(container);
-
-  root.render(
+  ReactDOM.render(
     <Provider store={store}>
       <BitFaucet state={input} />
-    </Provider>
+    </Provider>,
+    document.getElementById('root')
   );
 
   return {

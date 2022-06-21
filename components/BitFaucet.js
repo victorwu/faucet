@@ -1,6 +1,3 @@
-// Dependencies
-import * as merge from 'lodash.merge';
-
 // React
 import React, { Component } from 'react';
 import { store } from '../stores/redux';
@@ -16,7 +13,7 @@ import '../libraries/fomantic/dist/semantic.css';
 import '../styles/index.css';
 
 // Fabric Types
-import Actor from '@fabric/core/types/actor';
+// import Actor from '@fabric/core/types/actor';
 
 // Fabric Components
 // import FabricBridge from './FabricBridge';
@@ -29,20 +26,20 @@ import Actor from '@fabric/core/types/actor';
 import Faucet from './Faucet';
 
 /**
- * The Portal web application.
+ * The BitFaucet application
  */
-class App extends Component {
+class BitFaucet extends Component {
   constructor (settings) {
     super(settings);
 
     const state = store.getState();
 
-    this.settings = merge({
+    this.settings = Object.assign({
 
     }, state, settings);
 
     // this.fabric = new Fabric();
-    this.state = merge({
+    this.state = Object.assign({
       actor: null,
       host: 'localhost',
       integrity: null,
@@ -57,7 +54,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    const proof = new Actor(this.state);
+    // const proof = new Actor(this.state);
     return this;
   }
 
@@ -67,7 +64,7 @@ class App extends Component {
         <Router>
           <div className='pusher'>
             <Routes>
-              <Route path='/' exact element={<Home state={this.state} balances={this.state.balances} keys={this.state.keys} host={this.state.host} />} />
+              <Route path='/' exact element={<Faucet state={this.state} balances={this.state.balances} keys={this.state.keys} host={this.state.host} />} />
               {/* <Route path='/transactions' element={<FabricTransactionList state={this.state} balances={this.state.balances} keys={this.state.keys} />} /> */ }
             </Routes>
             {/*
@@ -86,4 +83,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default BitFaucet;

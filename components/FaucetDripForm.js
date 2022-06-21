@@ -13,14 +13,14 @@ import {
   recipientAddressUpdate,
   setState,
   statusUpdate,
-} from '../features/faucet/faucetSlice'
+} from '../features/faucet/faucetSlice';
 // import FabricStateMapper from '../StateMapper';
 
 // Fabric Types
-import FabricComponent from '@fabric/http';
+// import FabricComponent from '@fabric/http';
 
 // Fabric Components
-import FabricModal from '@fabric/http';
+// import FabricModal from '@fabric/http';
 
 // Fabric Services
 // import Bitcoin from '@fabric/core/services/bitcoin';
@@ -36,11 +36,11 @@ import {
 // import FabricKeyPair from './FabricKeyPair';
 
 // Fabric Types
-import * as Actor from '@fabric/core/types/actor';
+// import * as Actor from '@fabric/core/types/actor';
 // import * as Key from '@fabric/core/types/key';
 // import * as Signer from '@fabric/core/types/signer';
 
-class FaucetDripForm extends FabricComponent {
+class FaucetDripForm extends React.Component {
   constructor (props) {
     super(props);
 
@@ -64,7 +64,7 @@ class FaucetDripForm extends FabricComponent {
         requests: []
       },
       requests: {},
-      secret: Actor.randomBytes(32), // solution hash (revealed on trade)
+      secret: Buffer.alloc(32), // Actor.randomBytes(32), // solution hash (revealed on trade)
       status: 'LOADING'
     }, props.state);
 
@@ -149,7 +149,7 @@ class FaucetDripForm extends FabricComponent {
                 disabled={(this.props.state.status === 'REQUESTING') || (this.props.state.status === 'PAUSED') || (this.props.state.status === 'ERROR')}
                 color='green' content='Request' icon='right chevron' labelPosition='right' onClick={this.props.onSubmit.bind(this)} />
             </div>
-            <FabricModal />
+            {/* <FabricModal /> */}
           </Form.Field>
         </Form>
       </>
