@@ -59,7 +59,8 @@ const builds = [
       nodeGlobals(),
       nodePolyfills(),
       babel({
-        presets: ['@babel/preset-react']
+        presets: ['@babel/preset-react'],
+        babelHelpers: 'bundled'
       }),
       commonjs({
         include: 'node_modules/**',
