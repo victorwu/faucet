@@ -30,9 +30,11 @@ const builds = [
           '@fabric/http': 'FabricComponent',
           // 'buffer': 'buffer',
           // 'crypto': 'crypto',
-          // 'lodash.merge': 'merge',
+          'lodash.merge': 'merge',
+          'fomantic-ui-react': 'fomanticUIReact',
           'react': 'React',
           'react-dom/client': 'client',
+          'react-redux': 'reactRedux',
         }
       }
     ],
