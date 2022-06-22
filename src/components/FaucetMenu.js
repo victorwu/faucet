@@ -8,7 +8,7 @@ import {
 // Semantic Types
 import {
   Icon
-} from 'semantic-ui-react';
+} from 'fomantic-ui-react';
 
 // Components
 import FabricIdentity from './FabricIdentity';

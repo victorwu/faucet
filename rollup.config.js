@@ -8,10 +8,12 @@ import replace from '@rollup/plugin-replace';
 import css from 'rollup-plugin-import-css';
 // import json from '@rollup/plugin-json';
 // import url from '@rollup/plugin-url';
+import nodeGlobals from 'rollup-plugin-node-globals';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 function handleWarning (warning, warn) {
   const { code, importer } = warning;
-  if (code === 'CIRCULAR_DEPENDENCY' && importer.includes('semantic-ui-react')) return;
+  if (code === 'CIRCULAR_DEPENDENCY' && importer.includes('fomantic-ui-react')) return;
   warn(warning);
 }
 
@@ -26,9 +28,10 @@ const builds = [
         globals: {
           '@fabric/core/types/actor': 'Actor',
           '@fabric/http': 'FabricComponent',
-          'buffer': 'buffer',
-          'crypto': 'crypto',
-          'lodash.merge': 'merge',
+          // 'buffer': 'buffer',
+          // 'crypto': 'crypto',
+          // 'lodash.merge': 'merge',
+          'react': 'React',
           'react-dom/client': 'client',
         }
       }
@@ -38,29 +41,39 @@ const builds = [
       '@fabric/core/types/environment',
       '@fabric/http',
       'lodash.merge',
+      'react',
+      'react-redux',
       'react-dom/client',
+      'fomantic-ui-react',
     ],
     onwarn(warning, warn) {
         if (warning.code === 'THIS_IS_UNDEFINED') return;
         warn(warning);
     },
     plugins: [
+      css(),
+      // json(),
+      // url(),
+      nodeGlobals(),
+      nodePolyfills(),
+      babel({
+        presets: ['@babel/preset-react']
+      }),
+      commonjs({
+        include: 'node_modules/**',
+        // transformMixedEsModules: true,
+        namedExports: {
+          'node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer']
+        }
+      }),
       resolve({
         extensions: ['.js'],
-        preferBuiltins: true
+        preferBuiltins: true,
+        browser: true
       }),
       replace({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
       }),
-      css(),
-      // json(),
-      // url(),
-      commonjs({
-        include: 'node_modules/**'
-      }),
-      babel({
-        presets: ['@babel/preset-react']
-      })
     ],
     onwarn: handleWarning
   }
