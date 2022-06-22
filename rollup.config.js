@@ -61,7 +61,7 @@ const builds = [
       }),
       commonjs({
         include: 'node_modules/**',
-        // transformMixedEsModules: true,
+        transformMixedEsModules: true,
         namedExports: {
           'node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer']
         }
