@@ -1602,7 +1602,7 @@
 
   thunk.withExtraArgument = createThunkMiddleware;
 
-  var __extends = undefined && undefined.__extends || function () {
+  var __extends = null && null.__extends || function () {
     var extendStatics = function (d, b) {
       extendStatics = Object.setPrototypeOf || {
         __proto__: []
@@ -1627,7 +1627,7 @@
     };
   }();
 
-  undefined && undefined.__generator || function (thisArg, body) {
+  null && null.__generator || function (thisArg, body) {
     var _ = {
       label: 0,
       sent: function () {
@@ -1736,7 +1736,7 @@
     }
   };
 
-  var __spreadArray = undefined && undefined.__spreadArray || function (to, from) {
+  var __spreadArray = null && null.__spreadArray || function (to, from) {
     for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
 
     return to;
@@ -23996,4 +23996,4 @@
     console.log('[PORTAL:FEED] Main Process Output:', output);
   });
 
-})(React, client, reactRedux, merge, Actor, fomanticUiReact, FabricComponent);
+})(React, client, reactRedux, merge, Actor, fomanticUIReact, FabricComponent);
