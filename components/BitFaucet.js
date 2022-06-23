@@ -37,12 +37,12 @@ class App extends React.Component {
 
     const state = store.getState();
 
-    this.settings = merge.merge({
+    this.settings = merge({
 
     }, state, settings);
 
     // this.fabric = new Fabric();
-    this.state = merge.merge({
+    this.state = merge({
       actor: null,
       host: 'localhost',
       integrity: null,

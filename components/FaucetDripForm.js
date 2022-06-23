@@ -8,7 +8,7 @@ import {
   statusUpdate,
 } from '../features/faucet/faucetSlice'
 // import FabricStateMapper from '../StateMapper';
-import merge from 'lodash.merge';
+import * as merge from 'lodash.merge';
 
 // Cryptography
 import createHash from 'create-hash';

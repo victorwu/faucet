@@ -39,10 +39,8 @@ const builds = [
       }
     ],
     external: [
-      '@fabric/core/types/actor',
       '@fabric/core/types/environment',
       '@fabric/http',
-      'fomantic-ui-react',
     ],
     onwarn(warning, warn) {
         if (warning.code === 'THIS_IS_UNDEFINED') return;
