@@ -43,9 +43,6 @@ const builds = [
       '@fabric/core/types/environment',
       '@fabric/http',
       'lodash.merge',
-      'react',
-      'react-redux',
-      'react-dom/client',
       'fomantic-ui-react',
     ],
     onwarn(warning, warn) {
