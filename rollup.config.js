@@ -65,13 +65,13 @@ const builds = [
         include: 'node_modules/**',
         transformMixedEsModules: true
       }),
-      babel({
-        presets: ['@babel/preset-react'],
-        babelHelpers: 'bundled',
-      }),
       resolve({
         preferBuiltins: true,
         browser: true
+      }),
+      babel({
+        presets: ['@babel/preset-react'],
+        babelHelpers: 'bundled',
       }),
     ],
     onwarn: handleWarning,
