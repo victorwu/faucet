@@ -11,12 +11,7 @@ import css from 'rollup-plugin-import-css';
 import nodeGlobals from 'rollup-plugin-node-globals';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 
-function handleWarning (warning, warn) {
-  const { code, importer } = warning;
-  if (code === 'THIS_IS_UNDEFINED') return;
-  if (code === 'CIRCULAR_DEPENDENCY' && importer.includes('fomantic-ui-react')) return;
-  warn(warning);
-}
+import handleRollupWarning from './functions/handleRollupWarning';
 
 const builds = [
   {
@@ -71,7 +66,7 @@ const builds = [
         browser: true
       }),
     ],
-    onwarn: handleWarning,
+    onwarn: handleRollupWarning,
     context: 'null',
     moduleContext: 'null',
   }
