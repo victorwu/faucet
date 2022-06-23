@@ -42,7 +42,6 @@ const builds = [
       '@fabric/core/types/actor',
       '@fabric/core/types/environment',
       '@fabric/http',
-      'lodash.merge',
       'fomantic-ui-react',
     ],
     onwarn(warning, warn) {
