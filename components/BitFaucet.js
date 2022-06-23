@@ -16,7 +16,7 @@ import '../libraries/fomantic/dist/semantic.css';
 import '../styles/index.css';
 
 // Fabric Types
-import Actor from '@fabric/core/types/actor';
+import * as Actor from '@fabric/core/types/actor';
 
 // Fabric Components
 // import FabricBridge from './FabricBridge';
