@@ -1,12 +1,5 @@
-// Cryptography
-import createHash from 'create-hash';
-
-// Dependencies
-import * as bitcoin from 'bitcoinjs-lib';
-
 // React
-import merge from 'lodash.merge';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { 
   recipientAddressClear, 
@@ -15,6 +8,13 @@ import {
   statusUpdate,
 } from '../features/faucet/faucetSlice';
 // import FabricStateMapper from '../StateMapper';
+import merge from 'lodash.merge';
+
+// Cryptography
+import createHash from 'create-hash';
+
+// Dependencies
+import * as bitcoin from 'bitcoinjs-lib';
 
 // Fabric Types
 // import FabricComponent from '@fabric/http';

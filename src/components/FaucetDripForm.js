@@ -6,7 +6,7 @@ import * as bitcoin from 'bitcoinjs-lib';
 
 // React
 import merge from 'lodash.merge';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { 
   recipientAddressClear, 

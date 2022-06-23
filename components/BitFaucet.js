@@ -2,7 +2,7 @@
 import * as merge from 'lodash.merge';
 
 // React
-import React, { Component } from 'react';
+import * as React from 'react';
 import { store } from '../stores/redux';
 
 import {
@@ -31,7 +31,7 @@ import Faucet from './Faucet';
 /**
  * The Portal web application.
  */
-class App extends Component {
+class App extends React.Component {
   constructor (settings) {
     super(settings);
 

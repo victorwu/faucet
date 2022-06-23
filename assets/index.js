@@ -21,258 +21,13 @@
     return Object.freeze(n);
   }
 
+  var React__namespace = /*#__PURE__*/_interopNamespace(React);
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
   var merge__default = /*#__PURE__*/_interopDefaultLegacy(merge);
   var merge__namespace = /*#__PURE__*/_interopNamespace(merge);
   var Actor__namespace = /*#__PURE__*/_interopNamespace(Actor);
   var Actor__default = /*#__PURE__*/_interopDefaultLegacy(Actor);
   var FabricComponent__default = /*#__PURE__*/_interopDefaultLegacy(FabricComponent);
-
-  var global$2 = (typeof global !== "undefined" ? global :
-    typeof self !== "undefined" ? self :
-    typeof window !== "undefined" ? window : {});
-
-  var global$1 = typeof global$2 !== "undefined" ? global$2 : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};
-
-  // based off https://github.com/defunctzombie/node-process/blob/master/browser.js
-
-  function defaultSetTimout$1() {
-    throw new Error('setTimeout has not been defined');
-  }
-
-  function defaultClearTimeout$1() {
-    throw new Error('clearTimeout has not been defined');
-  }
-
-  var cachedSetTimeout$1 = defaultSetTimout$1;
-  var cachedClearTimeout$1 = defaultClearTimeout$1;
-
-  if (typeof global$1.setTimeout === 'function') {
-    cachedSetTimeout$1 = setTimeout;
-  }
-
-  if (typeof global$1.clearTimeout === 'function') {
-    cachedClearTimeout$1 = clearTimeout;
-  }
-
-  function runTimeout$1(fun) {
-    if (cachedSetTimeout$1 === setTimeout) {
-      //normal enviroments in sane situations
-      return setTimeout(fun, 0);
-    } // if setTimeout wasn't available but was latter defined
-
-
-    if ((cachedSetTimeout$1 === defaultSetTimout$1 || !cachedSetTimeout$1) && setTimeout) {
-      cachedSetTimeout$1 = setTimeout;
-      return setTimeout(fun, 0);
-    }
-
-    try {
-      // when when somebody has screwed with setTimeout but no I.E. maddness
-      return cachedSetTimeout$1(fun, 0);
-    } catch (e) {
-      try {
-        // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-        return cachedSetTimeout$1.call(null, fun, 0);
-      } catch (e) {
-        // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-        return cachedSetTimeout$1.call(this, fun, 0);
-      }
-    }
-  }
-
-  function runClearTimeout$1(marker) {
-    if (cachedClearTimeout$1 === clearTimeout) {
-      //normal enviroments in sane situations
-      return clearTimeout(marker);
-    } // if clearTimeout wasn't available but was latter defined
-
-
-    if ((cachedClearTimeout$1 === defaultClearTimeout$1 || !cachedClearTimeout$1) && clearTimeout) {
-      cachedClearTimeout$1 = clearTimeout;
-      return clearTimeout(marker);
-    }
-
-    try {
-      // when when somebody has screwed with setTimeout but no I.E. maddness
-      return cachedClearTimeout$1(marker);
-    } catch (e) {
-      try {
-        // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-        return cachedClearTimeout$1.call(null, marker);
-      } catch (e) {
-        // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-        // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-        return cachedClearTimeout$1.call(this, marker);
-      }
-    }
-  }
-
-  var queue$1 = [];
-  var draining$1 = false;
-  var currentQueue$1;
-  var queueIndex$1 = -1;
-
-  function cleanUpNextTick$1() {
-    if (!draining$1 || !currentQueue$1) {
-      return;
-    }
-
-    draining$1 = false;
-
-    if (currentQueue$1.length) {
-      queue$1 = currentQueue$1.concat(queue$1);
-    } else {
-      queueIndex$1 = -1;
-    }
-
-    if (queue$1.length) {
-      drainQueue$1();
-    }
-  }
-
-  function drainQueue$1() {
-    if (draining$1) {
-      return;
-    }
-
-    var timeout = runTimeout$1(cleanUpNextTick$1);
-    draining$1 = true;
-    var len = queue$1.length;
-
-    while (len) {
-      currentQueue$1 = queue$1;
-      queue$1 = [];
-
-      while (++queueIndex$1 < len) {
-        if (currentQueue$1) {
-          currentQueue$1[queueIndex$1].run();
-        }
-      }
-
-      queueIndex$1 = -1;
-      len = queue$1.length;
-    }
-
-    currentQueue$1 = null;
-    draining$1 = false;
-    runClearTimeout$1(timeout);
-  }
-
-  function nextTick$1(fun) {
-    var args = new Array(arguments.length - 1);
-
-    if (arguments.length > 1) {
-      for (var i = 1; i < arguments.length; i++) {
-        args[i - 1] = arguments[i];
-      }
-    }
-
-    queue$1.push(new Item$1(fun, args));
-
-    if (queue$1.length === 1 && !draining$1) {
-      runTimeout$1(drainQueue$1);
-    }
-  } // v8 likes predictible objects
-
-  function Item$1(fun, array) {
-    this.fun = fun;
-    this.array = array;
-  }
-
-  Item$1.prototype.run = function () {
-    this.fun.apply(null, this.array);
-  };
-
-  var title$1 = 'browser';
-  var platform$1 = 'browser';
-  var browser$3 = true;
-  var env$1 = {};
-  var argv$1 = [];
-  var version$1 = ''; // empty string to avoid regexp issues
-
-  var versions$1 = {};
-  var release$1 = {};
-  var config$2 = {};
-
-  function noop$3() {}
-
-  var on$2 = noop$3;
-  var addListener$1 = noop$3;
-  var once$3 = noop$3;
-  var off$1 = noop$3;
-  var removeListener$1 = noop$3;
-  var removeAllListeners$1 = noop$3;
-  var emit$1 = noop$3;
-  function binding$1(name) {
-    throw new Error('process.binding is not supported');
-  }
-  function cwd$1() {
-    return '/';
-  }
-  function chdir$1(dir) {
-    throw new Error('process.chdir is not supported');
-  }
-  function umask$1() {
-    return 0;
-  } // from https://github.com/kumavis/browser-process-hrtime/blob/master/index.js
-
-  var performance$1 = global$1.performance || {};
-
-  var performanceNow$1 = performance$1.now || performance$1.mozNow || performance$1.msNow || performance$1.oNow || performance$1.webkitNow || function () {
-    return new Date().getTime();
-  }; // generate timestamp or delta
-  // see http://nodejs.org/api/process.html#process_process_hrtime
-
-
-  function hrtime$1(previousTimestamp) {
-    var clocktime = performanceNow$1.call(performance$1) * 1e-3;
-    var seconds = Math.floor(clocktime);
-    var nanoseconds = Math.floor(clocktime % 1 * 1e9);
-
-    if (previousTimestamp) {
-      seconds = seconds - previousTimestamp[0];
-      nanoseconds = nanoseconds - previousTimestamp[1];
-
-      if (nanoseconds < 0) {
-        seconds--;
-        nanoseconds += 1e9;
-      }
-    }
-
-    return [seconds, nanoseconds];
-  }
-  var startTime$1 = new Date();
-  function uptime$1() {
-    var currentTime = new Date();
-    var dif = currentTime - startTime$1;
-    return dif / 1000;
-  }
-  var process = {
-    nextTick: nextTick$1,
-    title: title$1,
-    browser: browser$3,
-    env: env$1,
-    argv: argv$1,
-    version: version$1,
-    versions: versions$1,
-    on: on$2,
-    addListener: addListener$1,
-    once: once$3,
-    off: off$1,
-    removeListener: removeListener$1,
-    removeAllListeners: removeAllListeners$1,
-    emit: emit$1,
-    binding: binding$1,
-    cwd: cwd$1,
-    chdir: chdir$1,
-    umask: umask$1,
-    hrtime: hrtime$1,
-    platform: platform$1,
-    release: release$1,
-    config: config$2,
-    uptime: uptime$1
-  };
 
   function n(n) {
     for (var r = arguments.length, t = Array(r > 1 ? r - 1 : 0), e = 1; e < r; e++) t[e - 1] = arguments[e];
@@ -496,7 +251,7 @@
       },
           i = e,
           o = en;
-      t && (i = [e], o = on$1);
+      t && (i = [e], o = on$2);
       var u = Proxy.revocable(i, o),
           a = u.revoke,
           f = u.proxy;
@@ -782,15 +537,15 @@
       n(12);
     }
   },
-      on$1 = {};
+      on$2 = {};
 
   i(en, function (n, r) {
-    on$1[n] = function () {
+    on$2[n] = function () {
       return arguments[0] = arguments[0][0], r.apply(this, arguments);
     };
-  }), on$1.deleteProperty = function (r, t) {
-    return isNaN(parseInt(t)) && n(13), on$1.set.call(this, r, t, void 0);
-  }, on$1.set = function (r, t, e) {
+  }), on$2.deleteProperty = function (r, t) {
+    return isNaN(parseInt(t)) && n(13), on$2.set.call(this, r, t, void 0);
+  }, on$2.set = function (r, t, e) {
     return "length" !== t && isNaN(parseInt(t)) && n(14), en.set.call(this, r[0], t, e, r[0]);
   };
 
@@ -2979,6 +2734,16 @@
     return parsedPath;
   }
 
+  /**
+   * React Router v6.3.0
+   *
+   * Copyright (c) Remix Software Inc.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.md file in the root directory of this source tree.
+   *
+   * @license MIT
+   */
   const NavigationContext = /*#__PURE__*/React.createContext(null);
 
   {
@@ -3759,6 +3524,17 @@
     return routes;
   }
 
+  /**
+   * React Router DOM v6.3.0
+   *
+   * Copyright (c) Remix Software Inc.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.md file in the root directory of this source tree.
+   *
+   * @license MIT
+   */
+
   function _extends() {
     _extends = Object.assign || function (target) {
       for (var i = 1; i < arguments.length; i++) {
@@ -4031,6 +3807,10 @@
   var require$$0$8 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_inherits);
 
   var safeBuffer = {exports: {}};
+
+  var global$2 = (typeof global !== "undefined" ? global :
+    typeof self !== "undefined" ? self :
+    typeof window !== "undefined" ? window : {});
 
   var lookup$1 = [];
   var revLookup$1 = [];
@@ -6026,77 +5806,76 @@
   /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
   (function (module, exports) {
-  	/* eslint-disable node/no-deprecated-api */
-  	var buffer = require$$0$7;
+    /* eslint-disable node/no-deprecated-api */
+    var buffer = require$$0$7;
+    var Buffer = buffer.Buffer; // alternative to using Object.keys for old browsers
 
-  	var Buffer = buffer.Buffer; // alternative to using Object.keys for old browsers
+    function copyProps(src, dst) {
+      for (var key in src) {
+        dst[key] = src[key];
+      }
+    }
 
-  	function copyProps(src, dst) {
-  	  for (var key in src) {
-  	    dst[key] = src[key];
-  	  }
-  	}
+    if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
+      module.exports = buffer;
+    } else {
+      // Copy properties from require('buffer')
+      copyProps(buffer, exports);
+      exports.Buffer = SafeBuffer;
+    }
 
-  	if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
-  	  module.exports = buffer;
-  	} else {
-  	  // Copy properties from require('buffer')
-  	  copyProps(buffer, exports);
-  	  exports.Buffer = SafeBuffer;
-  	}
+    function SafeBuffer(arg, encodingOrOffset, length) {
+      return Buffer(arg, encodingOrOffset, length);
+    }
 
-  	function SafeBuffer(arg, encodingOrOffset, length) {
-  	  return Buffer(arg, encodingOrOffset, length);
-  	}
+    SafeBuffer.prototype = Object.create(Buffer.prototype); // Copy static methods from Buffer
 
-  	SafeBuffer.prototype = Object.create(Buffer.prototype); // Copy static methods from Buffer
+    copyProps(Buffer, SafeBuffer);
 
-  	copyProps(Buffer, SafeBuffer);
+    SafeBuffer.from = function (arg, encodingOrOffset, length) {
+      if (typeof arg === 'number') {
+        throw new TypeError('Argument must not be a number');
+      }
 
-  	SafeBuffer.from = function (arg, encodingOrOffset, length) {
-  	  if (typeof arg === 'number') {
-  	    throw new TypeError('Argument must not be a number');
-  	  }
+      return Buffer(arg, encodingOrOffset, length);
+    };
 
-  	  return Buffer(arg, encodingOrOffset, length);
-  	};
+    SafeBuffer.alloc = function (size, fill, encoding) {
+      if (typeof size !== 'number') {
+        throw new TypeError('Argument must be a number');
+      }
 
-  	SafeBuffer.alloc = function (size, fill, encoding) {
-  	  if (typeof size !== 'number') {
-  	    throw new TypeError('Argument must be a number');
-  	  }
+      var buf = Buffer(size);
 
-  	  var buf = Buffer(size);
+      if (fill !== undefined) {
+        if (typeof encoding === 'string') {
+          buf.fill(fill, encoding);
+        } else {
+          buf.fill(fill);
+        }
+      } else {
+        buf.fill(0);
+      }
 
-  	  if (fill !== undefined) {
-  	    if (typeof encoding === 'string') {
-  	      buf.fill(fill, encoding);
-  	    } else {
-  	      buf.fill(fill);
-  	    }
-  	  } else {
-  	    buf.fill(0);
-  	  }
+      return buf;
+    };
 
-  	  return buf;
-  	};
+    SafeBuffer.allocUnsafe = function (size) {
+      if (typeof size !== 'number') {
+        throw new TypeError('Argument must be a number');
+      }
 
-  	SafeBuffer.allocUnsafe = function (size) {
-  	  if (typeof size !== 'number') {
-  	    throw new TypeError('Argument must be a number');
-  	  }
+      return Buffer(size);
+    };
 
-  	  return Buffer(size);
-  	};
+    SafeBuffer.allocUnsafeSlow = function (size) {
+      if (typeof size !== 'number') {
+        throw new TypeError('Argument must be a number');
+      }
 
-  	SafeBuffer.allocUnsafeSlow = function (size) {
-  	  if (typeof size !== 'number') {
-  	    throw new TypeError('Argument must be a number');
-  	  }
-
-  	  return buffer.SlowBuffer(size);
-  	};
-  } (safeBuffer, safeBuffer.exports));
+      return buffer.SlowBuffer(size);
+    };
+  })(safeBuffer, safeBuffer.exports);
 
   var readableBrowser = {exports: {}};
 
@@ -6585,179 +6364,179 @@
   // shim for using process in browser
   // based off https://github.com/defunctzombie/node-process/blob/master/browser.js
 
-  function defaultSetTimout() {
+  function defaultSetTimout$1() {
       throw new Error('setTimeout has not been defined');
   }
-  function defaultClearTimeout () {
+  function defaultClearTimeout$1 () {
       throw new Error('clearTimeout has not been defined');
   }
-  var cachedSetTimeout = defaultSetTimout;
-  var cachedClearTimeout = defaultClearTimeout;
+  var cachedSetTimeout$1 = defaultSetTimout$1;
+  var cachedClearTimeout$1 = defaultClearTimeout$1;
   if (typeof global$2.setTimeout === 'function') {
-      cachedSetTimeout = setTimeout;
+      cachedSetTimeout$1 = setTimeout;
   }
   if (typeof global$2.clearTimeout === 'function') {
-      cachedClearTimeout = clearTimeout;
+      cachedClearTimeout$1 = clearTimeout;
   }
 
-  function runTimeout(fun) {
-      if (cachedSetTimeout === setTimeout) {
+  function runTimeout$1(fun) {
+      if (cachedSetTimeout$1 === setTimeout) {
           //normal enviroments in sane situations
           return setTimeout(fun, 0);
       }
       // if setTimeout wasn't available but was latter defined
-      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-          cachedSetTimeout = setTimeout;
+      if ((cachedSetTimeout$1 === defaultSetTimout$1 || !cachedSetTimeout$1) && setTimeout) {
+          cachedSetTimeout$1 = setTimeout;
           return setTimeout(fun, 0);
       }
       try {
           // when when somebody has screwed with setTimeout but no I.E. maddness
-          return cachedSetTimeout(fun, 0);
+          return cachedSetTimeout$1(fun, 0);
       } catch(e){
           try {
               // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-              return cachedSetTimeout.call(null, fun, 0);
+              return cachedSetTimeout$1.call(null, fun, 0);
           } catch(e){
               // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-              return cachedSetTimeout.call(this, fun, 0);
+              return cachedSetTimeout$1.call(this, fun, 0);
           }
       }
 
 
   }
-  function runClearTimeout(marker) {
-      if (cachedClearTimeout === clearTimeout) {
+  function runClearTimeout$1(marker) {
+      if (cachedClearTimeout$1 === clearTimeout) {
           //normal enviroments in sane situations
           return clearTimeout(marker);
       }
       // if clearTimeout wasn't available but was latter defined
-      if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-          cachedClearTimeout = clearTimeout;
+      if ((cachedClearTimeout$1 === defaultClearTimeout$1 || !cachedClearTimeout$1) && clearTimeout) {
+          cachedClearTimeout$1 = clearTimeout;
           return clearTimeout(marker);
       }
       try {
           // when when somebody has screwed with setTimeout but no I.E. maddness
-          return cachedClearTimeout(marker);
+          return cachedClearTimeout$1(marker);
       } catch (e){
           try {
               // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-              return cachedClearTimeout.call(null, marker);
+              return cachedClearTimeout$1.call(null, marker);
           } catch (e){
               // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
               // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-              return cachedClearTimeout.call(this, marker);
+              return cachedClearTimeout$1.call(this, marker);
           }
       }
 
 
 
   }
-  var queue = [];
-  var draining = false;
-  var currentQueue;
-  var queueIndex = -1;
+  var queue$1 = [];
+  var draining$1 = false;
+  var currentQueue$1;
+  var queueIndex$1 = -1;
 
-  function cleanUpNextTick() {
-      if (!draining || !currentQueue) {
+  function cleanUpNextTick$1() {
+      if (!draining$1 || !currentQueue$1) {
           return;
       }
-      draining = false;
-      if (currentQueue.length) {
-          queue = currentQueue.concat(queue);
+      draining$1 = false;
+      if (currentQueue$1.length) {
+          queue$1 = currentQueue$1.concat(queue$1);
       } else {
-          queueIndex = -1;
+          queueIndex$1 = -1;
       }
-      if (queue.length) {
-          drainQueue();
+      if (queue$1.length) {
+          drainQueue$1();
       }
   }
 
-  function drainQueue() {
-      if (draining) {
+  function drainQueue$1() {
+      if (draining$1) {
           return;
       }
-      var timeout = runTimeout(cleanUpNextTick);
-      draining = true;
+      var timeout = runTimeout$1(cleanUpNextTick$1);
+      draining$1 = true;
 
-      var len = queue.length;
+      var len = queue$1.length;
       while(len) {
-          currentQueue = queue;
-          queue = [];
-          while (++queueIndex < len) {
-              if (currentQueue) {
-                  currentQueue[queueIndex].run();
+          currentQueue$1 = queue$1;
+          queue$1 = [];
+          while (++queueIndex$1 < len) {
+              if (currentQueue$1) {
+                  currentQueue$1[queueIndex$1].run();
               }
           }
-          queueIndex = -1;
-          len = queue.length;
+          queueIndex$1 = -1;
+          len = queue$1.length;
       }
-      currentQueue = null;
-      draining = false;
-      runClearTimeout(timeout);
+      currentQueue$1 = null;
+      draining$1 = false;
+      runClearTimeout$1(timeout);
   }
-  function nextTick(fun) {
+  function nextTick$1(fun) {
       var args = new Array(arguments.length - 1);
       if (arguments.length > 1) {
           for (var i = 1; i < arguments.length; i++) {
               args[i - 1] = arguments[i];
           }
       }
-      queue.push(new Item(fun, args));
-      if (queue.length === 1 && !draining) {
-          runTimeout(drainQueue);
+      queue$1.push(new Item$1(fun, args));
+      if (queue$1.length === 1 && !draining$1) {
+          runTimeout$1(drainQueue$1);
       }
   }
   // v8 likes predictible objects
-  function Item(fun, array) {
+  function Item$1(fun, array) {
       this.fun = fun;
       this.array = array;
   }
-  Item.prototype.run = function () {
+  Item$1.prototype.run = function () {
       this.fun.apply(null, this.array);
   };
-  var title = 'browser';
-  var platform = 'browser';
-  var browser$2 = true;
-  var env = {};
-  var argv = [];
-  var version = ''; // empty string to avoid regexp issues
-  var versions = {};
-  var release = {};
-  var config$1 = {};
+  var title$1 = 'browser';
+  var platform$1 = 'browser';
+  var browser$3 = true;
+  var env$1 = {};
+  var argv$1 = [];
+  var version$1 = ''; // empty string to avoid regexp issues
+  var versions$1 = {};
+  var release$1 = {};
+  var config$2 = {};
 
-  function noop$2() {}
+  function noop$3() {}
 
-  var on = noop$2;
-  var addListener = noop$2;
-  var once$2 = noop$2;
-  var off = noop$2;
-  var removeListener = noop$2;
-  var removeAllListeners = noop$2;
-  var emit = noop$2;
+  var on$1 = noop$3;
+  var addListener$1 = noop$3;
+  var once$3 = noop$3;
+  var off$1 = noop$3;
+  var removeListener$1 = noop$3;
+  var removeAllListeners$1 = noop$3;
+  var emit$1 = noop$3;
 
-  function binding(name) {
+  function binding$1(name) {
       throw new Error('process.binding is not supported');
   }
 
-  function cwd () { return '/' }
-  function chdir (dir) {
+  function cwd$1 () { return '/' }
+  function chdir$1 (dir) {
       throw new Error('process.chdir is not supported');
-  }function umask() { return 0; }
+  }function umask$1() { return 0; }
 
   // from https://github.com/kumavis/browser-process-hrtime/blob/master/index.js
-  var performance = global$2.performance || {};
-  var performanceNow =
-    performance.now        ||
-    performance.mozNow     ||
-    performance.msNow      ||
-    performance.oNow       ||
-    performance.webkitNow  ||
+  var performance$1 = global$2.performance || {};
+  var performanceNow$1 =
+    performance$1.now        ||
+    performance$1.mozNow     ||
+    performance$1.msNow      ||
+    performance$1.oNow       ||
+    performance$1.webkitNow  ||
     function(){ return (new Date()).getTime() };
 
   // generate timestamp or delta
   // see http://nodejs.org/api/process.html#process_process_hrtime
-  function hrtime(previousTimestamp){
-    var clocktime = performanceNow.call(performance)*1e-3;
+  function hrtime$1(previousTimestamp){
+    var clocktime = performanceNow$1.call(performance$1)*1e-3;
     var seconds = Math.floor(clocktime);
     var nanoseconds = Math.floor((clocktime%1)*1e9);
     if (previousTimestamp) {
@@ -6771,37 +6550,37 @@
     return [seconds,nanoseconds]
   }
 
-  var startTime = new Date();
-  function uptime() {
+  var startTime$1 = new Date();
+  function uptime$1() {
     var currentTime = new Date();
-    var dif = currentTime - startTime;
+    var dif = currentTime - startTime$1;
     return dif / 1000;
   }
 
   var browser$1$1 = {
-    nextTick: nextTick,
-    title: title,
-    browser: browser$2,
-    env: env,
-    argv: argv,
-    version: version,
-    versions: versions,
-    on: on,
-    addListener: addListener,
-    once: once$2,
-    off: off,
-    removeListener: removeListener,
-    removeAllListeners: removeAllListeners,
-    emit: emit,
-    binding: binding,
-    cwd: cwd,
-    chdir: chdir,
-    umask: umask,
-    hrtime: hrtime,
-    platform: platform,
-    release: release,
-    config: config$1,
-    uptime: uptime
+    nextTick: nextTick$1,
+    title: title$1,
+    browser: browser$3,
+    env: env$1,
+    argv: argv$1,
+    version: version$1,
+    versions: versions$1,
+    on: on$1,
+    addListener: addListener$1,
+    once: once$3,
+    off: off$1,
+    removeListener: removeListener$1,
+    removeAllListeners: removeAllListeners$1,
+    emit: emit$1,
+    binding: binding$1,
+    cwd: cwd$1,
+    chdir: chdir$1,
+    umask: umask$1,
+    hrtime: hrtime$1,
+    platform: platform$1,
+    release: release$1,
+    config: config$2,
+    uptime: uptime$1
   };
 
   var inherits$b;
@@ -7416,277 +7195,518 @@
   var buffer_list;
   var hasRequiredBuffer_list;
 
-  function requireBuffer_list () {
-  	if (hasRequiredBuffer_list) return buffer_list;
-  	hasRequiredBuffer_list = 1;
+  function requireBuffer_list() {
+    if (hasRequiredBuffer_list) return buffer_list;
+    hasRequiredBuffer_list = 1;
 
-  	function ownKeys(object, enumerableOnly) {
-  	  var keys = Object.keys(object);
+    function ownKeys(object, enumerableOnly) {
+      var keys = Object.keys(object);
 
-  	  if (Object.getOwnPropertySymbols) {
-  	    var symbols = Object.getOwnPropertySymbols(object);
-  	    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-  	      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-  	    });
-  	    keys.push.apply(keys, symbols);
-  	  }
+      if (Object.getOwnPropertySymbols) {
+        var symbols = Object.getOwnPropertySymbols(object);
+        if (enumerableOnly) symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
+        keys.push.apply(keys, symbols);
+      }
 
-  	  return keys;
-  	}
+      return keys;
+    }
 
-  	function _objectSpread(target) {
-  	  for (var i = 1; i < arguments.length; i++) {
-  	    var source = arguments[i] != null ? arguments[i] : {};
+    function _objectSpread(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i] != null ? arguments[i] : {};
 
-  	    if (i % 2) {
-  	      ownKeys(Object(source), true).forEach(function (key) {
-  	        _defineProperty(target, key, source[key]);
-  	      });
-  	    } else if (Object.getOwnPropertyDescriptors) {
-  	      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-  	    } else {
-  	      ownKeys(Object(source)).forEach(function (key) {
-  	        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-  	      });
-  	    }
-  	  }
+        if (i % 2) {
+          ownKeys(Object(source), true).forEach(function (key) {
+            _defineProperty(target, key, source[key]);
+          });
+        } else if (Object.getOwnPropertyDescriptors) {
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        } else {
+          ownKeys(Object(source)).forEach(function (key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          });
+        }
+      }
 
-  	  return target;
-  	}
+      return target;
+    }
 
-  	function _defineProperty(obj, key, value) {
-  	  if (key in obj) {
-  	    Object.defineProperty(obj, key, {
-  	      value: value,
-  	      enumerable: true,
-  	      configurable: true,
-  	      writable: true
-  	    });
-  	  } else {
-  	    obj[key] = value;
-  	  }
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, {
+          value: value,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      } else {
+        obj[key] = value;
+      }
 
-  	  return obj;
-  	}
+      return obj;
+    }
 
-  	function _classCallCheck(instance, Constructor) {
-  	  if (!(instance instanceof Constructor)) {
-  	    throw new TypeError("Cannot call a class as a function");
-  	  }
-  	}
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
 
-  	function _defineProperties(target, props) {
-  	  for (var i = 0; i < props.length; i++) {
-  	    var descriptor = props[i];
-  	    descriptor.enumerable = descriptor.enumerable || false;
-  	    descriptor.configurable = true;
-  	    if ("value" in descriptor) descriptor.writable = true;
-  	    Object.defineProperty(target, descriptor.key, descriptor);
-  	  }
-  	}
+    function _defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
 
-  	function _createClass(Constructor, protoProps, staticProps) {
-  	  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  	  if (staticProps) _defineProperties(Constructor, staticProps);
-  	  return Constructor;
-  	}
+    function _createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) _defineProperties(Constructor, staticProps);
+      return Constructor;
+    }
 
-  	var _require = require$$0$7,
-  	    Buffer = _require.Buffer;
+    var _require = require$$0$7,
+        Buffer = _require.Buffer;
+    var _require2 = require$$3$3,
+        inspect = _require2.inspect;
+    var custom = inspect && inspect.custom || 'inspect';
 
-  	var _require2 = require$$3$3,
-  	    inspect = _require2.inspect;
+    function copyBuffer(src, target, offset) {
+      Buffer.prototype.copy.call(src, target, offset);
+    }
 
-  	var custom = inspect && inspect.custom || 'inspect';
+    buffer_list = /*#__PURE__*/function () {
+      function BufferList() {
+        _classCallCheck(this, BufferList);
 
-  	function copyBuffer(src, target, offset) {
-  	  Buffer.prototype.copy.call(src, target, offset);
-  	}
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+      }
 
-  	buffer_list = /*#__PURE__*/function () {
-  	  function BufferList() {
-  	    _classCallCheck(this, BufferList);
+      _createClass(BufferList, [{
+        key: "push",
+        value: function push(v) {
+          var entry = {
+            data: v,
+            next: null
+          };
+          if (this.length > 0) this.tail.next = entry;else this.head = entry;
+          this.tail = entry;
+          ++this.length;
+        }
+      }, {
+        key: "unshift",
+        value: function unshift(v) {
+          var entry = {
+            data: v,
+            next: this.head
+          };
+          if (this.length === 0) this.tail = entry;
+          this.head = entry;
+          ++this.length;
+        }
+      }, {
+        key: "shift",
+        value: function shift() {
+          if (this.length === 0) return;
+          var ret = this.head.data;
+          if (this.length === 1) this.head = this.tail = null;else this.head = this.head.next;
+          --this.length;
+          return ret;
+        }
+      }, {
+        key: "clear",
+        value: function clear() {
+          this.head = this.tail = null;
+          this.length = 0;
+        }
+      }, {
+        key: "join",
+        value: function join(s) {
+          if (this.length === 0) return '';
+          var p = this.head;
+          var ret = '' + p.data;
 
-  	    this.head = null;
-  	    this.tail = null;
-  	    this.length = 0;
-  	  }
+          while (p = p.next) {
+            ret += s + p.data;
+          }
 
-  	  _createClass(BufferList, [{
-  	    key: "push",
-  	    value: function push(v) {
-  	      var entry = {
-  	        data: v,
-  	        next: null
-  	      };
-  	      if (this.length > 0) this.tail.next = entry;else this.head = entry;
-  	      this.tail = entry;
-  	      ++this.length;
-  	    }
-  	  }, {
-  	    key: "unshift",
-  	    value: function unshift(v) {
-  	      var entry = {
-  	        data: v,
-  	        next: this.head
-  	      };
-  	      if (this.length === 0) this.tail = entry;
-  	      this.head = entry;
-  	      ++this.length;
-  	    }
-  	  }, {
-  	    key: "shift",
-  	    value: function shift() {
-  	      if (this.length === 0) return;
-  	      var ret = this.head.data;
-  	      if (this.length === 1) this.head = this.tail = null;else this.head = this.head.next;
-  	      --this.length;
-  	      return ret;
-  	    }
-  	  }, {
-  	    key: "clear",
-  	    value: function clear() {
-  	      this.head = this.tail = null;
-  	      this.length = 0;
-  	    }
-  	  }, {
-  	    key: "join",
-  	    value: function join(s) {
-  	      if (this.length === 0) return '';
-  	      var p = this.head;
-  	      var ret = '' + p.data;
+          return ret;
+        }
+      }, {
+        key: "concat",
+        value: function concat(n) {
+          if (this.length === 0) return Buffer.alloc(0);
+          var ret = Buffer.allocUnsafe(n >>> 0);
+          var p = this.head;
+          var i = 0;
 
-  	      while (p = p.next) {
-  	        ret += s + p.data;
-  	      }
+          while (p) {
+            copyBuffer(p.data, ret, i);
+            i += p.data.length;
+            p = p.next;
+          }
 
-  	      return ret;
-  	    }
-  	  }, {
-  	    key: "concat",
-  	    value: function concat(n) {
-  	      if (this.length === 0) return Buffer.alloc(0);
-  	      var ret = Buffer.allocUnsafe(n >>> 0);
-  	      var p = this.head;
-  	      var i = 0;
+          return ret;
+        } // Consumes a specified amount of bytes or characters from the buffered data.
 
-  	      while (p) {
-  	        copyBuffer(p.data, ret, i);
-  	        i += p.data.length;
-  	        p = p.next;
-  	      }
+      }, {
+        key: "consume",
+        value: function consume(n, hasStrings) {
+          var ret;
 
-  	      return ret;
-  	    } // Consumes a specified amount of bytes or characters from the buffered data.
+          if (n < this.head.data.length) {
+            // `slice` is the same for buffers and strings.
+            ret = this.head.data.slice(0, n);
+            this.head.data = this.head.data.slice(n);
+          } else if (n === this.head.data.length) {
+            // First chunk is a perfect match.
+            ret = this.shift();
+          } else {
+            // Result spans more than one buffer.
+            ret = hasStrings ? this._getString(n) : this._getBuffer(n);
+          }
 
-  	  }, {
-  	    key: "consume",
-  	    value: function consume(n, hasStrings) {
-  	      var ret;
+          return ret;
+        }
+      }, {
+        key: "first",
+        value: function first() {
+          return this.head.data;
+        } // Consumes a specified amount of characters from the buffered data.
 
-  	      if (n < this.head.data.length) {
-  	        // `slice` is the same for buffers and strings.
-  	        ret = this.head.data.slice(0, n);
-  	        this.head.data = this.head.data.slice(n);
-  	      } else if (n === this.head.data.length) {
-  	        // First chunk is a perfect match.
-  	        ret = this.shift();
-  	      } else {
-  	        // Result spans more than one buffer.
-  	        ret = hasStrings ? this._getString(n) : this._getBuffer(n);
-  	      }
+      }, {
+        key: "_getString",
+        value: function _getString(n) {
+          var p = this.head;
+          var c = 1;
+          var ret = p.data;
+          n -= ret.length;
 
-  	      return ret;
-  	    }
-  	  }, {
-  	    key: "first",
-  	    value: function first() {
-  	      return this.head.data;
-  	    } // Consumes a specified amount of characters from the buffered data.
+          while (p = p.next) {
+            var str = p.data;
+            var nb = n > str.length ? str.length : n;
+            if (nb === str.length) ret += str;else ret += str.slice(0, n);
+            n -= nb;
 
-  	  }, {
-  	    key: "_getString",
-  	    value: function _getString(n) {
-  	      var p = this.head;
-  	      var c = 1;
-  	      var ret = p.data;
-  	      n -= ret.length;
+            if (n === 0) {
+              if (nb === str.length) {
+                ++c;
+                if (p.next) this.head = p.next;else this.head = this.tail = null;
+              } else {
+                this.head = p;
+                p.data = str.slice(nb);
+              }
 
-  	      while (p = p.next) {
-  	        var str = p.data;
-  	        var nb = n > str.length ? str.length : n;
-  	        if (nb === str.length) ret += str;else ret += str.slice(0, n);
-  	        n -= nb;
+              break;
+            }
 
-  	        if (n === 0) {
-  	          if (nb === str.length) {
-  	            ++c;
-  	            if (p.next) this.head = p.next;else this.head = this.tail = null;
-  	          } else {
-  	            this.head = p;
-  	            p.data = str.slice(nb);
-  	          }
+            ++c;
+          }
 
-  	          break;
-  	        }
+          this.length -= c;
+          return ret;
+        } // Consumes a specified amount of bytes from the buffered data.
 
-  	        ++c;
-  	      }
+      }, {
+        key: "_getBuffer",
+        value: function _getBuffer(n) {
+          var ret = Buffer.allocUnsafe(n);
+          var p = this.head;
+          var c = 1;
+          p.data.copy(ret);
+          n -= p.data.length;
 
-  	      this.length -= c;
-  	      return ret;
-  	    } // Consumes a specified amount of bytes from the buffered data.
+          while (p = p.next) {
+            var buf = p.data;
+            var nb = n > buf.length ? buf.length : n;
+            buf.copy(ret, ret.length - n, 0, nb);
+            n -= nb;
 
-  	  }, {
-  	    key: "_getBuffer",
-  	    value: function _getBuffer(n) {
-  	      var ret = Buffer.allocUnsafe(n);
-  	      var p = this.head;
-  	      var c = 1;
-  	      p.data.copy(ret);
-  	      n -= p.data.length;
+            if (n === 0) {
+              if (nb === buf.length) {
+                ++c;
+                if (p.next) this.head = p.next;else this.head = this.tail = null;
+              } else {
+                this.head = p;
+                p.data = buf.slice(nb);
+              }
 
-  	      while (p = p.next) {
-  	        var buf = p.data;
-  	        var nb = n > buf.length ? buf.length : n;
-  	        buf.copy(ret, ret.length - n, 0, nb);
-  	        n -= nb;
+              break;
+            }
 
-  	        if (n === 0) {
-  	          if (nb === buf.length) {
-  	            ++c;
-  	            if (p.next) this.head = p.next;else this.head = this.tail = null;
-  	          } else {
-  	            this.head = p;
-  	            p.data = buf.slice(nb);
-  	          }
+            ++c;
+          }
 
-  	          break;
-  	        }
+          this.length -= c;
+          return ret;
+        } // Make sure the linked list only shows the minimal necessary information.
 
-  	        ++c;
-  	      }
+      }, {
+        key: custom,
+        value: function value(_, options) {
+          return inspect(this, _objectSpread({}, options, {
+            // Only inspect one level.
+            depth: 0,
+            // It should not recurse.
+            customInspect: false
+          }));
+        }
+      }]);
 
-  	      this.length -= c;
-  	      return ret;
-  	    } // Make sure the linked list only shows the minimal necessary information.
+      return BufferList;
+    }();
 
-  	  }, {
-  	    key: custom,
-  	    value: function value(_, options) {
-  	      return inspect(this, _objectSpread({}, options, {
-  	        // Only inspect one level.
-  	        depth: 0,
-  	        // It should not recurse.
-  	        customInspect: false
-  	      }));
-  	    }
-  	  }]);
-
-  	  return BufferList;
-  	}();
-  	return buffer_list;
+    return buffer_list;
   }
+
+  var global$1 = typeof global$2 !== "undefined" ? global$2 : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};
+
+  // based off https://github.com/defunctzombie/node-process/blob/master/browser.js
+
+  function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+  }
+
+  function defaultClearTimeout() {
+    throw new Error('clearTimeout has not been defined');
+  }
+
+  var cachedSetTimeout = defaultSetTimout;
+  var cachedClearTimeout = defaultClearTimeout;
+
+  if (typeof global$1.setTimeout === 'function') {
+    cachedSetTimeout = setTimeout;
+  }
+
+  if (typeof global$1.clearTimeout === 'function') {
+    cachedClearTimeout = clearTimeout;
+  }
+
+  function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+      //normal enviroments in sane situations
+      return setTimeout(fun, 0);
+    } // if setTimeout wasn't available but was latter defined
+
+
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+      cachedSetTimeout = setTimeout;
+      return setTimeout(fun, 0);
+    }
+
+    try {
+      // when when somebody has screwed with setTimeout but no I.E. maddness
+      return cachedSetTimeout(fun, 0);
+    } catch (e) {
+      try {
+        // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+        return cachedSetTimeout.call(null, fun, 0);
+      } catch (e) {
+        // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+        return cachedSetTimeout.call(this, fun, 0);
+      }
+    }
+  }
+
+  function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+      //normal enviroments in sane situations
+      return clearTimeout(marker);
+    } // if clearTimeout wasn't available but was latter defined
+
+
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+      cachedClearTimeout = clearTimeout;
+      return clearTimeout(marker);
+    }
+
+    try {
+      // when when somebody has screwed with setTimeout but no I.E. maddness
+      return cachedClearTimeout(marker);
+    } catch (e) {
+      try {
+        // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+        return cachedClearTimeout.call(null, marker);
+      } catch (e) {
+        // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+        // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+        return cachedClearTimeout.call(this, marker);
+      }
+    }
+  }
+
+  var queue = [];
+  var draining = false;
+  var currentQueue;
+  var queueIndex = -1;
+
+  function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+      return;
+    }
+
+    draining = false;
+
+    if (currentQueue.length) {
+      queue = currentQueue.concat(queue);
+    } else {
+      queueIndex = -1;
+    }
+
+    if (queue.length) {
+      drainQueue();
+    }
+  }
+
+  function drainQueue() {
+    if (draining) {
+      return;
+    }
+
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+    var len = queue.length;
+
+    while (len) {
+      currentQueue = queue;
+      queue = [];
+
+      while (++queueIndex < len) {
+        if (currentQueue) {
+          currentQueue[queueIndex].run();
+        }
+      }
+
+      queueIndex = -1;
+      len = queue.length;
+    }
+
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+  }
+
+  function nextTick(fun) {
+    var args = new Array(arguments.length - 1);
+
+    if (arguments.length > 1) {
+      for (var i = 1; i < arguments.length; i++) {
+        args[i - 1] = arguments[i];
+      }
+    }
+
+    queue.push(new Item(fun, args));
+
+    if (queue.length === 1 && !draining) {
+      runTimeout(drainQueue);
+    }
+  } // v8 likes predictible objects
+
+  function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+  }
+
+  Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+  };
+
+  var title = 'browser';
+  var platform = 'browser';
+  var browser$2 = true;
+  var env = {};
+  var argv = [];
+  var version = ''; // empty string to avoid regexp issues
+
+  var versions = {};
+  var release = {};
+  var config$1 = {};
+
+  function noop$2() {}
+
+  var on = noop$2;
+  var addListener = noop$2;
+  var once$2 = noop$2;
+  var off = noop$2;
+  var removeListener = noop$2;
+  var removeAllListeners = noop$2;
+  var emit = noop$2;
+  function binding(name) {
+    throw new Error('process.binding is not supported');
+  }
+  function cwd() {
+    return '/';
+  }
+  function chdir(dir) {
+    throw new Error('process.chdir is not supported');
+  }
+  function umask() {
+    return 0;
+  } // from https://github.com/kumavis/browser-process-hrtime/blob/master/index.js
+
+  var performance = global$1.performance || {};
+
+  var performanceNow = performance.now || performance.mozNow || performance.msNow || performance.oNow || performance.webkitNow || function () {
+    return new Date().getTime();
+  }; // generate timestamp or delta
+  // see http://nodejs.org/api/process.html#process_process_hrtime
+
+
+  function hrtime(previousTimestamp) {
+    var clocktime = performanceNow.call(performance) * 1e-3;
+    var seconds = Math.floor(clocktime);
+    var nanoseconds = Math.floor(clocktime % 1 * 1e9);
+
+    if (previousTimestamp) {
+      seconds = seconds - previousTimestamp[0];
+      nanoseconds = nanoseconds - previousTimestamp[1];
+
+      if (nanoseconds < 0) {
+        seconds--;
+        nanoseconds += 1e9;
+      }
+    }
+
+    return [seconds, nanoseconds];
+  }
+  var startTime = new Date();
+  function uptime() {
+    var currentTime = new Date();
+    var dif = currentTime - startTime;
+    return dif / 1000;
+  }
+  var process = {
+    nextTick: nextTick,
+    title: title,
+    browser: browser$2,
+    env: env,
+    argv: argv,
+    version: version,
+    versions: versions,
+    on: on,
+    addListener: addListener,
+    once: once$2,
+    off: off,
+    removeListener: removeListener,
+    removeAllListeners: removeAllListeners,
+    emit: emit,
+    binding: binding,
+    cwd: cwd,
+    chdir: chdir,
+    umask: umask,
+    hrtime: hrtime,
+    platform: platform,
+    release: release,
+    config: config$1,
+    uptime: uptime
+  };
 
   function destroy(err, cb) {
     var _this = this;
@@ -7699,10 +7719,10 @@
         cb(err);
       } else if (err) {
         if (!this._writableState) {
-          nextTick$1(emitErrorNT, this, err);
+          nextTick(emitErrorNT, this, err);
         } else if (!this._writableState.errorEmitted) {
           this._writableState.errorEmitted = true;
-          nextTick$1(emitErrorNT, this, err);
+          nextTick(emitErrorNT, this, err);
         }
       }
 
@@ -7723,18 +7743,18 @@
     this._destroy(err || null, function (err) {
       if (!cb && err) {
         if (!_this._writableState) {
-          nextTick$1(emitErrorAndCloseNT, _this, err);
+          nextTick(emitErrorAndCloseNT, _this, err);
         } else if (!_this._writableState.errorEmitted) {
           _this._writableState.errorEmitted = true;
-          nextTick$1(emitErrorAndCloseNT, _this, err);
+          nextTick(emitErrorAndCloseNT, _this, err);
         } else {
-          nextTick$1(emitCloseNT, _this);
+          nextTick(emitCloseNT, _this);
         }
       } else if (cb) {
-        nextTick$1(emitCloseNT, _this);
+        nextTick(emitCloseNT, _this);
         cb(err);
       } else {
-        nextTick$1(emitCloseNT, _this);
+        nextTick(emitCloseNT, _this);
       }
     });
 
@@ -8065,7 +8085,6 @@
   var Stream$2 = streamBrowser;
   /*</replacement>*/
 
-
   var Buffer$f = require$$0$7.Buffer;
 
   var OurUint8Array$1 = global$1.Uint8Array || function () {};
@@ -8079,10 +8098,8 @@
   }
 
   var destroyImpl$1 = require$$5$3;
-
   var _require$1 = state,
       getHighWaterMark$1 = _require$1.getHighWaterMark;
-
   var _require$codes$3 = errorsBrowser.codes,
       ERR_INVALID_ARG_TYPE$1 = _require$codes$3.ERR_INVALID_ARG_TYPE,
       ERR_METHOD_NOT_IMPLEMENTED$2 = _require$codes$3.ERR_METHOD_NOT_IMPLEMENTED,
@@ -8092,9 +8109,7 @@
       ERR_STREAM_NULL_VALUES = _require$codes$3.ERR_STREAM_NULL_VALUES,
       ERR_STREAM_WRITE_AFTER_END = _require$codes$3.ERR_STREAM_WRITE_AFTER_END,
       ERR_UNKNOWN_ENCODING = _require$codes$3.ERR_UNKNOWN_ENCODING;
-
   var errorOrDestroy$1 = destroyImpl$1.errorOrDestroy;
-
   require$$0$8(Writable$2, Stream$2);
 
   function nop$1() {}
@@ -8260,7 +8275,7 @@
     var er = new ERR_STREAM_WRITE_AFTER_END(); // TODO: defer error events consistently everywhere, not just the cb
 
     errorOrDestroy$1(stream, er);
-    nextTick$1(cb, er);
+    nextTick(cb, er);
   } // Checks that a user-supplied chunk is valid, especially for the particular
   // mode the stream is in. Currently this means that `null` is never accepted
   // and undefined/non-string values are only allowed in object mode.
@@ -8277,7 +8292,7 @@
 
     if (er) {
       errorOrDestroy$1(stream, er);
-      nextTick$1(cb, er);
+      nextTick(cb, er);
       return false;
     }
 
@@ -8415,10 +8430,10 @@
     if (sync) {
       // defer the callback if we are being called synchronously
       // to avoid piling up things on the stack
-      nextTick$1(cb, er); // this can emit finish, and it will always happen
+      nextTick(cb, er); // this can emit finish, and it will always happen
       // after error
 
-      nextTick$1(finishMaybe$1, stream, state);
+      nextTick(finishMaybe$1, stream, state);
       stream._writableState.errorEmitted = true;
       errorOrDestroy$1(stream, er);
     } else {
@@ -8455,7 +8470,7 @@
       }
 
       if (sync) {
-        nextTick$1(afterWrite$1, stream, state, finished, cb);
+        nextTick(afterWrite$1, stream, state, finished, cb);
       } else {
         afterWrite$1(stream, state, finished, cb);
       }
@@ -8604,7 +8619,7 @@
       if (typeof stream._final === 'function' && !state.destroyed) {
         state.pendingcb++;
         state.finalCalled = true;
-        nextTick$1(callFinal, stream, state);
+        nextTick(callFinal, stream, state);
       } else {
         state.prefinished = true;
         stream.emit('prefinish');
@@ -8642,7 +8657,7 @@
     finishMaybe$1(stream, state);
 
     if (cb) {
-      if (state.finished) nextTick$1(cb);else stream.once('finish', cb);
+      if (state.finished) nextTick(cb);else stream.once('finish', cb);
     }
 
     state.ended = true;
@@ -8717,13 +8732,9 @@
 
 
   module.exports = Duplex$3;
-
   var Readable$2 = require$$0$4;
-
   var Writable$1 = require$$1$6;
-
   require$$0$8(Duplex$3, Readable$2);
-
   {
     // Allow the keys array to be GC'ed.
     var keys$1 = objectKeys(Writable$1.prototype);
@@ -8784,7 +8795,7 @@
     if (this._writableState.ended) return; // no more data can be written.
     // But allow more writes to happen in this tick.
 
-    nextTick$1(onEndNT$1, this);
+    nextTick(onEndNT$1, this);
   }
 
   function onEndNT$1(self) {
@@ -9148,7 +9159,6 @@
   }
 
   var finished = endOfStream;
-
   var kLastResolve = Symbol('lastResolve');
   var kLastReject = Symbol('lastReject');
   var kError = Symbol('error');
@@ -9184,7 +9194,7 @@
   function onReadable(iter) {
     // we wait for the next tick, because it might
     // emit an error with process.nextTick
-    nextTick$1(readAndResolve, iter);
+    nextTick(readAndResolve, iter);
   }
 
   function wrapForNext(lastPromise, iter) {
@@ -9227,7 +9237,7 @@
         // we cannot guarantee that there is no error lingering around
         // waiting to be emitted.
         return new Promise(function (resolve, reject) {
-          nextTick$1(function () {
+          nextTick(function () {
             if (_this[kError]) {
               reject(_this[kError]);
             } else {
@@ -9358,13 +9368,15 @@
   var fromBrowser;
   var hasRequiredFromBrowser;
 
-  function requireFromBrowser () {
-  	if (hasRequiredFromBrowser) return fromBrowser;
-  	hasRequiredFromBrowser = 1;
-  	fromBrowser = function () {
-  	  throw new Error('Readable.from is not available in the browser');
-  	};
-  	return fromBrowser;
+  function requireFromBrowser() {
+    if (hasRequiredFromBrowser) return fromBrowser;
+    hasRequiredFromBrowser = 1;
+
+    fromBrowser = function () {
+      throw new Error('Readable.from is not available in the browser');
+    };
+
+    return fromBrowser;
   }
 
   module.exports = Readable$1;
@@ -9389,7 +9401,6 @@
   var Stream$1 = streamBrowser;
   /*</replacement>*/
 
-
   var Buffer$e = require$$0$7.Buffer;
 
   var OurUint8Array = global$1.Uint8Array || function () {};
@@ -9405,7 +9416,6 @@
 
 
   var debugUtil = require$$3$3;
-
   var debug$1;
 
   if (debugUtil && debugUtil.debuglog) {
@@ -9417,25 +9427,19 @@
 
 
   var BufferList$1 = requireBuffer_list();
-
   var destroyImpl = require$$5$3;
-
   var _require = state,
       getHighWaterMark = _require.getHighWaterMark;
-
   var _require$codes$2 = errorsBrowser.codes,
       ERR_INVALID_ARG_TYPE = _require$codes$2.ERR_INVALID_ARG_TYPE,
       ERR_STREAM_PUSH_AFTER_EOF = _require$codes$2.ERR_STREAM_PUSH_AFTER_EOF,
       ERR_METHOD_NOT_IMPLEMENTED$1 = _require$codes$2.ERR_METHOD_NOT_IMPLEMENTED,
       ERR_STREAM_UNSHIFT_AFTER_END_EVENT = _require$codes$2.ERR_STREAM_UNSHIFT_AFTER_END_EVENT; // Lazy loaded to improve the startup performance.
 
-
   var StringDecoder$1;
   var createReadableStreamAsyncIterator;
   var from$1;
-
   require$$0$8(Readable$1, Stream$1);
-
   var errorOrDestroy = destroyImpl.errorOrDestroy;
   var kProxyEvents = ['error', 'close', 'destroy', 'pause', 'resume'];
 
@@ -9873,7 +9877,7 @@
     if (!state.emittedReadable) {
       debug$1('emitReadable', state.flowing);
       state.emittedReadable = true;
-      nextTick$1(emitReadable_$1, stream);
+      nextTick(emitReadable_$1, stream);
     }
   }
 
@@ -9905,7 +9909,7 @@
   function maybeReadMore$1(stream, state) {
     if (!state.readingMore) {
       state.readingMore = true;
-      nextTick$1(maybeReadMore_$1, stream, state);
+      nextTick(maybeReadMore_$1, stream, state);
     }
   }
 
@@ -9974,7 +9978,7 @@
     debug$1('pipe count=%d opts=%j', state.pipesCount, pipeOpts);
     var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
     var endFn = doEnd ? onend : unpipe;
-    if (state.endEmitted) nextTick$1(endFn);else src.once('end', endFn);
+    if (state.endEmitted) nextTick(endFn);else src.once('end', endFn);
     dest.on('unpipe', onunpipe);
 
     function onunpipe(readable, unpipeInfo) {
@@ -10168,7 +10172,7 @@
         if (state.length) {
           emitReadable$1(this);
         } else if (!state.reading) {
-          nextTick$1(nReadingNextTick$1, this);
+          nextTick(nReadingNextTick$1, this);
         }
       }
     }
@@ -10188,7 +10192,7 @@
       // support once('readable', fn) cycles. This means that calling
       // resume within the same tick will have no
       // effect.
-      nextTick$1(updateReadableListening, this);
+      nextTick(updateReadableListening, this);
     }
 
     return res;
@@ -10204,7 +10208,7 @@
       // support once('readable', fn) cycles. This means that calling
       // resume within the same tick will have no
       // effect.
-      nextTick$1(updateReadableListening, this);
+      nextTick(updateReadableListening, this);
     }
 
     return res;
@@ -10249,7 +10253,7 @@
   function resume$1(stream, state) {
     if (!state.resumeScheduled) {
       state.resumeScheduled = true;
-      nextTick$1(resume_$1, stream, state);
+      nextTick(resume_$1, stream, state);
     }
   }
 
@@ -10427,7 +10431,7 @@
 
     if (!state.endEmitted) {
       state.ended = true;
-      nextTick$1(endReadableNT$1, state, stream);
+      nextTick(endReadableNT$1, state, stream);
     }
   }
 
@@ -10476,15 +10480,12 @@
   var require$$0$4 = /*@__PURE__*/getAugmentedNamespace(_stream_readable);
 
   var _stream_transform = Transform$4;
-
   var _require$codes$1 = errorsBrowser.codes,
       ERR_METHOD_NOT_IMPLEMENTED = _require$codes$1.ERR_METHOD_NOT_IMPLEMENTED,
       ERR_MULTIPLE_CALLBACK = _require$codes$1.ERR_MULTIPLE_CALLBACK,
       ERR_TRANSFORM_ALREADY_TRANSFORMING = _require$codes$1.ERR_TRANSFORM_ALREADY_TRANSFORMING,
       ERR_TRANSFORM_WITH_LENGTH_0 = _require$codes$1.ERR_TRANSFORM_WITH_LENGTH_0;
-
   var Duplex$1 = require$$2$5;
-
   require$$0$8(Transform$4, Duplex$1);
 
   function afterTransform$1(er, data) {
@@ -10615,9 +10616,7 @@
   }
 
   var _stream_passthrough = PassThrough$1;
-
   var Transform$3 = _stream_transform;
-
   require$$0$8(PassThrough$1, Transform$3);
 
   function PassThrough$1(options) {
@@ -10724,21 +10723,19 @@
   var pipeline_1 = pipeline;
 
   (function (module, exports) {
-  	exports = module.exports = require$$0$4;
-  	exports.Stream = exports;
-  	exports.Readable = exports;
-  	exports.Writable = require$$1$6;
-  	exports.Duplex = require$$2$5;
-  	exports.Transform = _stream_transform;
-  	exports.PassThrough = _stream_passthrough;
-  	exports.finished = endOfStream;
-  	exports.pipeline = pipeline_1;
-  } (readableBrowser, readableBrowser.exports));
+    exports = module.exports = require$$0$4;
+    exports.Stream = exports;
+    exports.Readable = exports;
+    exports.Writable = require$$1$6;
+    exports.Duplex = require$$2$5;
+    exports.Transform = _stream_transform;
+    exports.PassThrough = _stream_passthrough;
+    exports.finished = endOfStream;
+    exports.pipeline = pipeline_1;
+  })(readableBrowser, readableBrowser.exports);
 
   var Buffer$d = safeBuffer.exports.Buffer;
-
   var Transform$2 = readableBrowser.exports.Transform;
-
   var inherits$a = require$$0$8;
 
   function throwIfNotStringOrBuffer(val, prefix) {
@@ -10838,11 +10835,8 @@
   var hashBase = HashBase$2;
 
   var inherits$9 = require$$0$8;
-
   var HashBase$1 = hashBase;
-
   var Buffer$c = safeBuffer.exports.Buffer;
-
   var ARRAY16$1 = new Array(16);
 
   function MD5$1() {
@@ -10987,11 +10981,8 @@
   var md5_js = MD5$1;
 
   var Buffer$b = require$$0$7.Buffer;
-
   var inherits$8 = require$$0$8;
-
   var HashBase = hashBase;
-
   var ARRAY16 = new Array(16);
   var zl = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8, 3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12, 1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2, 4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13];
   var zr = [5, 14, 7, 0, 9, 2, 11, 4, 13, 6, 15, 8, 1, 10, 3, 12, 6, 11, 3, 7, 0, 13, 5, 10, 14, 15, 8, 12, 4, 9, 1, 2, 15, 5, 1, 3, 7, 14, 6, 9, 11, 8, 12, 2, 10, 0, 4, 13, 8, 6, 4, 1, 3, 11, 15, 0, 5, 12, 2, 13, 9, 7, 10, 14, 12, 15, 10, 4, 1, 5, 8, 7, 6, 2, 13, 14, 0, 3, 9, 11];
@@ -11131,7 +11122,6 @@
 
   var Buffer$a = safeBuffer.exports.Buffer; // prototype class for hash functions
 
-
   function Hash$7(blockSize, finalSize) {
     this._block = Buffer$a.alloc(blockSize);
     this._finalSize = finalSize;
@@ -11217,13 +11207,9 @@
    * The difference between SHA-0 and SHA-1 is just a bitwise rotate left
    * operation was added.
    */
-
   var inherits$7 = require$$0$8;
-
   var Hash$6 = hash;
-
   var Buffer$9 = safeBuffer.exports.Buffer;
-
   var K$3 = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0];
   var W$5 = new Array(80);
 
@@ -11307,13 +11293,9 @@
    * Distributed under the BSD License
    * See http://pajhome.org.uk/crypt/md5 for details.
    */
-
   var inherits$6 = require$$0$8;
-
   var Hash$5 = hash;
-
   var Buffer$8 = safeBuffer.exports.Buffer;
-
   var K$2 = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0];
   var W$4 = new Array(80);
 
@@ -11400,13 +11382,9 @@
    * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
    *
    */
-
   var inherits$5 = require$$0$8;
-
   var Hash$4 = hash;
-
   var Buffer$7 = safeBuffer.exports.Buffer;
-
   var K$1 = [0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5, 0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5, 0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3, 0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174, 0xE49B69C1, 0xEFBE4786, 0x0FC19DC6, 0x240CA1CC, 0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA, 0x983E5152, 0xA831C66D, 0xB00327C8, 0xBF597FC7, 0xC6E00BF3, 0xD5A79147, 0x06CA6351, 0x14292967, 0x27B70A85, 0x2E1B2138, 0x4D2C6DFC, 0x53380D13, 0x650A7354, 0x766A0ABB, 0x81C2C92E, 0x92722C85, 0xA2BFE8A1, 0xA81A664B, 0xC24B8B70, 0xC76C51A3, 0xD192E819, 0xD6990624, 0xF40E3585, 0x106AA070, 0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3, 0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2];
   var W$3 = new Array(64);
 
@@ -11515,15 +11493,10 @@
    * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
    *
    */
-
   var inherits$4 = require$$0$8;
-
   var Sha256 = sha256$1;
-
   var Hash$3 = hash;
-
   var Buffer$6 = safeBuffer.exports.Buffer;
-
   var W$2 = new Array(64);
 
   function Sha224() {
@@ -11562,11 +11535,8 @@
   var sha224 = Sha224;
 
   var inherits$3 = require$$0$8;
-
   var Hash$2 = hash;
-
   var Buffer$5 = safeBuffer.exports.Buffer;
-
   var K = [0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd, 0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc, 0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019, 0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118, 0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe, 0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2, 0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1, 0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694, 0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3, 0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65, 0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483, 0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5, 0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210, 0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4, 0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725, 0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70, 0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926, 0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df, 0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8, 0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b, 0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001, 0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30, 0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910, 0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8, 0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53, 0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8, 0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb, 0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3, 0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60, 0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec, 0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9, 0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b, 0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207, 0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178, 0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6, 0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b, 0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493, 0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c, 0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a, 0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817];
   var W$1 = new Array(160);
 
@@ -11765,13 +11735,9 @@
   var sha512 = Sha512;
 
   var inherits$2 = require$$0$8;
-
   var SHA512 = sha512;
-
   var Hash$1 = hash;
-
   var Buffer$4 = safeBuffer.exports.Buffer;
-
   var W = new Array(160);
 
   function Sha384() {
@@ -12263,7 +12229,7 @@
     if (!state.emittedReadable) {
       debug('emitReadable', state.flowing);
       state.emittedReadable = true;
-      if (state.sync) nextTick(emitReadable_, stream);else emitReadable_(stream);
+      if (state.sync) nextTick$1(emitReadable_, stream);else emitReadable_(stream);
     }
   }
 
@@ -12282,7 +12248,7 @@
   function maybeReadMore(stream, state) {
     if (!state.readingMore) {
       state.readingMore = true;
-      nextTick(maybeReadMore_, stream, state);
+      nextTick$1(maybeReadMore_, stream, state);
     }
   }
 
@@ -12327,7 +12293,7 @@
     var doEnd = (!pipeOpts || pipeOpts.end !== false);
 
     var endFn = doEnd ? onend : cleanup;
-    if (state.endEmitted) nextTick(endFn);else src.once('end', endFn);
+    if (state.endEmitted) nextTick$1(endFn);else src.once('end', endFn);
 
     dest.on('unpipe', onunpipe);
     function onunpipe(readable) {
@@ -12513,7 +12479,7 @@
         state.readableListening = state.needReadable = true;
         state.emittedReadable = false;
         if (!state.reading) {
-          nextTick(nReadingNextTick, this);
+          nextTick$1(nReadingNextTick, this);
         } else if (state.length) {
           emitReadable(this);
         }
@@ -12544,7 +12510,7 @@
   function resume(stream, state) {
     if (!state.resumeScheduled) {
       state.resumeScheduled = true;
-      nextTick(resume_, stream, state);
+      nextTick$1(resume_, stream, state);
     }
   }
 
@@ -12752,7 +12718,7 @@
 
     if (!state.endEmitted) {
       state.ended = true;
-      nextTick(endReadableNT, state, stream);
+      nextTick$1(endReadableNT, state, stream);
     }
   }
 
@@ -12927,7 +12893,7 @@
     var er = new Error('write after end');
     // TODO: defer error events consistently everywhere, not just the cb
     stream.emit('error', er);
-    nextTick(cb, er);
+    nextTick$1(cb, er);
   }
 
   // If we get something that is not a buffer, string, null, or undefined,
@@ -12948,7 +12914,7 @@
     }
     if (er) {
       stream.emit('error', er);
-      nextTick(cb, er);
+      nextTick$1(cb, er);
       valid = false;
     }
     return valid;
@@ -13048,7 +13014,7 @@
 
   function onwriteError(stream, state, sync, er, cb) {
     --state.pendingcb;
-    if (sync) nextTick(cb, er);else cb(er);
+    if (sync) nextTick$1(cb, er);else cb(er);
 
     stream._writableState.errorEmitted = true;
     stream.emit('error', er);
@@ -13078,7 +13044,7 @@
 
       if (sync) {
         /*<replacement>*/
-          nextTick(afterWrite, stream, state, finished, cb);
+          nextTick$1(afterWrite, stream, state, finished, cb);
         /*</replacement>*/
       } else {
           afterWrite(stream, state, finished, cb);
@@ -13220,7 +13186,7 @@
     state.ending = true;
     finishMaybe(stream, state);
     if (cb) {
-      if (state.finished) nextTick(cb);else stream.once('finish', cb);
+      if (state.finished) nextTick$1(cb);else stream.once('finish', cb);
     }
     state.ended = true;
     stream.writable = false;
@@ -13282,7 +13248,7 @@
 
     // no more data can be written.
     // But allow more writes to happen in this tick.
-    nextTick(onEndNT, this);
+    nextTick$1(onEndNT, this);
   }
 
   function onEndNT(self) {
@@ -13542,11 +13508,8 @@
   var require$$1$5 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_stream);
 
   var Buffer$3 = safeBuffer.exports.Buffer;
-
   var Transform = require$$1$5.Transform;
-
   var StringDecoder = require$$2$4.StringDecoder;
-
   var inherits$1 = require$$0$8;
 
   function CipherBase(hashMode) {
@@ -13658,13 +13621,9 @@
   var cipherBase = CipherBase;
 
   var inherits = require$$0$8;
-
   var MD5 = md5_js;
-
   var RIPEMD160 = ripemd160$1;
-
   var sha = sha_js.exports;
-
   var Base = cipherBase;
 
   function Hash(hash) {
@@ -16013,7 +15972,6 @@
     value: true
   });
   push_data.decode = push_data.encode = push_data.encodingLength = void 0;
-
   const ops_1$1 = ops;
 
   function encodingLength$2(i) {
@@ -16284,7 +16242,6 @@
   };
 
   var NATIVE$1 = native$1;
-
   var ERRORS$1 = errors;
 
   function _Buffer$1(value) {
@@ -16405,9 +16362,7 @@
   var require$$2$3 = /*@__PURE__*/getAugmentedNamespace(extra);
 
   var ERRORS = errors;
-
   var NATIVE = native$1; // short-hand
-
 
   var tfJSON = ERRORS.tfJSON;
   var TfTypeError = ERRORS.TfTypeError;
@@ -16675,111 +16630,106 @@
 
   (function (exports) {
 
-  	Object.defineProperty(exports, '__esModule', {
-  	  value: true
-  	});
-  	exports.oneOf = exports.Null = exports.BufferN = exports.Function = exports.UInt32 = exports.UInt8 = exports.tuple = exports.maybe = exports.Hex = exports.Buffer = exports.String = exports.Boolean = exports.Array = exports.Number = exports.Hash256bit = exports.Hash160bit = exports.Buffer256bit = exports.Network = exports.ECPoint = exports.Satoshi = exports.Signer = exports.BIP32Path = exports.UInt31 = exports.isPoint = exports.typeforce = void 0;
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    });
+    exports.oneOf = exports.Null = exports.BufferN = exports.Function = exports.UInt32 = exports.UInt8 = exports.tuple = exports.maybe = exports.Hex = exports.Buffer = exports.String = exports.Boolean = exports.Array = exports.Number = exports.Hash256bit = exports.Hash160bit = exports.Buffer256bit = exports.Network = exports.ECPoint = exports.Satoshi = exports.Signer = exports.BIP32Path = exports.UInt31 = exports.isPoint = exports.typeforce = void 0;
+    const buffer_1 = require$$0$7;
+    exports.typeforce = typeforce_1;
+    const ZERO32 = buffer_1.Buffer.alloc(32, 0);
+    const EC_P = buffer_1.Buffer.from('fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f', 'hex');
 
-  	const buffer_1 = require$$0$7;
+    function isPoint(p) {
+      if (!buffer_1.Buffer.isBuffer(p)) return false;
+      if (p.length < 33) return false;
+      const t = p[0];
+      const x = p.slice(1, 33);
+      if (x.compare(ZERO32) === 0) return false;
+      if (x.compare(EC_P) >= 0) return false;
 
-  	exports.typeforce = typeforce_1;
-  	const ZERO32 = buffer_1.Buffer.alloc(32, 0);
-  	const EC_P = buffer_1.Buffer.from('fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f', 'hex');
+      if ((t === 0x02 || t === 0x03) && p.length === 33) {
+        return true;
+      }
 
-  	function isPoint(p) {
-  	  if (!buffer_1.Buffer.isBuffer(p)) return false;
-  	  if (p.length < 33) return false;
-  	  const t = p[0];
-  	  const x = p.slice(1, 33);
-  	  if (x.compare(ZERO32) === 0) return false;
-  	  if (x.compare(EC_P) >= 0) return false;
+      const y = p.slice(33);
+      if (y.compare(ZERO32) === 0) return false;
+      if (y.compare(EC_P) >= 0) return false;
+      if (t === 0x04 && p.length === 65) return true;
+      return false;
+    }
 
-  	  if ((t === 0x02 || t === 0x03) && p.length === 33) {
-  	    return true;
-  	  }
+    exports.isPoint = isPoint;
+    const UINT31_MAX = Math.pow(2, 31) - 1;
 
-  	  const y = p.slice(33);
-  	  if (y.compare(ZERO32) === 0) return false;
-  	  if (y.compare(EC_P) >= 0) return false;
-  	  if (t === 0x04 && p.length === 65) return true;
-  	  return false;
-  	}
+    function UInt31(value) {
+      return exports.typeforce.UInt32(value) && value <= UINT31_MAX;
+    }
 
-  	exports.isPoint = isPoint;
-  	const UINT31_MAX = Math.pow(2, 31) - 1;
+    exports.UInt31 = UInt31;
 
-  	function UInt31(value) {
-  	  return exports.typeforce.UInt32(value) && value <= UINT31_MAX;
-  	}
+    function BIP32Path(value) {
+      return exports.typeforce.String(value) && !!value.match(/^(m\/)?(\d+'?\/)*\d+'?$/);
+    }
 
-  	exports.UInt31 = UInt31;
+    exports.BIP32Path = BIP32Path;
 
-  	function BIP32Path(value) {
-  	  return exports.typeforce.String(value) && !!value.match(/^(m\/)?(\d+'?\/)*\d+'?$/);
-  	}
+    BIP32Path.toJSON = () => {
+      return 'BIP32 derivation path';
+    };
 
-  	exports.BIP32Path = BIP32Path;
+    function Signer(obj) {
+      return (exports.typeforce.Buffer(obj.publicKey) || typeof obj.getPublicKey === 'function') && typeof obj.sign === 'function';
+    }
 
-  	BIP32Path.toJSON = () => {
-  	  return 'BIP32 derivation path';
-  	};
+    exports.Signer = Signer;
+    const SATOSHI_MAX = 21 * 1e14;
 
-  	function Signer(obj) {
-  	  return (exports.typeforce.Buffer(obj.publicKey) || typeof obj.getPublicKey === 'function') && typeof obj.sign === 'function';
-  	}
+    function Satoshi(value) {
+      return exports.typeforce.UInt53(value) && value <= SATOSHI_MAX;
+    }
 
-  	exports.Signer = Signer;
-  	const SATOSHI_MAX = 21 * 1e14;
+    exports.Satoshi = Satoshi; // external dependent types
 
-  	function Satoshi(value) {
-  	  return exports.typeforce.UInt53(value) && value <= SATOSHI_MAX;
-  	}
+    exports.ECPoint = exports.typeforce.quacksLike('Point'); // exposed, external API
 
-  	exports.Satoshi = Satoshi; // external dependent types
+    exports.Network = exports.typeforce.compile({
+      messagePrefix: exports.typeforce.oneOf(exports.typeforce.Buffer, exports.typeforce.String),
+      bip32: {
+        public: exports.typeforce.UInt32,
+        private: exports.typeforce.UInt32
+      },
+      pubKeyHash: exports.typeforce.UInt8,
+      scriptHash: exports.typeforce.UInt8,
+      wif: exports.typeforce.UInt8
+    });
+    exports.Buffer256bit = exports.typeforce.BufferN(32);
+    exports.Hash160bit = exports.typeforce.BufferN(20);
+    exports.Hash256bit = exports.typeforce.BufferN(32);
+    exports.Number = exports.typeforce.Number; // tslint:disable-line variable-name
 
-  	exports.ECPoint = exports.typeforce.quacksLike('Point'); // exposed, external API
+    exports.Array = exports.typeforce.Array;
+    exports.Boolean = exports.typeforce.Boolean; // tslint:disable-line variable-name
 
-  	exports.Network = exports.typeforce.compile({
-  	  messagePrefix: exports.typeforce.oneOf(exports.typeforce.Buffer, exports.typeforce.String),
-  	  bip32: {
-  	    public: exports.typeforce.UInt32,
-  	    private: exports.typeforce.UInt32
-  	  },
-  	  pubKeyHash: exports.typeforce.UInt8,
-  	  scriptHash: exports.typeforce.UInt8,
-  	  wif: exports.typeforce.UInt8
-  	});
-  	exports.Buffer256bit = exports.typeforce.BufferN(32);
-  	exports.Hash160bit = exports.typeforce.BufferN(20);
-  	exports.Hash256bit = exports.typeforce.BufferN(32);
-  	exports.Number = exports.typeforce.Number; // tslint:disable-line variable-name
+    exports.String = exports.typeforce.String; // tslint:disable-line variable-name
 
-  	exports.Array = exports.typeforce.Array;
-  	exports.Boolean = exports.typeforce.Boolean; // tslint:disable-line variable-name
-
-  	exports.String = exports.typeforce.String; // tslint:disable-line variable-name
-
-  	exports.Buffer = exports.typeforce.Buffer;
-  	exports.Hex = exports.typeforce.Hex;
-  	exports.maybe = exports.typeforce.maybe;
-  	exports.tuple = exports.typeforce.tuple;
-  	exports.UInt8 = exports.typeforce.UInt8;
-  	exports.UInt32 = exports.typeforce.UInt32;
-  	exports.Function = exports.typeforce.Function;
-  	exports.BufferN = exports.typeforce.BufferN;
-  	exports.Null = exports.typeforce.Null;
-  	exports.oneOf = exports.typeforce.oneOf;
-  } (types$8));
+    exports.Buffer = exports.typeforce.Buffer;
+    exports.Hex = exports.typeforce.Hex;
+    exports.maybe = exports.typeforce.maybe;
+    exports.tuple = exports.typeforce.tuple;
+    exports.UInt8 = exports.typeforce.UInt8;
+    exports.UInt32 = exports.typeforce.UInt32;
+    exports.Function = exports.typeforce.Function;
+    exports.BufferN = exports.typeforce.BufferN;
+    exports.Null = exports.typeforce.Null;
+    exports.oneOf = exports.typeforce.oneOf;
+  })(types$8);
 
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
   exports.encode = exports.decode = void 0;
-
   const bip66$1 = require$$0$3;
-
   const types$5 = types$8;
-
   const {
     typeforce: typeforce$5
   } = types$5;
@@ -16850,26 +16800,18 @@
     value: true
   });
   exports.signature = exports.number = exports.isCanonicalScriptSignature = exports.isDefinedHashType = exports.isCanonicalPubKey = exports.toStack = exports.fromASM = exports.toASM = exports.decompile = exports.compile = exports.isPushOnly = exports.OPS = void 0;
-
   const bip66 = require$$0$3;
-
   const ops_1 = ops;
-
   Object.defineProperty(exports, 'OPS', {
     enumerable: true,
     get: function () {
       return ops_1.OPS;
     }
   });
-
   const pushdata = push_data;
-
   const scriptNumber = require$$3$2;
-
   const scriptSignature = require$$4$4;
-
   const types$4 = types$8;
-
   const {
     typeforce: typeforce$4
   } = types$4;
@@ -17118,15 +17060,10 @@
     value: true
   });
   embed.p2data = void 0;
-
   const networks_1$7 = networks$1;
-
   const bscript$9 = require$$4$3;
-
   const types_1$6 = types$8;
-
   const lazy$6 = lazy$7;
-
   const OPS$6 = bscript$9.OPS;
 
   function stacksEqual$3(a, b) {
@@ -17181,15 +17118,10 @@
     value: true
   });
   p2ms$1.p2ms = void 0;
-
   const networks_1$6 = networks$1;
-
   const bscript$8 = require$$4$3;
-
   const types_1$5 = types$8;
-
   const lazy$5 = lazy$7;
-
   const OPS$5 = bscript$8.OPS;
   const OP_INT_BASE = OPS$5.OP_RESERVED; // OP_1 - 1
 
@@ -17317,15 +17249,10 @@
     value: true
   });
   p2pk$1.p2pk = void 0;
-
   const networks_1$5 = networks$1;
-
   const bscript$7 = require$$4$3;
-
   const types_1$4 = types$8;
-
   const lazy$4 = lazy$7;
-
   const OPS$4 = bscript$7.OPS; // input: {signature}
   // output: {pubKey} OP_CHECKSIG
 
@@ -17398,7 +17325,6 @@
     value: true
   });
   exports.taggedHash = exports.hash256 = exports.hash160 = exports.sha256 = exports.sha1 = exports.ripemd160 = void 0;
-
   const createHash$1 = browser;
 
   function ripemd160(buffer) {
@@ -17459,6 +17385,7 @@
   // Distributed under the MIT software license, see the accompanying
   // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
   // @ts-ignore
+
 
   var _Buffer = safeBuffer.exports.Buffer;
 
@@ -17641,12 +17568,10 @@
   var src = base$1;
 
   var basex = src;
-
   var ALPHABET$1 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
   var bs58 = basex(ALPHABET$1);
 
   var base58 = bs58;
-
   var Buffer$1 = safeBuffer.exports.Buffer;
 
   var base = function (checksumFn) {
@@ -17686,9 +17611,7 @@
   };
 
   var createHash = browser;
-
   var bs58checkBase = base; // SHA256(SHA256(buffer))
-
 
   function sha256x2(buffer) {
     var tmp = createHash('sha256').update(buffer).digest();
@@ -17701,19 +17624,12 @@
     value: true
   });
   exports.p2pkh = void 0;
-
   const bcrypto$5 = require$$1$4;
-
   const networks_1$4 = networks$1;
-
   const bscript$6 = require$$4$3;
-
   const types_1$3 = types$8;
-
   const lazy$3 = lazy$7;
-
   const bs58check$2 = bs58check$3;
-
   const OPS$3 = bscript$6.OPS; // input: {signature} {pubkey}
   // output: OP_DUP OP_HASH160 {hash160(pubkey)} OP_EQUALVERIFY OP_CHECKSIG
 
@@ -17837,19 +17753,12 @@
     value: true
   });
   exports.p2sh = void 0;
-
   const bcrypto$4 = require$$1$4;
-
   const networks_1$3 = networks$1;
-
   const bscript$5 = require$$4$3;
-
   const types_1$2 = types$8;
-
   const lazy$2 = lazy$7;
-
   const bs58check$1 = bs58check$3;
-
   const OPS$2 = bscript$5.OPS;
 
   function stacksEqual$1(a, b) {
@@ -18219,19 +18128,12 @@
     value: true
   });
   exports.p2wpkh = void 0;
-
   const bcrypto$3 = require$$1$4;
-
   const networks_1$2 = networks$1;
-
   const bscript$4 = require$$4$3;
-
   const types_1$1 = types$8;
-
   const lazy$1 = lazy$7;
-
   const bech32_1$2 = dist;
-
   const OPS$1 = bscript$4.OPS;
   const EMPTY_BUFFER$2 = Buffer$2.alloc(0); // witness: {signature} {pubKey}
   // input: <>
@@ -18354,19 +18256,12 @@
     value: true
   });
   exports.p2wsh = void 0;
-
   const bcrypto$2 = require$$1$4;
-
   const networks_1$1 = networks$1;
-
   const bscript$3 = require$$4$3;
-
   const types_1 = types$8;
-
   const lazy = lazy$7;
-
   const bech32_1$1 = dist;
-
   const OPS = bscript$3.OPS;
   const EMPTY_BUFFER$1 = Buffer$2.alloc(0);
 
@@ -18542,93 +18437,72 @@
 
   (function (exports) {
 
-  	Object.defineProperty(exports, '__esModule', {
-  	  value: true
-  	});
-  	exports.p2wsh = exports.p2wpkh = exports.p2sh = exports.p2pkh = exports.p2pk = exports.p2ms = exports.embed = void 0;
-
-  	const embed_1 = embed;
-
-  	Object.defineProperty(exports, 'embed', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return embed_1.p2data;
-  	  }
-  	});
-
-  	const p2ms_1 = p2ms$1;
-
-  	Object.defineProperty(exports, 'p2ms', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return p2ms_1.p2ms;
-  	  }
-  	});
-
-  	const p2pk_1 = p2pk$1;
-
-  	Object.defineProperty(exports, 'p2pk', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return p2pk_1.p2pk;
-  	  }
-  	});
-
-  	const p2pkh_1 = require$$3$1;
-
-  	Object.defineProperty(exports, 'p2pkh', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return p2pkh_1.p2pkh;
-  	  }
-  	});
-
-  	const p2sh_1 = require$$4$2;
-
-  	Object.defineProperty(exports, 'p2sh', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return p2sh_1.p2sh;
-  	  }
-  	});
-
-  	const p2wpkh_1 = require$$5$2;
-
-  	Object.defineProperty(exports, 'p2wpkh', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return p2wpkh_1.p2wpkh;
-  	  }
-  	});
-
-  	const p2wsh_1 = require$$6$2;
-
-  	Object.defineProperty(exports, 'p2wsh', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return p2wsh_1.p2wsh;
-  	  }
-  	}); // TODO
-  	// witness commitment
-  } (payments$2));
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    });
+    exports.p2wsh = exports.p2wpkh = exports.p2sh = exports.p2pkh = exports.p2pk = exports.p2ms = exports.embed = void 0;
+    const embed_1 = embed;
+    Object.defineProperty(exports, 'embed', {
+      enumerable: true,
+      get: function () {
+        return embed_1.p2data;
+      }
+    });
+    const p2ms_1 = p2ms$1;
+    Object.defineProperty(exports, 'p2ms', {
+      enumerable: true,
+      get: function () {
+        return p2ms_1.p2ms;
+      }
+    });
+    const p2pk_1 = p2pk$1;
+    Object.defineProperty(exports, 'p2pk', {
+      enumerable: true,
+      get: function () {
+        return p2pk_1.p2pk;
+      }
+    });
+    const p2pkh_1 = require$$3$1;
+    Object.defineProperty(exports, 'p2pkh', {
+      enumerable: true,
+      get: function () {
+        return p2pkh_1.p2pkh;
+      }
+    });
+    const p2sh_1 = require$$4$2;
+    Object.defineProperty(exports, 'p2sh', {
+      enumerable: true,
+      get: function () {
+        return p2sh_1.p2sh;
+      }
+    });
+    const p2wpkh_1 = require$$5$2;
+    Object.defineProperty(exports, 'p2wpkh', {
+      enumerable: true,
+      get: function () {
+        return p2wpkh_1.p2wpkh;
+      }
+    });
+    const p2wsh_1 = require$$6$2;
+    Object.defineProperty(exports, 'p2wsh', {
+      enumerable: true,
+      get: function () {
+        return p2wsh_1.p2wsh;
+      }
+    }); // TODO
+    // witness commitment
+  })(payments$2);
 
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
   exports.toOutputScript = exports.fromOutputScript = exports.toBech32 = exports.toBase58Check = exports.fromBech32 = exports.fromBase58Check = void 0;
-
   const networks = networks$1;
-
   const payments$1 = payments$2;
-
   const bscript$2 = require$$4$3;
-
   const types$3 = types$8;
-
   const bech32_1 = dist;
-
   const bs58check = bs58check$3;
-
   const {
     typeforce: typeforce$3
   } = types$3;
@@ -18801,7 +18675,6 @@
 
   var Buffer = safeBuffer.exports.Buffer; // Number.MAX_SAFE_INTEGER
 
-
   var MAX_SAFE_INTEGER$1 = 9007199254740991;
 
   function checkUInt53$1(n) {
@@ -18874,15 +18747,11 @@
     value: true
   });
   exports.BufferReader = exports.BufferWriter = exports.cloneBuffer = exports.reverseBuffer = exports.writeUInt64LE = exports.readUInt64LE = exports.varuint = void 0;
-
   const types$2 = types$8;
-
   const {
     typeforce: typeforce$2
   } = types$2;
-
   const varuint$6 = varuintBitcoin;
-
   exports.varuint = varuint$6; // https://github.com/feross/buffer/blob/master/index.js#L1127
 
   function verifuint$1(value, max) {
@@ -19113,17 +18982,11 @@
     value: true
   });
   exports.Transaction = void 0;
-
   const bufferutils_1$2 = require$$4$1;
-
   const bcrypto$1 = require$$1$4;
-
   const bscript$1 = require$$4$3;
-
   const script_1 = require$$4$3;
-
   const types$1 = types$8;
-
   const {
     typeforce: typeforce$1
   } = types$1;
@@ -19641,17 +19504,11 @@
     value: true
   });
   exports.Block = void 0;
-
   const bufferutils_1$1 = require$$4$1;
-
   const bcrypto = require$$1$4;
-
   const merkle_1 = require$$2$2;
-
   const transaction_1$1 = require$$8$1;
-
   const types = types$8;
-
   const {
     typeforce
   } = types;
@@ -19856,54 +19713,53 @@
 
   (function (exports) {
 
-  	Object.defineProperty(exports, '__esModule', {
-  	  value: true
-  	});
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    });
 
-  	(function (GlobalTypes) {
-  	  GlobalTypes[GlobalTypes['UNSIGNED_TX'] = 0] = 'UNSIGNED_TX';
-  	  GlobalTypes[GlobalTypes['GLOBAL_XPUB'] = 1] = 'GLOBAL_XPUB';
-  	})(exports.GlobalTypes || (exports.GlobalTypes = {}));
+    (function (GlobalTypes) {
+      GlobalTypes[GlobalTypes['UNSIGNED_TX'] = 0] = 'UNSIGNED_TX';
+      GlobalTypes[GlobalTypes['GLOBAL_XPUB'] = 1] = 'GLOBAL_XPUB';
+    })(exports.GlobalTypes || (exports.GlobalTypes = {}));
 
-  	exports.GLOBAL_TYPE_NAMES = ['unsignedTx', 'globalXpub'];
+    exports.GLOBAL_TYPE_NAMES = ['unsignedTx', 'globalXpub'];
 
-  	(function (InputTypes) {
-  	  InputTypes[InputTypes['NON_WITNESS_UTXO'] = 0] = 'NON_WITNESS_UTXO';
-  	  InputTypes[InputTypes['WITNESS_UTXO'] = 1] = 'WITNESS_UTXO';
-  	  InputTypes[InputTypes['PARTIAL_SIG'] = 2] = 'PARTIAL_SIG';
-  	  InputTypes[InputTypes['SIGHASH_TYPE'] = 3] = 'SIGHASH_TYPE';
-  	  InputTypes[InputTypes['REDEEM_SCRIPT'] = 4] = 'REDEEM_SCRIPT';
-  	  InputTypes[InputTypes['WITNESS_SCRIPT'] = 5] = 'WITNESS_SCRIPT';
-  	  InputTypes[InputTypes['BIP32_DERIVATION'] = 6] = 'BIP32_DERIVATION';
-  	  InputTypes[InputTypes['FINAL_SCRIPTSIG'] = 7] = 'FINAL_SCRIPTSIG';
-  	  InputTypes[InputTypes['FINAL_SCRIPTWITNESS'] = 8] = 'FINAL_SCRIPTWITNESS';
-  	  InputTypes[InputTypes['POR_COMMITMENT'] = 9] = 'POR_COMMITMENT';
-  	  InputTypes[InputTypes['TAP_KEY_SIG'] = 19] = 'TAP_KEY_SIG';
-  	  InputTypes[InputTypes['TAP_SCRIPT_SIG'] = 20] = 'TAP_SCRIPT_SIG';
-  	  InputTypes[InputTypes['TAP_LEAF_SCRIPT'] = 21] = 'TAP_LEAF_SCRIPT';
-  	  InputTypes[InputTypes['TAP_BIP32_DERIVATION'] = 22] = 'TAP_BIP32_DERIVATION';
-  	  InputTypes[InputTypes['TAP_INTERNAL_KEY'] = 23] = 'TAP_INTERNAL_KEY';
-  	  InputTypes[InputTypes['TAP_MERKLE_ROOT'] = 24] = 'TAP_MERKLE_ROOT';
-  	})(exports.InputTypes || (exports.InputTypes = {}));
+    (function (InputTypes) {
+      InputTypes[InputTypes['NON_WITNESS_UTXO'] = 0] = 'NON_WITNESS_UTXO';
+      InputTypes[InputTypes['WITNESS_UTXO'] = 1] = 'WITNESS_UTXO';
+      InputTypes[InputTypes['PARTIAL_SIG'] = 2] = 'PARTIAL_SIG';
+      InputTypes[InputTypes['SIGHASH_TYPE'] = 3] = 'SIGHASH_TYPE';
+      InputTypes[InputTypes['REDEEM_SCRIPT'] = 4] = 'REDEEM_SCRIPT';
+      InputTypes[InputTypes['WITNESS_SCRIPT'] = 5] = 'WITNESS_SCRIPT';
+      InputTypes[InputTypes['BIP32_DERIVATION'] = 6] = 'BIP32_DERIVATION';
+      InputTypes[InputTypes['FINAL_SCRIPTSIG'] = 7] = 'FINAL_SCRIPTSIG';
+      InputTypes[InputTypes['FINAL_SCRIPTWITNESS'] = 8] = 'FINAL_SCRIPTWITNESS';
+      InputTypes[InputTypes['POR_COMMITMENT'] = 9] = 'POR_COMMITMENT';
+      InputTypes[InputTypes['TAP_KEY_SIG'] = 19] = 'TAP_KEY_SIG';
+      InputTypes[InputTypes['TAP_SCRIPT_SIG'] = 20] = 'TAP_SCRIPT_SIG';
+      InputTypes[InputTypes['TAP_LEAF_SCRIPT'] = 21] = 'TAP_LEAF_SCRIPT';
+      InputTypes[InputTypes['TAP_BIP32_DERIVATION'] = 22] = 'TAP_BIP32_DERIVATION';
+      InputTypes[InputTypes['TAP_INTERNAL_KEY'] = 23] = 'TAP_INTERNAL_KEY';
+      InputTypes[InputTypes['TAP_MERKLE_ROOT'] = 24] = 'TAP_MERKLE_ROOT';
+    })(exports.InputTypes || (exports.InputTypes = {}));
 
-  	exports.INPUT_TYPE_NAMES = ['nonWitnessUtxo', 'witnessUtxo', 'partialSig', 'sighashType', 'redeemScript', 'witnessScript', 'bip32Derivation', 'finalScriptSig', 'finalScriptWitness', 'porCommitment', 'tapKeySig', 'tapScriptSig', 'tapLeafScript', 'tapBip32Derivation', 'tapInternalKey', 'tapMerkleRoot'];
+    exports.INPUT_TYPE_NAMES = ['nonWitnessUtxo', 'witnessUtxo', 'partialSig', 'sighashType', 'redeemScript', 'witnessScript', 'bip32Derivation', 'finalScriptSig', 'finalScriptWitness', 'porCommitment', 'tapKeySig', 'tapScriptSig', 'tapLeafScript', 'tapBip32Derivation', 'tapInternalKey', 'tapMerkleRoot'];
 
-  	(function (OutputTypes) {
-  	  OutputTypes[OutputTypes['REDEEM_SCRIPT'] = 0] = 'REDEEM_SCRIPT';
-  	  OutputTypes[OutputTypes['WITNESS_SCRIPT'] = 1] = 'WITNESS_SCRIPT';
-  	  OutputTypes[OutputTypes['BIP32_DERIVATION'] = 2] = 'BIP32_DERIVATION';
-  	  OutputTypes[OutputTypes['TAP_INTERNAL_KEY'] = 5] = 'TAP_INTERNAL_KEY';
-  	  OutputTypes[OutputTypes['TAP_TREE'] = 6] = 'TAP_TREE';
-  	  OutputTypes[OutputTypes['TAP_BIP32_DERIVATION'] = 7] = 'TAP_BIP32_DERIVATION';
-  	})(exports.OutputTypes || (exports.OutputTypes = {}));
+    (function (OutputTypes) {
+      OutputTypes[OutputTypes['REDEEM_SCRIPT'] = 0] = 'REDEEM_SCRIPT';
+      OutputTypes[OutputTypes['WITNESS_SCRIPT'] = 1] = 'WITNESS_SCRIPT';
+      OutputTypes[OutputTypes['BIP32_DERIVATION'] = 2] = 'BIP32_DERIVATION';
+      OutputTypes[OutputTypes['TAP_INTERNAL_KEY'] = 5] = 'TAP_INTERNAL_KEY';
+      OutputTypes[OutputTypes['TAP_TREE'] = 6] = 'TAP_TREE';
+      OutputTypes[OutputTypes['TAP_BIP32_DERIVATION'] = 7] = 'TAP_BIP32_DERIVATION';
+    })(exports.OutputTypes || (exports.OutputTypes = {}));
 
-  	exports.OUTPUT_TYPE_NAMES = ['redeemScript', 'witnessScript', 'bip32Derivation', 'tapInternalKey', 'tapTree', 'tapBip32Derivation'];
-  } (typeFields));
+    exports.OUTPUT_TYPE_NAMES = ['redeemScript', 'witnessScript', 'bip32Derivation', 'tapInternalKey', 'tapTree', 'tapBip32Derivation'];
+  })(typeFields);
 
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$g = typeFields;
 
   const range$2 = n => [...Array(n).keys()];
@@ -19990,7 +19846,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$f = typeFields;
 
   function encode$d(data) {
@@ -20011,7 +19866,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$e = typeFields;
 
   function decode$c(keyVal) {
@@ -20056,7 +19910,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$d = typeFields;
 
   function decode$b(keyVal) {
@@ -20101,7 +19954,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$c = typeFields;
 
   function decode$a(keyVal) {
@@ -20145,7 +19997,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$b = typeFields;
 
   function decode$9(keyVal) {
@@ -20215,7 +20066,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$a = typeFields;
 
   function decode$8(keyVal) {
@@ -20260,7 +20110,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$9 = typeFields;
 
   function decode$7(keyVal) {
@@ -20307,7 +20156,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$8 = typeFields;
 
   function decode$6(keyVal) {
@@ -20356,7 +20204,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$7 = typeFields;
 
   function decode$5(keyVal) {
@@ -20421,7 +20268,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$6 = typeFields;
 
   function decode$4(keyVal) {
@@ -20470,7 +20316,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$5 = typeFields;
 
   function decode$3(keyVal) {
@@ -20628,7 +20473,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const varuint$5 = require$$1$2;
 
   exports.range = n => [...Array(n).keys()];
@@ -20708,11 +20552,8 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$4 = typeFields;
-
   const tools_1$2 = require$$1$1;
-
   const varuint$4 = require$$1$2;
 
   function decode$1(keyVal) {
@@ -20778,9 +20619,7 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const typeFields_1$3 = typeFields;
-
   const varuint$3 = require$$1$2;
 
   function decode(keyVal) {
@@ -21008,9 +20847,7 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const varuint$2 = require$$1$2;
-
   const bip32Derivation$1 = require$$15;
 
   const isValidBIP340Key = pubkey => pubkey.length === 32;
@@ -21173,49 +21010,27 @@
   Object.defineProperty(converter$1, '__esModule', {
     value: true
   });
-
   const typeFields_1$2 = typeFields;
-
   const globalXpub = require$$1$3;
-
   const unsignedTx = require$$2$1;
-
   const finalScriptSig = require$$3;
-
   const finalScriptWitness = require$$4;
-
   const nonWitnessUtxo = require$$5;
-
   const partialSig = require$$6$1;
-
   const porCommitment = require$$7;
-
   const sighashType = require$$8;
-
   const tapKeySig = require$$9;
-
   const tapLeafScript = require$$10;
-
   const tapMerkleRoot = require$$11;
-
   const tapScriptSig = require$$12;
-
   const witnessUtxo = require$$13;
-
   const tapTree = require$$14;
-
   const bip32Derivation = require$$15;
-
   const checkPubkey = checkPubkey$1;
-
   const redeemScript = require$$17;
-
   const tapBip32Derivation = require$$18;
-
   const tapInternalKey = require$$19;
-
   const witnessScript = require$$20;
-
   const globals = {
     unsignedTx,
     globalXpub,
@@ -21257,13 +21072,9 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const convert$1 = converter$1;
-
   const tools_1$1 = require$$1$1;
-
   const varuint$1 = require$$1$2;
-
   const typeFields_1$1 = typeFields;
 
   function psbtFromBuffer(buffer, txGetter) {
@@ -21668,9 +21479,7 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const convert = converter$1;
-
   const tools_1 = require$$1$1;
 
   function psbtToBuffer({
@@ -21751,23 +21560,22 @@
 
   (function (exports) {
 
-  	function __export(m) {
-  	  for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-  	}
+    function __export(m) {
+      for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
 
-  	Object.defineProperty(exports, '__esModule', {
-  	  value: true
-  	});
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    });
 
-  	__export(require$$0$1);
+    __export(require$$0$1);
 
-  	__export(require$$1);
-  } (parser));
+    __export(require$$1);
+  })(parser);
 
   Object.defineProperty(combiner, '__esModule', {
     value: true
   });
-
   const parser_1$1 = parser;
 
   function combine(psbts) {
@@ -21836,7 +21644,6 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const converter = converter$1;
 
   function checkForInput(inputs, inputIndex) {
@@ -22006,13 +21813,9 @@
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-
   const combiner_1 = combiner;
-
   const parser_1 = parser;
-
   const typeFields_1 = typeFields;
-
   const utils_1$1 = require$$2;
 
   class Psbt$1 {
@@ -22169,30 +21972,19 @@
     value: true
   });
   exports.Psbt = void 0;
-
   const bip174_1 = require$$0;
-
   const varuint = require$$1$2;
-
   const utils_1 = require$$2;
-
   const address_1 = require$$0$2;
-
   const bufferutils_1 = require$$4$1;
-
   const crypto_1 = require$$1$4;
-
   const networks_1 = networks$1;
-
   const payments = payments$2;
-
   const bscript = require$$4$3;
-
   const transaction_1 = require$$8$1;
   /**
    * These are the default arguments for a Psbt instance.
    */
-
 
   const DEFAULT_OPTS = {
     /**
@@ -23577,69 +23369,51 @@
 
   (function (exports) {
 
-  	Object.defineProperty(exports, '__esModule', {
-  	  value: true
-  	});
-  	exports.Transaction = exports.opcodes = exports.Psbt = exports.Block = exports.script = exports.payments = exports.networks = exports.crypto = exports.address = void 0;
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    });
+    exports.Transaction = exports.opcodes = exports.Psbt = exports.Block = exports.script = exports.payments = exports.networks = exports.crypto = exports.address = void 0;
+    const address = require$$0$2;
+    exports.address = address;
+    const crypto = require$$1$4;
+    exports.crypto = crypto;
+    const networks = networks$1;
+    exports.networks = networks;
+    const payments = payments$2;
+    exports.payments = payments;
+    const script = require$$4$3;
+    exports.script = script;
+    var block_1 = require$$5$1;
+    Object.defineProperty(exports, 'Block', {
+      enumerable: true,
+      get: function () {
+        return block_1.Block;
+      }
+    });
+    var psbt_1 = require$$6;
+    Object.defineProperty(exports, 'Psbt', {
+      enumerable: true,
+      get: function () {
+        return psbt_1.Psbt;
+      }
+    });
+    var ops_1 = ops;
+    Object.defineProperty(exports, 'opcodes', {
+      enumerable: true,
+      get: function () {
+        return ops_1.OPS;
+      }
+    });
+    var transaction_1 = require$$8$1;
+    Object.defineProperty(exports, 'Transaction', {
+      enumerable: true,
+      get: function () {
+        return transaction_1.Transaction;
+      }
+    });
+  })(src$1);
 
-  	const address = require$$0$2;
-
-  	exports.address = address;
-
-  	const crypto = require$$1$4;
-
-  	exports.crypto = crypto;
-
-  	const networks = networks$1;
-
-  	exports.networks = networks;
-
-  	const payments = payments$2;
-
-  	exports.payments = payments;
-
-  	const script = require$$4$3;
-
-  	exports.script = script;
-
-  	var block_1 = require$$5$1;
-
-  	Object.defineProperty(exports, 'Block', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return block_1.Block;
-  	  }
-  	});
-
-  	var psbt_1 = require$$6;
-
-  	Object.defineProperty(exports, 'Psbt', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return psbt_1.Psbt;
-  	  }
-  	});
-
-  	var ops_1 = ops;
-
-  	Object.defineProperty(exports, 'opcodes', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return ops_1.OPS;
-  	  }
-  	});
-
-  	var transaction_1 = require$$8$1;
-
-  	Object.defineProperty(exports, 'Transaction', {
-  	  enumerable: true,
-  	  get: function () {
-  	    return transaction_1.Transaction;
-  	  }
-  	});
-  } (src$1));
-
-  // Cryptography
+  // React
   // import * as Signer from '@fabric/core/types/signer';
 
   class FaucetDripForm extends FabricComponent__default["default"] {
@@ -23725,21 +23499,21 @@
     }
 
     render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(fomanticUiReact.Form, {
+      return /*#__PURE__*/React__namespace.createElement(React__namespace.Fragment, null, /*#__PURE__*/React__namespace.createElement(fomanticUiReact.Form, {
         ref: this.props.form,
         loading: this.props.state.status === 'LOADING',
         disabled: this.props.state.status === 'LOADING',
         onSubmit: this.props.onSubmit.bind(this)
-      }, /*#__PURE__*/React__default["default"].createElement(fomanticUiReact.Form.Field, null, /*#__PURE__*/React__default["default"].createElement("label", null, "Request a deposit to\u2026"), /*#__PURE__*/React__default["default"].createElement("div", {
+      }, /*#__PURE__*/React__namespace.createElement(fomanticUiReact.Form.Field, null, /*#__PURE__*/React__namespace.createElement("label", null, "Request a deposit to\u2026"), /*#__PURE__*/React__namespace.createElement("div", {
         className: "ui input"
-      }, /*#__PURE__*/React__default["default"].createElement(fomanticUiReact.Input, {
+      }, /*#__PURE__*/React__namespace.createElement(fomanticUiReact.Input, {
         ref: this.props.field,
         action: true,
         type: "text",
         placeholder: "Enter a Bitcoin address here",
         value: this.props.state.recipient || '',
         onChange: this.handleChange.bind(this)
-      }), /*#__PURE__*/React__default["default"].createElement(fomanticUiReact.Button, {
+      }), /*#__PURE__*/React__namespace.createElement(fomanticUiReact.Button, {
         ref: this.props.button,
         attached: true,
         type: "submit",
@@ -23750,7 +23524,7 @@
         icon: "right chevron",
         labelPosition: "right",
         onClick: this.props.onSubmit.bind(this)
-      })), /*#__PURE__*/React__default["default"].createElement(FabricComponent__default["default"], null))));
+      })), /*#__PURE__*/React__namespace.createElement(FabricComponent__default["default"], null))));
     }
 
     start() {
@@ -23924,7 +23698,7 @@
    * The Portal web application.
    */
 
-  class App extends React.Component {
+  class App extends React__namespace.Component {
     constructor(settings) {
       super(settings);
       const state = store.getState();
@@ -23949,14 +23723,14 @@
     }
 
     render() {
-      return /*#__PURE__*/React__default["default"].createElement("react-application", {
+      return /*#__PURE__*/React__namespace.createElement("react-application", {
         id: "root"
-      }, /*#__PURE__*/React__default["default"].createElement(BrowserRouter, null, /*#__PURE__*/React__default["default"].createElement("div", {
+      }, /*#__PURE__*/React__namespace.createElement(BrowserRouter, null, /*#__PURE__*/React__namespace.createElement("div", {
         className: "pusher"
-      }, /*#__PURE__*/React__default["default"].createElement(Routes, null, /*#__PURE__*/React__default["default"].createElement(Route, {
+      }, /*#__PURE__*/React__namespace.createElement(Routes, null, /*#__PURE__*/React__namespace.createElement(Route, {
         path: "/",
         exact: true,
-        element: /*#__PURE__*/React__default["default"].createElement(Home, {
+        element: /*#__PURE__*/React__namespace.createElement(Home, {
           state: this.state,
           balances: this.state.balances,
           keys: this.state.keys,
@@ -23977,9 +23751,9 @@
   async function main(input = {}) {
     const container = document.getElementById('root');
     const root = client.createRoot(container);
-    root.render( /*#__PURE__*/React__default["default"].createElement(reactRedux.Provider, {
+    root.render( /*#__PURE__*/React__namespace.createElement(reactRedux.Provider, {
       store: store
-    }, /*#__PURE__*/React__default["default"].createElement(App, {
+    }, /*#__PURE__*/React__namespace.createElement(App, {
       state: input
     })));
     return {

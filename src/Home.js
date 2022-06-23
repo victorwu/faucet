@@ -2,7 +2,7 @@
 import * as defaults from './settings/state';
 
 // Dependencies
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { 
   recipientAddressClear, 
@@ -27,7 +27,7 @@ import FaucetDripForm from './components/FaucetDripForm';
 // import FabricIdentityManager from '@fabric/http';
 // import PortalMenu from './components/PortalMenu';
 
-class Home extends Component {
+class Home extends React.Component {
   constructor (props) {
     super(props);
 
