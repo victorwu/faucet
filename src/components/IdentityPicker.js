@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Form, Button } from 'semantic-ui-react';
+import { Icon, Form, Button } from 'fomantic-ui-react';
 
 class IdentityPicker extends Component {
   render () {

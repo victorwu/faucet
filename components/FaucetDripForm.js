@@ -1,5 +1,5 @@
 // Cryptography
-import { createHash } from 'crypto';
+import createHash from 'create-hash';
 
 // Dependencies
 import * as bitcoin from 'bitcoinjs-lib';
@@ -30,7 +30,7 @@ import {
   Button,
   Form,
   Input
-} from 'semantic-ui-react';
+} from 'fomantic-ui-react';
 
 // Internals
 // import FabricKeyPair from './FabricKeyPair';
