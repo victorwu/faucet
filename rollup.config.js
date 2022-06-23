@@ -53,29 +53,25 @@ const builds = [
         warn(warning);
     },
     plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      }),
       css(),
       // json(),
       // url(),
       nodeGlobals(),
       nodePolyfills(),
-      babel({
-        presets: ['@babel/preset-react'],
-        babelHelpers: 'bundled'
-      }),
       commonjs({
         include: 'node_modules/**',
-        transformMixedEsModules: true,
-        namedExports: {
-          'node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer']
-        }
+        transformMixedEsModules: true
+      }),
+      babel({
+        presets: ['@babel/preset-react'],
+        babelHelpers: 'bundled',
       }),
       resolve({
-        extensions: ['.js'],
         preferBuiltins: true,
         browser: true
-      }),
-      replace({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
       }),
     ],
     onwarn: handleWarning,
