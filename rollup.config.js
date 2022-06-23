@@ -13,6 +13,7 @@ import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 function handleWarning (warning, warn) {
   const { code, importer } = warning;
+  if (code === 'THIS_IS_UNDEFINED') return;
   if (code === 'CIRCULAR_DEPENDENCY' && importer.includes('fomantic-ui-react')) return;
   warn(warning);
 }
@@ -48,10 +49,6 @@ const builds = [
       'react-dom/client',
       'fomantic-ui-react',
     ],
-    onwarn(warning, warn) {
-        if (warning.code === 'THIS_IS_UNDEFINED') return;
-        warn(warning);
-    },
     plugins: [
       replace({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
