@@ -52,6 +52,22 @@ class FaucetDripForm extends FabricComponent {
       network: this.settings.network
     }); */
 
+    let getRandomBytes = (
+      (typeof self !== 'undefined' && (self.crypto || self.msCrypto))
+        ? function() { // Browsers
+            var crypto = (self.crypto || self.msCrypto), QUOTA = 65536;
+            return function(n) {
+              var a = new Uint8Array(n);
+              for (var i = 0; i < n; i += QUOTA) {
+                crypto.getRandomValues(a.subarray(i, i + Math.min(n - i, QUOTA)));
+              }
+              return a;
+            };
+          }
+        : function() { // Node
+            return require("crypto").randomBytes;
+          }
+    )();
     // this.key = new Key(this.settings);
     // this._key = new bcoin.hd.key();
 
@@ -64,7 +80,7 @@ class FaucetDripForm extends FabricComponent {
         requests: []
       },
       requests: {},
-      secret: Actor.randomBytes(32), // solution hash (revealed on trade)
+      secret: getRandomBytes(32), // solution hash (revealed on trade)
       status: 'LOADING'
     }, props.state);
 
