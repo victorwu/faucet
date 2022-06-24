@@ -74,7 +74,7 @@ class FaucetDripForm extends FabricComponent {
     // TODO: prepare Fabric
     // i.e., use _state here, then import from getter and apply properties
     // _from_ @react
-    this.state = merge({
+    this.state = merge.merge({
       address: null,
       content: {
         requests: []

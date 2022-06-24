@@ -41,6 +41,8 @@ const builds = [
     external: [
       '@fabric/core/types/environment',
       '@fabric/http',
+      'fomantic-ui-react',
+      'lodash.merge'
     ],
     onwarn(warning, warn) {
         if (warning.code === 'THIS_IS_UNDEFINED') return;
