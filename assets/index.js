@@ -1,4 +1,4 @@
-(function (Actor, fomanticUiReact, FabricComponent) {
+(function (merge, fomanticUiReact, FabricComponent) {
 	'use strict';
 
 	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -21,8 +21,10 @@
 		return Object.freeze(n);
 	}
 
-	var Actor__namespace = /*#__PURE__*/_interopNamespace(Actor);
+	var merge__namespace = /*#__PURE__*/_interopNamespace(merge);
 	var FabricComponent__default = /*#__PURE__*/_interopDefaultLegacy(FabricComponent);
+
+	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 	function getDefaultExportFromCjs (x) {
 		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
@@ -9022,7 +9024,7 @@
 	  return TYPE_STATICS[component['$$typeof']] || REACT_STATICS;
 	}
 
-	var defineProperty$1 = Object.defineProperty;
+	var defineProperty = Object.defineProperty;
 	var getOwnPropertyNames = Object.getOwnPropertyNames;
 	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
@@ -9057,7 +9059,7 @@
 
 	        try {
 	          // Avoid failures from read-only properties
-	          defineProperty$1(targetComponent, key, descriptor);
+	          defineProperty(targetComponent, key, descriptor);
 	        } catch (e) {}
 	      }
 	    }
@@ -9449,7 +9451,7 @@
 	 * @param {any} obj The object to inspect.
 	 * @returns {boolean} True if the argument appears to be a plain object.
 	 */
-	function isPlainObject$3(obj) {
+	function isPlainObject$2(obj) {
 	  if (typeof obj !== 'object' || obj === null) return false;
 	  let proto = Object.getPrototypeOf(obj);
 	  if (proto === null) return true;
@@ -9463,7 +9465,7 @@
 	}
 
 	function verifyPlainObject(value, displayName, methodName) {
-	  if (!isPlainObject$3(value)) {
+	  if (!isPlainObject$2(value)) {
 	    warning$3(`${methodName}() in ${displayName} must return a plain object. Instead received ${value}.`);
 	  }
 	}
@@ -10886,7 +10888,7 @@
 	 * @returns {boolean} True if the argument appears to be a plain object.
 	 */
 
-	function isPlainObject$2(obj) {
+	function isPlainObject$1(obj) {
 	  if (typeof obj !== 'object' || obj === null) return false;
 	  var proto = obj;
 
@@ -11119,7 +11121,7 @@
 
 
 	  function dispatch(action) {
-	    if (!isPlainObject$2(action)) {
+	    if (!isPlainObject$1(action)) {
 	      throw new Error("Actions must be plain objects. Instead, the actual type was: '" + kindOf(action) + "'. You may need to add middleware to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions. See https://redux.js.org/tutorials/fundamentals/part-4-store#middleware and https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-the-redux-thunk-middleware for examples.");
 	    }
 
@@ -11261,7 +11263,7 @@
 	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
 	  }
 
-	  if (!isPlainObject$2(inputState)) {
+	  if (!isPlainObject$1(inputState)) {
 	    return "The " + argumentName + " has unexpected type of \"" + kindOf(inputState) + "\". Expected argument to be an object with the following " + ("keys: \"" + reducerKeys.join('", "') + "\"");
 	  }
 
@@ -11512,7 +11514,7 @@
 
 	thunk.withExtraArgument = createThunkMiddleware;
 
-	var __extends = null && null.__extends || function () {
+	var __extends$1 = null && null.__extends || function () {
 	  var extendStatics = function (d, b) {
 	    extendStatics = Object.setPrototypeOf || {
 	      __proto__: []
@@ -11681,7 +11683,7 @@
 	  return compose.apply(null, arguments);
 	};
 
-	function isPlainObject$1(value) {
+	function isPlainObject(value) {
 	  if (typeof value !== "object" || value === null) return false;
 	  var proto = Object.getPrototypeOf(value);
 	  if (proto === null) return true;
@@ -11718,7 +11720,7 @@
 	var MiddlewareArray =
 	/** @class */
 	function (_super) {
-	  __extends(MiddlewareArray, _super);
+	  __extends$1(MiddlewareArray, _super);
 
 	  function MiddlewareArray() {
 	    var args = [];
@@ -11945,7 +11947,7 @@
 
 	function isPlain(val) {
 	  var type = typeof val;
-	  return type === "undefined" || val === null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || isPlainObject$1(val);
+	  return type === "undefined" || val === null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || isPlainObject(val);
 	}
 
 	function findNonSerializableValue(value, path, isSerializable, getEntries, ignoredPaths) {
@@ -12143,7 +12145,7 @@
 
 	  if (typeof reducer === "function") {
 	    rootReducer = reducer;
-	  } else if (isPlainObject$1(reducer)) {
+	  } else if (isPlainObject(reducer)) {
 	    rootReducer = combineReducers(reducer);
 	  } else {
 	    throw new Error('"reducer" is a required argument, and must be a function or an object of functions that can be passed to combineReducers');
@@ -12498,2069 +12500,6 @@
 
 	const store = configureStore({
 	  reducer: faucetReducer
-	});
-
-	var global$2 = (typeof global !== "undefined" ? global :
-	  typeof self !== "undefined" ? self :
-	  typeof window !== "undefined" ? window : {});
-
-	var global$1 = typeof global$2 !== "undefined" ? global$2 : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};
-
-	/**
-	 * Lodash (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modularize exports="npm" -o ./`
-	 * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
-	 * Released under MIT license <https://lodash.com/license>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 */
-
-	/** Used as the size to enable large array optimizations. */
-
-	var LARGE_ARRAY_SIZE = 200;
-	/** Used to stand-in for `undefined` hash values. */
-
-	var HASH_UNDEFINED = '__lodash_hash_undefined__';
-	/** Used to detect hot functions by number of calls within a span of milliseconds. */
-
-	var HOT_COUNT = 800,
-	    HOT_SPAN = 16;
-	/** Used as references for various `Number` constants. */
-
-	var MAX_SAFE_INTEGER$2 = 9007199254740991;
-	/** `Object#toString` result references. */
-
-	var argsTag = '[object Arguments]',
-	    arrayTag = '[object Array]',
-	    asyncTag = '[object AsyncFunction]',
-	    boolTag = '[object Boolean]',
-	    dateTag = '[object Date]',
-	    errorTag = '[object Error]',
-	    funcTag = '[object Function]',
-	    genTag = '[object GeneratorFunction]',
-	    mapTag = '[object Map]',
-	    numberTag = '[object Number]',
-	    nullTag = '[object Null]',
-	    objectTag = '[object Object]',
-	    proxyTag = '[object Proxy]',
-	    regexpTag = '[object RegExp]',
-	    setTag = '[object Set]',
-	    stringTag = '[object String]',
-	    undefinedTag = '[object Undefined]',
-	    weakMapTag = '[object WeakMap]';
-	var arrayBufferTag = '[object ArrayBuffer]',
-	    dataViewTag = '[object DataView]',
-	    float32Tag = '[object Float32Array]',
-	    float64Tag = '[object Float64Array]',
-	    int8Tag = '[object Int8Array]',
-	    int16Tag = '[object Int16Array]',
-	    int32Tag = '[object Int32Array]',
-	    uint8Tag = '[object Uint8Array]',
-	    uint8ClampedTag = '[object Uint8ClampedArray]',
-	    uint16Tag = '[object Uint16Array]',
-	    uint32Tag = '[object Uint32Array]';
-	/**
-	 * Used to match `RegExp`
-	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
-	 */
-
-	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-	/** Used to detect host constructors (Safari). */
-
-	var reIsHostCtor = /^\[object .+?Constructor\]$/;
-	/** Used to detect unsigned integer values. */
-
-	var reIsUint = /^(?:0|[1-9]\d*)$/;
-	/** Used to identify `toStringTag` values of typed arrays. */
-
-	var typedArrayTags = {};
-	typedArrayTags[float32Tag] = typedArrayTags[float64Tag] = typedArrayTags[int8Tag] = typedArrayTags[int16Tag] = typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] = typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] = typedArrayTags[uint32Tag] = true;
-	typedArrayTags[argsTag] = typedArrayTags[arrayTag] = typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] = typedArrayTags[dataViewTag] = typedArrayTags[dateTag] = typedArrayTags[errorTag] = typedArrayTags[funcTag] = typedArrayTags[mapTag] = typedArrayTags[numberTag] = typedArrayTags[objectTag] = typedArrayTags[regexpTag] = typedArrayTags[setTag] = typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
-	/** Detect free variable `global` from Node.js. */
-
-	var freeGlobal = typeof global$1 == 'object' && global$1 && global$1.Object === Object && global$1;
-	/** Detect free variable `self`. */
-
-	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-	/** Used as a reference to the global object. */
-
-	var root = freeGlobal || freeSelf || Function('return this')();
-	/** Detect free variable `exports`. */
-
-	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-	/** Detect free variable `module`. */
-
-	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-	/** Detect the popular CommonJS extension `module.exports`. */
-
-	var moduleExports = freeModule && freeModule.exports === freeExports;
-	/** Detect free variable `process` from Node.js. */
-
-	var freeProcess = moduleExports && freeGlobal.process;
-	/** Used to access faster Node.js helpers. */
-
-	var nodeUtil = function () {
-	  try {
-	    // Use `util.types` for Node.js 10+.
-	    var types = freeModule && freeModule.require && freeModule.require('util').types;
-
-	    if (types) {
-	      return types;
-	    } // Legacy `process.binding('util')` for Node.js < 10.
-
-
-	    return freeProcess && freeProcess.binding && freeProcess.binding('util');
-	  } catch (e) {}
-	}();
-	/* Node.js helper references. */
-
-
-	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-	/**
-	 * A faster alternative to `Function#apply`, this function invokes `func`
-	 * with the `this` binding of `thisArg` and the arguments of `args`.
-	 *
-	 * @private
-	 * @param {Function} func The function to invoke.
-	 * @param {*} thisArg The `this` binding of `func`.
-	 * @param {Array} args The arguments to invoke `func` with.
-	 * @returns {*} Returns the result of `func`.
-	 */
-
-	function apply(func, thisArg, args) {
-	  switch (args.length) {
-	    case 0:
-	      return func.call(thisArg);
-
-	    case 1:
-	      return func.call(thisArg, args[0]);
-
-	    case 2:
-	      return func.call(thisArg, args[0], args[1]);
-
-	    case 3:
-	      return func.call(thisArg, args[0], args[1], args[2]);
-	  }
-
-	  return func.apply(thisArg, args);
-	}
-	/**
-	 * The base implementation of `_.times` without support for iteratee shorthands
-	 * or max array length checks.
-	 *
-	 * @private
-	 * @param {number} n The number of times to invoke `iteratee`.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @returns {Array} Returns the array of results.
-	 */
-
-
-	function baseTimes(n, iteratee) {
-	  var index = -1,
-	      result = Array(n);
-
-	  while (++index < n) {
-	    result[index] = iteratee(index);
-	  }
-
-	  return result;
-	}
-	/**
-	 * The base implementation of `_.unary` without support for storing metadata.
-	 *
-	 * @private
-	 * @param {Function} func The function to cap arguments for.
-	 * @returns {Function} Returns the new capped function.
-	 */
-
-
-	function baseUnary(func) {
-	  return function (value) {
-	    return func(value);
-	  };
-	}
-	/**
-	 * Gets the value at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} [object] The object to query.
-	 * @param {string} key The key of the property to get.
-	 * @returns {*} Returns the property value.
-	 */
-
-
-	function getValue$1(object, key) {
-	  return object == null ? undefined : object[key];
-	}
-	/**
-	 * Creates a unary function that invokes `func` with its argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-
-
-	function overArg(func, transform) {
-	  return function (arg) {
-	    return func(transform(arg));
-	  };
-	}
-	/** Used for built-in method references. */
-
-
-	var arrayProto = Array.prototype,
-	    funcProto = Function.prototype,
-	    objectProto = Object.prototype;
-	/** Used to detect overreaching core-js shims. */
-
-	var coreJsData = root['__core-js_shared__'];
-	/** Used to resolve the decompiled source of functions. */
-
-	var funcToString = funcProto.toString;
-	/** Used to check objects for own properties. */
-
-	var hasOwnProperty$1 = objectProto.hasOwnProperty;
-	/** Used to detect methods masquerading as native. */
-
-	var maskSrcKey = function () {
-	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-	  return uid ? 'Symbol(src)_1.' + uid : '';
-	}();
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-
-
-	var nativeObjectToString = objectProto.toString;
-	/** Used to infer the `Object` constructor. */
-
-	var objectCtorString = funcToString.call(Object);
-	/** Used to detect if a method is native. */
-
-	var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$1).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
-	/** Built-in value references. */
-
-	var Buffer$h = moduleExports ? root.Buffer : undefined,
-	    Symbol$1 = root.Symbol,
-	    Uint8Array$1 = root.Uint8Array,
-	    allocUnsafe$2 = Buffer$h ? Buffer$h.allocUnsafe : undefined,
-	    getPrototype = overArg(Object.getPrototypeOf, Object),
-	    objectCreate = Object.create,
-	    propertyIsEnumerable = objectProto.propertyIsEnumerable,
-	    splice = arrayProto.splice,
-	    symToStringTag = Symbol$1 ? Symbol$1.toStringTag : undefined;
-
-	var defineProperty = function () {
-	  try {
-	    var func = getNative(Object, 'defineProperty');
-	    func({}, '', {});
-	    return func;
-	  } catch (e) {}
-	}();
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-
-
-	var nativeIsBuffer = Buffer$h ? Buffer$h.isBuffer : undefined,
-	    nativeMax = Math.max,
-	    nativeNow = Date.now;
-	/* Built-in method references that are verified to be native. */
-
-	var Map$1 = getNative(root, 'Map'),
-	    nativeCreate = getNative(Object, 'create');
-	/**
-	 * The base implementation of `_.create` without support for assigning
-	 * properties to the created object.
-	 *
-	 * @private
-	 * @param {Object} proto The object to inherit from.
-	 * @returns {Object} Returns the new object.
-	 */
-
-	var baseCreate = function () {
-	  function object() {}
-
-	  return function (proto) {
-	    if (!isObject$1(proto)) {
-	      return {};
-	    }
-
-	    if (objectCreate) {
-	      return objectCreate(proto);
-	    }
-
-	    object.prototype = proto;
-	    var result = new object();
-	    object.prototype = undefined;
-	    return result;
-	  };
-	}();
-	/**
-	 * Creates a hash object.
-	 *
-	 * @private
-	 * @constructor
-	 * @param {Array} [entries] The key-value pairs to cache.
-	 */
-
-
-	function Hash$8(entries) {
-	  var index = -1,
-	      length = entries == null ? 0 : entries.length;
-	  this.clear();
-
-	  while (++index < length) {
-	    var entry = entries[index];
-	    this.set(entry[0], entry[1]);
-	  }
-	}
-	/**
-	 * Removes all key-value entries from the hash.
-	 *
-	 * @private
-	 * @name clear
-	 * @memberOf Hash
-	 */
-
-
-	function hashClear() {
-	  this.__data__ = nativeCreate ? nativeCreate(null) : {};
-	  this.size = 0;
-	}
-	/**
-	 * Removes `key` and its value from the hash.
-	 *
-	 * @private
-	 * @name delete
-	 * @memberOf Hash
-	 * @param {Object} hash The hash to modify.
-	 * @param {string} key The key of the value to remove.
-	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
-	 */
-
-
-	function hashDelete(key) {
-	  var result = this.has(key) && delete this.__data__[key];
-	  this.size -= result ? 1 : 0;
-	  return result;
-	}
-	/**
-	 * Gets the hash value for `key`.
-	 *
-	 * @private
-	 * @name get
-	 * @memberOf Hash
-	 * @param {string} key The key of the value to get.
-	 * @returns {*} Returns the entry value.
-	 */
-
-
-	function hashGet(key) {
-	  var data = this.__data__;
-
-	  if (nativeCreate) {
-	    var result = data[key];
-	    return result === HASH_UNDEFINED ? undefined : result;
-	  }
-
-	  return hasOwnProperty$1.call(data, key) ? data[key] : undefined;
-	}
-	/**
-	 * Checks if a hash value for `key` exists.
-	 *
-	 * @private
-	 * @name has
-	 * @memberOf Hash
-	 * @param {string} key The key of the entry to check.
-	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
-	 */
-
-
-	function hashHas(key) {
-	  var data = this.__data__;
-	  return nativeCreate ? data[key] !== undefined : hasOwnProperty$1.call(data, key);
-	}
-	/**
-	 * Sets the hash `key` to `value`.
-	 *
-	 * @private
-	 * @name set
-	 * @memberOf Hash
-	 * @param {string} key The key of the value to set.
-	 * @param {*} value The value to set.
-	 * @returns {Object} Returns the hash instance.
-	 */
-
-
-	function hashSet(key, value) {
-	  var data = this.__data__;
-	  this.size += this.has(key) ? 0 : 1;
-	  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
-	  return this;
-	} // Add methods to `Hash`.
-
-
-	Hash$8.prototype.clear = hashClear;
-	Hash$8.prototype['delete'] = hashDelete;
-	Hash$8.prototype.get = hashGet;
-	Hash$8.prototype.has = hashHas;
-	Hash$8.prototype.set = hashSet;
-	/**
-	 * Creates an list cache object.
-	 *
-	 * @private
-	 * @constructor
-	 * @param {Array} [entries] The key-value pairs to cache.
-	 */
-
-	function ListCache(entries) {
-	  var index = -1,
-	      length = entries == null ? 0 : entries.length;
-	  this.clear();
-
-	  while (++index < length) {
-	    var entry = entries[index];
-	    this.set(entry[0], entry[1]);
-	  }
-	}
-	/**
-	 * Removes all key-value entries from the list cache.
-	 *
-	 * @private
-	 * @name clear
-	 * @memberOf ListCache
-	 */
-
-
-	function listCacheClear() {
-	  this.__data__ = [];
-	  this.size = 0;
-	}
-	/**
-	 * Removes `key` and its value from the list cache.
-	 *
-	 * @private
-	 * @name delete
-	 * @memberOf ListCache
-	 * @param {string} key The key of the value to remove.
-	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
-	 */
-
-
-	function listCacheDelete(key) {
-	  var data = this.__data__,
-	      index = assocIndexOf(data, key);
-
-	  if (index < 0) {
-	    return false;
-	  }
-
-	  var lastIndex = data.length - 1;
-
-	  if (index == lastIndex) {
-	    data.pop();
-	  } else {
-	    splice.call(data, index, 1);
-	  }
-
-	  --this.size;
-	  return true;
-	}
-	/**
-	 * Gets the list cache value for `key`.
-	 *
-	 * @private
-	 * @name get
-	 * @memberOf ListCache
-	 * @param {string} key The key of the value to get.
-	 * @returns {*} Returns the entry value.
-	 */
-
-
-	function listCacheGet(key) {
-	  var data = this.__data__,
-	      index = assocIndexOf(data, key);
-	  return index < 0 ? undefined : data[index][1];
-	}
-	/**
-	 * Checks if a list cache value for `key` exists.
-	 *
-	 * @private
-	 * @name has
-	 * @memberOf ListCache
-	 * @param {string} key The key of the entry to check.
-	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
-	 */
-
-
-	function listCacheHas(key) {
-	  return assocIndexOf(this.__data__, key) > -1;
-	}
-	/**
-	 * Sets the list cache `key` to `value`.
-	 *
-	 * @private
-	 * @name set
-	 * @memberOf ListCache
-	 * @param {string} key The key of the value to set.
-	 * @param {*} value The value to set.
-	 * @returns {Object} Returns the list cache instance.
-	 */
-
-
-	function listCacheSet(key, value) {
-	  var data = this.__data__,
-	      index = assocIndexOf(data, key);
-
-	  if (index < 0) {
-	    ++this.size;
-	    data.push([key, value]);
-	  } else {
-	    data[index][1] = value;
-	  }
-
-	  return this;
-	} // Add methods to `ListCache`.
-
-
-	ListCache.prototype.clear = listCacheClear;
-	ListCache.prototype['delete'] = listCacheDelete;
-	ListCache.prototype.get = listCacheGet;
-	ListCache.prototype.has = listCacheHas;
-	ListCache.prototype.set = listCacheSet;
-	/**
-	 * Creates a map cache object to store key-value pairs.
-	 *
-	 * @private
-	 * @constructor
-	 * @param {Array} [entries] The key-value pairs to cache.
-	 */
-
-	function MapCache(entries) {
-	  var index = -1,
-	      length = entries == null ? 0 : entries.length;
-	  this.clear();
-
-	  while (++index < length) {
-	    var entry = entries[index];
-	    this.set(entry[0], entry[1]);
-	  }
-	}
-	/**
-	 * Removes all key-value entries from the map.
-	 *
-	 * @private
-	 * @name clear
-	 * @memberOf MapCache
-	 */
-
-
-	function mapCacheClear() {
-	  this.size = 0;
-	  this.__data__ = {
-	    'hash': new Hash$8(),
-	    'map': new (Map$1 || ListCache)(),
-	    'string': new Hash$8()
-	  };
-	}
-	/**
-	 * Removes `key` and its value from the map.
-	 *
-	 * @private
-	 * @name delete
-	 * @memberOf MapCache
-	 * @param {string} key The key of the value to remove.
-	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
-	 */
-
-
-	function mapCacheDelete(key) {
-	  var result = getMapData(this, key)['delete'](key);
-	  this.size -= result ? 1 : 0;
-	  return result;
-	}
-	/**
-	 * Gets the map value for `key`.
-	 *
-	 * @private
-	 * @name get
-	 * @memberOf MapCache
-	 * @param {string} key The key of the value to get.
-	 * @returns {*} Returns the entry value.
-	 */
-
-
-	function mapCacheGet(key) {
-	  return getMapData(this, key).get(key);
-	}
-	/**
-	 * Checks if a map value for `key` exists.
-	 *
-	 * @private
-	 * @name has
-	 * @memberOf MapCache
-	 * @param {string} key The key of the entry to check.
-	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
-	 */
-
-
-	function mapCacheHas(key) {
-	  return getMapData(this, key).has(key);
-	}
-	/**
-	 * Sets the map `key` to `value`.
-	 *
-	 * @private
-	 * @name set
-	 * @memberOf MapCache
-	 * @param {string} key The key of the value to set.
-	 * @param {*} value The value to set.
-	 * @returns {Object} Returns the map cache instance.
-	 */
-
-
-	function mapCacheSet(key, value) {
-	  var data = getMapData(this, key),
-	      size = data.size;
-	  data.set(key, value);
-	  this.size += data.size == size ? 0 : 1;
-	  return this;
-	} // Add methods to `MapCache`.
-
-
-	MapCache.prototype.clear = mapCacheClear;
-	MapCache.prototype['delete'] = mapCacheDelete;
-	MapCache.prototype.get = mapCacheGet;
-	MapCache.prototype.has = mapCacheHas;
-	MapCache.prototype.set = mapCacheSet;
-	/**
-	 * Creates a stack cache object to store key-value pairs.
-	 *
-	 * @private
-	 * @constructor
-	 * @param {Array} [entries] The key-value pairs to cache.
-	 */
-
-	function Stack(entries) {
-	  var data = this.__data__ = new ListCache(entries);
-	  this.size = data.size;
-	}
-	/**
-	 * Removes all key-value entries from the stack.
-	 *
-	 * @private
-	 * @name clear
-	 * @memberOf Stack
-	 */
-
-
-	function stackClear() {
-	  this.__data__ = new ListCache();
-	  this.size = 0;
-	}
-	/**
-	 * Removes `key` and its value from the stack.
-	 *
-	 * @private
-	 * @name delete
-	 * @memberOf Stack
-	 * @param {string} key The key of the value to remove.
-	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
-	 */
-
-
-	function stackDelete(key) {
-	  var data = this.__data__,
-	      result = data['delete'](key);
-	  this.size = data.size;
-	  return result;
-	}
-	/**
-	 * Gets the stack value for `key`.
-	 *
-	 * @private
-	 * @name get
-	 * @memberOf Stack
-	 * @param {string} key The key of the value to get.
-	 * @returns {*} Returns the entry value.
-	 */
-
-
-	function stackGet(key) {
-	  return this.__data__.get(key);
-	}
-	/**
-	 * Checks if a stack value for `key` exists.
-	 *
-	 * @private
-	 * @name has
-	 * @memberOf Stack
-	 * @param {string} key The key of the entry to check.
-	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
-	 */
-
-
-	function stackHas(key) {
-	  return this.__data__.has(key);
-	}
-	/**
-	 * Sets the stack `key` to `value`.
-	 *
-	 * @private
-	 * @name set
-	 * @memberOf Stack
-	 * @param {string} key The key of the value to set.
-	 * @param {*} value The value to set.
-	 * @returns {Object} Returns the stack cache instance.
-	 */
-
-
-	function stackSet(key, value) {
-	  var data = this.__data__;
-
-	  if (data instanceof ListCache) {
-	    var pairs = data.__data__;
-
-	    if (!Map$1 || pairs.length < LARGE_ARRAY_SIZE - 1) {
-	      pairs.push([key, value]);
-	      this.size = ++data.size;
-	      return this;
-	    }
-
-	    data = this.__data__ = new MapCache(pairs);
-	  }
-
-	  data.set(key, value);
-	  this.size = data.size;
-	  return this;
-	} // Add methods to `Stack`.
-
-
-	Stack.prototype.clear = stackClear;
-	Stack.prototype['delete'] = stackDelete;
-	Stack.prototype.get = stackGet;
-	Stack.prototype.has = stackHas;
-	Stack.prototype.set = stackSet;
-	/**
-	 * Creates an array of the enumerable property names of the array-like `value`.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @param {boolean} inherited Specify returning inherited property names.
-	 * @returns {Array} Returns the array of property names.
-	 */
-
-	function arrayLikeKeys(value, inherited) {
-	  var isArr = isArray$3(value),
-	      isArg = !isArr && isArguments(value),
-	      isBuff = !isArr && !isArg && isBuffer$3(value),
-	      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
-	      skipIndexes = isArr || isArg || isBuff || isType,
-	      result = skipIndexes ? baseTimes(value.length, String) : [],
-	      length = result.length;
-
-	  for (var key in value) {
-	    if ((inherited || hasOwnProperty$1.call(value, key)) && !(skipIndexes && ( // Safari 9 has enumerable `arguments.length` in strict mode.
-	    key == 'length' || // Node.js 0.10 has enumerable non-index properties on buffers.
-	    isBuff && (key == 'offset' || key == 'parent') || // PhantomJS 2 has enumerable non-index properties on typed arrays.
-	    isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset') || // Skip index properties.
-	    isIndex(key, length)))) {
-	      result.push(key);
-	    }
-	  }
-
-	  return result;
-	}
-	/**
-	 * This function is like `assignValue` except that it doesn't assign
-	 * `undefined` values.
-	 *
-	 * @private
-	 * @param {Object} object The object to modify.
-	 * @param {string} key The key of the property to assign.
-	 * @param {*} value The value to assign.
-	 */
-
-
-	function assignMergeValue(object, key, value) {
-	  if (value !== undefined && !eq(object[key], value) || value === undefined && !(key in object)) {
-	    baseAssignValue(object, key, value);
-	  }
-	}
-	/**
-	 * Assigns `value` to `key` of `object` if the existing value is not equivalent
-	 * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
-	 * for equality comparisons.
-	 *
-	 * @private
-	 * @param {Object} object The object to modify.
-	 * @param {string} key The key of the property to assign.
-	 * @param {*} value The value to assign.
-	 */
-
-
-	function assignValue(object, key, value) {
-	  var objValue = object[key];
-
-	  if (!(hasOwnProperty$1.call(object, key) && eq(objValue, value)) || value === undefined && !(key in object)) {
-	    baseAssignValue(object, key, value);
-	  }
-	}
-	/**
-	 * Gets the index at which the `key` is found in `array` of key-value pairs.
-	 *
-	 * @private
-	 * @param {Array} array The array to inspect.
-	 * @param {*} key The key to search for.
-	 * @returns {number} Returns the index of the matched value, else `-1`.
-	 */
-
-
-	function assocIndexOf(array, key) {
-	  var length = array.length;
-
-	  while (length--) {
-	    if (eq(array[length][0], key)) {
-	      return length;
-	    }
-	  }
-
-	  return -1;
-	}
-	/**
-	 * The base implementation of `assignValue` and `assignMergeValue` without
-	 * value checks.
-	 *
-	 * @private
-	 * @param {Object} object The object to modify.
-	 * @param {string} key The key of the property to assign.
-	 * @param {*} value The value to assign.
-	 */
-
-
-	function baseAssignValue(object, key, value) {
-	  if (key == '__proto__' && defineProperty) {
-	    defineProperty(object, key, {
-	      'configurable': true,
-	      'enumerable': true,
-	      'value': value,
-	      'writable': true
-	    });
-	  } else {
-	    object[key] = value;
-	  }
-	}
-	/**
-	 * The base implementation of `baseForOwn` which iterates over `object`
-	 * properties returned by `keysFunc` and invokes `iteratee` for each property.
-	 * Iteratee functions may exit iteration early by explicitly returning `false`.
-	 *
-	 * @private
-	 * @param {Object} object The object to iterate over.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @param {Function} keysFunc The function to get the keys of `object`.
-	 * @returns {Object} Returns `object`.
-	 */
-
-
-	var baseFor = createBaseFor();
-	/**
-	 * The base implementation of `getTag` without fallbacks for buggy environments.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {string} Returns the `toStringTag`.
-	 */
-
-	function baseGetTag(value) {
-	  if (value == null) {
-	    return value === undefined ? undefinedTag : nullTag;
-	  }
-
-	  return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString$1(value);
-	}
-	/**
-	 * The base implementation of `_.isArguments`.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
-	 */
-
-
-	function baseIsArguments(value) {
-	  return isObjectLike(value) && baseGetTag(value) == argsTag;
-	}
-	/**
-	 * The base implementation of `_.isNative` without bad shim checks.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a native function,
-	 *  else `false`.
-	 */
-
-
-	function baseIsNative(value) {
-	  if (!isObject$1(value) || isMasked(value)) {
-	    return false;
-	  }
-
-	  var pattern = isFunction$1(value) ? reIsNative : reIsHostCtor;
-	  return pattern.test(toSource(value));
-	}
-	/**
-	 * The base implementation of `_.isTypedArray` without Node.js optimizations.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
-	 */
-
-
-	function baseIsTypedArray(value) {
-	  return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
-	}
-	/**
-	 * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 */
-
-
-	function baseKeysIn(object) {
-	  if (!isObject$1(object)) {
-	    return nativeKeysIn(object);
-	  }
-
-	  var isProto = isPrototype(object),
-	      result = [];
-
-	  for (var key in object) {
-	    if (!(key == 'constructor' && (isProto || !hasOwnProperty$1.call(object, key)))) {
-	      result.push(key);
-	    }
-	  }
-
-	  return result;
-	}
-	/**
-	 * The base implementation of `_.merge` without support for multiple sources.
-	 *
-	 * @private
-	 * @param {Object} object The destination object.
-	 * @param {Object} source The source object.
-	 * @param {number} srcIndex The index of `source`.
-	 * @param {Function} [customizer] The function to customize merged values.
-	 * @param {Object} [stack] Tracks traversed source values and their merged
-	 *  counterparts.
-	 */
-
-
-	function baseMerge(object, source, srcIndex, customizer, stack) {
-	  if (object === source) {
-	    return;
-	  }
-
-	  baseFor(source, function (srcValue, key) {
-	    stack || (stack = new Stack());
-
-	    if (isObject$1(srcValue)) {
-	      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
-	    } else {
-	      var newValue = customizer ? customizer(safeGet(object, key), srcValue, key + '', object, source, stack) : undefined;
-
-	      if (newValue === undefined) {
-	        newValue = srcValue;
-	      }
-
-	      assignMergeValue(object, key, newValue);
-	    }
-	  }, keysIn);
-	}
-	/**
-	 * A specialized version of `baseMerge` for arrays and objects which performs
-	 * deep merges and tracks traversed objects enabling objects with circular
-	 * references to be merged.
-	 *
-	 * @private
-	 * @param {Object} object The destination object.
-	 * @param {Object} source The source object.
-	 * @param {string} key The key of the value to merge.
-	 * @param {number} srcIndex The index of `source`.
-	 * @param {Function} mergeFunc The function to merge values.
-	 * @param {Function} [customizer] The function to customize assigned values.
-	 * @param {Object} [stack] Tracks traversed source values and their merged
-	 *  counterparts.
-	 */
-
-
-	function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
-	  var objValue = safeGet(object, key),
-	      srcValue = safeGet(source, key),
-	      stacked = stack.get(srcValue);
-
-	  if (stacked) {
-	    assignMergeValue(object, key, stacked);
-	    return;
-	  }
-
-	  var newValue = customizer ? customizer(objValue, srcValue, key + '', object, source, stack) : undefined;
-	  var isCommon = newValue === undefined;
-
-	  if (isCommon) {
-	    var isArr = isArray$3(srcValue),
-	        isBuff = !isArr && isBuffer$3(srcValue),
-	        isTyped = !isArr && !isBuff && isTypedArray(srcValue);
-	    newValue = srcValue;
-
-	    if (isArr || isBuff || isTyped) {
-	      if (isArray$3(objValue)) {
-	        newValue = objValue;
-	      } else if (isArrayLikeObject(objValue)) {
-	        newValue = copyArray(objValue);
-	      } else if (isBuff) {
-	        isCommon = false;
-	        newValue = cloneBuffer$1(srcValue, true);
-	      } else if (isTyped) {
-	        isCommon = false;
-	        newValue = cloneTypedArray(srcValue, true);
-	      } else {
-	        newValue = [];
-	      }
-	    } else if (isPlainObject(srcValue) || isArguments(srcValue)) {
-	      newValue = objValue;
-
-	      if (isArguments(objValue)) {
-	        newValue = toPlainObject(objValue);
-	      } else if (!isObject$1(objValue) || isFunction$1(objValue)) {
-	        newValue = initCloneObject(srcValue);
-	      }
-	    } else {
-	      isCommon = false;
-	    }
-	  }
-
-	  if (isCommon) {
-	    // Recursively merge objects and arrays (susceptible to call stack limits).
-	    stack.set(srcValue, newValue);
-	    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
-	    stack['delete'](srcValue);
-	  }
-
-	  assignMergeValue(object, key, newValue);
-	}
-	/**
-	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
-	 *
-	 * @private
-	 * @param {Function} func The function to apply a rest parameter to.
-	 * @param {number} [start=func.length-1] The start position of the rest parameter.
-	 * @returns {Function} Returns the new function.
-	 */
-
-
-	function baseRest(func, start) {
-	  return setToString(overRest(func, start, identity), func + '');
-	}
-	/**
-	 * The base implementation of `setToString` without support for hot loop shorting.
-	 *
-	 * @private
-	 * @param {Function} func The function to modify.
-	 * @param {Function} string The `toString` result.
-	 * @returns {Function} Returns `func`.
-	 */
-
-
-	var baseSetToString = !defineProperty ? identity : function (func, string) {
-	  return defineProperty(func, 'toString', {
-	    'configurable': true,
-	    'enumerable': false,
-	    'value': constant(string),
-	    'writable': true
-	  });
-	};
-	/**
-	 * Creates a clone of  `buffer`.
-	 *
-	 * @private
-	 * @param {Buffer} buffer The buffer to clone.
-	 * @param {boolean} [isDeep] Specify a deep clone.
-	 * @returns {Buffer} Returns the cloned buffer.
-	 */
-
-	function cloneBuffer$1(buffer, isDeep) {
-	  if (isDeep) {
-	    return buffer.slice();
-	  }
-
-	  var length = buffer.length,
-	      result = allocUnsafe$2 ? allocUnsafe$2(length) : new buffer.constructor(length);
-	  buffer.copy(result);
-	  return result;
-	}
-	/**
-	 * Creates a clone of `arrayBuffer`.
-	 *
-	 * @private
-	 * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
-	 * @returns {ArrayBuffer} Returns the cloned array buffer.
-	 */
-
-
-	function cloneArrayBuffer(arrayBuffer) {
-	  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
-	  new Uint8Array$1(result).set(new Uint8Array$1(arrayBuffer));
-	  return result;
-	}
-	/**
-	 * Creates a clone of `typedArray`.
-	 *
-	 * @private
-	 * @param {Object} typedArray The typed array to clone.
-	 * @param {boolean} [isDeep] Specify a deep clone.
-	 * @returns {Object} Returns the cloned typed array.
-	 */
-
-
-	function cloneTypedArray(typedArray, isDeep) {
-	  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
-	  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
-	}
-	/**
-	 * Copies the values of `source` to `array`.
-	 *
-	 * @private
-	 * @param {Array} source The array to copy values from.
-	 * @param {Array} [array=[]] The array to copy values to.
-	 * @returns {Array} Returns `array`.
-	 */
-
-
-	function copyArray(source, array) {
-	  var index = -1,
-	      length = source.length;
-	  array || (array = Array(length));
-
-	  while (++index < length) {
-	    array[index] = source[index];
-	  }
-
-	  return array;
-	}
-	/**
-	 * Copies properties of `source` to `object`.
-	 *
-	 * @private
-	 * @param {Object} source The object to copy properties from.
-	 * @param {Array} props The property identifiers to copy.
-	 * @param {Object} [object={}] The object to copy properties to.
-	 * @param {Function} [customizer] The function to customize copied values.
-	 * @returns {Object} Returns `object`.
-	 */
-
-
-	function copyObject(source, props, object, customizer) {
-	  var isNew = !object;
-	  object || (object = {});
-	  var index = -1,
-	      length = props.length;
-
-	  while (++index < length) {
-	    var key = props[index];
-	    var newValue = customizer ? customizer(object[key], source[key], key, object, source) : undefined;
-
-	    if (newValue === undefined) {
-	      newValue = source[key];
-	    }
-
-	    if (isNew) {
-	      baseAssignValue(object, key, newValue);
-	    } else {
-	      assignValue(object, key, newValue);
-	    }
-	  }
-
-	  return object;
-	}
-	/**
-	 * Creates a function like `_.assign`.
-	 *
-	 * @private
-	 * @param {Function} assigner The function to assign values.
-	 * @returns {Function} Returns the new assigner function.
-	 */
-
-
-	function createAssigner(assigner) {
-	  return baseRest(function (object, sources) {
-	    var index = -1,
-	        length = sources.length,
-	        customizer = length > 1 ? sources[length - 1] : undefined,
-	        guard = length > 2 ? sources[2] : undefined;
-	    customizer = assigner.length > 3 && typeof customizer == 'function' ? (length--, customizer) : undefined;
-
-	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
-	      customizer = length < 3 ? undefined : customizer;
-	      length = 1;
-	    }
-
-	    object = Object(object);
-
-	    while (++index < length) {
-	      var source = sources[index];
-
-	      if (source) {
-	        assigner(object, source, index, customizer);
-	      }
-	    }
-
-	    return object;
-	  });
-	}
-	/**
-	 * Creates a base function for methods like `_.forIn` and `_.forOwn`.
-	 *
-	 * @private
-	 * @param {boolean} [fromRight] Specify iterating from right to left.
-	 * @returns {Function} Returns the new base function.
-	 */
-
-
-	function createBaseFor(fromRight) {
-	  return function (object, iteratee, keysFunc) {
-	    var index = -1,
-	        iterable = Object(object),
-	        props = keysFunc(object),
-	        length = props.length;
-
-	    while (length--) {
-	      var key = props[fromRight ? length : ++index];
-
-	      if (iteratee(iterable[key], key, iterable) === false) {
-	        break;
-	      }
-	    }
-
-	    return object;
-	  };
-	}
-	/**
-	 * Gets the data for `map`.
-	 *
-	 * @private
-	 * @param {Object} map The map to query.
-	 * @param {string} key The reference key.
-	 * @returns {*} Returns the map data.
-	 */
-
-
-	function getMapData(map, key) {
-	  var data = map.__data__;
-	  return isKeyable(key) ? data[typeof key == 'string' ? 'string' : 'hash'] : data.map;
-	}
-	/**
-	 * Gets the native function at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @param {string} key The key of the method to get.
-	 * @returns {*} Returns the function if it's native, else `undefined`.
-	 */
-
-
-	function getNative(object, key) {
-	  var value = getValue$1(object, key);
-	  return baseIsNative(value) ? value : undefined;
-	}
-	/**
-	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {string} Returns the raw `toStringTag`.
-	 */
-
-
-	function getRawTag(value) {
-	  var isOwn = hasOwnProperty$1.call(value, symToStringTag),
-	      tag = value[symToStringTag];
-
-	  try {
-	    value[symToStringTag] = undefined;
-	    var unmasked = true;
-	  } catch (e) {}
-
-	  var result = nativeObjectToString.call(value);
-
-	  if (unmasked) {
-	    if (isOwn) {
-	      value[symToStringTag] = tag;
-	    } else {
-	      delete value[symToStringTag];
-	    }
-	  }
-
-	  return result;
-	}
-	/**
-	 * Initializes an object clone.
-	 *
-	 * @private
-	 * @param {Object} object The object to clone.
-	 * @returns {Object} Returns the initialized clone.
-	 */
-
-
-	function initCloneObject(object) {
-	  return typeof object.constructor == 'function' && !isPrototype(object) ? baseCreate(getPrototype(object)) : {};
-	}
-	/**
-	 * Checks if `value` is a valid array-like index.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
-	 */
-
-
-	function isIndex(value, length) {
-	  var type = typeof value;
-	  length = length == null ? MAX_SAFE_INTEGER$2 : length;
-	  return !!length && (type == 'number' || type != 'symbol' && reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
-	}
-	/**
-	 * Checks if the given arguments are from an iteratee call.
-	 *
-	 * @private
-	 * @param {*} value The potential iteratee value argument.
-	 * @param {*} index The potential iteratee index or key argument.
-	 * @param {*} object The potential iteratee object argument.
-	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
-	 *  else `false`.
-	 */
-
-
-	function isIterateeCall(value, index, object) {
-	  if (!isObject$1(object)) {
-	    return false;
-	  }
-
-	  var type = typeof index;
-
-	  if (type == 'number' ? isArrayLike(object) && isIndex(index, object.length) : type == 'string' && index in object) {
-	    return eq(object[index], value);
-	  }
-
-	  return false;
-	}
-	/**
-	 * Checks if `value` is suitable for use as unique object key.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
-	 */
-
-
-	function isKeyable(value) {
-	  var type = typeof value;
-	  return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
-	}
-	/**
-	 * Checks if `func` has its source masked.
-	 *
-	 * @private
-	 * @param {Function} func The function to check.
-	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
-	 */
-
-
-	function isMasked(func) {
-	  return !!maskSrcKey && maskSrcKey in func;
-	}
-	/**
-	 * Checks if `value` is likely a prototype object.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
-	 */
-
-
-	function isPrototype(value) {
-	  var Ctor = value && value.constructor,
-	      proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
-	  return value === proto;
-	}
-	/**
-	 * This function is like
-	 * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
-	 * except that it includes inherited enumerable properties.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 */
-
-
-	function nativeKeysIn(object) {
-	  var result = [];
-
-	  if (object != null) {
-	    for (var key in Object(object)) {
-	      result.push(key);
-	    }
-	  }
-
-	  return result;
-	}
-	/**
-	 * Converts `value` to a string using `Object.prototype.toString`.
-	 *
-	 * @private
-	 * @param {*} value The value to convert.
-	 * @returns {string} Returns the converted string.
-	 */
-
-
-	function objectToString$1(value) {
-	  return nativeObjectToString.call(value);
-	}
-	/**
-	 * A specialized version of `baseRest` which transforms the rest array.
-	 *
-	 * @private
-	 * @param {Function} func The function to apply a rest parameter to.
-	 * @param {number} [start=func.length-1] The start position of the rest parameter.
-	 * @param {Function} transform The rest array transform.
-	 * @returns {Function} Returns the new function.
-	 */
-
-
-	function overRest(func, start, transform) {
-	  start = nativeMax(start === undefined ? func.length - 1 : start, 0);
-	  return function () {
-	    var args = arguments,
-	        index = -1,
-	        length = nativeMax(args.length - start, 0),
-	        array = Array(length);
-
-	    while (++index < length) {
-	      array[index] = args[start + index];
-	    }
-
-	    index = -1;
-	    var otherArgs = Array(start + 1);
-
-	    while (++index < start) {
-	      otherArgs[index] = args[index];
-	    }
-
-	    otherArgs[start] = transform(array);
-	    return apply(func, this, otherArgs);
-	  };
-	}
-	/**
-	 * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @param {string} key The key of the property to get.
-	 * @returns {*} Returns the property value.
-	 */
-
-
-	function safeGet(object, key) {
-	  if (key === 'constructor' && typeof object[key] === 'function') {
-	    return;
-	  }
-
-	  if (key == '__proto__') {
-	    return;
-	  }
-
-	  return object[key];
-	}
-	/**
-	 * Sets the `toString` method of `func` to return `string`.
-	 *
-	 * @private
-	 * @param {Function} func The function to modify.
-	 * @param {Function} string The `toString` result.
-	 * @returns {Function} Returns `func`.
-	 */
-
-
-	var setToString = shortOut(baseSetToString);
-	/**
-	 * Creates a function that'll short out and invoke `identity` instead
-	 * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
-	 * milliseconds.
-	 *
-	 * @private
-	 * @param {Function} func The function to restrict.
-	 * @returns {Function} Returns the new shortable function.
-	 */
-
-	function shortOut(func) {
-	  var count = 0,
-	      lastCalled = 0;
-	  return function () {
-	    var stamp = nativeNow(),
-	        remaining = HOT_SPAN - (stamp - lastCalled);
-	    lastCalled = stamp;
-
-	    if (remaining > 0) {
-	      if (++count >= HOT_COUNT) {
-	        return arguments[0];
-	      }
-	    } else {
-	      count = 0;
-	    }
-
-	    return func.apply(undefined, arguments);
-	  };
-	}
-	/**
-	 * Converts `func` to its source code.
-	 *
-	 * @private
-	 * @param {Function} func The function to convert.
-	 * @returns {string} Returns the source code.
-	 */
-
-
-	function toSource(func) {
-	  if (func != null) {
-	    try {
-	      return funcToString.call(func);
-	    } catch (e) {}
-
-	    try {
-	      return func + '';
-	    } catch (e) {}
-	  }
-
-	  return '';
-	}
-	/**
-	 * Performs a
-	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
-	 * comparison between two values to determine if they are equivalent.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to compare.
-	 * @param {*} other The other value to compare.
-	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
-	 * @example
-	 *
-	 * var object = { 'a': 1 };
-	 * var other = { 'a': 1 };
-	 *
-	 * _.eq(object, object);
-	 * // => true
-	 *
-	 * _.eq(object, other);
-	 * // => false
-	 *
-	 * _.eq('a', 'a');
-	 * // => true
-	 *
-	 * _.eq('a', Object('a'));
-	 * // => false
-	 *
-	 * _.eq(NaN, NaN);
-	 * // => true
-	 */
-
-
-	function eq(value, other) {
-	  return value === other || value !== value && other !== other;
-	}
-	/**
-	 * Checks if `value` is likely an `arguments` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * _.isArguments(function() { return arguments; }());
-	 * // => true
-	 *
-	 * _.isArguments([1, 2, 3]);
-	 * // => false
-	 */
-
-
-	var isArguments = baseIsArguments(function () {
-	  return arguments;
-	}()) ? baseIsArguments : function (value) {
-	  return isObjectLike(value) && hasOwnProperty$1.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
-	};
-	/**
-	 * Checks if `value` is classified as an `Array` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
-	 * @example
-	 *
-	 * _.isArray([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArray(document.body.children);
-	 * // => false
-	 *
-	 * _.isArray('abc');
-	 * // => false
-	 *
-	 * _.isArray(_.noop);
-	 * // => false
-	 */
-
-	var isArray$3 = Array.isArray;
-	/**
-	 * Checks if `value` is array-like. A value is considered array-like if it's
-	 * not a function and has a `value.length` that's an integer greater than or
-	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 * @example
-	 *
-	 * _.isArrayLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLike(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLike('abc');
-	 * // => true
-	 *
-	 * _.isArrayLike(_.noop);
-	 * // => false
-	 */
-
-	function isArrayLike(value) {
-	  return value != null && isLength(value.length) && !isFunction$1(value);
-	}
-	/**
-	 * This method is like `_.isArrayLike` except that it also checks if `value`
-	 * is an object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array-like object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * _.isArrayLikeObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject('abc');
-	 * // => false
-	 *
-	 * _.isArrayLikeObject(_.noop);
-	 * // => false
-	 */
-
-
-	function isArrayLikeObject(value) {
-	  return isObjectLike(value) && isArrayLike(value);
-	}
-	/**
-	 * Checks if `value` is a buffer.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.3.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
-	 * @example
-	 *
-	 * _.isBuffer(new Buffer(2));
-	 * // => true
-	 *
-	 * _.isBuffer(new Uint8Array(2));
-	 * // => false
-	 */
-
-
-	var isBuffer$3 = nativeIsBuffer || stubFalse;
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-
-	function isFunction$1(value) {
-	  if (!isObject$1(value)) {
-	    return false;
-	  } // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-
-
-	  var tag = baseGetTag(value);
-	  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
-	}
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This method is loosely based on
-	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 * @example
-	 *
-	 * _.isLength(3);
-	 * // => true
-	 *
-	 * _.isLength(Number.MIN_VALUE);
-	 * // => false
-	 *
-	 * _.isLength(Infinity);
-	 * // => false
-	 *
-	 * _.isLength('3');
-	 * // => false
-	 */
-
-
-	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER$2;
-	}
-	/**
-	 * Checks if `value` is the
-	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
-	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(_.noop);
-	 * // => true
-	 *
-	 * _.isObject(null);
-	 * // => false
-	 */
-
-
-	function isObject$1(value) {
-	  var type = typeof value;
-	  return value != null && (type == 'object' || type == 'function');
-	}
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-
-
-	function isObjectLike(value) {
-	  return value != null && typeof value == 'object';
-	}
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-
-
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
-	    return false;
-	  }
-
-	  var proto = getPrototype(value);
-
-	  if (proto === null) {
-	    return true;
-	  }
-
-	  var Ctor = hasOwnProperty$1.call(proto, 'constructor') && proto.constructor;
-	  return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
-	}
-	/**
-	 * Checks if `value` is classified as a typed array.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 3.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
-	 * @example
-	 *
-	 * _.isTypedArray(new Uint8Array);
-	 * // => true
-	 *
-	 * _.isTypedArray([]);
-	 * // => false
-	 */
-
-
-	var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-	/**
-	 * Converts `value` to a plain object flattening inherited enumerable string
-	 * keyed properties of `value` to own properties of the plain object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 3.0.0
-	 * @category Lang
-	 * @param {*} value The value to convert.
-	 * @returns {Object} Returns the converted plain object.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.assign({ 'a': 1 }, new Foo);
-	 * // => { 'a': 1, 'b': 2 }
-	 *
-	 * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
-	 * // => { 'a': 1, 'b': 2, 'c': 3 }
-	 */
-
-	function toPlainObject(value) {
-	  return copyObject(value, keysIn(value));
-	}
-	/**
-	 * Creates an array of the own and inherited enumerable property names of `object`.
-	 *
-	 * **Note:** Non-object values are coerced to objects.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 3.0.0
-	 * @category Object
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.keysIn(new Foo);
-	 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
-	 */
-
-
-	function keysIn(object) {
-	  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
-	}
-	/**
-	 * This method is like `_.assign` except that it recursively merges own and
-	 * inherited enumerable string keyed properties of source objects into the
-	 * destination object. Source properties that resolve to `undefined` are
-	 * skipped if a destination value exists. Array and plain object properties
-	 * are merged recursively. Other objects and value types are overridden by
-	 * assignment. Source objects are applied from left to right. Subsequent
-	 * sources overwrite property assignments of previous sources.
-	 *
-	 * **Note:** This method mutates `object`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.5.0
-	 * @category Object
-	 * @param {Object} object The destination object.
-	 * @param {...Object} [sources] The source objects.
-	 * @returns {Object} Returns `object`.
-	 * @example
-	 *
-	 * var object = {
-	 *   'a': [{ 'b': 2 }, { 'd': 4 }]
-	 * };
-	 *
-	 * var other = {
-	 *   'a': [{ 'c': 3 }, { 'e': 5 }]
-	 * };
-	 *
-	 * _.merge(object, other);
-	 * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
-	 */
-
-
-	var merge = createAssigner(function (object, source, srcIndex) {
-	  baseMerge(object, source, srcIndex);
-	});
-	/**
-	 * Creates a function that returns `value`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 2.4.0
-	 * @category Util
-	 * @param {*} value The value to return from the new function.
-	 * @returns {Function} Returns the new constant function.
-	 * @example
-	 *
-	 * var objects = _.times(2, _.constant({ 'a': 1 }));
-	 *
-	 * console.log(objects);
-	 * // => [{ 'a': 1 }, { 'a': 1 }]
-	 *
-	 * console.log(objects[0] === objects[1]);
-	 * // => true
-	 */
-
-	function constant(value) {
-	  return function () {
-	    return value;
-	  };
-	}
-	/**
-	 * This method returns the first argument it receives.
-	 *
-	 * @static
-	 * @since 0.1.0
-	 * @memberOf _
-	 * @category Util
-	 * @param {*} value Any value.
-	 * @returns {*} Returns `value`.
-	 * @example
-	 *
-	 * var object = { 'a': 1 };
-	 *
-	 * console.log(_.identity(object) === object);
-	 * // => true
-	 */
-
-
-	function identity(value) {
-	  return value;
-	}
-	/**
-	 * This method returns `false`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.13.0
-	 * @category Util
-	 * @returns {boolean} Returns `false`.
-	 * @example
-	 *
-	 * _.times(2, _.stubFalse);
-	 * // => [false, false]
-	 */
-
-
-	function stubFalse() {
-	  return false;
-	}
-
-	module.exports = merge;
-
-	var merge$1 = /*#__PURE__*/Object.freeze({
-		__proto__: null
 	});
 
 	/**
@@ -15954,2106 +13893,14 @@
 	  }, [location, navigate, path, replaceProp, state, target, to]);
 	}
 
-	var inherits$d;
-	if (typeof Object.create === 'function'){
-	  inherits$d = function inherits(ctor, superCtor) {
-	    // implementation from standard node.js 'util' module
-	    ctor.super_ = superCtor;
-	    ctor.prototype = Object.create(superCtor.prototype, {
-	      constructor: {
-	        value: ctor,
-	        enumerable: false,
-	        writable: true,
-	        configurable: true
-	      }
-	    });
-	  };
-	} else {
-	  inherits$d = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor;
-	    var TempCtor = function () {};
-	    TempCtor.prototype = superCtor.prototype;
-	    ctor.prototype = new TempCtor();
-	    ctor.prototype.constructor = ctor;
-	  };
-	}
-	var inherits$e = inherits$d;
+	var _polyfillNode_crypto = {};
 
-	var _polyfillNode_inherits = /*#__PURE__*/Object.freeze({
+	var _polyfillNode_crypto$1 = /*#__PURE__*/Object.freeze({
 		__proto__: null,
-		'default': inherits$e
+		'default': _polyfillNode_crypto
 	});
 
-	var require$$0$8 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_inherits);
-
-	var safeBuffer = {exports: {}};
-
-	var lookup$1 = [];
-	var revLookup$1 = [];
-	var Arr$1 = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
-	var inited$1 = false;
-	function init$1 () {
-	  inited$1 = true;
-	  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-	  for (var i = 0, len = code.length; i < len; ++i) {
-	    lookup$1[i] = code[i];
-	    revLookup$1[code.charCodeAt(i)] = i;
-	  }
-
-	  revLookup$1['-'.charCodeAt(0)] = 62;
-	  revLookup$1['_'.charCodeAt(0)] = 63;
-	}
-
-	function toByteArray$1 (b64) {
-	  if (!inited$1) {
-	    init$1();
-	  }
-	  var i, j, l, tmp, placeHolders, arr;
-	  var len = b64.length;
-
-	  if (len % 4 > 0) {
-	    throw new Error('Invalid string. Length must be a multiple of 4')
-	  }
-
-	  // the number of equal signs (place holders)
-	  // if there are two placeholders, than the two characters before it
-	  // represent one byte
-	  // if there is only one, then the three characters before it represent 2 bytes
-	  // this is just a cheap hack to not do indexOf twice
-	  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0;
-
-	  // base64 is 4/3 + up to two characters of the original data
-	  arr = new Arr$1(len * 3 / 4 - placeHolders);
-
-	  // if there are placeholders, only get up to the last complete 4 chars
-	  l = placeHolders > 0 ? len - 4 : len;
-
-	  var L = 0;
-
-	  for (i = 0, j = 0; i < l; i += 4, j += 3) {
-	    tmp = (revLookup$1[b64.charCodeAt(i)] << 18) | (revLookup$1[b64.charCodeAt(i + 1)] << 12) | (revLookup$1[b64.charCodeAt(i + 2)] << 6) | revLookup$1[b64.charCodeAt(i + 3)];
-	    arr[L++] = (tmp >> 16) & 0xFF;
-	    arr[L++] = (tmp >> 8) & 0xFF;
-	    arr[L++] = tmp & 0xFF;
-	  }
-
-	  if (placeHolders === 2) {
-	    tmp = (revLookup$1[b64.charCodeAt(i)] << 2) | (revLookup$1[b64.charCodeAt(i + 1)] >> 4);
-	    arr[L++] = tmp & 0xFF;
-	  } else if (placeHolders === 1) {
-	    tmp = (revLookup$1[b64.charCodeAt(i)] << 10) | (revLookup$1[b64.charCodeAt(i + 1)] << 4) | (revLookup$1[b64.charCodeAt(i + 2)] >> 2);
-	    arr[L++] = (tmp >> 8) & 0xFF;
-	    arr[L++] = tmp & 0xFF;
-	  }
-
-	  return arr
-	}
-
-	function tripletToBase64$1 (num) {
-	  return lookup$1[num >> 18 & 0x3F] + lookup$1[num >> 12 & 0x3F] + lookup$1[num >> 6 & 0x3F] + lookup$1[num & 0x3F]
-	}
-
-	function encodeChunk$1 (uint8, start, end) {
-	  var tmp;
-	  var output = [];
-	  for (var i = start; i < end; i += 3) {
-	    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2]);
-	    output.push(tripletToBase64$1(tmp));
-	  }
-	  return output.join('')
-	}
-
-	function fromByteArray$1 (uint8) {
-	  if (!inited$1) {
-	    init$1();
-	  }
-	  var tmp;
-	  var len = uint8.length;
-	  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
-	  var output = '';
-	  var parts = [];
-	  var maxChunkLength = 16383; // must be multiple of 3
-
-	  // go through the array every three bytes, we'll deal with trailing stuff later
-	  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-	    parts.push(encodeChunk$1(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)));
-	  }
-
-	  // pad the end with zeros, but make sure to not forget the extra bytes
-	  if (extraBytes === 1) {
-	    tmp = uint8[len - 1];
-	    output += lookup$1[tmp >> 2];
-	    output += lookup$1[(tmp << 4) & 0x3F];
-	    output += '==';
-	  } else if (extraBytes === 2) {
-	    tmp = (uint8[len - 2] << 8) + (uint8[len - 1]);
-	    output += lookup$1[tmp >> 10];
-	    output += lookup$1[(tmp >> 4) & 0x3F];
-	    output += lookup$1[(tmp << 2) & 0x3F];
-	    output += '=';
-	  }
-
-	  parts.push(output);
-
-	  return parts.join('')
-	}
-
-	function read$1 (buffer, offset, isLE, mLen, nBytes) {
-	  var e, m;
-	  var eLen = nBytes * 8 - mLen - 1;
-	  var eMax = (1 << eLen) - 1;
-	  var eBias = eMax >> 1;
-	  var nBits = -7;
-	  var i = isLE ? (nBytes - 1) : 0;
-	  var d = isLE ? -1 : 1;
-	  var s = buffer[offset + i];
-
-	  i += d;
-
-	  e = s & ((1 << (-nBits)) - 1);
-	  s >>= (-nBits);
-	  nBits += eLen;
-	  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-	  m = e & ((1 << (-nBits)) - 1);
-	  e >>= (-nBits);
-	  nBits += mLen;
-	  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-	  if (e === 0) {
-	    e = 1 - eBias;
-	  } else if (e === eMax) {
-	    return m ? NaN : ((s ? -1 : 1) * Infinity)
-	  } else {
-	    m = m + Math.pow(2, mLen);
-	    e = e - eBias;
-	  }
-	  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
-	}
-
-	function write$1 (buffer, value, offset, isLE, mLen, nBytes) {
-	  var e, m, c;
-	  var eLen = nBytes * 8 - mLen - 1;
-	  var eMax = (1 << eLen) - 1;
-	  var eBias = eMax >> 1;
-	  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0);
-	  var i = isLE ? 0 : (nBytes - 1);
-	  var d = isLE ? 1 : -1;
-	  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0;
-
-	  value = Math.abs(value);
-
-	  if (isNaN(value) || value === Infinity) {
-	    m = isNaN(value) ? 1 : 0;
-	    e = eMax;
-	  } else {
-	    e = Math.floor(Math.log(value) / Math.LN2);
-	    if (value * (c = Math.pow(2, -e)) < 1) {
-	      e--;
-	      c *= 2;
-	    }
-	    if (e + eBias >= 1) {
-	      value += rt / c;
-	    } else {
-	      value += rt * Math.pow(2, 1 - eBias);
-	    }
-	    if (value * c >= 2) {
-	      e++;
-	      c /= 2;
-	    }
-
-	    if (e + eBias >= eMax) {
-	      m = 0;
-	      e = eMax;
-	    } else if (e + eBias >= 1) {
-	      m = (value * c - 1) * Math.pow(2, mLen);
-	      e = e + eBias;
-	    } else {
-	      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
-	      e = 0;
-	    }
-	  }
-
-	  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-	  e = (e << mLen) | m;
-	  eLen += mLen;
-	  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-	  buffer[offset + i - d] |= s * 128;
-	}
-
-	var toString$1 = {}.toString;
-
-	var isArray$2 = Array.isArray || function (arr) {
-	  return toString$1.call(arr) == '[object Array]';
-	};
-
-	/*!
-	 * The buffer module from node.js, for the browser.
-	 *
-	 * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
-	 * @license  MIT
-	 */
-
-	var INSPECT_MAX_BYTES$1 = 50;
-
-	/**
-	 * If `Buffer.TYPED_ARRAY_SUPPORT`:
-	 *   === true    Use Uint8Array implementation (fastest)
-	 *   === false   Use Object implementation (most compatible, even IE6)
-	 *
-	 * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
-	 * Opera 11.6+, iOS 4.2+.
-	 *
-	 * Due to various browser bugs, sometimes the Object implementation will be used even
-	 * when the browser supports typed arrays.
-	 *
-	 * Note:
-	 *
-	 *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
-	 *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
-	 *
-	 *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
-	 *
-	 *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
-	 *     incorrect length in some situations.
-
-	 * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
-	 * get the Object implementation, which is slower but behaves correctly.
-	 */
-	Buffer$g.TYPED_ARRAY_SUPPORT = global$2.TYPED_ARRAY_SUPPORT !== undefined
-	  ? global$2.TYPED_ARRAY_SUPPORT
-	  : true;
-
-	/*
-	 * Export kMaxLength after typed array support is determined.
-	 */
-	var _kMaxLength = kMaxLength$1();
-
-	function kMaxLength$1 () {
-	  return Buffer$g.TYPED_ARRAY_SUPPORT
-	    ? 0x7fffffff
-	    : 0x3fffffff
-	}
-
-	function createBuffer$1 (that, length) {
-	  if (kMaxLength$1() < length) {
-	    throw new RangeError('Invalid typed array length')
-	  }
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    // Return an augmented `Uint8Array` instance, for best performance
-	    that = new Uint8Array(length);
-	    that.__proto__ = Buffer$g.prototype;
-	  } else {
-	    // Fallback: Return an object instance of the Buffer class
-	    if (that === null) {
-	      that = new Buffer$g(length);
-	    }
-	    that.length = length;
-	  }
-
-	  return that
-	}
-
-	/**
-	 * The Buffer constructor returns instances of `Uint8Array` that have their
-	 * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
-	 * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
-	 * and the `Uint8Array` methods. Square bracket notation works as expected -- it
-	 * returns a single octet.
-	 *
-	 * The `Uint8Array` prototype remains unmodified.
-	 */
-
-	function Buffer$g (arg, encodingOrOffset, length) {
-	  if (!Buffer$g.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer$g)) {
-	    return new Buffer$g(arg, encodingOrOffset, length)
-	  }
-
-	  // Common case.
-	  if (typeof arg === 'number') {
-	    if (typeof encodingOrOffset === 'string') {
-	      throw new Error(
-	        'If encoding is specified then the first argument must be a string'
-	      )
-	    }
-	    return allocUnsafe$1(this, arg)
-	  }
-	  return from$2(this, arg, encodingOrOffset, length)
-	}
-
-	Buffer$g.poolSize = 8192; // not used by this implementation
-
-	// TODO: Legacy, not needed anymore. Remove in next major version.
-	Buffer$g._augment = function (arr) {
-	  arr.__proto__ = Buffer$g.prototype;
-	  return arr
-	};
-
-	function from$2 (that, value, encodingOrOffset, length) {
-	  if (typeof value === 'number') {
-	    throw new TypeError('"value" argument must not be a number')
-	  }
-
-	  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-	    return fromArrayBuffer$1(that, value, encodingOrOffset, length)
-	  }
-
-	  if (typeof value === 'string') {
-	    return fromString$1(that, value, encodingOrOffset)
-	  }
-
-	  return fromObject$1(that, value)
-	}
-
-	/**
-	 * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
-	 * if value is a number.
-	 * Buffer.from(str[, encoding])
-	 * Buffer.from(array)
-	 * Buffer.from(buffer)
-	 * Buffer.from(arrayBuffer[, byteOffset[, length]])
-	 **/
-	Buffer$g.from = function (value, encodingOrOffset, length) {
-	  return from$2(null, value, encodingOrOffset, length)
-	};
-
-	if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	  Buffer$g.prototype.__proto__ = Uint8Array.prototype;
-	  Buffer$g.__proto__ = Uint8Array;
-	}
-
-	function assertSize$1 (size) {
-	  if (typeof size !== 'number') {
-	    throw new TypeError('"size" argument must be a number')
-	  } else if (size < 0) {
-	    throw new RangeError('"size" argument must not be negative')
-	  }
-	}
-
-	function alloc$1 (that, size, fill, encoding) {
-	  assertSize$1(size);
-	  if (size <= 0) {
-	    return createBuffer$1(that, size)
-	  }
-	  if (fill !== undefined) {
-	    // Only pay attention to encoding if it's a string. This
-	    // prevents accidentally sending in a number that would
-	    // be interpretted as a start offset.
-	    return typeof encoding === 'string'
-	      ? createBuffer$1(that, size).fill(fill, encoding)
-	      : createBuffer$1(that, size).fill(fill)
-	  }
-	  return createBuffer$1(that, size)
-	}
-
-	/**
-	 * Creates a new filled Buffer instance.
-	 * alloc(size[, fill[, encoding]])
-	 **/
-	Buffer$g.alloc = function (size, fill, encoding) {
-	  return alloc$1(null, size, fill, encoding)
-	};
-
-	function allocUnsafe$1 (that, size) {
-	  assertSize$1(size);
-	  that = createBuffer$1(that, size < 0 ? 0 : checked$1(size) | 0);
-	  if (!Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    for (var i = 0; i < size; ++i) {
-	      that[i] = 0;
-	    }
-	  }
-	  return that
-	}
-
-	/**
-	 * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
-	 * */
-	Buffer$g.allocUnsafe = function (size) {
-	  return allocUnsafe$1(null, size)
-	};
-	/**
-	 * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
-	 */
-	Buffer$g.allocUnsafeSlow = function (size) {
-	  return allocUnsafe$1(null, size)
-	};
-
-	function fromString$1 (that, string, encoding) {
-	  if (typeof encoding !== 'string' || encoding === '') {
-	    encoding = 'utf8';
-	  }
-
-	  if (!Buffer$g.isEncoding(encoding)) {
-	    throw new TypeError('"encoding" must be a valid string encoding')
-	  }
-
-	  var length = byteLength$1(string, encoding) | 0;
-	  that = createBuffer$1(that, length);
-
-	  var actual = that.write(string, encoding);
-
-	  if (actual !== length) {
-	    // Writing a hex string, for example, that contains invalid characters will
-	    // cause everything after the first invalid character to be ignored. (e.g.
-	    // 'abxxcd' will be treated as 'ab')
-	    that = that.slice(0, actual);
-	  }
-
-	  return that
-	}
-
-	function fromArrayLike$1 (that, array) {
-	  var length = array.length < 0 ? 0 : checked$1(array.length) | 0;
-	  that = createBuffer$1(that, length);
-	  for (var i = 0; i < length; i += 1) {
-	    that[i] = array[i] & 255;
-	  }
-	  return that
-	}
-
-	function fromArrayBuffer$1 (that, array, byteOffset, length) {
-	  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
-
-	  if (byteOffset < 0 || array.byteLength < byteOffset) {
-	    throw new RangeError('\'offset\' is out of bounds')
-	  }
-
-	  if (array.byteLength < byteOffset + (length || 0)) {
-	    throw new RangeError('\'length\' is out of bounds')
-	  }
-
-	  if (byteOffset === undefined && length === undefined) {
-	    array = new Uint8Array(array);
-	  } else if (length === undefined) {
-	    array = new Uint8Array(array, byteOffset);
-	  } else {
-	    array = new Uint8Array(array, byteOffset, length);
-	  }
-
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    // Return an augmented `Uint8Array` instance, for best performance
-	    that = array;
-	    that.__proto__ = Buffer$g.prototype;
-	  } else {
-	    // Fallback: Return an object instance of the Buffer class
-	    that = fromArrayLike$1(that, array);
-	  }
-	  return that
-	}
-
-	function fromObject$1 (that, obj) {
-	  if (internalIsBuffer$1(obj)) {
-	    var len = checked$1(obj.length) | 0;
-	    that = createBuffer$1(that, len);
-
-	    if (that.length === 0) {
-	      return that
-	    }
-
-	    obj.copy(that, 0, 0, len);
-	    return that
-	  }
-
-	  if (obj) {
-	    if ((typeof ArrayBuffer !== 'undefined' &&
-	        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
-	      if (typeof obj.length !== 'number' || isnan$1(obj.length)) {
-	        return createBuffer$1(that, 0)
-	      }
-	      return fromArrayLike$1(that, obj)
-	    }
-
-	    if (obj.type === 'Buffer' && isArray$2(obj.data)) {
-	      return fromArrayLike$1(that, obj.data)
-	    }
-	  }
-
-	  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.')
-	}
-
-	function checked$1 (length) {
-	  // Note: cannot use `length < kMaxLength()` here because that fails when
-	  // length is NaN (which is otherwise coerced to zero.)
-	  if (length >= kMaxLength$1()) {
-	    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
-	                         'size: 0x' + kMaxLength$1().toString(16) + ' bytes')
-	  }
-	  return length | 0
-	}
-
-	function SlowBuffer (length) {
-	  if (+length != length) { // eslint-disable-line eqeqeq
-	    length = 0;
-	  }
-	  return Buffer$g.alloc(+length)
-	}
-	Buffer$g.isBuffer = isBuffer$2;
-	function internalIsBuffer$1 (b) {
-	  return !!(b != null && b._isBuffer)
-	}
-
-	Buffer$g.compare = function compare (a, b) {
-	  if (!internalIsBuffer$1(a) || !internalIsBuffer$1(b)) {
-	    throw new TypeError('Arguments must be Buffers')
-	  }
-
-	  if (a === b) return 0
-
-	  var x = a.length;
-	  var y = b.length;
-
-	  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
-	    if (a[i] !== b[i]) {
-	      x = a[i];
-	      y = b[i];
-	      break
-	    }
-	  }
-
-	  if (x < y) return -1
-	  if (y < x) return 1
-	  return 0
-	};
-
-	Buffer$g.isEncoding = function isEncoding (encoding) {
-	  switch (String(encoding).toLowerCase()) {
-	    case 'hex':
-	    case 'utf8':
-	    case 'utf-8':
-	    case 'ascii':
-	    case 'latin1':
-	    case 'binary':
-	    case 'base64':
-	    case 'ucs2':
-	    case 'ucs-2':
-	    case 'utf16le':
-	    case 'utf-16le':
-	      return true
-	    default:
-	      return false
-	  }
-	};
-
-	Buffer$g.concat = function concat (list, length) {
-	  if (!isArray$2(list)) {
-	    throw new TypeError('"list" argument must be an Array of Buffers')
-	  }
-
-	  if (list.length === 0) {
-	    return Buffer$g.alloc(0)
-	  }
-
-	  var i;
-	  if (length === undefined) {
-	    length = 0;
-	    for (i = 0; i < list.length; ++i) {
-	      length += list[i].length;
-	    }
-	  }
-
-	  var buffer = Buffer$g.allocUnsafe(length);
-	  var pos = 0;
-	  for (i = 0; i < list.length; ++i) {
-	    var buf = list[i];
-	    if (!internalIsBuffer$1(buf)) {
-	      throw new TypeError('"list" argument must be an Array of Buffers')
-	    }
-	    buf.copy(buffer, pos);
-	    pos += buf.length;
-	  }
-	  return buffer
-	};
-
-	function byteLength$1 (string, encoding) {
-	  if (internalIsBuffer$1(string)) {
-	    return string.length
-	  }
-	  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
-	      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
-	    return string.byteLength
-	  }
-	  if (typeof string !== 'string') {
-	    string = '' + string;
-	  }
-
-	  var len = string.length;
-	  if (len === 0) return 0
-
-	  // Use a for loop to avoid recursion
-	  var loweredCase = false;
-	  for (;;) {
-	    switch (encoding) {
-	      case 'ascii':
-	      case 'latin1':
-	      case 'binary':
-	        return len
-	      case 'utf8':
-	      case 'utf-8':
-	      case undefined:
-	        return utf8ToBytes$1(string).length
-	      case 'ucs2':
-	      case 'ucs-2':
-	      case 'utf16le':
-	      case 'utf-16le':
-	        return len * 2
-	      case 'hex':
-	        return len >>> 1
-	      case 'base64':
-	        return base64ToBytes$1(string).length
-	      default:
-	        if (loweredCase) return utf8ToBytes$1(string).length // assume utf8
-	        encoding = ('' + encoding).toLowerCase();
-	        loweredCase = true;
-	    }
-	  }
-	}
-	Buffer$g.byteLength = byteLength$1;
-
-	function slowToString$1 (encoding, start, end) {
-	  var loweredCase = false;
-
-	  // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
-	  // property of a typed array.
-
-	  // This behaves neither like String nor Uint8Array in that we set start/end
-	  // to their upper/lower bounds if the value passed is out of range.
-	  // undefined is handled specially as per ECMA-262 6th Edition,
-	  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
-	  if (start === undefined || start < 0) {
-	    start = 0;
-	  }
-	  // Return early if start > this.length. Done here to prevent potential uint32
-	  // coercion fail below.
-	  if (start > this.length) {
-	    return ''
-	  }
-
-	  if (end === undefined || end > this.length) {
-	    end = this.length;
-	  }
-
-	  if (end <= 0) {
-	    return ''
-	  }
-
-	  // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
-	  end >>>= 0;
-	  start >>>= 0;
-
-	  if (end <= start) {
-	    return ''
-	  }
-
-	  if (!encoding) encoding = 'utf8';
-
-	  while (true) {
-	    switch (encoding) {
-	      case 'hex':
-	        return hexSlice$1(this, start, end)
-
-	      case 'utf8':
-	      case 'utf-8':
-	        return utf8Slice$1(this, start, end)
-
-	      case 'ascii':
-	        return asciiSlice$1(this, start, end)
-
-	      case 'latin1':
-	      case 'binary':
-	        return latin1Slice$1(this, start, end)
-
-	      case 'base64':
-	        return base64Slice$1(this, start, end)
-
-	      case 'ucs2':
-	      case 'ucs-2':
-	      case 'utf16le':
-	      case 'utf-16le':
-	        return utf16leSlice$1(this, start, end)
-
-	      default:
-	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
-	        encoding = (encoding + '').toLowerCase();
-	        loweredCase = true;
-	    }
-	  }
-	}
-
-	// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
-	// Buffer instances.
-	Buffer$g.prototype._isBuffer = true;
-
-	function swap$1 (b, n, m) {
-	  var i = b[n];
-	  b[n] = b[m];
-	  b[m] = i;
-	}
-
-	Buffer$g.prototype.swap16 = function swap16 () {
-	  var len = this.length;
-	  if (len % 2 !== 0) {
-	    throw new RangeError('Buffer size must be a multiple of 16-bits')
-	  }
-	  for (var i = 0; i < len; i += 2) {
-	    swap$1(this, i, i + 1);
-	  }
-	  return this
-	};
-
-	Buffer$g.prototype.swap32 = function swap32 () {
-	  var len = this.length;
-	  if (len % 4 !== 0) {
-	    throw new RangeError('Buffer size must be a multiple of 32-bits')
-	  }
-	  for (var i = 0; i < len; i += 4) {
-	    swap$1(this, i, i + 3);
-	    swap$1(this, i + 1, i + 2);
-	  }
-	  return this
-	};
-
-	Buffer$g.prototype.swap64 = function swap64 () {
-	  var len = this.length;
-	  if (len % 8 !== 0) {
-	    throw new RangeError('Buffer size must be a multiple of 64-bits')
-	  }
-	  for (var i = 0; i < len; i += 8) {
-	    swap$1(this, i, i + 7);
-	    swap$1(this, i + 1, i + 6);
-	    swap$1(this, i + 2, i + 5);
-	    swap$1(this, i + 3, i + 4);
-	  }
-	  return this
-	};
-
-	Buffer$g.prototype.toString = function toString () {
-	  var length = this.length | 0;
-	  if (length === 0) return ''
-	  if (arguments.length === 0) return utf8Slice$1(this, 0, length)
-	  return slowToString$1.apply(this, arguments)
-	};
-
-	Buffer$g.prototype.equals = function equals (b) {
-	  if (!internalIsBuffer$1(b)) throw new TypeError('Argument must be a Buffer')
-	  if (this === b) return true
-	  return Buffer$g.compare(this, b) === 0
-	};
-
-	Buffer$g.prototype.inspect = function inspect () {
-	  var str = '';
-	  var max = INSPECT_MAX_BYTES$1;
-	  if (this.length > 0) {
-	    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
-	    if (this.length > max) str += ' ... ';
-	  }
-	  return '<Buffer ' + str + '>'
-	};
-
-	Buffer$g.prototype.compare = function compare (target, start, end, thisStart, thisEnd) {
-	  if (!internalIsBuffer$1(target)) {
-	    throw new TypeError('Argument must be a Buffer')
-	  }
-
-	  if (start === undefined) {
-	    start = 0;
-	  }
-	  if (end === undefined) {
-	    end = target ? target.length : 0;
-	  }
-	  if (thisStart === undefined) {
-	    thisStart = 0;
-	  }
-	  if (thisEnd === undefined) {
-	    thisEnd = this.length;
-	  }
-
-	  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
-	    throw new RangeError('out of range index')
-	  }
-
-	  if (thisStart >= thisEnd && start >= end) {
-	    return 0
-	  }
-	  if (thisStart >= thisEnd) {
-	    return -1
-	  }
-	  if (start >= end) {
-	    return 1
-	  }
-
-	  start >>>= 0;
-	  end >>>= 0;
-	  thisStart >>>= 0;
-	  thisEnd >>>= 0;
-
-	  if (this === target) return 0
-
-	  var x = thisEnd - thisStart;
-	  var y = end - start;
-	  var len = Math.min(x, y);
-
-	  var thisCopy = this.slice(thisStart, thisEnd);
-	  var targetCopy = target.slice(start, end);
-
-	  for (var i = 0; i < len; ++i) {
-	    if (thisCopy[i] !== targetCopy[i]) {
-	      x = thisCopy[i];
-	      y = targetCopy[i];
-	      break
-	    }
-	  }
-
-	  if (x < y) return -1
-	  if (y < x) return 1
-	  return 0
-	};
-
-	// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
-	// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
-	//
-	// Arguments:
-	// - buffer - a Buffer to search
-	// - val - a string, Buffer, or number
-	// - byteOffset - an index into `buffer`; will be clamped to an int32
-	// - encoding - an optional encoding, relevant is val is a string
-	// - dir - true for indexOf, false for lastIndexOf
-	function bidirectionalIndexOf$1 (buffer, val, byteOffset, encoding, dir) {
-	  // Empty buffer means no match
-	  if (buffer.length === 0) return -1
-
-	  // Normalize byteOffset
-	  if (typeof byteOffset === 'string') {
-	    encoding = byteOffset;
-	    byteOffset = 0;
-	  } else if (byteOffset > 0x7fffffff) {
-	    byteOffset = 0x7fffffff;
-	  } else if (byteOffset < -0x80000000) {
-	    byteOffset = -0x80000000;
-	  }
-	  byteOffset = +byteOffset;  // Coerce to Number.
-	  if (isNaN(byteOffset)) {
-	    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
-	    byteOffset = dir ? 0 : (buffer.length - 1);
-	  }
-
-	  // Normalize byteOffset: negative offsets start from the end of the buffer
-	  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
-	  if (byteOffset >= buffer.length) {
-	    if (dir) return -1
-	    else byteOffset = buffer.length - 1;
-	  } else if (byteOffset < 0) {
-	    if (dir) byteOffset = 0;
-	    else return -1
-	  }
-
-	  // Normalize val
-	  if (typeof val === 'string') {
-	    val = Buffer$g.from(val, encoding);
-	  }
-
-	  // Finally, search either indexOf (if dir is true) or lastIndexOf
-	  if (internalIsBuffer$1(val)) {
-	    // Special case: looking for empty string/buffer always fails
-	    if (val.length === 0) {
-	      return -1
-	    }
-	    return arrayIndexOf$1(buffer, val, byteOffset, encoding, dir)
-	  } else if (typeof val === 'number') {
-	    val = val & 0xFF; // Search for a byte value [0-255]
-	    if (Buffer$g.TYPED_ARRAY_SUPPORT &&
-	        typeof Uint8Array.prototype.indexOf === 'function') {
-	      if (dir) {
-	        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
-	      } else {
-	        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
-	      }
-	    }
-	    return arrayIndexOf$1(buffer, [ val ], byteOffset, encoding, dir)
-	  }
-
-	  throw new TypeError('val must be string, number or Buffer')
-	}
-
-	function arrayIndexOf$1 (arr, val, byteOffset, encoding, dir) {
-	  var indexSize = 1;
-	  var arrLength = arr.length;
-	  var valLength = val.length;
-
-	  if (encoding !== undefined) {
-	    encoding = String(encoding).toLowerCase();
-	    if (encoding === 'ucs2' || encoding === 'ucs-2' ||
-	        encoding === 'utf16le' || encoding === 'utf-16le') {
-	      if (arr.length < 2 || val.length < 2) {
-	        return -1
-	      }
-	      indexSize = 2;
-	      arrLength /= 2;
-	      valLength /= 2;
-	      byteOffset /= 2;
-	    }
-	  }
-
-	  function read (buf, i) {
-	    if (indexSize === 1) {
-	      return buf[i]
-	    } else {
-	      return buf.readUInt16BE(i * indexSize)
-	    }
-	  }
-
-	  var i;
-	  if (dir) {
-	    var foundIndex = -1;
-	    for (i = byteOffset; i < arrLength; i++) {
-	      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
-	        if (foundIndex === -1) foundIndex = i;
-	        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
-	      } else {
-	        if (foundIndex !== -1) i -= i - foundIndex;
-	        foundIndex = -1;
-	      }
-	    }
-	  } else {
-	    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
-	    for (i = byteOffset; i >= 0; i--) {
-	      var found = true;
-	      for (var j = 0; j < valLength; j++) {
-	        if (read(arr, i + j) !== read(val, j)) {
-	          found = false;
-	          break
-	        }
-	      }
-	      if (found) return i
-	    }
-	  }
-
-	  return -1
-	}
-
-	Buffer$g.prototype.includes = function includes (val, byteOffset, encoding) {
-	  return this.indexOf(val, byteOffset, encoding) !== -1
-	};
-
-	Buffer$g.prototype.indexOf = function indexOf (val, byteOffset, encoding) {
-	  return bidirectionalIndexOf$1(this, val, byteOffset, encoding, true)
-	};
-
-	Buffer$g.prototype.lastIndexOf = function lastIndexOf (val, byteOffset, encoding) {
-	  return bidirectionalIndexOf$1(this, val, byteOffset, encoding, false)
-	};
-
-	function hexWrite$1 (buf, string, offset, length) {
-	  offset = Number(offset) || 0;
-	  var remaining = buf.length - offset;
-	  if (!length) {
-	    length = remaining;
-	  } else {
-	    length = Number(length);
-	    if (length > remaining) {
-	      length = remaining;
-	    }
-	  }
-
-	  // must be an even number of digits
-	  var strLen = string.length;
-	  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string')
-
-	  if (length > strLen / 2) {
-	    length = strLen / 2;
-	  }
-	  for (var i = 0; i < length; ++i) {
-	    var parsed = parseInt(string.substr(i * 2, 2), 16);
-	    if (isNaN(parsed)) return i
-	    buf[offset + i] = parsed;
-	  }
-	  return i
-	}
-
-	function utf8Write$1 (buf, string, offset, length) {
-	  return blitBuffer$1(utf8ToBytes$1(string, buf.length - offset), buf, offset, length)
-	}
-
-	function asciiWrite$1 (buf, string, offset, length) {
-	  return blitBuffer$1(asciiToBytes$1(string), buf, offset, length)
-	}
-
-	function latin1Write$1 (buf, string, offset, length) {
-	  return asciiWrite$1(buf, string, offset, length)
-	}
-
-	function base64Write$1 (buf, string, offset, length) {
-	  return blitBuffer$1(base64ToBytes$1(string), buf, offset, length)
-	}
-
-	function ucs2Write$1 (buf, string, offset, length) {
-	  return blitBuffer$1(utf16leToBytes$1(string, buf.length - offset), buf, offset, length)
-	}
-
-	Buffer$g.prototype.write = function write (string, offset, length, encoding) {
-	  // Buffer#write(string)
-	  if (offset === undefined) {
-	    encoding = 'utf8';
-	    length = this.length;
-	    offset = 0;
-	  // Buffer#write(string, encoding)
-	  } else if (length === undefined && typeof offset === 'string') {
-	    encoding = offset;
-	    length = this.length;
-	    offset = 0;
-	  // Buffer#write(string, offset[, length][, encoding])
-	  } else if (isFinite(offset)) {
-	    offset = offset | 0;
-	    if (isFinite(length)) {
-	      length = length | 0;
-	      if (encoding === undefined) encoding = 'utf8';
-	    } else {
-	      encoding = length;
-	      length = undefined;
-	    }
-	  // legacy write(string, encoding, offset, length) - remove in v0.13
-	  } else {
-	    throw new Error(
-	      'Buffer.write(string, encoding, offset[, length]) is no longer supported'
-	    )
-	  }
-
-	  var remaining = this.length - offset;
-	  if (length === undefined || length > remaining) length = remaining;
-
-	  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
-	    throw new RangeError('Attempt to write outside buffer bounds')
-	  }
-
-	  if (!encoding) encoding = 'utf8';
-
-	  var loweredCase = false;
-	  for (;;) {
-	    switch (encoding) {
-	      case 'hex':
-	        return hexWrite$1(this, string, offset, length)
-
-	      case 'utf8':
-	      case 'utf-8':
-	        return utf8Write$1(this, string, offset, length)
-
-	      case 'ascii':
-	        return asciiWrite$1(this, string, offset, length)
-
-	      case 'latin1':
-	      case 'binary':
-	        return latin1Write$1(this, string, offset, length)
-
-	      case 'base64':
-	        // Warning: maxLength not taken into account in base64Write
-	        return base64Write$1(this, string, offset, length)
-
-	      case 'ucs2':
-	      case 'ucs-2':
-	      case 'utf16le':
-	      case 'utf-16le':
-	        return ucs2Write$1(this, string, offset, length)
-
-	      default:
-	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
-	        encoding = ('' + encoding).toLowerCase();
-	        loweredCase = true;
-	    }
-	  }
-	};
-
-	Buffer$g.prototype.toJSON = function toJSON () {
-	  return {
-	    type: 'Buffer',
-	    data: Array.prototype.slice.call(this._arr || this, 0)
-	  }
-	};
-
-	function base64Slice$1 (buf, start, end) {
-	  if (start === 0 && end === buf.length) {
-	    return fromByteArray$1(buf)
-	  } else {
-	    return fromByteArray$1(buf.slice(start, end))
-	  }
-	}
-
-	function utf8Slice$1 (buf, start, end) {
-	  end = Math.min(buf.length, end);
-	  var res = [];
-
-	  var i = start;
-	  while (i < end) {
-	    var firstByte = buf[i];
-	    var codePoint = null;
-	    var bytesPerSequence = (firstByte > 0xEF) ? 4
-	      : (firstByte > 0xDF) ? 3
-	      : (firstByte > 0xBF) ? 2
-	      : 1;
-
-	    if (i + bytesPerSequence <= end) {
-	      var secondByte, thirdByte, fourthByte, tempCodePoint;
-
-	      switch (bytesPerSequence) {
-	        case 1:
-	          if (firstByte < 0x80) {
-	            codePoint = firstByte;
-	          }
-	          break
-	        case 2:
-	          secondByte = buf[i + 1];
-	          if ((secondByte & 0xC0) === 0x80) {
-	            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F);
-	            if (tempCodePoint > 0x7F) {
-	              codePoint = tempCodePoint;
-	            }
-	          }
-	          break
-	        case 3:
-	          secondByte = buf[i + 1];
-	          thirdByte = buf[i + 2];
-	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
-	            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F);
-	            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
-	              codePoint = tempCodePoint;
-	            }
-	          }
-	          break
-	        case 4:
-	          secondByte = buf[i + 1];
-	          thirdByte = buf[i + 2];
-	          fourthByte = buf[i + 3];
-	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
-	            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F);
-	            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
-	              codePoint = tempCodePoint;
-	            }
-	          }
-	      }
-	    }
-
-	    if (codePoint === null) {
-	      // we did not generate a valid codePoint so insert a
-	      // replacement char (U+FFFD) and advance only 1 byte
-	      codePoint = 0xFFFD;
-	      bytesPerSequence = 1;
-	    } else if (codePoint > 0xFFFF) {
-	      // encode to utf16 (surrogate pair dance)
-	      codePoint -= 0x10000;
-	      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
-	      codePoint = 0xDC00 | codePoint & 0x3FF;
-	    }
-
-	    res.push(codePoint);
-	    i += bytesPerSequence;
-	  }
-
-	  return decodeCodePointsArray$1(res)
-	}
-
-	// Based on http://stackoverflow.com/a/22747272/680742, the browser with
-	// the lowest limit is Chrome, with 0x10000 args.
-	// We go 1 magnitude less, for safety
-	var MAX_ARGUMENTS_LENGTH$1 = 0x1000;
-
-	function decodeCodePointsArray$1 (codePoints) {
-	  var len = codePoints.length;
-	  if (len <= MAX_ARGUMENTS_LENGTH$1) {
-	    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
-	  }
-
-	  // Decode in chunks to avoid "call stack size exceeded".
-	  var res = '';
-	  var i = 0;
-	  while (i < len) {
-	    res += String.fromCharCode.apply(
-	      String,
-	      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH$1)
-	    );
-	  }
-	  return res
-	}
-
-	function asciiSlice$1 (buf, start, end) {
-	  var ret = '';
-	  end = Math.min(buf.length, end);
-
-	  for (var i = start; i < end; ++i) {
-	    ret += String.fromCharCode(buf[i] & 0x7F);
-	  }
-	  return ret
-	}
-
-	function latin1Slice$1 (buf, start, end) {
-	  var ret = '';
-	  end = Math.min(buf.length, end);
-
-	  for (var i = start; i < end; ++i) {
-	    ret += String.fromCharCode(buf[i]);
-	  }
-	  return ret
-	}
-
-	function hexSlice$1 (buf, start, end) {
-	  var len = buf.length;
-
-	  if (!start || start < 0) start = 0;
-	  if (!end || end < 0 || end > len) end = len;
-
-	  var out = '';
-	  for (var i = start; i < end; ++i) {
-	    out += toHex$1(buf[i]);
-	  }
-	  return out
-	}
-
-	function utf16leSlice$1 (buf, start, end) {
-	  var bytes = buf.slice(start, end);
-	  var res = '';
-	  for (var i = 0; i < bytes.length; i += 2) {
-	    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
-	  }
-	  return res
-	}
-
-	Buffer$g.prototype.slice = function slice (start, end) {
-	  var len = this.length;
-	  start = ~~start;
-	  end = end === undefined ? len : ~~end;
-
-	  if (start < 0) {
-	    start += len;
-	    if (start < 0) start = 0;
-	  } else if (start > len) {
-	    start = len;
-	  }
-
-	  if (end < 0) {
-	    end += len;
-	    if (end < 0) end = 0;
-	  } else if (end > len) {
-	    end = len;
-	  }
-
-	  if (end < start) end = start;
-
-	  var newBuf;
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    newBuf = this.subarray(start, end);
-	    newBuf.__proto__ = Buffer$g.prototype;
-	  } else {
-	    var sliceLen = end - start;
-	    newBuf = new Buffer$g(sliceLen, undefined);
-	    for (var i = 0; i < sliceLen; ++i) {
-	      newBuf[i] = this[i + start];
-	    }
-	  }
-
-	  return newBuf
-	};
-
-	/*
-	 * Need to make sure that buffer isn't trying to write out of bounds.
-	 */
-	function checkOffset$1 (offset, ext, length) {
-	  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
-	  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
-	}
-
-	Buffer$g.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) checkOffset$1(offset, byteLength, this.length);
-
-	  var val = this[offset];
-	  var mul = 1;
-	  var i = 0;
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    val += this[offset + i] * mul;
-	  }
-
-	  return val
-	};
-
-	Buffer$g.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) {
-	    checkOffset$1(offset, byteLength, this.length);
-	  }
-
-	  var val = this[offset + --byteLength];
-	  var mul = 1;
-	  while (byteLength > 0 && (mul *= 0x100)) {
-	    val += this[offset + --byteLength] * mul;
-	  }
-
-	  return val
-	};
-
-	Buffer$g.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 1, this.length);
-	  return this[offset]
-	};
-
-	Buffer$g.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 2, this.length);
-	  return this[offset] | (this[offset + 1] << 8)
-	};
-
-	Buffer$g.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 2, this.length);
-	  return (this[offset] << 8) | this[offset + 1]
-	};
-
-	Buffer$g.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 4, this.length);
-
-	  return ((this[offset]) |
-	      (this[offset + 1] << 8) |
-	      (this[offset + 2] << 16)) +
-	      (this[offset + 3] * 0x1000000)
-	};
-
-	Buffer$g.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 4, this.length);
-
-	  return (this[offset] * 0x1000000) +
-	    ((this[offset + 1] << 16) |
-	    (this[offset + 2] << 8) |
-	    this[offset + 3])
-	};
-
-	Buffer$g.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) checkOffset$1(offset, byteLength, this.length);
-
-	  var val = this[offset];
-	  var mul = 1;
-	  var i = 0;
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    val += this[offset + i] * mul;
-	  }
-	  mul *= 0x80;
-
-	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-	  return val
-	};
-
-	Buffer$g.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) checkOffset$1(offset, byteLength, this.length);
-
-	  var i = byteLength;
-	  var mul = 1;
-	  var val = this[offset + --i];
-	  while (i > 0 && (mul *= 0x100)) {
-	    val += this[offset + --i] * mul;
-	  }
-	  mul *= 0x80;
-
-	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-	  return val
-	};
-
-	Buffer$g.prototype.readInt8 = function readInt8 (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 1, this.length);
-	  if (!(this[offset] & 0x80)) return (this[offset])
-	  return ((0xff - this[offset] + 1) * -1)
-	};
-
-	Buffer$g.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 2, this.length);
-	  var val = this[offset] | (this[offset + 1] << 8);
-	  return (val & 0x8000) ? val | 0xFFFF0000 : val
-	};
-
-	Buffer$g.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 2, this.length);
-	  var val = this[offset + 1] | (this[offset] << 8);
-	  return (val & 0x8000) ? val | 0xFFFF0000 : val
-	};
-
-	Buffer$g.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 4, this.length);
-
-	  return (this[offset]) |
-	    (this[offset + 1] << 8) |
-	    (this[offset + 2] << 16) |
-	    (this[offset + 3] << 24)
-	};
-
-	Buffer$g.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 4, this.length);
-
-	  return (this[offset] << 24) |
-	    (this[offset + 1] << 16) |
-	    (this[offset + 2] << 8) |
-	    (this[offset + 3])
-	};
-
-	Buffer$g.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 4, this.length);
-	  return read$1(this, offset, true, 23, 4)
-	};
-
-	Buffer$g.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 4, this.length);
-	  return read$1(this, offset, false, 23, 4)
-	};
-
-	Buffer$g.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 8, this.length);
-	  return read$1(this, offset, true, 52, 8)
-	};
-
-	Buffer$g.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
-	  if (!noAssert) checkOffset$1(offset, 8, this.length);
-	  return read$1(this, offset, false, 52, 8)
-	};
-
-	function checkInt$1 (buf, value, offset, ext, max, min) {
-	  if (!internalIsBuffer$1(buf)) throw new TypeError('"buffer" argument must be a Buffer instance')
-	  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds')
-	  if (offset + ext > buf.length) throw new RangeError('Index out of range')
-	}
-
-	Buffer$g.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) {
-	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
-	    checkInt$1(this, value, offset, byteLength, maxBytes, 0);
-	  }
-
-	  var mul = 1;
-	  var i = 0;
-	  this[offset] = value & 0xFF;
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    this[offset + i] = (value / mul) & 0xFF;
-	  }
-
-	  return offset + byteLength
-	};
-
-	Buffer$g.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) {
-	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
-	    checkInt$1(this, value, offset, byteLength, maxBytes, 0);
-	  }
-
-	  var i = byteLength - 1;
-	  var mul = 1;
-	  this[offset + i] = value & 0xFF;
-	  while (--i >= 0 && (mul *= 0x100)) {
-	    this[offset + i] = (value / mul) & 0xFF;
-	  }
-
-	  return offset + byteLength
-	};
-
-	Buffer$g.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 1, 0xff, 0);
-	  if (!Buffer$g.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-	  this[offset] = (value & 0xff);
-	  return offset + 1
-	};
-
-	function objectWriteUInt16$1 (buf, value, offset, littleEndian) {
-	  if (value < 0) value = 0xffff + value + 1;
-	  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
-	    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
-	      (littleEndian ? i : 1 - i) * 8;
-	  }
-	}
-
-	Buffer$g.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 2, 0xffff, 0);
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = (value & 0xff);
-	    this[offset + 1] = (value >>> 8);
-	  } else {
-	    objectWriteUInt16$1(this, value, offset, true);
-	  }
-	  return offset + 2
-	};
-
-	Buffer$g.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 2, 0xffff, 0);
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = (value >>> 8);
-	    this[offset + 1] = (value & 0xff);
-	  } else {
-	    objectWriteUInt16$1(this, value, offset, false);
-	  }
-	  return offset + 2
-	};
-
-	function objectWriteUInt32$1 (buf, value, offset, littleEndian) {
-	  if (value < 0) value = 0xffffffff + value + 1;
-	  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
-	    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff;
-	  }
-	}
-
-	Buffer$g.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 4, 0xffffffff, 0);
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset + 3] = (value >>> 24);
-	    this[offset + 2] = (value >>> 16);
-	    this[offset + 1] = (value >>> 8);
-	    this[offset] = (value & 0xff);
-	  } else {
-	    objectWriteUInt32$1(this, value, offset, true);
-	  }
-	  return offset + 4
-	};
-
-	Buffer$g.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 4, 0xffffffff, 0);
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = (value >>> 24);
-	    this[offset + 1] = (value >>> 16);
-	    this[offset + 2] = (value >>> 8);
-	    this[offset + 3] = (value & 0xff);
-	  } else {
-	    objectWriteUInt32$1(this, value, offset, false);
-	  }
-	  return offset + 4
-	};
-
-	Buffer$g.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) {
-	    var limit = Math.pow(2, 8 * byteLength - 1);
-
-	    checkInt$1(this, value, offset, byteLength, limit - 1, -limit);
-	  }
-
-	  var i = 0;
-	  var mul = 1;
-	  var sub = 0;
-	  this[offset] = value & 0xFF;
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
-	      sub = 1;
-	    }
-	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
-	  }
-
-	  return offset + byteLength
-	};
-
-	Buffer$g.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) {
-	    var limit = Math.pow(2, 8 * byteLength - 1);
-
-	    checkInt$1(this, value, offset, byteLength, limit - 1, -limit);
-	  }
-
-	  var i = byteLength - 1;
-	  var mul = 1;
-	  var sub = 0;
-	  this[offset + i] = value & 0xFF;
-	  while (--i >= 0 && (mul *= 0x100)) {
-	    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
-	      sub = 1;
-	    }
-	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
-	  }
-
-	  return offset + byteLength
-	};
-
-	Buffer$g.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 1, 0x7f, -0x80);
-	  if (!Buffer$g.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-	  if (value < 0) value = 0xff + value + 1;
-	  this[offset] = (value & 0xff);
-	  return offset + 1
-	};
-
-	Buffer$g.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 2, 0x7fff, -0x8000);
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = (value & 0xff);
-	    this[offset + 1] = (value >>> 8);
-	  } else {
-	    objectWriteUInt16$1(this, value, offset, true);
-	  }
-	  return offset + 2
-	};
-
-	Buffer$g.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 2, 0x7fff, -0x8000);
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = (value >>> 8);
-	    this[offset + 1] = (value & 0xff);
-	  } else {
-	    objectWriteUInt16$1(this, value, offset, false);
-	  }
-	  return offset + 2
-	};
-
-	Buffer$g.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 4, 0x7fffffff, -0x80000000);
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = (value & 0xff);
-	    this[offset + 1] = (value >>> 8);
-	    this[offset + 2] = (value >>> 16);
-	    this[offset + 3] = (value >>> 24);
-	  } else {
-	    objectWriteUInt32$1(this, value, offset, true);
-	  }
-	  return offset + 4
-	};
-
-	Buffer$g.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt$1(this, value, offset, 4, 0x7fffffff, -0x80000000);
-	  if (value < 0) value = 0xffffffff + value + 1;
-	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = (value >>> 24);
-	    this[offset + 1] = (value >>> 16);
-	    this[offset + 2] = (value >>> 8);
-	    this[offset + 3] = (value & 0xff);
-	  } else {
-	    objectWriteUInt32$1(this, value, offset, false);
-	  }
-	  return offset + 4
-	};
-
-	function checkIEEE754$1 (buf, value, offset, ext, max, min) {
-	  if (offset + ext > buf.length) throw new RangeError('Index out of range')
-	  if (offset < 0) throw new RangeError('Index out of range')
-	}
-
-	function writeFloat$1 (buf, value, offset, littleEndian, noAssert) {
-	  if (!noAssert) {
-	    checkIEEE754$1(buf, value, offset, 4);
-	  }
-	  write$1(buf, value, offset, littleEndian, 23, 4);
-	  return offset + 4
-	}
-
-	Buffer$g.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
-	  return writeFloat$1(this, value, offset, true, noAssert)
-	};
-
-	Buffer$g.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
-	  return writeFloat$1(this, value, offset, false, noAssert)
-	};
-
-	function writeDouble$1 (buf, value, offset, littleEndian, noAssert) {
-	  if (!noAssert) {
-	    checkIEEE754$1(buf, value, offset, 8);
-	  }
-	  write$1(buf, value, offset, littleEndian, 52, 8);
-	  return offset + 8
-	}
-
-	Buffer$g.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
-	  return writeDouble$1(this, value, offset, true, noAssert)
-	};
-
-	Buffer$g.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
-	  return writeDouble$1(this, value, offset, false, noAssert)
-	};
-
-	// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
-	Buffer$g.prototype.copy = function copy (target, targetStart, start, end) {
-	  if (!start) start = 0;
-	  if (!end && end !== 0) end = this.length;
-	  if (targetStart >= target.length) targetStart = target.length;
-	  if (!targetStart) targetStart = 0;
-	  if (end > 0 && end < start) end = start;
-
-	  // Copy 0 bytes; we're done
-	  if (end === start) return 0
-	  if (target.length === 0 || this.length === 0) return 0
-
-	  // Fatal error conditions
-	  if (targetStart < 0) {
-	    throw new RangeError('targetStart out of bounds')
-	  }
-	  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
-	  if (end < 0) throw new RangeError('sourceEnd out of bounds')
-
-	  // Are we oob?
-	  if (end > this.length) end = this.length;
-	  if (target.length - targetStart < end - start) {
-	    end = target.length - targetStart + start;
-	  }
-
-	  var len = end - start;
-	  var i;
-
-	  if (this === target && start < targetStart && targetStart < end) {
-	    // descending copy from end
-	    for (i = len - 1; i >= 0; --i) {
-	      target[i + targetStart] = this[i + start];
-	    }
-	  } else if (len < 1000 || !Buffer$g.TYPED_ARRAY_SUPPORT) {
-	    // ascending copy from start
-	    for (i = 0; i < len; ++i) {
-	      target[i + targetStart] = this[i + start];
-	    }
-	  } else {
-	    Uint8Array.prototype.set.call(
-	      target,
-	      this.subarray(start, start + len),
-	      targetStart
-	    );
-	  }
-
-	  return len
-	};
-
-	// Usage:
-	//    buffer.fill(number[, offset[, end]])
-	//    buffer.fill(buffer[, offset[, end]])
-	//    buffer.fill(string[, offset[, end]][, encoding])
-	Buffer$g.prototype.fill = function fill (val, start, end, encoding) {
-	  // Handle string cases:
-	  if (typeof val === 'string') {
-	    if (typeof start === 'string') {
-	      encoding = start;
-	      start = 0;
-	      end = this.length;
-	    } else if (typeof end === 'string') {
-	      encoding = end;
-	      end = this.length;
-	    }
-	    if (val.length === 1) {
-	      var code = val.charCodeAt(0);
-	      if (code < 256) {
-	        val = code;
-	      }
-	    }
-	    if (encoding !== undefined && typeof encoding !== 'string') {
-	      throw new TypeError('encoding must be a string')
-	    }
-	    if (typeof encoding === 'string' && !Buffer$g.isEncoding(encoding)) {
-	      throw new TypeError('Unknown encoding: ' + encoding)
-	    }
-	  } else if (typeof val === 'number') {
-	    val = val & 255;
-	  }
-
-	  // Invalid ranges are not set to a default, so can range check early.
-	  if (start < 0 || this.length < start || this.length < end) {
-	    throw new RangeError('Out of range index')
-	  }
-
-	  if (end <= start) {
-	    return this
-	  }
-
-	  start = start >>> 0;
-	  end = end === undefined ? this.length : end >>> 0;
-
-	  if (!val) val = 0;
-
-	  var i;
-	  if (typeof val === 'number') {
-	    for (i = start; i < end; ++i) {
-	      this[i] = val;
-	    }
-	  } else {
-	    var bytes = internalIsBuffer$1(val)
-	      ? val
-	      : utf8ToBytes$1(new Buffer$g(val, encoding).toString());
-	    var len = bytes.length;
-	    for (i = 0; i < end - start; ++i) {
-	      this[i + start] = bytes[i % len];
-	    }
-	  }
-
-	  return this
-	};
-
-	// HELPER FUNCTIONS
-	// ================
-
-	var INVALID_BASE64_RE$1 = /[^+\/0-9A-Za-z-_]/g;
-
-	function base64clean$1 (str) {
-	  // Node strips out invalid characters like \n and \t from the string, base64-js does not
-	  str = stringtrim$1(str).replace(INVALID_BASE64_RE$1, '');
-	  // Node converts strings with length < 2 to ''
-	  if (str.length < 2) return ''
-	  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
-	  while (str.length % 4 !== 0) {
-	    str = str + '=';
-	  }
-	  return str
-	}
-
-	function stringtrim$1 (str) {
-	  if (str.trim) return str.trim()
-	  return str.replace(/^\s+|\s+$/g, '')
-	}
-
-	function toHex$1 (n) {
-	  if (n < 16) return '0' + n.toString(16)
-	  return n.toString(16)
-	}
-
-	function utf8ToBytes$1 (string, units) {
-	  units = units || Infinity;
-	  var codePoint;
-	  var length = string.length;
-	  var leadSurrogate = null;
-	  var bytes = [];
-
-	  for (var i = 0; i < length; ++i) {
-	    codePoint = string.charCodeAt(i);
-
-	    // is surrogate component
-	    if (codePoint > 0xD7FF && codePoint < 0xE000) {
-	      // last char was a lead
-	      if (!leadSurrogate) {
-	        // no lead yet
-	        if (codePoint > 0xDBFF) {
-	          // unexpected trail
-	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	          continue
-	        } else if (i + 1 === length) {
-	          // unpaired lead
-	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	          continue
-	        }
-
-	        // valid lead
-	        leadSurrogate = codePoint;
-
-	        continue
-	      }
-
-	      // 2 leads in a row
-	      if (codePoint < 0xDC00) {
-	        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	        leadSurrogate = codePoint;
-	        continue
-	      }
-
-	      // valid surrogate pair
-	      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
-	    } else if (leadSurrogate) {
-	      // valid bmp char, but last char was a lead
-	      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	    }
-
-	    leadSurrogate = null;
-
-	    // encode utf8
-	    if (codePoint < 0x80) {
-	      if ((units -= 1) < 0) break
-	      bytes.push(codePoint);
-	    } else if (codePoint < 0x800) {
-	      if ((units -= 2) < 0) break
-	      bytes.push(
-	        codePoint >> 0x6 | 0xC0,
-	        codePoint & 0x3F | 0x80
-	      );
-	    } else if (codePoint < 0x10000) {
-	      if ((units -= 3) < 0) break
-	      bytes.push(
-	        codePoint >> 0xC | 0xE0,
-	        codePoint >> 0x6 & 0x3F | 0x80,
-	        codePoint & 0x3F | 0x80
-	      );
-	    } else if (codePoint < 0x110000) {
-	      if ((units -= 4) < 0) break
-	      bytes.push(
-	        codePoint >> 0x12 | 0xF0,
-	        codePoint >> 0xC & 0x3F | 0x80,
-	        codePoint >> 0x6 & 0x3F | 0x80,
-	        codePoint & 0x3F | 0x80
-	      );
-	    } else {
-	      throw new Error('Invalid code point')
-	    }
-	  }
-
-	  return bytes
-	}
-
-	function asciiToBytes$1 (str) {
-	  var byteArray = [];
-	  for (var i = 0; i < str.length; ++i) {
-	    // Node's code seems to be doing this and not & 0x7F..
-	    byteArray.push(str.charCodeAt(i) & 0xFF);
-	  }
-	  return byteArray
-	}
-
-	function utf16leToBytes$1 (str, units) {
-	  var c, hi, lo;
-	  var byteArray = [];
-	  for (var i = 0; i < str.length; ++i) {
-	    if ((units -= 2) < 0) break
-
-	    c = str.charCodeAt(i);
-	    hi = c >> 8;
-	    lo = c % 256;
-	    byteArray.push(lo);
-	    byteArray.push(hi);
-	  }
-
-	  return byteArray
-	}
-
-
-	function base64ToBytes$1 (str) {
-	  return toByteArray$1(base64clean$1(str))
-	}
-
-	function blitBuffer$1 (src, dst, offset, length) {
-	  for (var i = 0; i < length; ++i) {
-	    if ((i + offset >= dst.length) || (i >= src.length)) break
-	    dst[i + offset] = src[i];
-	  }
-	  return i
-	}
-
-	function isnan$1 (val) {
-	  return val !== val // eslint-disable-line no-self-compare
-	}
-
-
-	// the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
-	// The _isBuffer check is for Safari 5-7 support, because it's missing
-	// Object.prototype.constructor. Remove this eventually
-	function isBuffer$2(obj) {
-	  return obj != null && (!!obj._isBuffer || isFastBuffer$1(obj) || isSlowBuffer$1(obj))
-	}
-
-	function isFastBuffer$1 (obj) {
-	  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-	}
-
-	// For Node v0.10 support. Remove this eventually.
-	function isSlowBuffer$1 (obj) {
-	  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer$1(obj.slice(0, 0))
-	}
-
-	var _polyfillNode_buffer = /*#__PURE__*/Object.freeze({
-		__proto__: null,
-		Buffer: Buffer$g,
-		INSPECT_MAX_BYTES: INSPECT_MAX_BYTES$1,
-		SlowBuffer: SlowBuffer,
-		isBuffer: isBuffer$2,
-		kMaxLength: _kMaxLength
-	});
-
-	var require$$0$7 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_buffer);
-
-	/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-
-	(function (module, exports) {
-	  /* eslint-disable node/no-deprecated-api */
-	  var buffer = require$$0$7;
-	  var Buffer = buffer.Buffer; // alternative to using Object.keys for old browsers
-
-	  function copyProps(src, dst) {
-	    for (var key in src) {
-	      dst[key] = src[key];
-	    }
-	  }
-
-	  if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
-	    module.exports = buffer;
-	  } else {
-	    // Copy properties from require('buffer')
-	    copyProps(buffer, exports);
-	    exports.Buffer = SafeBuffer;
-	  }
-
-	  function SafeBuffer(arg, encodingOrOffset, length) {
-	    return Buffer(arg, encodingOrOffset, length);
-	  }
-
-	  SafeBuffer.prototype = Object.create(Buffer.prototype); // Copy static methods from Buffer
-
-	  copyProps(Buffer, SafeBuffer);
-
-	  SafeBuffer.from = function (arg, encodingOrOffset, length) {
-	    if (typeof arg === 'number') {
-	      throw new TypeError('Argument must not be a number');
-	    }
-
-	    return Buffer(arg, encodingOrOffset, length);
-	  };
-
-	  SafeBuffer.alloc = function (size, fill, encoding) {
-	    if (typeof size !== 'number') {
-	      throw new TypeError('Argument must be a number');
-	    }
-
-	    var buf = Buffer(size);
-
-	    if (fill !== undefined) {
-	      if (typeof encoding === 'string') {
-	        buf.fill(fill, encoding);
-	      } else {
-	        buf.fill(fill);
-	      }
-	    } else {
-	      buf.fill(0);
-	    }
-
-	    return buf;
-	  };
-
-	  SafeBuffer.allocUnsafe = function (size) {
-	    if (typeof size !== 'number') {
-	      throw new TypeError('Argument must be a number');
-	    }
-
-	    return Buffer(size);
-	  };
-
-	  SafeBuffer.allocUnsafeSlow = function (size) {
-	    if (typeof size !== 'number') {
-	      throw new TypeError('Argument must be a number');
-	    }
-
-	    return buffer.SlowBuffer(size);
-	  };
-	})(safeBuffer, safeBuffer.exports);
-
-	var readableBrowser = {exports: {}};
+	var require$$0$9 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_crypto$1);
 
 	var domain;
 
@@ -18063,27 +13910,27 @@
 	function EventHandlers() {}
 	EventHandlers.prototype = Object.create(null);
 
-	function EventEmitter() {
-	  EventEmitter.init.call(this);
+	function EventEmitter$1() {
+	  EventEmitter$1.init.call(this);
 	}
 
 	// nodejs oddity
 	// require('events') === require('events').EventEmitter
-	EventEmitter.EventEmitter = EventEmitter;
+	EventEmitter$1.EventEmitter = EventEmitter$1;
 
-	EventEmitter.usingDomains = false;
+	EventEmitter$1.usingDomains = false;
 
-	EventEmitter.prototype.domain = undefined;
-	EventEmitter.prototype._events = undefined;
-	EventEmitter.prototype._maxListeners = undefined;
+	EventEmitter$1.prototype.domain = undefined;
+	EventEmitter$1.prototype._events = undefined;
+	EventEmitter$1.prototype._maxListeners = undefined;
 
 	// By default EventEmitters will print a warning if more than 10 listeners are
 	// added to it. This is a useful default which helps finding memory leaks.
-	EventEmitter.defaultMaxListeners = 10;
+	EventEmitter$1.defaultMaxListeners = 10;
 
-	EventEmitter.init = function() {
+	EventEmitter$1.init = function() {
 	  this.domain = null;
-	  if (EventEmitter.usingDomains) {
+	  if (EventEmitter$1.usingDomains) {
 	    // if there is an active domain, then attach to it.
 	    if (domain.active ) ;
 	  }
@@ -18098,7 +13945,7 @@
 
 	// Obviously not all Emitters should be limited to 10. This function allows
 	// that to be increased. Set to zero for unlimited.
-	EventEmitter.prototype.setMaxListeners = function setMaxListeners(n) {
+	EventEmitter$1.prototype.setMaxListeners = function setMaxListeners(n) {
 	  if (typeof n !== 'number' || n < 0 || isNaN(n))
 	    throw new TypeError('"n" argument must be a positive number');
 	  this._maxListeners = n;
@@ -18107,11 +13954,11 @@
 
 	function $getMaxListeners(that) {
 	  if (that._maxListeners === undefined)
-	    return EventEmitter.defaultMaxListeners;
+	    return EventEmitter$1.defaultMaxListeners;
 	  return that._maxListeners;
 	}
 
-	EventEmitter.prototype.getMaxListeners = function getMaxListeners() {
+	EventEmitter$1.prototype.getMaxListeners = function getMaxListeners() {
 	  return $getMaxListeners(this);
 	};
 
@@ -18172,7 +14019,7 @@
 	  }
 	}
 
-	EventEmitter.prototype.emit = function emit(type) {
+	EventEmitter$1.prototype.emit = function emit(type) {
 	  var er, handler, len, args, i, events, domain;
 	  var doError = (type === 'error');
 
@@ -18303,13 +14150,13 @@
 	function emitWarning(e) {
 	  typeof console.warn === 'function' ? console.warn(e) : console.log(e);
 	}
-	EventEmitter.prototype.addListener = function addListener(type, listener) {
+	EventEmitter$1.prototype.addListener = function addListener(type, listener) {
 	  return _addListener(this, type, listener, false);
 	};
 
-	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+	EventEmitter$1.prototype.on = EventEmitter$1.prototype.addListener;
 
-	EventEmitter.prototype.prependListener =
+	EventEmitter$1.prototype.prependListener =
 	    function prependListener(type, listener) {
 	      return _addListener(this, type, listener, true);
 	    };
@@ -18327,14 +14174,14 @@
 	  return g;
 	}
 
-	EventEmitter.prototype.once = function once(type, listener) {
+	EventEmitter$1.prototype.once = function once(type, listener) {
 	  if (typeof listener !== 'function')
 	    throw new TypeError('"listener" argument must be a function');
 	  this.on(type, _onceWrap(this, type, listener));
 	  return this;
 	};
 
-	EventEmitter.prototype.prependOnceListener =
+	EventEmitter$1.prototype.prependOnceListener =
 	    function prependOnceListener(type, listener) {
 	      if (typeof listener !== 'function')
 	        throw new TypeError('"listener" argument must be a function');
@@ -18343,7 +14190,7 @@
 	    };
 
 	// emits a 'removeListener' event iff the listener was removed
-	EventEmitter.prototype.removeListener =
+	EventEmitter$1.prototype.removeListener =
 	    function removeListener(type, listener) {
 	      var list, events, position, i, originalListener;
 
@@ -18402,11 +14249,11 @@
 	    
 	// Alias for removeListener added in NodeJS 10.0
 	// https://nodejs.org/api/events.html#events_emitter_off_eventname_listener
-	EventEmitter.prototype.off = function(type, listener){
+	EventEmitter$1.prototype.off = function(type, listener){
 	    return this.removeListener(type, listener);
 	};
 
-	EventEmitter.prototype.removeAllListeners =
+	EventEmitter$1.prototype.removeAllListeners =
 	    function removeAllListeners(type) {
 	      var listeners, events;
 
@@ -18456,7 +14303,7 @@
 	      return this;
 	    };
 
-	EventEmitter.prototype.listeners = function listeners(type) {
+	EventEmitter$1.prototype.listeners = function listeners(type) {
 	  var evlistener;
 	  var ret;
 	  var events = this._events;
@@ -18476,7 +14323,7 @@
 	  return ret;
 	};
 
-	EventEmitter.listenerCount = function(emitter, type) {
+	EventEmitter$1.listenerCount = function(emitter, type) {
 	  if (typeof emitter.listenerCount === 'function') {
 	    return emitter.listenerCount(type);
 	  } else {
@@ -18484,7 +14331,7 @@
 	  }
 	};
 
-	EventEmitter.prototype.listenerCount = listenerCount$1;
+	EventEmitter$1.prototype.listenerCount = listenerCount$1;
 	function listenerCount$1(type) {
 	  var events = this._events;
 
@@ -18501,7 +14348,7 @@
 	  return 0;
 	}
 
-	EventEmitter.prototype.eventNames = function eventNames() {
+	EventEmitter$1.prototype.eventNames = function eventNames() {
 	  return this._eventsCount > 0 ? Reflect.ownKeys(this._events) : [];
 	};
 
@@ -18529,13 +14376,5658 @@
 
 	var _polyfillNode_events = /*#__PURE__*/Object.freeze({
 		__proto__: null,
-		'default': EventEmitter,
-		EventEmitter: EventEmitter
+		'default': EventEmitter$1,
+		EventEmitter: EventEmitter$1
 	});
 
-	var require$$0$6 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_events);
+	var require$$0$8 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_events);
 
-	var streamBrowser = require$$0$6.EventEmitter;
+	var duplex = {};
+
+	var helpers = {};
+
+	/*!
+	 * https://github.com/Starcounter-Jack/JSON-Patch
+	 * (c) 2017 Joachim Wester
+	 * MIT license
+	 */
+
+	var __extends = commonjsGlobal && commonjsGlobal.__extends || function () {
+	  var extendStatics = function (d, b) {
+	    extendStatics = Object.setPrototypeOf || {
+	      __proto__: []
+	    } instanceof Array && function (d, b) {
+	      d.__proto__ = b;
+	    } || function (d, b) {
+	      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    };
+
+	    return extendStatics(d, b);
+	  };
+
+	  return function (d, b) {
+	    extendStatics(d, b);
+
+	    function __() {
+	      this.constructor = d;
+	    }
+
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	  };
+	}();
+
+	Object.defineProperty(helpers, "__esModule", {
+	  value: true
+	});
+	var _hasOwnProperty = Object.prototype.hasOwnProperty;
+
+	function hasOwnProperty$1(obj, key) {
+	  return _hasOwnProperty.call(obj, key);
+	}
+
+	helpers.hasOwnProperty = hasOwnProperty$1;
+
+	function _objectKeys(obj) {
+	  if (Array.isArray(obj)) {
+	    var keys = new Array(obj.length);
+
+	    for (var k = 0; k < keys.length; k++) {
+	      keys[k] = "" + k;
+	    }
+
+	    return keys;
+	  }
+
+	  if (Object.keys) {
+	    return Object.keys(obj);
+	  }
+
+	  var keys = [];
+
+	  for (var i in obj) {
+	    if (hasOwnProperty$1(obj, i)) {
+	      keys.push(i);
+	    }
+	  }
+
+	  return keys;
+	}
+
+	helpers._objectKeys = _objectKeys;
+	/**
+	* Deeply clone the object.
+	* https://jsperf.com/deep-copy-vs-json-stringify-json-parse/25 (recursiveDeepCopy)
+	* @param  {any} obj value to clone
+	* @return {any} cloned obj
+	*/
+
+	function _deepClone(obj) {
+	  switch (typeof obj) {
+	    case "object":
+	      return JSON.parse(JSON.stringify(obj));
+	    //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
+
+	    case "undefined":
+	      return null;
+	    //this is how JSON.stringify behaves for array items
+
+	    default:
+	      return obj;
+	    //no need to clone primitives
+	  }
+	}
+
+	helpers._deepClone = _deepClone; //3x faster than cached /^\d+$/.test(str)
+
+
+	function isInteger(str) {
+	  var i = 0;
+	  var len = str.length;
+	  var charCode;
+
+	  while (i < len) {
+	    charCode = str.charCodeAt(i);
+
+	    if (charCode >= 48 && charCode <= 57) {
+	      i++;
+	      continue;
+	    }
+
+	    return false;
+	  }
+
+	  return true;
+	}
+
+	helpers.isInteger = isInteger;
+	/**
+	* Escapes a json pointer path
+	* @param path The raw pointer
+	* @return the Escaped path
+	*/
+
+	function escapePathComponent(path) {
+	  if (path.indexOf('/') === -1 && path.indexOf('~') === -1) return path;
+	  return path.replace(/~/g, '~0').replace(/\//g, '~1');
+	}
+
+	helpers.escapePathComponent = escapePathComponent;
+	/**
+	 * Unescapes a json pointer path
+	 * @param path The escaped pointer
+	 * @return The unescaped path
+	 */
+
+	function unescapePathComponent(path) {
+	  return path.replace(/~1/g, '/').replace(/~0/g, '~');
+	}
+
+	helpers.unescapePathComponent = unescapePathComponent;
+
+	function _getPathRecursive(root, obj) {
+	  var found;
+
+	  for (var key in root) {
+	    if (hasOwnProperty$1(root, key)) {
+	      if (root[key] === obj) {
+	        return escapePathComponent(key) + '/';
+	      } else if (typeof root[key] === 'object') {
+	        found = _getPathRecursive(root[key], obj);
+
+	        if (found != '') {
+	          return escapePathComponent(key) + '/' + found;
+	        }
+	      }
+	    }
+	  }
+
+	  return '';
+	}
+
+	helpers._getPathRecursive = _getPathRecursive;
+
+	function getPath(root, obj) {
+	  if (root === obj) {
+	    return '/';
+	  }
+
+	  var path = _getPathRecursive(root, obj);
+
+	  if (path === '') {
+	    throw new Error("Object not found in root");
+	  }
+
+	  return '/' + path;
+	}
+
+	helpers.getPath = getPath;
+	/**
+	* Recursively checks whether an object has any undefined values inside.
+	*/
+
+	function hasUndefined(obj) {
+	  if (obj === undefined) {
+	    return true;
+	  }
+
+	  if (obj) {
+	    if (Array.isArray(obj)) {
+	      for (var i = 0, len = obj.length; i < len; i++) {
+	        if (hasUndefined(obj[i])) {
+	          return true;
+	        }
+	      }
+	    } else if (typeof obj === "object") {
+	      var objKeys = _objectKeys(obj);
+
+	      var objKeysLength = objKeys.length;
+
+	      for (var i = 0; i < objKeysLength; i++) {
+	        if (hasUndefined(obj[objKeys[i]])) {
+	          return true;
+	        }
+	      }
+	    }
+	  }
+
+	  return false;
+	}
+
+	helpers.hasUndefined = hasUndefined;
+
+	function patchErrorMessageFormatter(message, args) {
+	  var messageParts = [message];
+
+	  for (var key in args) {
+	    var value = typeof args[key] === 'object' ? JSON.stringify(args[key], null, 2) : args[key]; // pretty print
+
+	    if (typeof value !== 'undefined') {
+	      messageParts.push(key + ": " + value);
+	    }
+	  }
+
+	  return messageParts.join('\n');
+	}
+
+	var PatchError =
+	/** @class */
+	function (_super) {
+	  __extends(PatchError, _super);
+
+	  function PatchError(message, name, index, operation, tree) {
+	    var _newTarget = this.constructor;
+
+	    var _this = _super.call(this, patchErrorMessageFormatter(message, {
+	      name: name,
+	      index: index,
+	      operation: operation,
+	      tree: tree
+	    })) || this;
+
+	    _this.name = name;
+	    _this.index = index;
+	    _this.operation = operation;
+	    _this.tree = tree;
+	    Object.setPrototypeOf(_this, _newTarget.prototype); // restore prototype chain, see https://stackoverflow.com/a/48342359
+
+	    _this.message = patchErrorMessageFormatter(message, {
+	      name: name,
+	      index: index,
+	      operation: operation,
+	      tree: tree
+	    });
+	    return _this;
+	  }
+
+	  return PatchError;
+	}(Error);
+
+	helpers.PatchError = PatchError;
+
+	var core$1 = {};
+
+	var isArray$3 = Array.isArray;
+	var keyList = Object.keys;
+	var hasProp = Object.prototype.hasOwnProperty;
+
+	var fastDeepEqual = function equal(a, b) {
+	  if (a === b) return true;
+
+	  if (a && b && typeof a == 'object' && typeof b == 'object') {
+	    var arrA = isArray$3(a),
+	        arrB = isArray$3(b),
+	        i,
+	        length,
+	        key;
+
+	    if (arrA && arrB) {
+	      length = a.length;
+	      if (length != b.length) return false;
+
+	      for (i = length; i-- !== 0;) if (!equal(a[i], b[i])) return false;
+
+	      return true;
+	    }
+
+	    if (arrA != arrB) return false;
+	    var dateA = a instanceof Date,
+	        dateB = b instanceof Date;
+	    if (dateA != dateB) return false;
+	    if (dateA && dateB) return a.getTime() == b.getTime();
+	    var regexpA = a instanceof RegExp,
+	        regexpB = b instanceof RegExp;
+	    if (regexpA != regexpB) return false;
+	    if (regexpA && regexpB) return a.toString() == b.toString();
+	    var keys = keyList(a);
+	    length = keys.length;
+	    if (length !== keyList(b).length) return false;
+
+	    for (i = length; i-- !== 0;) if (!hasProp.call(b, keys[i])) return false;
+
+	    for (i = length; i-- !== 0;) {
+	      key = keys[i];
+	      if (!equal(a[key], b[key])) return false;
+	    }
+
+	    return true;
+	  }
+
+	  return a !== a && b !== b;
+	};
+
+	(function (exports) {
+	  Object.defineProperty(exports, "__esModule", {
+	    value: true
+	  });
+	  var areEquals = fastDeepEqual;
+	  var helpers_1 = helpers;
+	  exports.JsonPatchError = helpers_1.PatchError;
+	  exports.deepClone = helpers_1._deepClone;
+	  /* We use a Javascript hash to store each
+	   function. Each hash entry (property) uses
+	   the operation identifiers specified in rfc6902.
+	   In this way, we can map each patch operation
+	   to its dedicated function in efficient way.
+	   */
+
+	  /* The operations applicable to an object */
+
+	  var objOps = {
+	    add: function (obj, key, document) {
+	      obj[key] = this.value;
+	      return {
+	        newDocument: document
+	      };
+	    },
+	    remove: function (obj, key, document) {
+	      var removed = obj[key];
+	      delete obj[key];
+	      return {
+	        newDocument: document,
+	        removed: removed
+	      };
+	    },
+	    replace: function (obj, key, document) {
+	      var removed = obj[key];
+	      obj[key] = this.value;
+	      return {
+	        newDocument: document,
+	        removed: removed
+	      };
+	    },
+	    move: function (obj, key, document) {
+	      /* in case move target overwrites an existing value,
+	      return the removed value, this can be taxing performance-wise,
+	      and is potentially unneeded */
+	      var removed = getValueByPointer(document, this.path);
+
+	      if (removed) {
+	        removed = helpers_1._deepClone(removed);
+	      }
+
+	      var originalValue = applyOperation(document, {
+	        op: "remove",
+	        path: this.from
+	      }).removed;
+	      applyOperation(document, {
+	        op: "add",
+	        path: this.path,
+	        value: originalValue
+	      });
+	      return {
+	        newDocument: document,
+	        removed: removed
+	      };
+	    },
+	    copy: function (obj, key, document) {
+	      var valueToCopy = getValueByPointer(document, this.from); // enforce copy by value so further operations don't affect source (see issue #177)
+
+	      applyOperation(document, {
+	        op: "add",
+	        path: this.path,
+	        value: helpers_1._deepClone(valueToCopy)
+	      });
+	      return {
+	        newDocument: document
+	      };
+	    },
+	    test: function (obj, key, document) {
+	      return {
+	        newDocument: document,
+	        test: areEquals(obj[key], this.value)
+	      };
+	    },
+	    _get: function (obj, key, document) {
+	      this.value = obj[key];
+	      return {
+	        newDocument: document
+	      };
+	    }
+	  };
+	  /* The operations applicable to an array. Many are the same as for the object */
+
+	  var arrOps = {
+	    add: function (arr, i, document) {
+	      if (helpers_1.isInteger(i)) {
+	        arr.splice(i, 0, this.value);
+	      } else {
+	        // array props
+	        arr[i] = this.value;
+	      } // this may be needed when using '-' in an array
+
+
+	      return {
+	        newDocument: document,
+	        index: i
+	      };
+	    },
+	    remove: function (arr, i, document) {
+	      var removedList = arr.splice(i, 1);
+	      return {
+	        newDocument: document,
+	        removed: removedList[0]
+	      };
+	    },
+	    replace: function (arr, i, document) {
+	      var removed = arr[i];
+	      arr[i] = this.value;
+	      return {
+	        newDocument: document,
+	        removed: removed
+	      };
+	    },
+	    move: objOps.move,
+	    copy: objOps.copy,
+	    test: objOps.test,
+	    _get: objOps._get
+	  };
+	  /**
+	   * Retrieves a value from a JSON document by a JSON pointer.
+	   * Returns the value.
+	   *
+	   * @param document The document to get the value from
+	   * @param pointer an escaped JSON pointer
+	   * @return The retrieved value
+	   */
+
+	  function getValueByPointer(document, pointer) {
+	    if (pointer == '') {
+	      return document;
+	    }
+
+	    var getOriginalDestination = {
+	      op: "_get",
+	      path: pointer
+	    };
+	    applyOperation(document, getOriginalDestination);
+	    return getOriginalDestination.value;
+	  }
+
+	  exports.getValueByPointer = getValueByPointer;
+	  /**
+	   * Apply a single JSON Patch Operation on a JSON document.
+	   * Returns the {newDocument, result} of the operation.
+	   * It modifies the `document` and `operation` objects - it gets the values by reference.
+	   * If you would like to avoid touching your values, clone them:
+	   * `jsonpatch.applyOperation(document, jsonpatch._deepClone(operation))`.
+	   *
+	   * @param document The document to patch
+	   * @param operation The operation to apply
+	   * @param validateOperation `false` is without validation, `true` to use default jsonpatch's validation, or you can pass a `validateOperation` callback to be used for validation.
+	   * @param mutateDocument Whether to mutate the original document or clone it before applying
+	   * @param banPrototypeModifications Whether to ban modifications to `__proto__`, defaults to `true`.
+	   * @return `{newDocument, result}` after the operation
+	   */
+
+	  function applyOperation(document, operation, validateOperation, mutateDocument, banPrototypeModifications, index) {
+	    if (validateOperation === void 0) {
+	      validateOperation = false;
+	    }
+
+	    if (mutateDocument === void 0) {
+	      mutateDocument = true;
+	    }
+
+	    if (banPrototypeModifications === void 0) {
+	      banPrototypeModifications = true;
+	    }
+
+	    if (index === void 0) {
+	      index = 0;
+	    }
+
+	    if (validateOperation) {
+	      if (typeof validateOperation == 'function') {
+	        validateOperation(operation, 0, document, operation.path);
+	      } else {
+	        validator(operation, 0);
+	      }
+	    }
+	    /* ROOT OPERATIONS */
+
+
+	    if (operation.path === "") {
+	      var returnValue = {
+	        newDocument: document
+	      };
+
+	      if (operation.op === 'add') {
+	        returnValue.newDocument = operation.value;
+	        return returnValue;
+	      } else if (operation.op === 'replace') {
+	        returnValue.newDocument = operation.value;
+	        returnValue.removed = document; //document we removed
+
+	        return returnValue;
+	      } else if (operation.op === 'move' || operation.op === 'copy') {
+	        // it's a move or copy to root
+	        returnValue.newDocument = getValueByPointer(document, operation.from); // get the value by json-pointer in `from` field
+
+	        if (operation.op === 'move') {
+	          // report removed item
+	          returnValue.removed = document;
+	        }
+
+	        return returnValue;
+	      } else if (operation.op === 'test') {
+	        returnValue.test = areEquals(document, operation.value);
+
+	        if (returnValue.test === false) {
+	          throw new exports.JsonPatchError("Test operation failed", 'TEST_OPERATION_FAILED', index, operation, document);
+	        }
+
+	        returnValue.newDocument = document;
+	        return returnValue;
+	      } else if (operation.op === 'remove') {
+	        // a remove on root
+	        returnValue.removed = document;
+	        returnValue.newDocument = null;
+	        return returnValue;
+	      } else if (operation.op === '_get') {
+	        operation.value = document;
+	        return returnValue;
+	      } else {
+	        /* bad operation */
+	        if (validateOperation) {
+	          throw new exports.JsonPatchError('Operation `op` property is not one of operations defined in RFC-6902', 'OPERATION_OP_INVALID', index, operation, document);
+	        } else {
+	          return returnValue;
+	        }
+	      }
+	    }
+	    /* END ROOT OPERATIONS */
+	    else {
+	      if (!mutateDocument) {
+	        document = helpers_1._deepClone(document);
+	      }
+
+	      var path = operation.path || "";
+	      var keys = path.split('/');
+	      var obj = document;
+	      var t = 1; //skip empty element - http://jsperf.com/to-shift-or-not-to-shift
+
+	      var len = keys.length;
+	      var existingPathFragment = undefined;
+	      var key = void 0;
+	      var validateFunction = void 0;
+
+	      if (typeof validateOperation == 'function') {
+	        validateFunction = validateOperation;
+	      } else {
+	        validateFunction = validator;
+	      }
+
+	      while (true) {
+	        key = keys[t];
+
+	        if (banPrototypeModifications && key == '__proto__') {
+	          throw new TypeError('JSON-Patch: modifying `__proto__` prop is banned for security reasons, if this was on purpose, please set `banPrototypeModifications` flag false and pass it to this function. More info in fast-json-patch README');
+	        }
+
+	        if (validateOperation) {
+	          if (existingPathFragment === undefined) {
+	            if (obj[key] === undefined) {
+	              existingPathFragment = keys.slice(0, t).join('/');
+	            } else if (t == len - 1) {
+	              existingPathFragment = operation.path;
+	            }
+
+	            if (existingPathFragment !== undefined) {
+	              validateFunction(operation, 0, document, existingPathFragment);
+	            }
+	          }
+	        }
+
+	        t++;
+
+	        if (Array.isArray(obj)) {
+	          if (key === '-') {
+	            key = obj.length;
+	          } else {
+	            if (validateOperation && !helpers_1.isInteger(key)) {
+	              throw new exports.JsonPatchError("Expected an unsigned base-10 integer value, making the new referenced value the array element with the zero-based index", "OPERATION_PATH_ILLEGAL_ARRAY_INDEX", index, operation, document);
+	            } // only parse key when it's an integer for `arr.prop` to work
+	            else if (helpers_1.isInteger(key)) {
+	              key = ~~key;
+	            }
+	          }
+
+	          if (t >= len) {
+	            if (validateOperation && operation.op === "add" && key > obj.length) {
+	              throw new exports.JsonPatchError("The specified index MUST NOT be greater than the number of elements in the array", "OPERATION_VALUE_OUT_OF_BOUNDS", index, operation, document);
+	            }
+
+	            var returnValue = arrOps[operation.op].call(operation, obj, key, document); // Apply patch
+
+	            if (returnValue.test === false) {
+	              throw new exports.JsonPatchError("Test operation failed", 'TEST_OPERATION_FAILED', index, operation, document);
+	            }
+
+	            return returnValue;
+	          }
+	        } else {
+	          if (key && key.indexOf('~') != -1) {
+	            key = helpers_1.unescapePathComponent(key);
+	          }
+
+	          if (t >= len) {
+	            var returnValue = objOps[operation.op].call(operation, obj, key, document); // Apply patch
+
+	            if (returnValue.test === false) {
+	              throw new exports.JsonPatchError("Test operation failed", 'TEST_OPERATION_FAILED', index, operation, document);
+	            }
+
+	            return returnValue;
+	          }
+	        }
+
+	        obj = obj[key];
+	      }
+	    }
+	  }
+
+	  exports.applyOperation = applyOperation;
+	  /**
+	   * Apply a full JSON Patch array on a JSON document.
+	   * Returns the {newDocument, result} of the patch.
+	   * It modifies the `document` object and `patch` - it gets the values by reference.
+	   * If you would like to avoid touching your values, clone them:
+	   * `jsonpatch.applyPatch(document, jsonpatch._deepClone(patch))`.
+	   *
+	   * @param document The document to patch
+	   * @param patch The patch to apply
+	   * @param validateOperation `false` is without validation, `true` to use default jsonpatch's validation, or you can pass a `validateOperation` callback to be used for validation.
+	   * @param mutateDocument Whether to mutate the original document or clone it before applying
+	   * @param banPrototypeModifications Whether to ban modifications to `__proto__`, defaults to `true`.
+	   * @return An array of `{newDocument, result}` after the patch
+	   */
+
+	  function applyPatch(document, patch, validateOperation, mutateDocument, banPrototypeModifications) {
+	    if (mutateDocument === void 0) {
+	      mutateDocument = true;
+	    }
+
+	    if (banPrototypeModifications === void 0) {
+	      banPrototypeModifications = true;
+	    }
+
+	    if (validateOperation) {
+	      if (!Array.isArray(patch)) {
+	        throw new exports.JsonPatchError('Patch sequence must be an array', 'SEQUENCE_NOT_AN_ARRAY');
+	      }
+	    }
+
+	    if (!mutateDocument) {
+	      document = helpers_1._deepClone(document);
+	    }
+
+	    var results = new Array(patch.length);
+
+	    for (var i = 0, length_1 = patch.length; i < length_1; i++) {
+	      // we don't need to pass mutateDocument argument because if it was true, we already deep cloned the object, we'll just pass `true`
+	      results[i] = applyOperation(document, patch[i], validateOperation, true, banPrototypeModifications, i);
+	      document = results[i].newDocument; // in case root was replaced
+	    }
+
+	    results.newDocument = document;
+	    return results;
+	  }
+
+	  exports.applyPatch = applyPatch;
+	  /**
+	   * Apply a single JSON Patch Operation on a JSON document.
+	   * Returns the updated document.
+	   * Suitable as a reducer.
+	   *
+	   * @param document The document to patch
+	   * @param operation The operation to apply
+	   * @return The updated document
+	   */
+
+	  function applyReducer(document, operation, index) {
+	    var operationResult = applyOperation(document, operation);
+
+	    if (operationResult.test === false) {
+	      // failed test
+	      throw new exports.JsonPatchError("Test operation failed", 'TEST_OPERATION_FAILED', index, operation, document);
+	    }
+
+	    return operationResult.newDocument;
+	  }
+
+	  exports.applyReducer = applyReducer;
+	  /**
+	   * Validates a single operation. Called from `jsonpatch.validate`. Throws `JsonPatchError` in case of an error.
+	   * @param {object} operation - operation object (patch)
+	   * @param {number} index - index of operation in the sequence
+	   * @param {object} [document] - object where the operation is supposed to be applied
+	   * @param {string} [existingPathFragment] - comes along with `document`
+	   */
+
+	  function validator(operation, index, document, existingPathFragment) {
+	    if (typeof operation !== 'object' || operation === null || Array.isArray(operation)) {
+	      throw new exports.JsonPatchError('Operation is not an object', 'OPERATION_NOT_AN_OBJECT', index, operation, document);
+	    } else if (!objOps[operation.op]) {
+	      throw new exports.JsonPatchError('Operation `op` property is not one of operations defined in RFC-6902', 'OPERATION_OP_INVALID', index, operation, document);
+	    } else if (typeof operation.path !== 'string') {
+	      throw new exports.JsonPatchError('Operation `path` property is not a string', 'OPERATION_PATH_INVALID', index, operation, document);
+	    } else if (operation.path.indexOf('/') !== 0 && operation.path.length > 0) {
+	      // paths that aren't empty string should start with "/"
+	      throw new exports.JsonPatchError('Operation `path` property must start with "/"', 'OPERATION_PATH_INVALID', index, operation, document);
+	    } else if ((operation.op === 'move' || operation.op === 'copy') && typeof operation.from !== 'string') {
+	      throw new exports.JsonPatchError('Operation `from` property is not present (applicable in `move` and `copy` operations)', 'OPERATION_FROM_REQUIRED', index, operation, document);
+	    } else if ((operation.op === 'add' || operation.op === 'replace' || operation.op === 'test') && operation.value === undefined) {
+	      throw new exports.JsonPatchError('Operation `value` property is not present (applicable in `add`, `replace` and `test` operations)', 'OPERATION_VALUE_REQUIRED', index, operation, document);
+	    } else if ((operation.op === 'add' || operation.op === 'replace' || operation.op === 'test') && helpers_1.hasUndefined(operation.value)) {
+	      throw new exports.JsonPatchError('Operation `value` property is not present (applicable in `add`, `replace` and `test` operations)', 'OPERATION_VALUE_CANNOT_CONTAIN_UNDEFINED', index, operation, document);
+	    } else if (document) {
+	      if (operation.op == "add") {
+	        var pathLen = operation.path.split("/").length;
+	        var existingPathLen = existingPathFragment.split("/").length;
+
+	        if (pathLen !== existingPathLen + 1 && pathLen !== existingPathLen) {
+	          throw new exports.JsonPatchError('Cannot perform an `add` operation at the desired path', 'OPERATION_PATH_CANNOT_ADD', index, operation, document);
+	        }
+	      } else if (operation.op === 'replace' || operation.op === 'remove' || operation.op === '_get') {
+	        if (operation.path !== existingPathFragment) {
+	          throw new exports.JsonPatchError('Cannot perform the operation at a path that does not exist', 'OPERATION_PATH_UNRESOLVABLE', index, operation, document);
+	        }
+	      } else if (operation.op === 'move' || operation.op === 'copy') {
+	        var existingValue = {
+	          op: "_get",
+	          path: operation.from,
+	          value: undefined
+	        };
+	        var error = validate([existingValue], document);
+
+	        if (error && error.name === 'OPERATION_PATH_UNRESOLVABLE') {
+	          throw new exports.JsonPatchError('Cannot perform the operation from a path that does not exist', 'OPERATION_FROM_UNRESOLVABLE', index, operation, document);
+	        }
+	      }
+	    }
+	  }
+
+	  exports.validator = validator;
+	  /**
+	   * Validates a sequence of operations. If `document` parameter is provided, the sequence is additionally validated against the object document.
+	   * If error is encountered, returns a JsonPatchError object
+	   * @param sequence
+	   * @param document
+	   * @returns {JsonPatchError|undefined}
+	   */
+
+	  function validate(sequence, document, externalValidator) {
+	    try {
+	      if (!Array.isArray(sequence)) {
+	        throw new exports.JsonPatchError('Patch sequence must be an array', 'SEQUENCE_NOT_AN_ARRAY');
+	      }
+
+	      if (document) {
+	        //clone document and sequence so that we can safely try applying operations
+	        applyPatch(helpers_1._deepClone(document), helpers_1._deepClone(sequence), externalValidator || true);
+	      } else {
+	        externalValidator = externalValidator || validator;
+
+	        for (var i = 0; i < sequence.length; i++) {
+	          externalValidator(sequence[i], i, document, undefined);
+	        }
+	      }
+	    } catch (e) {
+	      if (e instanceof exports.JsonPatchError) {
+	        return e;
+	      } else {
+	        throw e;
+	      }
+	    }
+	  }
+
+	  exports.validate = validate;
+	  /**
+	   * Default export for backwards compat
+	   */
+
+	  exports.default = {
+	    JsonPatchError: exports.JsonPatchError,
+	    deepClone: exports.deepClone,
+	    getValueByPointer: getValueByPointer,
+	    applyOperation: applyOperation,
+	    applyPatch: applyPatch,
+	    applyReducer: applyReducer,
+	    validator: validator,
+	    validate: validate
+	  };
+	})(core$1);
+
+	var __assign = commonjsGlobal && commonjsGlobal.__assign || function () {
+	  __assign = Object.assign || function (t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	      s = arguments[i];
+
+	      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+	    }
+
+	    return t;
+	  };
+
+	  return __assign.apply(this, arguments);
+	};
+
+	Object.defineProperty(duplex, "__esModule", {
+	  value: true
+	});
+	/*!
+	 * https://github.com/Starcounter-Jack/JSON-Patch
+	 * (c) 2017 Joachim Wester
+	 * MIT license
+	 */
+
+	var helpers_1 = helpers;
+	var core_1 = core$1;
+	/* export all core functions and types */
+
+	var core_2 = core$1;
+	duplex.applyOperation = core_2.applyOperation;
+	duplex.applyPatch = core_2.applyPatch;
+	duplex.applyReducer = core_2.applyReducer;
+	duplex.getValueByPointer = core_2.getValueByPointer;
+	duplex.validate = core_2.validate;
+	duplex.validator = core_2.validator;
+	/* export some helpers */
+
+	var helpers_2 = helpers;
+	duplex.JsonPatchError = helpers_2.PatchError;
+	duplex.deepClone = helpers_2._deepClone;
+	duplex.escapePathComponent = helpers_2.escapePathComponent;
+	duplex.unescapePathComponent = helpers_2.unescapePathComponent;
+	var beforeDict = new WeakMap();
+
+	var Mirror =
+	/** @class */
+	function () {
+	  function Mirror(obj) {
+	    this.observers = new Map();
+	    this.obj = obj;
+	  }
+
+	  return Mirror;
+	}();
+
+	var ObserverInfo =
+	/** @class */
+	function () {
+	  function ObserverInfo(callback, observer) {
+	    this.callback = callback;
+	    this.observer = observer;
+	  }
+
+	  return ObserverInfo;
+	}();
+
+	function getMirror(obj) {
+	  return beforeDict.get(obj);
+	}
+
+	function getObserverFromMirror(mirror, callback) {
+	  return mirror.observers.get(callback);
+	}
+
+	function removeObserverFromMirror(mirror, observer) {
+	  mirror.observers.delete(observer.callback);
+	}
+	/**
+	 * Detach an observer from an object
+	 */
+
+
+	function unobserve(root, observer) {
+	  observer.unobserve();
+	}
+
+	duplex.unobserve = unobserve;
+	/**
+	 * Observes changes made to an object, which can then be retrieved using generate
+	 */
+
+	function observe(obj, callback) {
+	  var patches = [];
+	  var observer;
+	  var mirror = getMirror(obj);
+
+	  if (!mirror) {
+	    mirror = new Mirror(obj);
+	    beforeDict.set(obj, mirror);
+	  } else {
+	    var observerInfo = getObserverFromMirror(mirror, callback);
+	    observer = observerInfo && observerInfo.observer;
+	  }
+
+	  if (observer) {
+	    return observer;
+	  }
+
+	  observer = {};
+	  mirror.value = helpers_1._deepClone(obj);
+
+	  if (callback) {
+	    observer.callback = callback;
+	    observer.next = null;
+
+	    var dirtyCheck = function () {
+	      generate(observer);
+	    };
+
+	    var fastCheck = function () {
+	      clearTimeout(observer.next);
+	      observer.next = setTimeout(dirtyCheck);
+	    };
+
+	    if (typeof window !== 'undefined') {
+	      //not Node
+	      window.addEventListener('mouseup', fastCheck);
+	      window.addEventListener('keyup', fastCheck);
+	      window.addEventListener('mousedown', fastCheck);
+	      window.addEventListener('keydown', fastCheck);
+	      window.addEventListener('change', fastCheck);
+	    }
+	  }
+
+	  observer.patches = patches;
+	  observer.object = obj;
+
+	  observer.unobserve = function () {
+	    generate(observer);
+	    clearTimeout(observer.next);
+	    removeObserverFromMirror(mirror, observer);
+
+	    if (typeof window !== 'undefined') {
+	      window.removeEventListener('mouseup', fastCheck);
+	      window.removeEventListener('keyup', fastCheck);
+	      window.removeEventListener('mousedown', fastCheck);
+	      window.removeEventListener('keydown', fastCheck);
+	      window.removeEventListener('change', fastCheck);
+	    }
+	  };
+
+	  mirror.observers.set(callback, new ObserverInfo(callback, observer));
+	  return observer;
+	}
+
+	duplex.observe = observe;
+	/**
+	 * Generate an array of patches from an observer
+	 */
+
+	function generate(observer, invertible) {
+	  if (invertible === void 0) {
+	    invertible = false;
+	  }
+
+	  var mirror = beforeDict.get(observer.object);
+
+	  _generate(mirror.value, observer.object, observer.patches, "", invertible);
+
+	  if (observer.patches.length) {
+	    core_1.applyPatch(mirror.value, observer.patches);
+	  }
+
+	  var temp = observer.patches;
+
+	  if (temp.length > 0) {
+	    observer.patches = [];
+
+	    if (observer.callback) {
+	      observer.callback(temp);
+	    }
+	  }
+
+	  return temp;
+	}
+
+	duplex.generate = generate; // Dirty check if obj is different from mirror, generate patches and update mirror
+
+	function _generate(mirror, obj, patches, path, invertible) {
+	  if (obj === mirror) {
+	    return;
+	  }
+
+	  if (typeof obj.toJSON === "function") {
+	    obj = obj.toJSON();
+	  }
+
+	  var newKeys = helpers_1._objectKeys(obj);
+
+	  var oldKeys = helpers_1._objectKeys(mirror);
+	  var deleted = false; //if ever "move" operation is implemented here, make sure this test runs OK: "should not generate the same patch twice (move)"
+
+	  for (var t = oldKeys.length - 1; t >= 0; t--) {
+	    var key = oldKeys[t];
+	    var oldVal = mirror[key];
+
+	    if (helpers_1.hasOwnProperty(obj, key) && !(obj[key] === undefined && oldVal !== undefined && Array.isArray(obj) === false)) {
+	      var newVal = obj[key];
+
+	      if (typeof oldVal == "object" && oldVal != null && typeof newVal == "object" && newVal != null) {
+	        _generate(oldVal, newVal, patches, path + "/" + helpers_1.escapePathComponent(key), invertible);
+	      } else {
+	        if (oldVal !== newVal) {
+
+	          if (invertible) {
+	            patches.push({
+	              op: "test",
+	              path: path + "/" + helpers_1.escapePathComponent(key),
+	              value: helpers_1._deepClone(oldVal)
+	            });
+	          }
+
+	          patches.push({
+	            op: "replace",
+	            path: path + "/" + helpers_1.escapePathComponent(key),
+	            value: helpers_1._deepClone(newVal)
+	          });
+	        }
+	      }
+	    } else if (Array.isArray(mirror) === Array.isArray(obj)) {
+	      if (invertible) {
+	        patches.push({
+	          op: "test",
+	          path: path + "/" + helpers_1.escapePathComponent(key),
+	          value: helpers_1._deepClone(oldVal)
+	        });
+	      }
+
+	      patches.push({
+	        op: "remove",
+	        path: path + "/" + helpers_1.escapePathComponent(key)
+	      });
+	      deleted = true; // property has been deleted
+	    } else {
+	      if (invertible) {
+	        patches.push({
+	          op: "test",
+	          path: path,
+	          value: mirror
+	        });
+	      }
+
+	      patches.push({
+	        op: "replace",
+	        path: path,
+	        value: obj
+	      });
+	    }
+	  }
+
+	  if (!deleted && newKeys.length == oldKeys.length) {
+	    return;
+	  }
+
+	  for (var t = 0; t < newKeys.length; t++) {
+	    var key = newKeys[t];
+
+	    if (!helpers_1.hasOwnProperty(mirror, key) && obj[key] !== undefined) {
+	      patches.push({
+	        op: "add",
+	        path: path + "/" + helpers_1.escapePathComponent(key),
+	        value: helpers_1._deepClone(obj[key])
+	      });
+	    }
+	  }
+	}
+	/**
+	 * Create an array of patches from the differences in two objects
+	 */
+
+
+	function compare(tree1, tree2, invertible) {
+	  if (invertible === void 0) {
+	    invertible = false;
+	  }
+
+	  var patches = [];
+
+	  _generate(tree1, tree2, patches, '', invertible);
+
+	  return patches;
+	}
+
+	duplex.compare = compare;
+	/**
+	 * Default export for backwards compat
+	 */
+	// import just to re-export as default
+
+	var core = core$1;
+	var helpers_3 = helpers;
+
+	duplex.default = __assign({}, core, {
+	  // duplex
+	  unobserve: unobserve,
+	  observe: observe,
+	  generate: generate,
+	  compare: compare,
+	  // helpers
+	  JsonPatchError: helpers_3.PatchError,
+	  deepClone: helpers_1._deepClone,
+	  escapePathComponent: helpers_1.escapePathComponent,
+	  unescapePathComponent: helpers_3.unescapePathComponent
+	});
+
+	var global$2 = (typeof global !== "undefined" ? global :
+	  typeof self !== "undefined" ? self :
+	  typeof window !== "undefined" ? window : {});
+
+	var global$1 = typeof global$2 !== "undefined" ? global$2 : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};
+
+	var lookup$1 = [];
+	var revLookup$1 = [];
+	var Arr$1 = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+	var inited$1 = false;
+
+	function init$1() {
+	  inited$1 = true;
+	  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+	  for (var i = 0, len = code.length; i < len; ++i) {
+	    lookup$1[i] = code[i];
+	    revLookup$1[code.charCodeAt(i)] = i;
+	  }
+
+	  revLookup$1['-'.charCodeAt(0)] = 62;
+	  revLookup$1['_'.charCodeAt(0)] = 63;
+	}
+
+	function toByteArray$1(b64) {
+	  if (!inited$1) {
+	    init$1();
+	  }
+
+	  var i, j, l, tmp, placeHolders, arr;
+	  var len = b64.length;
+
+	  if (len % 4 > 0) {
+	    throw new Error('Invalid string. Length must be a multiple of 4');
+	  } // the number of equal signs (place holders)
+	  // if there are two placeholders, than the two characters before it
+	  // represent one byte
+	  // if there is only one, then the three characters before it represent 2 bytes
+	  // this is just a cheap hack to not do indexOf twice
+
+
+	  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0; // base64 is 4/3 + up to two characters of the original data
+
+	  arr = new Arr$1(len * 3 / 4 - placeHolders); // if there are placeholders, only get up to the last complete 4 chars
+
+	  l = placeHolders > 0 ? len - 4 : len;
+	  var L = 0;
+
+	  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+	    tmp = revLookup$1[b64.charCodeAt(i)] << 18 | revLookup$1[b64.charCodeAt(i + 1)] << 12 | revLookup$1[b64.charCodeAt(i + 2)] << 6 | revLookup$1[b64.charCodeAt(i + 3)];
+	    arr[L++] = tmp >> 16 & 0xFF;
+	    arr[L++] = tmp >> 8 & 0xFF;
+	    arr[L++] = tmp & 0xFF;
+	  }
+
+	  if (placeHolders === 2) {
+	    tmp = revLookup$1[b64.charCodeAt(i)] << 2 | revLookup$1[b64.charCodeAt(i + 1)] >> 4;
+	    arr[L++] = tmp & 0xFF;
+	  } else if (placeHolders === 1) {
+	    tmp = revLookup$1[b64.charCodeAt(i)] << 10 | revLookup$1[b64.charCodeAt(i + 1)] << 4 | revLookup$1[b64.charCodeAt(i + 2)] >> 2;
+	    arr[L++] = tmp >> 8 & 0xFF;
+	    arr[L++] = tmp & 0xFF;
+	  }
+
+	  return arr;
+	}
+
+	function tripletToBase64$1(num) {
+	  return lookup$1[num >> 18 & 0x3F] + lookup$1[num >> 12 & 0x3F] + lookup$1[num >> 6 & 0x3F] + lookup$1[num & 0x3F];
+	}
+
+	function encodeChunk$1(uint8, start, end) {
+	  var tmp;
+	  var output = [];
+
+	  for (var i = start; i < end; i += 3) {
+	    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + uint8[i + 2];
+	    output.push(tripletToBase64$1(tmp));
+	  }
+
+	  return output.join('');
+	}
+
+	function fromByteArray$1(uint8) {
+	  if (!inited$1) {
+	    init$1();
+	  }
+
+	  var tmp;
+	  var len = uint8.length;
+	  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
+
+	  var output = '';
+	  var parts = [];
+	  var maxChunkLength = 16383; // must be multiple of 3
+	  // go through the array every three bytes, we'll deal with trailing stuff later
+
+	  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+	    parts.push(encodeChunk$1(uint8, i, i + maxChunkLength > len2 ? len2 : i + maxChunkLength));
+	  } // pad the end with zeros, but make sure to not forget the extra bytes
+
+
+	  if (extraBytes === 1) {
+	    tmp = uint8[len - 1];
+	    output += lookup$1[tmp >> 2];
+	    output += lookup$1[tmp << 4 & 0x3F];
+	    output += '==';
+	  } else if (extraBytes === 2) {
+	    tmp = (uint8[len - 2] << 8) + uint8[len - 1];
+	    output += lookup$1[tmp >> 10];
+	    output += lookup$1[tmp >> 4 & 0x3F];
+	    output += lookup$1[tmp << 2 & 0x3F];
+	    output += '=';
+	  }
+
+	  parts.push(output);
+	  return parts.join('');
+	}
+
+	function read$1(buffer, offset, isLE, mLen, nBytes) {
+	  var e, m;
+	  var eLen = nBytes * 8 - mLen - 1;
+	  var eMax = (1 << eLen) - 1;
+	  var eBias = eMax >> 1;
+	  var nBits = -7;
+	  var i = isLE ? nBytes - 1 : 0;
+	  var d = isLE ? -1 : 1;
+	  var s = buffer[offset + i];
+	  i += d;
+	  e = s & (1 << -nBits) - 1;
+	  s >>= -nBits;
+	  nBits += eLen;
+
+	  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+	  m = e & (1 << -nBits) - 1;
+	  e >>= -nBits;
+	  nBits += mLen;
+
+	  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+	  if (e === 0) {
+	    e = 1 - eBias;
+	  } else if (e === eMax) {
+	    return m ? NaN : (s ? -1 : 1) * Infinity;
+	  } else {
+	    m = m + Math.pow(2, mLen);
+	    e = e - eBias;
+	  }
+
+	  return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
+	}
+	function write$1(buffer, value, offset, isLE, mLen, nBytes) {
+	  var e, m, c;
+	  var eLen = nBytes * 8 - mLen - 1;
+	  var eMax = (1 << eLen) - 1;
+	  var eBias = eMax >> 1;
+	  var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
+	  var i = isLE ? 0 : nBytes - 1;
+	  var d = isLE ? 1 : -1;
+	  var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+	  value = Math.abs(value);
+
+	  if (isNaN(value) || value === Infinity) {
+	    m = isNaN(value) ? 1 : 0;
+	    e = eMax;
+	  } else {
+	    e = Math.floor(Math.log(value) / Math.LN2);
+
+	    if (value * (c = Math.pow(2, -e)) < 1) {
+	      e--;
+	      c *= 2;
+	    }
+
+	    if (e + eBias >= 1) {
+	      value += rt / c;
+	    } else {
+	      value += rt * Math.pow(2, 1 - eBias);
+	    }
+
+	    if (value * c >= 2) {
+	      e++;
+	      c /= 2;
+	    }
+
+	    if (e + eBias >= eMax) {
+	      m = 0;
+	      e = eMax;
+	    } else if (e + eBias >= 1) {
+	      m = (value * c - 1) * Math.pow(2, mLen);
+	      e = e + eBias;
+	    } else {
+	      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+	      e = 0;
+	    }
+	  }
+
+	  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+	  e = e << mLen | m;
+	  eLen += mLen;
+
+	  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+	  buffer[offset + i - d] |= s * 128;
+	}
+
+	var toString$1 = {}.toString;
+	var isArray$2 = Array.isArray || function (arr) {
+	  return toString$1.call(arr) == '[object Array]';
+	};
+
+	var INSPECT_MAX_BYTES$1 = 50;
+	/**
+	 * If `Buffer.TYPED_ARRAY_SUPPORT`:
+	 *   === true    Use Uint8Array implementation (fastest)
+	 *   === false   Use Object implementation (most compatible, even IE6)
+	 *
+	 * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+	 * Opera 11.6+, iOS 4.2+.
+	 *
+	 * Due to various browser bugs, sometimes the Object implementation will be used even
+	 * when the browser supports typed arrays.
+	 *
+	 * Note:
+	 *
+	 *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+	 *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+	 *
+	 *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+	 *
+	 *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+	 *     incorrect length in some situations.
+
+	 * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+	 * get the Object implementation, which is slower but behaves correctly.
+	 */
+
+	Buffer$g.TYPED_ARRAY_SUPPORT = global$1.TYPED_ARRAY_SUPPORT !== undefined ? global$1.TYPED_ARRAY_SUPPORT : true;
+	/*
+	 * Export kMaxLength after typed array support is determined.
+	 */
+
+	kMaxLength$1();
+
+	function kMaxLength$1() {
+	  return Buffer$g.TYPED_ARRAY_SUPPORT ? 0x7fffffff : 0x3fffffff;
+	}
+
+	function createBuffer$1(that, length) {
+	  if (kMaxLength$1() < length) {
+	    throw new RangeError('Invalid typed array length');
+	  }
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    // Return an augmented `Uint8Array` instance, for best performance
+	    that = new Uint8Array(length);
+	    that.__proto__ = Buffer$g.prototype;
+	  } else {
+	    // Fallback: Return an object instance of the Buffer class
+	    if (that === null) {
+	      that = new Buffer$g(length);
+	    }
+
+	    that.length = length;
+	  }
+
+	  return that;
+	}
+	/**
+	 * The Buffer constructor returns instances of `Uint8Array` that have their
+	 * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+	 * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+	 * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+	 * returns a single octet.
+	 *
+	 * The `Uint8Array` prototype remains unmodified.
+	 */
+
+
+	function Buffer$g(arg, encodingOrOffset, length) {
+	  if (!Buffer$g.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer$g)) {
+	    return new Buffer$g(arg, encodingOrOffset, length);
+	  } // Common case.
+
+
+	  if (typeof arg === 'number') {
+	    if (typeof encodingOrOffset === 'string') {
+	      throw new Error('If encoding is specified then the first argument must be a string');
+	    }
+
+	    return allocUnsafe$1(this, arg);
+	  }
+
+	  return from$2(this, arg, encodingOrOffset, length);
+	}
+	Buffer$g.poolSize = 8192; // not used by this implementation
+	// TODO: Legacy, not needed anymore. Remove in next major version.
+
+	Buffer$g._augment = function (arr) {
+	  arr.__proto__ = Buffer$g.prototype;
+	  return arr;
+	};
+
+	function from$2(that, value, encodingOrOffset, length) {
+	  if (typeof value === 'number') {
+	    throw new TypeError('"value" argument must not be a number');
+	  }
+
+	  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+	    return fromArrayBuffer$1(that, value, encodingOrOffset, length);
+	  }
+
+	  if (typeof value === 'string') {
+	    return fromString$1(that, value, encodingOrOffset);
+	  }
+
+	  return fromObject$1(that, value);
+	}
+	/**
+	 * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
+	 * if value is a number.
+	 * Buffer.from(str[, encoding])
+	 * Buffer.from(array)
+	 * Buffer.from(buffer)
+	 * Buffer.from(arrayBuffer[, byteOffset[, length]])
+	 **/
+
+
+	Buffer$g.from = function (value, encodingOrOffset, length) {
+	  return from$2(null, value, encodingOrOffset, length);
+	};
+
+	if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	  Buffer$g.prototype.__proto__ = Uint8Array.prototype;
+	  Buffer$g.__proto__ = Uint8Array;
+
+	  if (typeof Symbol !== 'undefined' && Symbol.species && Buffer$g[Symbol.species] === Buffer$g) ;
+	}
+
+	function assertSize$1(size) {
+	  if (typeof size !== 'number') {
+	    throw new TypeError('"size" argument must be a number');
+	  } else if (size < 0) {
+	    throw new RangeError('"size" argument must not be negative');
+	  }
+	}
+
+	function alloc$1(that, size, fill, encoding) {
+	  assertSize$1(size);
+
+	  if (size <= 0) {
+	    return createBuffer$1(that, size);
+	  }
+
+	  if (fill !== undefined) {
+	    // Only pay attention to encoding if it's a string. This
+	    // prevents accidentally sending in a number that would
+	    // be interpretted as a start offset.
+	    return typeof encoding === 'string' ? createBuffer$1(that, size).fill(fill, encoding) : createBuffer$1(that, size).fill(fill);
+	  }
+
+	  return createBuffer$1(that, size);
+	}
+	/**
+	 * Creates a new filled Buffer instance.
+	 * alloc(size[, fill[, encoding]])
+	 **/
+
+
+	Buffer$g.alloc = function (size, fill, encoding) {
+	  return alloc$1(null, size, fill, encoding);
+	};
+
+	function allocUnsafe$1(that, size) {
+	  assertSize$1(size);
+	  that = createBuffer$1(that, size < 0 ? 0 : checked$1(size) | 0);
+
+	  if (!Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    for (var i = 0; i < size; ++i) {
+	      that[i] = 0;
+	    }
+	  }
+
+	  return that;
+	}
+	/**
+	 * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
+	 * */
+
+
+	Buffer$g.allocUnsafe = function (size) {
+	  return allocUnsafe$1(null, size);
+	};
+	/**
+	 * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
+	 */
+
+
+	Buffer$g.allocUnsafeSlow = function (size) {
+	  return allocUnsafe$1(null, size);
+	};
+
+	function fromString$1(that, string, encoding) {
+	  if (typeof encoding !== 'string' || encoding === '') {
+	    encoding = 'utf8';
+	  }
+
+	  if (!Buffer$g.isEncoding(encoding)) {
+	    throw new TypeError('"encoding" must be a valid string encoding');
+	  }
+
+	  var length = byteLength$1(string, encoding) | 0;
+	  that = createBuffer$1(that, length);
+	  var actual = that.write(string, encoding);
+
+	  if (actual !== length) {
+	    // Writing a hex string, for example, that contains invalid characters will
+	    // cause everything after the first invalid character to be ignored. (e.g.
+	    // 'abxxcd' will be treated as 'ab')
+	    that = that.slice(0, actual);
+	  }
+
+	  return that;
+	}
+
+	function fromArrayLike$1(that, array) {
+	  var length = array.length < 0 ? 0 : checked$1(array.length) | 0;
+	  that = createBuffer$1(that, length);
+
+	  for (var i = 0; i < length; i += 1) {
+	    that[i] = array[i] & 255;
+	  }
+
+	  return that;
+	}
+
+	function fromArrayBuffer$1(that, array, byteOffset, length) {
+	  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
+
+	  if (byteOffset < 0 || array.byteLength < byteOffset) {
+	    throw new RangeError('\'offset\' is out of bounds');
+	  }
+
+	  if (array.byteLength < byteOffset + (length || 0)) {
+	    throw new RangeError('\'length\' is out of bounds');
+	  }
+
+	  if (byteOffset === undefined && length === undefined) {
+	    array = new Uint8Array(array);
+	  } else if (length === undefined) {
+	    array = new Uint8Array(array, byteOffset);
+	  } else {
+	    array = new Uint8Array(array, byteOffset, length);
+	  }
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    // Return an augmented `Uint8Array` instance, for best performance
+	    that = array;
+	    that.__proto__ = Buffer$g.prototype;
+	  } else {
+	    // Fallback: Return an object instance of the Buffer class
+	    that = fromArrayLike$1(that, array);
+	  }
+
+	  return that;
+	}
+
+	function fromObject$1(that, obj) {
+	  if (internalIsBuffer$1(obj)) {
+	    var len = checked$1(obj.length) | 0;
+	    that = createBuffer$1(that, len);
+
+	    if (that.length === 0) {
+	      return that;
+	    }
+
+	    obj.copy(that, 0, 0, len);
+	    return that;
+	  }
+
+	  if (obj) {
+	    if (typeof ArrayBuffer !== 'undefined' && obj.buffer instanceof ArrayBuffer || 'length' in obj) {
+	      if (typeof obj.length !== 'number' || isnan$1(obj.length)) {
+	        return createBuffer$1(that, 0);
+	      }
+
+	      return fromArrayLike$1(that, obj);
+	    }
+
+	    if (obj.type === 'Buffer' && isArray$2(obj.data)) {
+	      return fromArrayLike$1(that, obj.data);
+	    }
+	  }
+
+	  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.');
+	}
+
+	function checked$1(length) {
+	  // Note: cannot use `length < kMaxLength()` here because that fails when
+	  // length is NaN (which is otherwise coerced to zero.)
+	  if (length >= kMaxLength$1()) {
+	    throw new RangeError('Attempt to allocate Buffer larger than maximum ' + 'size: 0x' + kMaxLength$1().toString(16) + ' bytes');
+	  }
+
+	  return length | 0;
+	}
+	Buffer$g.isBuffer = isBuffer$2;
+
+	function internalIsBuffer$1(b) {
+	  return !!(b != null && b._isBuffer);
+	}
+
+	Buffer$g.compare = function compare(a, b) {
+	  if (!internalIsBuffer$1(a) || !internalIsBuffer$1(b)) {
+	    throw new TypeError('Arguments must be Buffers');
+	  }
+
+	  if (a === b) return 0;
+	  var x = a.length;
+	  var y = b.length;
+
+	  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+	    if (a[i] !== b[i]) {
+	      x = a[i];
+	      y = b[i];
+	      break;
+	    }
+	  }
+
+	  if (x < y) return -1;
+	  if (y < x) return 1;
+	  return 0;
+	};
+
+	Buffer$g.isEncoding = function isEncoding(encoding) {
+	  switch (String(encoding).toLowerCase()) {
+	    case 'hex':
+	    case 'utf8':
+	    case 'utf-8':
+	    case 'ascii':
+	    case 'latin1':
+	    case 'binary':
+	    case 'base64':
+	    case 'ucs2':
+	    case 'ucs-2':
+	    case 'utf16le':
+	    case 'utf-16le':
+	      return true;
+
+	    default:
+	      return false;
+	  }
+	};
+
+	Buffer$g.concat = function concat(list, length) {
+	  if (!isArray$2(list)) {
+	    throw new TypeError('"list" argument must be an Array of Buffers');
+	  }
+
+	  if (list.length === 0) {
+	    return Buffer$g.alloc(0);
+	  }
+
+	  var i;
+
+	  if (length === undefined) {
+	    length = 0;
+
+	    for (i = 0; i < list.length; ++i) {
+	      length += list[i].length;
+	    }
+	  }
+
+	  var buffer = Buffer$g.allocUnsafe(length);
+	  var pos = 0;
+
+	  for (i = 0; i < list.length; ++i) {
+	    var buf = list[i];
+
+	    if (!internalIsBuffer$1(buf)) {
+	      throw new TypeError('"list" argument must be an Array of Buffers');
+	    }
+
+	    buf.copy(buffer, pos);
+	    pos += buf.length;
+	  }
+
+	  return buffer;
+	};
+
+	function byteLength$1(string, encoding) {
+	  if (internalIsBuffer$1(string)) {
+	    return string.length;
+	  }
+
+	  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' && (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+	    return string.byteLength;
+	  }
+
+	  if (typeof string !== 'string') {
+	    string = '' + string;
+	  }
+
+	  var len = string.length;
+	  if (len === 0) return 0; // Use a for loop to avoid recursion
+
+	  var loweredCase = false;
+
+	  for (;;) {
+	    switch (encoding) {
+	      case 'ascii':
+	      case 'latin1':
+	      case 'binary':
+	        return len;
+
+	      case 'utf8':
+	      case 'utf-8':
+	      case undefined:
+	        return utf8ToBytes$1(string).length;
+
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return len * 2;
+
+	      case 'hex':
+	        return len >>> 1;
+
+	      case 'base64':
+	        return base64ToBytes$1(string).length;
+
+	      default:
+	        if (loweredCase) return utf8ToBytes$1(string).length; // assume utf8
+
+	        encoding = ('' + encoding).toLowerCase();
+	        loweredCase = true;
+	    }
+	  }
+	}
+
+	Buffer$g.byteLength = byteLength$1;
+
+	function slowToString$1(encoding, start, end) {
+	  var loweredCase = false; // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
+	  // property of a typed array.
+	  // This behaves neither like String nor Uint8Array in that we set start/end
+	  // to their upper/lower bounds if the value passed is out of range.
+	  // undefined is handled specially as per ECMA-262 6th Edition,
+	  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
+
+	  if (start === undefined || start < 0) {
+	    start = 0;
+	  } // Return early if start > this.length. Done here to prevent potential uint32
+	  // coercion fail below.
+
+
+	  if (start > this.length) {
+	    return '';
+	  }
+
+	  if (end === undefined || end > this.length) {
+	    end = this.length;
+	  }
+
+	  if (end <= 0) {
+	    return '';
+	  } // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
+
+
+	  end >>>= 0;
+	  start >>>= 0;
+
+	  if (end <= start) {
+	    return '';
+	  }
+
+	  if (!encoding) encoding = 'utf8';
+
+	  while (true) {
+	    switch (encoding) {
+	      case 'hex':
+	        return hexSlice$1(this, start, end);
+
+	      case 'utf8':
+	      case 'utf-8':
+	        return utf8Slice$1(this, start, end);
+
+	      case 'ascii':
+	        return asciiSlice$1(this, start, end);
+
+	      case 'latin1':
+	      case 'binary':
+	        return latin1Slice$1(this, start, end);
+
+	      case 'base64':
+	        return base64Slice$1(this, start, end);
+
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return utf16leSlice$1(this, start, end);
+
+	      default:
+	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
+	        encoding = (encoding + '').toLowerCase();
+	        loweredCase = true;
+	    }
+	  }
+	} // The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
+	// Buffer instances.
+
+
+	Buffer$g.prototype._isBuffer = true;
+
+	function swap$1(b, n, m) {
+	  var i = b[n];
+	  b[n] = b[m];
+	  b[m] = i;
+	}
+
+	Buffer$g.prototype.swap16 = function swap16() {
+	  var len = this.length;
+
+	  if (len % 2 !== 0) {
+	    throw new RangeError('Buffer size must be a multiple of 16-bits');
+	  }
+
+	  for (var i = 0; i < len; i += 2) {
+	    swap$1(this, i, i + 1);
+	  }
+
+	  return this;
+	};
+
+	Buffer$g.prototype.swap32 = function swap32() {
+	  var len = this.length;
+
+	  if (len % 4 !== 0) {
+	    throw new RangeError('Buffer size must be a multiple of 32-bits');
+	  }
+
+	  for (var i = 0; i < len; i += 4) {
+	    swap$1(this, i, i + 3);
+	    swap$1(this, i + 1, i + 2);
+	  }
+
+	  return this;
+	};
+
+	Buffer$g.prototype.swap64 = function swap64() {
+	  var len = this.length;
+
+	  if (len % 8 !== 0) {
+	    throw new RangeError('Buffer size must be a multiple of 64-bits');
+	  }
+
+	  for (var i = 0; i < len; i += 8) {
+	    swap$1(this, i, i + 7);
+	    swap$1(this, i + 1, i + 6);
+	    swap$1(this, i + 2, i + 5);
+	    swap$1(this, i + 3, i + 4);
+	  }
+
+	  return this;
+	};
+
+	Buffer$g.prototype.toString = function toString() {
+	  var length = this.length | 0;
+	  if (length === 0) return '';
+	  if (arguments.length === 0) return utf8Slice$1(this, 0, length);
+	  return slowToString$1.apply(this, arguments);
+	};
+
+	Buffer$g.prototype.equals = function equals(b) {
+	  if (!internalIsBuffer$1(b)) throw new TypeError('Argument must be a Buffer');
+	  if (this === b) return true;
+	  return Buffer$g.compare(this, b) === 0;
+	};
+
+	Buffer$g.prototype.inspect = function inspect() {
+	  var str = '';
+	  var max = INSPECT_MAX_BYTES$1;
+
+	  if (this.length > 0) {
+	    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
+	    if (this.length > max) str += ' ... ';
+	  }
+
+	  return '<Buffer ' + str + '>';
+	};
+
+	Buffer$g.prototype.compare = function compare(target, start, end, thisStart, thisEnd) {
+	  if (!internalIsBuffer$1(target)) {
+	    throw new TypeError('Argument must be a Buffer');
+	  }
+
+	  if (start === undefined) {
+	    start = 0;
+	  }
+
+	  if (end === undefined) {
+	    end = target ? target.length : 0;
+	  }
+
+	  if (thisStart === undefined) {
+	    thisStart = 0;
+	  }
+
+	  if (thisEnd === undefined) {
+	    thisEnd = this.length;
+	  }
+
+	  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
+	    throw new RangeError('out of range index');
+	  }
+
+	  if (thisStart >= thisEnd && start >= end) {
+	    return 0;
+	  }
+
+	  if (thisStart >= thisEnd) {
+	    return -1;
+	  }
+
+	  if (start >= end) {
+	    return 1;
+	  }
+
+	  start >>>= 0;
+	  end >>>= 0;
+	  thisStart >>>= 0;
+	  thisEnd >>>= 0;
+	  if (this === target) return 0;
+	  var x = thisEnd - thisStart;
+	  var y = end - start;
+	  var len = Math.min(x, y);
+	  var thisCopy = this.slice(thisStart, thisEnd);
+	  var targetCopy = target.slice(start, end);
+
+	  for (var i = 0; i < len; ++i) {
+	    if (thisCopy[i] !== targetCopy[i]) {
+	      x = thisCopy[i];
+	      y = targetCopy[i];
+	      break;
+	    }
+	  }
+
+	  if (x < y) return -1;
+	  if (y < x) return 1;
+	  return 0;
+	}; // Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
+	// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
+	//
+	// Arguments:
+	// - buffer - a Buffer to search
+	// - val - a string, Buffer, or number
+	// - byteOffset - an index into `buffer`; will be clamped to an int32
+	// - encoding - an optional encoding, relevant is val is a string
+	// - dir - true for indexOf, false for lastIndexOf
+
+
+	function bidirectionalIndexOf$1(buffer, val, byteOffset, encoding, dir) {
+	  // Empty buffer means no match
+	  if (buffer.length === 0) return -1; // Normalize byteOffset
+
+	  if (typeof byteOffset === 'string') {
+	    encoding = byteOffset;
+	    byteOffset = 0;
+	  } else if (byteOffset > 0x7fffffff) {
+	    byteOffset = 0x7fffffff;
+	  } else if (byteOffset < -0x80000000) {
+	    byteOffset = -0x80000000;
+	  }
+
+	  byteOffset = +byteOffset; // Coerce to Number.
+
+	  if (isNaN(byteOffset)) {
+	    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
+	    byteOffset = dir ? 0 : buffer.length - 1;
+	  } // Normalize byteOffset: negative offsets start from the end of the buffer
+
+
+	  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
+
+	  if (byteOffset >= buffer.length) {
+	    if (dir) return -1;else byteOffset = buffer.length - 1;
+	  } else if (byteOffset < 0) {
+	    if (dir) byteOffset = 0;else return -1;
+	  } // Normalize val
+
+
+	  if (typeof val === 'string') {
+	    val = Buffer$g.from(val, encoding);
+	  } // Finally, search either indexOf (if dir is true) or lastIndexOf
+
+
+	  if (internalIsBuffer$1(val)) {
+	    // Special case: looking for empty string/buffer always fails
+	    if (val.length === 0) {
+	      return -1;
+	    }
+
+	    return arrayIndexOf$1(buffer, val, byteOffset, encoding, dir);
+	  } else if (typeof val === 'number') {
+	    val = val & 0xFF; // Search for a byte value [0-255]
+
+	    if (Buffer$g.TYPED_ARRAY_SUPPORT && typeof Uint8Array.prototype.indexOf === 'function') {
+	      if (dir) {
+	        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset);
+	      } else {
+	        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
+	      }
+	    }
+
+	    return arrayIndexOf$1(buffer, [val], byteOffset, encoding, dir);
+	  }
+
+	  throw new TypeError('val must be string, number or Buffer');
+	}
+
+	function arrayIndexOf$1(arr, val, byteOffset, encoding, dir) {
+	  var indexSize = 1;
+	  var arrLength = arr.length;
+	  var valLength = val.length;
+
+	  if (encoding !== undefined) {
+	    encoding = String(encoding).toLowerCase();
+
+	    if (encoding === 'ucs2' || encoding === 'ucs-2' || encoding === 'utf16le' || encoding === 'utf-16le') {
+	      if (arr.length < 2 || val.length < 2) {
+	        return -1;
+	      }
+
+	      indexSize = 2;
+	      arrLength /= 2;
+	      valLength /= 2;
+	      byteOffset /= 2;
+	    }
+	  }
+
+	  function read(buf, i) {
+	    if (indexSize === 1) {
+	      return buf[i];
+	    } else {
+	      return buf.readUInt16BE(i * indexSize);
+	    }
+	  }
+
+	  var i;
+
+	  if (dir) {
+	    var foundIndex = -1;
+
+	    for (i = byteOffset; i < arrLength; i++) {
+	      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
+	        if (foundIndex === -1) foundIndex = i;
+	        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize;
+	      } else {
+	        if (foundIndex !== -1) i -= i - foundIndex;
+	        foundIndex = -1;
+	      }
+	    }
+	  } else {
+	    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
+
+	    for (i = byteOffset; i >= 0; i--) {
+	      var found = true;
+
+	      for (var j = 0; j < valLength; j++) {
+	        if (read(arr, i + j) !== read(val, j)) {
+	          found = false;
+	          break;
+	        }
+	      }
+
+	      if (found) return i;
+	    }
+	  }
+
+	  return -1;
+	}
+
+	Buffer$g.prototype.includes = function includes(val, byteOffset, encoding) {
+	  return this.indexOf(val, byteOffset, encoding) !== -1;
+	};
+
+	Buffer$g.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
+	  return bidirectionalIndexOf$1(this, val, byteOffset, encoding, true);
+	};
+
+	Buffer$g.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
+	  return bidirectionalIndexOf$1(this, val, byteOffset, encoding, false);
+	};
+
+	function hexWrite$1(buf, string, offset, length) {
+	  offset = Number(offset) || 0;
+	  var remaining = buf.length - offset;
+
+	  if (!length) {
+	    length = remaining;
+	  } else {
+	    length = Number(length);
+
+	    if (length > remaining) {
+	      length = remaining;
+	    }
+	  } // must be an even number of digits
+
+
+	  var strLen = string.length;
+	  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string');
+
+	  if (length > strLen / 2) {
+	    length = strLen / 2;
+	  }
+
+	  for (var i = 0; i < length; ++i) {
+	    var parsed = parseInt(string.substr(i * 2, 2), 16);
+	    if (isNaN(parsed)) return i;
+	    buf[offset + i] = parsed;
+	  }
+
+	  return i;
+	}
+
+	function utf8Write$1(buf, string, offset, length) {
+	  return blitBuffer$1(utf8ToBytes$1(string, buf.length - offset), buf, offset, length);
+	}
+
+	function asciiWrite$1(buf, string, offset, length) {
+	  return blitBuffer$1(asciiToBytes$1(string), buf, offset, length);
+	}
+
+	function latin1Write$1(buf, string, offset, length) {
+	  return asciiWrite$1(buf, string, offset, length);
+	}
+
+	function base64Write$1(buf, string, offset, length) {
+	  return blitBuffer$1(base64ToBytes$1(string), buf, offset, length);
+	}
+
+	function ucs2Write$1(buf, string, offset, length) {
+	  return blitBuffer$1(utf16leToBytes$1(string, buf.length - offset), buf, offset, length);
+	}
+
+	Buffer$g.prototype.write = function write(string, offset, length, encoding) {
+	  // Buffer#write(string)
+	  if (offset === undefined) {
+	    encoding = 'utf8';
+	    length = this.length;
+	    offset = 0; // Buffer#write(string, encoding)
+	  } else if (length === undefined && typeof offset === 'string') {
+	    encoding = offset;
+	    length = this.length;
+	    offset = 0; // Buffer#write(string, offset[, length][, encoding])
+	  } else if (isFinite(offset)) {
+	    offset = offset | 0;
+
+	    if (isFinite(length)) {
+	      length = length | 0;
+	      if (encoding === undefined) encoding = 'utf8';
+	    } else {
+	      encoding = length;
+	      length = undefined;
+	    } // legacy write(string, encoding, offset, length) - remove in v0.13
+
+	  } else {
+	    throw new Error('Buffer.write(string, encoding, offset[, length]) is no longer supported');
+	  }
+
+	  var remaining = this.length - offset;
+	  if (length === undefined || length > remaining) length = remaining;
+
+	  if (string.length > 0 && (length < 0 || offset < 0) || offset > this.length) {
+	    throw new RangeError('Attempt to write outside buffer bounds');
+	  }
+
+	  if (!encoding) encoding = 'utf8';
+	  var loweredCase = false;
+
+	  for (;;) {
+	    switch (encoding) {
+	      case 'hex':
+	        return hexWrite$1(this, string, offset, length);
+
+	      case 'utf8':
+	      case 'utf-8':
+	        return utf8Write$1(this, string, offset, length);
+
+	      case 'ascii':
+	        return asciiWrite$1(this, string, offset, length);
+
+	      case 'latin1':
+	      case 'binary':
+	        return latin1Write$1(this, string, offset, length);
+
+	      case 'base64':
+	        // Warning: maxLength not taken into account in base64Write
+	        return base64Write$1(this, string, offset, length);
+
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return ucs2Write$1(this, string, offset, length);
+
+	      default:
+	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
+	        encoding = ('' + encoding).toLowerCase();
+	        loweredCase = true;
+	    }
+	  }
+	};
+
+	Buffer$g.prototype.toJSON = function toJSON() {
+	  return {
+	    type: 'Buffer',
+	    data: Array.prototype.slice.call(this._arr || this, 0)
+	  };
+	};
+
+	function base64Slice$1(buf, start, end) {
+	  if (start === 0 && end === buf.length) {
+	    return fromByteArray$1(buf);
+	  } else {
+	    return fromByteArray$1(buf.slice(start, end));
+	  }
+	}
+
+	function utf8Slice$1(buf, start, end) {
+	  end = Math.min(buf.length, end);
+	  var res = [];
+	  var i = start;
+
+	  while (i < end) {
+	    var firstByte = buf[i];
+	    var codePoint = null;
+	    var bytesPerSequence = firstByte > 0xEF ? 4 : firstByte > 0xDF ? 3 : firstByte > 0xBF ? 2 : 1;
+
+	    if (i + bytesPerSequence <= end) {
+	      var secondByte, thirdByte, fourthByte, tempCodePoint;
+
+	      switch (bytesPerSequence) {
+	        case 1:
+	          if (firstByte < 0x80) {
+	            codePoint = firstByte;
+	          }
+
+	          break;
+
+	        case 2:
+	          secondByte = buf[i + 1];
+
+	          if ((secondByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0x1F) << 0x6 | secondByte & 0x3F;
+
+	            if (tempCodePoint > 0x7F) {
+	              codePoint = tempCodePoint;
+	            }
+	          }
+
+	          break;
+
+	        case 3:
+	          secondByte = buf[i + 1];
+	          thirdByte = buf[i + 2];
+
+	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | thirdByte & 0x3F;
+
+	            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+	              codePoint = tempCodePoint;
+	            }
+	          }
+
+	          break;
+
+	        case 4:
+	          secondByte = buf[i + 1];
+	          thirdByte = buf[i + 2];
+	          fourthByte = buf[i + 3];
+
+	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | fourthByte & 0x3F;
+
+	            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+	              codePoint = tempCodePoint;
+	            }
+	          }
+
+	      }
+	    }
+
+	    if (codePoint === null) {
+	      // we did not generate a valid codePoint so insert a
+	      // replacement char (U+FFFD) and advance only 1 byte
+	      codePoint = 0xFFFD;
+	      bytesPerSequence = 1;
+	    } else if (codePoint > 0xFFFF) {
+	      // encode to utf16 (surrogate pair dance)
+	      codePoint -= 0x10000;
+	      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
+	      codePoint = 0xDC00 | codePoint & 0x3FF;
+	    }
+
+	    res.push(codePoint);
+	    i += bytesPerSequence;
+	  }
+
+	  return decodeCodePointsArray$1(res);
+	} // Based on http://stackoverflow.com/a/22747272/680742, the browser with
+	// the lowest limit is Chrome, with 0x10000 args.
+	// We go 1 magnitude less, for safety
+
+
+	var MAX_ARGUMENTS_LENGTH$1 = 0x1000;
+
+	function decodeCodePointsArray$1(codePoints) {
+	  var len = codePoints.length;
+
+	  if (len <= MAX_ARGUMENTS_LENGTH$1) {
+	    return String.fromCharCode.apply(String, codePoints); // avoid extra slice()
+	  } // Decode in chunks to avoid "call stack size exceeded".
+
+
+	  var res = '';
+	  var i = 0;
+
+	  while (i < len) {
+	    res += String.fromCharCode.apply(String, codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH$1));
+	  }
+
+	  return res;
+	}
+
+	function asciiSlice$1(buf, start, end) {
+	  var ret = '';
+	  end = Math.min(buf.length, end);
+
+	  for (var i = start; i < end; ++i) {
+	    ret += String.fromCharCode(buf[i] & 0x7F);
+	  }
+
+	  return ret;
+	}
+
+	function latin1Slice$1(buf, start, end) {
+	  var ret = '';
+	  end = Math.min(buf.length, end);
+
+	  for (var i = start; i < end; ++i) {
+	    ret += String.fromCharCode(buf[i]);
+	  }
+
+	  return ret;
+	}
+
+	function hexSlice$1(buf, start, end) {
+	  var len = buf.length;
+	  if (!start || start < 0) start = 0;
+	  if (!end || end < 0 || end > len) end = len;
+	  var out = '';
+
+	  for (var i = start; i < end; ++i) {
+	    out += toHex$1(buf[i]);
+	  }
+
+	  return out;
+	}
+
+	function utf16leSlice$1(buf, start, end) {
+	  var bytes = buf.slice(start, end);
+	  var res = '';
+
+	  for (var i = 0; i < bytes.length; i += 2) {
+	    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
+	  }
+
+	  return res;
+	}
+
+	Buffer$g.prototype.slice = function slice(start, end) {
+	  var len = this.length;
+	  start = ~~start;
+	  end = end === undefined ? len : ~~end;
+
+	  if (start < 0) {
+	    start += len;
+	    if (start < 0) start = 0;
+	  } else if (start > len) {
+	    start = len;
+	  }
+
+	  if (end < 0) {
+	    end += len;
+	    if (end < 0) end = 0;
+	  } else if (end > len) {
+	    end = len;
+	  }
+
+	  if (end < start) end = start;
+	  var newBuf;
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    newBuf = this.subarray(start, end);
+	    newBuf.__proto__ = Buffer$g.prototype;
+	  } else {
+	    var sliceLen = end - start;
+	    newBuf = new Buffer$g(sliceLen, undefined);
+
+	    for (var i = 0; i < sliceLen; ++i) {
+	      newBuf[i] = this[i + start];
+	    }
+	  }
+
+	  return newBuf;
+	};
+	/*
+	 * Need to make sure that buffer isn't trying to write out of bounds.
+	 */
+
+
+	function checkOffset$1(offset, ext, length) {
+	  if (offset % 1 !== 0 || offset < 0) throw new RangeError('offset is not uint');
+	  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length');
+	}
+
+	Buffer$g.prototype.readUIntLE = function readUIntLE(offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) checkOffset$1(offset, byteLength, this.length);
+	  var val = this[offset];
+	  var mul = 1;
+	  var i = 0;
+
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    val += this[offset + i] * mul;
+	  }
+
+	  return val;
+	};
+
+	Buffer$g.prototype.readUIntBE = function readUIntBE(offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+
+	  if (!noAssert) {
+	    checkOffset$1(offset, byteLength, this.length);
+	  }
+
+	  var val = this[offset + --byteLength];
+	  var mul = 1;
+
+	  while (byteLength > 0 && (mul *= 0x100)) {
+	    val += this[offset + --byteLength] * mul;
+	  }
+
+	  return val;
+	};
+
+	Buffer$g.prototype.readUInt8 = function readUInt8(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 1, this.length);
+	  return this[offset];
+	};
+
+	Buffer$g.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 2, this.length);
+	  return this[offset] | this[offset + 1] << 8;
+	};
+
+	Buffer$g.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 2, this.length);
+	  return this[offset] << 8 | this[offset + 1];
+	};
+
+	Buffer$g.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 4, this.length);
+	  return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 0x1000000;
+	};
+
+	Buffer$g.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 4, this.length);
+	  return this[offset] * 0x1000000 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
+	};
+
+	Buffer$g.prototype.readIntLE = function readIntLE(offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) checkOffset$1(offset, byteLength, this.length);
+	  var val = this[offset];
+	  var mul = 1;
+	  var i = 0;
+
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    val += this[offset + i] * mul;
+	  }
+
+	  mul *= 0x80;
+	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+	  return val;
+	};
+
+	Buffer$g.prototype.readIntBE = function readIntBE(offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) checkOffset$1(offset, byteLength, this.length);
+	  var i = byteLength;
+	  var mul = 1;
+	  var val = this[offset + --i];
+
+	  while (i > 0 && (mul *= 0x100)) {
+	    val += this[offset + --i] * mul;
+	  }
+
+	  mul *= 0x80;
+	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+	  return val;
+	};
+
+	Buffer$g.prototype.readInt8 = function readInt8(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 1, this.length);
+	  if (!(this[offset] & 0x80)) return this[offset];
+	  return (0xff - this[offset] + 1) * -1;
+	};
+
+	Buffer$g.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 2, this.length);
+	  var val = this[offset] | this[offset + 1] << 8;
+	  return val & 0x8000 ? val | 0xFFFF0000 : val;
+	};
+
+	Buffer$g.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 2, this.length);
+	  var val = this[offset + 1] | this[offset] << 8;
+	  return val & 0x8000 ? val | 0xFFFF0000 : val;
+	};
+
+	Buffer$g.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 4, this.length);
+	  return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
+	};
+
+	Buffer$g.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 4, this.length);
+	  return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
+	};
+
+	Buffer$g.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 4, this.length);
+	  return read$1(this, offset, true, 23, 4);
+	};
+
+	Buffer$g.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 4, this.length);
+	  return read$1(this, offset, false, 23, 4);
+	};
+
+	Buffer$g.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 8, this.length);
+	  return read$1(this, offset, true, 52, 8);
+	};
+
+	Buffer$g.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
+	  if (!noAssert) checkOffset$1(offset, 8, this.length);
+	  return read$1(this, offset, false, 52, 8);
+	};
+
+	function checkInt$1(buf, value, offset, ext, max, min) {
+	  if (!internalIsBuffer$1(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
+	  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds');
+	  if (offset + ext > buf.length) throw new RangeError('Index out of range');
+	}
+
+	Buffer$g.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+
+	  if (!noAssert) {
+	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+	    checkInt$1(this, value, offset, byteLength, maxBytes, 0);
+	  }
+
+	  var mul = 1;
+	  var i = 0;
+	  this[offset] = value & 0xFF;
+
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    this[offset + i] = value / mul & 0xFF;
+	  }
+
+	  return offset + byteLength;
+	};
+
+	Buffer$g.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+
+	  if (!noAssert) {
+	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+	    checkInt$1(this, value, offset, byteLength, maxBytes, 0);
+	  }
+
+	  var i = byteLength - 1;
+	  var mul = 1;
+	  this[offset + i] = value & 0xFF;
+
+	  while (--i >= 0 && (mul *= 0x100)) {
+	    this[offset + i] = value / mul & 0xFF;
+	  }
+
+	  return offset + byteLength;
+	};
+
+	Buffer$g.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 1, 0xff, 0);
+	  if (!Buffer$g.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+	  this[offset] = value & 0xff;
+	  return offset + 1;
+	};
+
+	function objectWriteUInt16$1(buf, value, offset, littleEndian) {
+	  if (value < 0) value = 0xffff + value + 1;
+
+	  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
+	    buf[offset + i] = (value & 0xff << 8 * (littleEndian ? i : 1 - i)) >>> (littleEndian ? i : 1 - i) * 8;
+	  }
+	}
+
+	Buffer$g.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 2, 0xffff, 0);
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = value & 0xff;
+	    this[offset + 1] = value >>> 8;
+	  } else {
+	    objectWriteUInt16$1(this, value, offset, true);
+	  }
+
+	  return offset + 2;
+	};
+
+	Buffer$g.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 2, 0xffff, 0);
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = value >>> 8;
+	    this[offset + 1] = value & 0xff;
+	  } else {
+	    objectWriteUInt16$1(this, value, offset, false);
+	  }
+
+	  return offset + 2;
+	};
+
+	function objectWriteUInt32$1(buf, value, offset, littleEndian) {
+	  if (value < 0) value = 0xffffffff + value + 1;
+
+	  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
+	    buf[offset + i] = value >>> (littleEndian ? i : 3 - i) * 8 & 0xff;
+	  }
+	}
+
+	Buffer$g.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 4, 0xffffffff, 0);
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset + 3] = value >>> 24;
+	    this[offset + 2] = value >>> 16;
+	    this[offset + 1] = value >>> 8;
+	    this[offset] = value & 0xff;
+	  } else {
+	    objectWriteUInt32$1(this, value, offset, true);
+	  }
+
+	  return offset + 4;
+	};
+
+	Buffer$g.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 4, 0xffffffff, 0);
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = value >>> 24;
+	    this[offset + 1] = value >>> 16;
+	    this[offset + 2] = value >>> 8;
+	    this[offset + 3] = value & 0xff;
+	  } else {
+	    objectWriteUInt32$1(this, value, offset, false);
+	  }
+
+	  return offset + 4;
+	};
+
+	Buffer$g.prototype.writeIntLE = function writeIntLE(value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+
+	  if (!noAssert) {
+	    var limit = Math.pow(2, 8 * byteLength - 1);
+	    checkInt$1(this, value, offset, byteLength, limit - 1, -limit);
+	  }
+
+	  var i = 0;
+	  var mul = 1;
+	  var sub = 0;
+	  this[offset] = value & 0xFF;
+
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+	      sub = 1;
+	    }
+
+	    this[offset + i] = (value / mul >> 0) - sub & 0xFF;
+	  }
+
+	  return offset + byteLength;
+	};
+
+	Buffer$g.prototype.writeIntBE = function writeIntBE(value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+
+	  if (!noAssert) {
+	    var limit = Math.pow(2, 8 * byteLength - 1);
+	    checkInt$1(this, value, offset, byteLength, limit - 1, -limit);
+	  }
+
+	  var i = byteLength - 1;
+	  var mul = 1;
+	  var sub = 0;
+	  this[offset + i] = value & 0xFF;
+
+	  while (--i >= 0 && (mul *= 0x100)) {
+	    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+	      sub = 1;
+	    }
+
+	    this[offset + i] = (value / mul >> 0) - sub & 0xFF;
+	  }
+
+	  return offset + byteLength;
+	};
+
+	Buffer$g.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 1, 0x7f, -0x80);
+	  if (!Buffer$g.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+	  if (value < 0) value = 0xff + value + 1;
+	  this[offset] = value & 0xff;
+	  return offset + 1;
+	};
+
+	Buffer$g.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 2, 0x7fff, -0x8000);
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = value & 0xff;
+	    this[offset + 1] = value >>> 8;
+	  } else {
+	    objectWriteUInt16$1(this, value, offset, true);
+	  }
+
+	  return offset + 2;
+	};
+
+	Buffer$g.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 2, 0x7fff, -0x8000);
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = value >>> 8;
+	    this[offset + 1] = value & 0xff;
+	  } else {
+	    objectWriteUInt16$1(this, value, offset, false);
+	  }
+
+	  return offset + 2;
+	};
+
+	Buffer$g.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 4, 0x7fffffff, -0x80000000);
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = value & 0xff;
+	    this[offset + 1] = value >>> 8;
+	    this[offset + 2] = value >>> 16;
+	    this[offset + 3] = value >>> 24;
+	  } else {
+	    objectWriteUInt32$1(this, value, offset, true);
+	  }
+
+	  return offset + 4;
+	};
+
+	Buffer$g.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt$1(this, value, offset, 4, 0x7fffffff, -0x80000000);
+	  if (value < 0) value = 0xffffffff + value + 1;
+
+	  if (Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = value >>> 24;
+	    this[offset + 1] = value >>> 16;
+	    this[offset + 2] = value >>> 8;
+	    this[offset + 3] = value & 0xff;
+	  } else {
+	    objectWriteUInt32$1(this, value, offset, false);
+	  }
+
+	  return offset + 4;
+	};
+
+	function checkIEEE754$1(buf, value, offset, ext, max, min) {
+	  if (offset + ext > buf.length) throw new RangeError('Index out of range');
+	  if (offset < 0) throw new RangeError('Index out of range');
+	}
+
+	function writeFloat$1(buf, value, offset, littleEndian, noAssert) {
+	  if (!noAssert) {
+	    checkIEEE754$1(buf, value, offset, 4);
+	  }
+
+	  write$1(buf, value, offset, littleEndian, 23, 4);
+	  return offset + 4;
+	}
+
+	Buffer$g.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
+	  return writeFloat$1(this, value, offset, true, noAssert);
+	};
+
+	Buffer$g.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
+	  return writeFloat$1(this, value, offset, false, noAssert);
+	};
+
+	function writeDouble$1(buf, value, offset, littleEndian, noAssert) {
+	  if (!noAssert) {
+	    checkIEEE754$1(buf, value, offset, 8);
+	  }
+
+	  write$1(buf, value, offset, littleEndian, 52, 8);
+	  return offset + 8;
+	}
+
+	Buffer$g.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
+	  return writeDouble$1(this, value, offset, true, noAssert);
+	};
+
+	Buffer$g.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
+	  return writeDouble$1(this, value, offset, false, noAssert);
+	}; // copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+
+
+	Buffer$g.prototype.copy = function copy(target, targetStart, start, end) {
+	  if (!start) start = 0;
+	  if (!end && end !== 0) end = this.length;
+	  if (targetStart >= target.length) targetStart = target.length;
+	  if (!targetStart) targetStart = 0;
+	  if (end > 0 && end < start) end = start; // Copy 0 bytes; we're done
+
+	  if (end === start) return 0;
+	  if (target.length === 0 || this.length === 0) return 0; // Fatal error conditions
+
+	  if (targetStart < 0) {
+	    throw new RangeError('targetStart out of bounds');
+	  }
+
+	  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds');
+	  if (end < 0) throw new RangeError('sourceEnd out of bounds'); // Are we oob?
+
+	  if (end > this.length) end = this.length;
+
+	  if (target.length - targetStart < end - start) {
+	    end = target.length - targetStart + start;
+	  }
+
+	  var len = end - start;
+	  var i;
+
+	  if (this === target && start < targetStart && targetStart < end) {
+	    // descending copy from end
+	    for (i = len - 1; i >= 0; --i) {
+	      target[i + targetStart] = this[i + start];
+	    }
+	  } else if (len < 1000 || !Buffer$g.TYPED_ARRAY_SUPPORT) {
+	    // ascending copy from start
+	    for (i = 0; i < len; ++i) {
+	      target[i + targetStart] = this[i + start];
+	    }
+	  } else {
+	    Uint8Array.prototype.set.call(target, this.subarray(start, start + len), targetStart);
+	  }
+
+	  return len;
+	}; // Usage:
+	//    buffer.fill(number[, offset[, end]])
+	//    buffer.fill(buffer[, offset[, end]])
+	//    buffer.fill(string[, offset[, end]][, encoding])
+
+
+	Buffer$g.prototype.fill = function fill(val, start, end, encoding) {
+	  // Handle string cases:
+	  if (typeof val === 'string') {
+	    if (typeof start === 'string') {
+	      encoding = start;
+	      start = 0;
+	      end = this.length;
+	    } else if (typeof end === 'string') {
+	      encoding = end;
+	      end = this.length;
+	    }
+
+	    if (val.length === 1) {
+	      var code = val.charCodeAt(0);
+
+	      if (code < 256) {
+	        val = code;
+	      }
+	    }
+
+	    if (encoding !== undefined && typeof encoding !== 'string') {
+	      throw new TypeError('encoding must be a string');
+	    }
+
+	    if (typeof encoding === 'string' && !Buffer$g.isEncoding(encoding)) {
+	      throw new TypeError('Unknown encoding: ' + encoding);
+	    }
+	  } else if (typeof val === 'number') {
+	    val = val & 255;
+	  } // Invalid ranges are not set to a default, so can range check early.
+
+
+	  if (start < 0 || this.length < start || this.length < end) {
+	    throw new RangeError('Out of range index');
+	  }
+
+	  if (end <= start) {
+	    return this;
+	  }
+
+	  start = start >>> 0;
+	  end = end === undefined ? this.length : end >>> 0;
+	  if (!val) val = 0;
+	  var i;
+
+	  if (typeof val === 'number') {
+	    for (i = start; i < end; ++i) {
+	      this[i] = val;
+	    }
+	  } else {
+	    var bytes = internalIsBuffer$1(val) ? val : utf8ToBytes$1(new Buffer$g(val, encoding).toString());
+	    var len = bytes.length;
+
+	    for (i = 0; i < end - start; ++i) {
+	      this[i + start] = bytes[i % len];
+	    }
+	  }
+
+	  return this;
+	}; // HELPER FUNCTIONS
+	// ================
+
+
+	var INVALID_BASE64_RE$1 = /[^+\/0-9A-Za-z-_]/g;
+
+	function base64clean$1(str) {
+	  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+	  str = stringtrim$1(str).replace(INVALID_BASE64_RE$1, ''); // Node converts strings with length < 2 to ''
+
+	  if (str.length < 2) return ''; // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+
+	  while (str.length % 4 !== 0) {
+	    str = str + '=';
+	  }
+
+	  return str;
+	}
+
+	function stringtrim$1(str) {
+	  if (str.trim) return str.trim();
+	  return str.replace(/^\s+|\s+$/g, '');
+	}
+
+	function toHex$1(n) {
+	  if (n < 16) return '0' + n.toString(16);
+	  return n.toString(16);
+	}
+
+	function utf8ToBytes$1(string, units) {
+	  units = units || Infinity;
+	  var codePoint;
+	  var length = string.length;
+	  var leadSurrogate = null;
+	  var bytes = [];
+
+	  for (var i = 0; i < length; ++i) {
+	    codePoint = string.charCodeAt(i); // is surrogate component
+
+	    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+	      // last char was a lead
+	      if (!leadSurrogate) {
+	        // no lead yet
+	        if (codePoint > 0xDBFF) {
+	          // unexpected trail
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	          continue;
+	        } else if (i + 1 === length) {
+	          // unpaired lead
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	          continue;
+	        } // valid lead
+
+
+	        leadSurrogate = codePoint;
+	        continue;
+	      } // 2 leads in a row
+
+
+	      if (codePoint < 0xDC00) {
+	        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	        leadSurrogate = codePoint;
+	        continue;
+	      } // valid surrogate pair
+
+
+	      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
+	    } else if (leadSurrogate) {
+	      // valid bmp char, but last char was a lead
+	      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	    }
+
+	    leadSurrogate = null; // encode utf8
+
+	    if (codePoint < 0x80) {
+	      if ((units -= 1) < 0) break;
+	      bytes.push(codePoint);
+	    } else if (codePoint < 0x800) {
+	      if ((units -= 2) < 0) break;
+	      bytes.push(codePoint >> 0x6 | 0xC0, codePoint & 0x3F | 0x80);
+	    } else if (codePoint < 0x10000) {
+	      if ((units -= 3) < 0) break;
+	      bytes.push(codePoint >> 0xC | 0xE0, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
+	    } else if (codePoint < 0x110000) {
+	      if ((units -= 4) < 0) break;
+	      bytes.push(codePoint >> 0x12 | 0xF0, codePoint >> 0xC & 0x3F | 0x80, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
+	    } else {
+	      throw new Error('Invalid code point');
+	    }
+	  }
+
+	  return bytes;
+	}
+
+	function asciiToBytes$1(str) {
+	  var byteArray = [];
+
+	  for (var i = 0; i < str.length; ++i) {
+	    // Node's code seems to be doing this and not & 0x7F..
+	    byteArray.push(str.charCodeAt(i) & 0xFF);
+	  }
+
+	  return byteArray;
+	}
+
+	function utf16leToBytes$1(str, units) {
+	  var c, hi, lo;
+	  var byteArray = [];
+
+	  for (var i = 0; i < str.length; ++i) {
+	    if ((units -= 2) < 0) break;
+	    c = str.charCodeAt(i);
+	    hi = c >> 8;
+	    lo = c % 256;
+	    byteArray.push(lo);
+	    byteArray.push(hi);
+	  }
+
+	  return byteArray;
+	}
+
+	function base64ToBytes$1(str) {
+	  return toByteArray$1(base64clean$1(str));
+	}
+
+	function blitBuffer$1(src, dst, offset, length) {
+	  for (var i = 0; i < length; ++i) {
+	    if (i + offset >= dst.length || i >= src.length) break;
+	    dst[i + offset] = src[i];
+	  }
+
+	  return i;
+	}
+
+	function isnan$1(val) {
+	  return val !== val; // eslint-disable-line no-self-compare
+	} // the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
+	// The _isBuffer check is for Safari 5-7 support, because it's missing
+	// Object.prototype.constructor. Remove this eventually
+
+
+	function isBuffer$2(obj) {
+	  return obj != null && (!!obj._isBuffer || isFastBuffer$1(obj) || isSlowBuffer$1(obj));
+	}
+
+	function isFastBuffer$1(obj) {
+	  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
+	} // For Node v0.10 support. Remove this eventually.
+
+
+	function isSlowBuffer$1(obj) {
+	  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer$1(obj.slice(0, 0));
+	}
+
+	const crypto$2 = require$$0$9;
+	/**
+	 * Simple interaction with 256-bit spaces.
+	 */
+
+	class Hash256$1 {
+	  /**
+	   * Create an instance of a `Hash256` object by calling `new Hash256()`,
+	   * where `settings` can be provided to supply a particular input object.
+	   * 
+	   * If the `settings` is not a string, `input` must be provided.
+	   * @param {Object} settings 
+	   * @param {String} settings.input Input string to map as 256-bit hash.
+	   */
+	  constructor(settings = {}) {
+	    if (typeof settings === 'string') settings = {
+	      input: settings
+	    };
+	    if (!settings.input) settings.input = crypto$2.randomBytes(32).toString('hex');
+	    this.settings = Object.assign({
+	      hash: Hash256$1.digest(settings.input)
+	    }, settings);
+	  }
+	  /**
+	   * Produce a SHA256 digest of some input data.
+	   * @param {String|Buffer} input Content to digest.
+	   * @returns {String} `SHA256(input)` as a hexadecimal string.
+	   */
+
+
+	  static digest(input) {
+	    if (typeof input !== 'string' && !(input instanceof Buffer$g)) {
+	      throw new Error(`Input to process must be of type "String" or "Buffer" to digest.`);
+	    } // consume and output as string
+
+
+	    return crypto$2.createHash('sha256').update(input).digest('hex');
+	  } // TODO: document `hash256.value`
+
+
+	  get value() {
+	    return Hash256$1.digest(this.settings.input);
+	  }
+	  /**
+	   * Reverses the bytes of the digest.
+	   */
+
+
+	  static reverse(input = '') {
+	    return Buffer$g.from(input, 'hex').reverse().toString('hex');
+	  }
+
+	  reverse(input = this.value) {
+	    return Hash256$1.reverse(input);
+	  }
+
+	}
+
+	module.exports = Hash256$1;
+
+	var hash256$1 = /*#__PURE__*/Object.freeze({
+		__proto__: null
+	});
+
+	var require$$3$4 = /*@__PURE__*/getAugmentedNamespace(hash256$1);
+
+	/**
+	 * Create a new {@link Object} with sorted properties.
+	 * @param {Object} [state] Object to sort.
+	 * @returns {Object} Re-sorted instance of `state` as provided.
+	 */
+
+	var _sortKeys$1 = function _sortKeys(state = {}) {
+	  return Object.keys(state).sort().reduce((obj, key) => {
+	    obj[key] = state[key];
+	    return obj;
+	  }, {});
+	};
+
+	const crypto$1 = require$$0$9;
+	const {
+	  EventEmitter
+	} = require$$0$8;
+	const monitor = duplex; // Fabric Types
+
+	const Hash256 = require$$3$4; // Fabric Functions
+
+	const _sortKeys = _sortKeys$1;
+	/**
+	 * Generic Fabric Actor.
+	 * @access protected
+	 * @emits message Fabric {@link Message} objects.
+	 * @property {String} id Unique identifier for this Actor (id === SHA256(preimage)).
+	 * @property {String} preimage Input hash for the `id` property (preimage === SHA256(ActorState)).
+	 */
+
+	class Actor extends EventEmitter {
+	  /**
+	   * Creates an {@link Actor}, which emits messages for other
+	   * Actors to subscribe to.  You can supply certain parameters
+	   * for the actor, including key material [!!!] — be mindful of
+	   * what you share with others!
+	   * @param {Object} [actor] Object to use as the actor.
+	   * @param {String} [actor.seed] BIP24 Mnemonic to use as a seed phrase.
+	   * @param {Buffer} [actor.public] Public key.
+	   * @param {Buffer} [actor.private] Private key.
+	   * @returns {Actor} Instance of the Actor.  Call {@link Actor#sign} to emit a {@link Signature}.
+	   */
+	  constructor(actor = {}) {
+	    super(actor);
+	    this.commits = []; // this.signature = Buffer.alloc(64);
+
+	    this.value = this._readObject(actor); // TODO: use Buffer?
+	    // Internal State
+
+	    this._state = {
+	      type: 'Actor',
+	      data: this.value,
+	      status: 'PAUSED',
+	      content: this.value || {}
+	    };
+	    this.monitor = monitor.observe(this._state.content, this._handleMonitorChanges.bind(this)); // Chainable
+
+	    return this;
+	  }
+
+	  static fromAny(input = {}) {
+	    let state = null;
+
+	    if (typeof input === 'string') {
+	      state = {
+	        content: input
+	      };
+	    } else if (input instanceof Buffer$g) {
+	      state = {
+	        content: input.toString('hex')
+	      };
+	    } else {
+	      state = Object.assign({}, input);
+	    }
+
+	    return new Actor(state);
+	  }
+
+	  static fromJSON(input) {
+	    let result = null;
+
+	    if (typeof input === 'string' && input.length) {
+	      console.log('trying to parse as JSON:', input);
+
+	      try {
+	        result = JSON.parse(input);
+	      } catch (E) {
+	        console.error('Failure in fromJSON:', E);
+	      }
+	    } else {
+	      console.trace('Invalid input:', typeof input);
+	    }
+
+	    return result;
+	  }
+
+	  static randomBytes(count = 32) {
+	    return crypto$1.randomBytes(count);
+	  }
+
+	  get id() {
+	    const buffer = Buffer$g.from(this.preimage, 'hex');
+	    return Hash256.digest(buffer);
+	  }
+
+	  get preimage() {
+	    const input = {
+	      'type': 'FabricActorState',
+	      'object': this.toObject()
+	    };
+	    const string = JSON.stringify(input, null, '  ');
+	    const buffer = Buffer$g.from(string, 'utf8');
+	    return Hash256.digest(buffer);
+	  }
+
+	  get state() {
+	    return Object.assign({}, this._state.content);
+	  }
+
+	  get status() {
+	    return this._state.status;
+	  }
+
+	  get type() {
+	    return this._state['@type'];
+	  }
+
+	  set state(value) {
+	    this._state.content = value;
+	  }
+
+	  set status(value) {
+	    this._state.status = value;
+	  }
+	  /**
+	   * Resolve the current state to a commitment.
+	   * @emits Actor Current malleable state.
+	   * @returns {String} 32-byte ID
+	   */
+
+
+	  commit() {
+	    const state = new Actor(this._state.content);
+	    const commit = new Actor({
+	      state: state.id
+	    });
+	    this.history.push(commit);
+	    this.emit('commit', commit);
+	    return commit.id;
+	  }
+
+	  debug(...params) {
+	    this.emit('debug', params);
+	  }
+
+	  log(...params) {
+	    this.emit('log', ...params);
+	  }
+
+	  mutate(seed) {
+	    if (seed === 0 || !seed) seed = this.randomBytes(32).toString('hex');
+	    const patches = [{
+	      op: 'replace',
+	      path: '/seed',
+	      value: seed
+	    }];
+	    monitor.applyPatch(this._state.content, patches);
+	    this.commit();
+	    return this;
+	  }
+	  /**
+	   * Casts the Actor to a normalized Buffer.
+	   * @returns {Buffer}
+	   */
+
+
+	  toBuffer() {
+	    return Buffer$g.from(this.serialize(), 'utf8');
+	  }
+	  /**
+	   * Returns the Actor's current state as an {@link Object}.
+	   * @returns {Object}
+	   */
+
+
+	  toObject() {
+	    return _sortKeys(this.state);
+	  }
+
+	  toString(format = 'json') {
+	    switch (format) {
+	      case 'hex':
+	        return Buffer$g.from(this.serialize(), 'utf8').toString('hex');
+
+	      case 'json':
+	      default:
+	        return this.serialize();
+	    }
+	  }
+
+	  pause() {
+	    this.status = 'PAUSING';
+	    this.commit();
+	    return this;
+	  }
+
+	  randomBytes(count = 32) {
+	    return crypto$1.randomBytes(count);
+	  }
+	  /**
+	   * Serialize the Actor's current state into a JSON-formatted string.
+	   * @returns {String}
+	   */
+
+
+	  serialize() {
+	    let json = null;
+
+	    try {
+	      json = JSON.stringify(this.toObject(), null, '  ');
+	    } catch (exception) {
+	      json = JSON.stringify({
+	        type: 'Error',
+	        content: `Exception serializing: ${exception}`
+	      }, null, '  ');
+	    }
+
+	    return json;
+	  }
+
+	  sha256(value) {
+	    return Hash256.digest(value);
+	  }
+	  /**
+	   * Signs the Actor.
+	   * @returns {Actor}
+	   */
+
+
+	  sign() {
+	    throw new Error('Unimplemented on this branch.  Use @fabric/core/types/signer instead.');
+	    /* this.signature = this.key._sign(this.toBuffer());
+	    this.emit('signature', this.signature);
+	    return this; */
+	  }
+	  /**
+	   * Toggles `status` property to unpaused.
+	   * @
+	   * @returns {Actor}
+	   */
+
+
+	  unpause() {
+	    this.status = 'UNPAUSING';
+	    this.commit();
+	    this.status = 'UNPAUSED';
+	    return this;
+	  }
+
+	  _getField(name) {
+	    return this._state.content[name];
+	  }
+	  /**
+	   * Incurs 1 SYSCALL
+	   * @access private
+	   * @returns {Object}
+	   */
+
+
+	  _getState() {
+	    return this.state;
+	  }
+
+	  _handleMonitorChanges(changes) {
+	    console.log('got monitor changes from actor:', changes); // TODO: emit global state event here
+	    // after verify, commit
+	  }
+	  /**
+	   * Parse an Object into a corresponding Fabric state.
+	   * @param {Object} input Object to read as input.
+	   * @returns {Object} Fabric state.
+	   */
+
+
+	  _readObject(input = {}) {
+	    let state = {};
+
+	    if (typeof input === 'string') {
+	      state = Object.assign(state, {
+	        type: 'String',
+	        size: input.length,
+	        content: input,
+	        encoding: 'utf8'
+	      });
+	    } else if (input instanceof Buffer$g) {
+	      state = Object.assign(state, {
+	        type: 'Buffer',
+	        size: input.length,
+	        content: input.toString('hex'),
+	        encoding: 'hex'
+	      });
+	    } else {
+	      state = Object.assign(state, input);
+	    }
+
+	    return state;
+	  }
+
+	}
+
+	module.exports = Actor;
+
+	var Actor$1 = /*#__PURE__*/Object.freeze({
+		__proto__: null
+	});
+
+	var inherits$d;
+	if (typeof Object.create === 'function'){
+	  inherits$d = function inherits(ctor, superCtor) {
+	    // implementation from standard node.js 'util' module
+	    ctor.super_ = superCtor;
+	    ctor.prototype = Object.create(superCtor.prototype, {
+	      constructor: {
+	        value: ctor,
+	        enumerable: false,
+	        writable: true,
+	        configurable: true
+	      }
+	    });
+	  };
+	} else {
+	  inherits$d = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor;
+	    var TempCtor = function () {};
+	    TempCtor.prototype = superCtor.prototype;
+	    ctor.prototype = new TempCtor();
+	    ctor.prototype.constructor = ctor;
+	  };
+	}
+	var inherits$e = inherits$d;
+
+	var _polyfillNode_inherits = /*#__PURE__*/Object.freeze({
+		__proto__: null,
+		'default': inherits$e
+	});
+
+	var require$$0$7 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_inherits);
+
+	var safeBuffer = {exports: {}};
+
+	var lookup = [];
+	var revLookup = [];
+	var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+	var inited = false;
+	function init () {
+	  inited = true;
+	  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+	  for (var i = 0, len = code.length; i < len; ++i) {
+	    lookup[i] = code[i];
+	    revLookup[code.charCodeAt(i)] = i;
+	  }
+
+	  revLookup['-'.charCodeAt(0)] = 62;
+	  revLookup['_'.charCodeAt(0)] = 63;
+	}
+
+	function toByteArray (b64) {
+	  if (!inited) {
+	    init();
+	  }
+	  var i, j, l, tmp, placeHolders, arr;
+	  var len = b64.length;
+
+	  if (len % 4 > 0) {
+	    throw new Error('Invalid string. Length must be a multiple of 4')
+	  }
+
+	  // the number of equal signs (place holders)
+	  // if there are two placeholders, than the two characters before it
+	  // represent one byte
+	  // if there is only one, then the three characters before it represent 2 bytes
+	  // this is just a cheap hack to not do indexOf twice
+	  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0;
+
+	  // base64 is 4/3 + up to two characters of the original data
+	  arr = new Arr(len * 3 / 4 - placeHolders);
+
+	  // if there are placeholders, only get up to the last complete 4 chars
+	  l = placeHolders > 0 ? len - 4 : len;
+
+	  var L = 0;
+
+	  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+	    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)];
+	    arr[L++] = (tmp >> 16) & 0xFF;
+	    arr[L++] = (tmp >> 8) & 0xFF;
+	    arr[L++] = tmp & 0xFF;
+	  }
+
+	  if (placeHolders === 2) {
+	    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4);
+	    arr[L++] = tmp & 0xFF;
+	  } else if (placeHolders === 1) {
+	    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2);
+	    arr[L++] = (tmp >> 8) & 0xFF;
+	    arr[L++] = tmp & 0xFF;
+	  }
+
+	  return arr
+	}
+
+	function tripletToBase64 (num) {
+	  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+	}
+
+	function encodeChunk (uint8, start, end) {
+	  var tmp;
+	  var output = [];
+	  for (var i = start; i < end; i += 3) {
+	    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2]);
+	    output.push(tripletToBase64(tmp));
+	  }
+	  return output.join('')
+	}
+
+	function fromByteArray (uint8) {
+	  if (!inited) {
+	    init();
+	  }
+	  var tmp;
+	  var len = uint8.length;
+	  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
+	  var output = '';
+	  var parts = [];
+	  var maxChunkLength = 16383; // must be multiple of 3
+
+	  // go through the array every three bytes, we'll deal with trailing stuff later
+	  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+	    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)));
+	  }
+
+	  // pad the end with zeros, but make sure to not forget the extra bytes
+	  if (extraBytes === 1) {
+	    tmp = uint8[len - 1];
+	    output += lookup[tmp >> 2];
+	    output += lookup[(tmp << 4) & 0x3F];
+	    output += '==';
+	  } else if (extraBytes === 2) {
+	    tmp = (uint8[len - 2] << 8) + (uint8[len - 1]);
+	    output += lookup[tmp >> 10];
+	    output += lookup[(tmp >> 4) & 0x3F];
+	    output += lookup[(tmp << 2) & 0x3F];
+	    output += '=';
+	  }
+
+	  parts.push(output);
+
+	  return parts.join('')
+	}
+
+	function read (buffer, offset, isLE, mLen, nBytes) {
+	  var e, m;
+	  var eLen = nBytes * 8 - mLen - 1;
+	  var eMax = (1 << eLen) - 1;
+	  var eBias = eMax >> 1;
+	  var nBits = -7;
+	  var i = isLE ? (nBytes - 1) : 0;
+	  var d = isLE ? -1 : 1;
+	  var s = buffer[offset + i];
+
+	  i += d;
+
+	  e = s & ((1 << (-nBits)) - 1);
+	  s >>= (-nBits);
+	  nBits += eLen;
+	  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+	  m = e & ((1 << (-nBits)) - 1);
+	  e >>= (-nBits);
+	  nBits += mLen;
+	  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+	  if (e === 0) {
+	    e = 1 - eBias;
+	  } else if (e === eMax) {
+	    return m ? NaN : ((s ? -1 : 1) * Infinity)
+	  } else {
+	    m = m + Math.pow(2, mLen);
+	    e = e - eBias;
+	  }
+	  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+	}
+
+	function write (buffer, value, offset, isLE, mLen, nBytes) {
+	  var e, m, c;
+	  var eLen = nBytes * 8 - mLen - 1;
+	  var eMax = (1 << eLen) - 1;
+	  var eBias = eMax >> 1;
+	  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0);
+	  var i = isLE ? 0 : (nBytes - 1);
+	  var d = isLE ? 1 : -1;
+	  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0;
+
+	  value = Math.abs(value);
+
+	  if (isNaN(value) || value === Infinity) {
+	    m = isNaN(value) ? 1 : 0;
+	    e = eMax;
+	  } else {
+	    e = Math.floor(Math.log(value) / Math.LN2);
+	    if (value * (c = Math.pow(2, -e)) < 1) {
+	      e--;
+	      c *= 2;
+	    }
+	    if (e + eBias >= 1) {
+	      value += rt / c;
+	    } else {
+	      value += rt * Math.pow(2, 1 - eBias);
+	    }
+	    if (value * c >= 2) {
+	      e++;
+	      c /= 2;
+	    }
+
+	    if (e + eBias >= eMax) {
+	      m = 0;
+	      e = eMax;
+	    } else if (e + eBias >= 1) {
+	      m = (value * c - 1) * Math.pow(2, mLen);
+	      e = e + eBias;
+	    } else {
+	      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+	      e = 0;
+	    }
+	  }
+
+	  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+	  e = (e << mLen) | m;
+	  eLen += mLen;
+	  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+	  buffer[offset + i - d] |= s * 128;
+	}
+
+	var toString = {}.toString;
+
+	var isArray$1 = Array.isArray || function (arr) {
+	  return toString.call(arr) == '[object Array]';
+	};
+
+	/*!
+	 * The buffer module from node.js, for the browser.
+	 *
+	 * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+	 * @license  MIT
+	 */
+
+	var INSPECT_MAX_BYTES = 50;
+
+	/**
+	 * If `Buffer.TYPED_ARRAY_SUPPORT`:
+	 *   === true    Use Uint8Array implementation (fastest)
+	 *   === false   Use Object implementation (most compatible, even IE6)
+	 *
+	 * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+	 * Opera 11.6+, iOS 4.2+.
+	 *
+	 * Due to various browser bugs, sometimes the Object implementation will be used even
+	 * when the browser supports typed arrays.
+	 *
+	 * Note:
+	 *
+	 *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+	 *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+	 *
+	 *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+	 *
+	 *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+	 *     incorrect length in some situations.
+
+	 * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+	 * get the Object implementation, which is slower but behaves correctly.
+	 */
+	Buffer$f.TYPED_ARRAY_SUPPORT = global$2.TYPED_ARRAY_SUPPORT !== undefined
+	  ? global$2.TYPED_ARRAY_SUPPORT
+	  : true;
+
+	/*
+	 * Export kMaxLength after typed array support is determined.
+	 */
+	var _kMaxLength = kMaxLength();
+
+	function kMaxLength () {
+	  return Buffer$f.TYPED_ARRAY_SUPPORT
+	    ? 0x7fffffff
+	    : 0x3fffffff
+	}
+
+	function createBuffer (that, length) {
+	  if (kMaxLength() < length) {
+	    throw new RangeError('Invalid typed array length')
+	  }
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    // Return an augmented `Uint8Array` instance, for best performance
+	    that = new Uint8Array(length);
+	    that.__proto__ = Buffer$f.prototype;
+	  } else {
+	    // Fallback: Return an object instance of the Buffer class
+	    if (that === null) {
+	      that = new Buffer$f(length);
+	    }
+	    that.length = length;
+	  }
+
+	  return that
+	}
+
+	/**
+	 * The Buffer constructor returns instances of `Uint8Array` that have their
+	 * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+	 * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+	 * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+	 * returns a single octet.
+	 *
+	 * The `Uint8Array` prototype remains unmodified.
+	 */
+
+	function Buffer$f (arg, encodingOrOffset, length) {
+	  if (!Buffer$f.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer$f)) {
+	    return new Buffer$f(arg, encodingOrOffset, length)
+	  }
+
+	  // Common case.
+	  if (typeof arg === 'number') {
+	    if (typeof encodingOrOffset === 'string') {
+	      throw new Error(
+	        'If encoding is specified then the first argument must be a string'
+	      )
+	    }
+	    return allocUnsafe(this, arg)
+	  }
+	  return from$1(this, arg, encodingOrOffset, length)
+	}
+
+	Buffer$f.poolSize = 8192; // not used by this implementation
+
+	// TODO: Legacy, not needed anymore. Remove in next major version.
+	Buffer$f._augment = function (arr) {
+	  arr.__proto__ = Buffer$f.prototype;
+	  return arr
+	};
+
+	function from$1 (that, value, encodingOrOffset, length) {
+	  if (typeof value === 'number') {
+	    throw new TypeError('"value" argument must not be a number')
+	  }
+
+	  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+	    return fromArrayBuffer(that, value, encodingOrOffset, length)
+	  }
+
+	  if (typeof value === 'string') {
+	    return fromString(that, value, encodingOrOffset)
+	  }
+
+	  return fromObject(that, value)
+	}
+
+	/**
+	 * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
+	 * if value is a number.
+	 * Buffer.from(str[, encoding])
+	 * Buffer.from(array)
+	 * Buffer.from(buffer)
+	 * Buffer.from(arrayBuffer[, byteOffset[, length]])
+	 **/
+	Buffer$f.from = function (value, encodingOrOffset, length) {
+	  return from$1(null, value, encodingOrOffset, length)
+	};
+
+	if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	  Buffer$f.prototype.__proto__ = Uint8Array.prototype;
+	  Buffer$f.__proto__ = Uint8Array;
+	}
+
+	function assertSize (size) {
+	  if (typeof size !== 'number') {
+	    throw new TypeError('"size" argument must be a number')
+	  } else if (size < 0) {
+	    throw new RangeError('"size" argument must not be negative')
+	  }
+	}
+
+	function alloc (that, size, fill, encoding) {
+	  assertSize(size);
+	  if (size <= 0) {
+	    return createBuffer(that, size)
+	  }
+	  if (fill !== undefined) {
+	    // Only pay attention to encoding if it's a string. This
+	    // prevents accidentally sending in a number that would
+	    // be interpretted as a start offset.
+	    return typeof encoding === 'string'
+	      ? createBuffer(that, size).fill(fill, encoding)
+	      : createBuffer(that, size).fill(fill)
+	  }
+	  return createBuffer(that, size)
+	}
+
+	/**
+	 * Creates a new filled Buffer instance.
+	 * alloc(size[, fill[, encoding]])
+	 **/
+	Buffer$f.alloc = function (size, fill, encoding) {
+	  return alloc(null, size, fill, encoding)
+	};
+
+	function allocUnsafe (that, size) {
+	  assertSize(size);
+	  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0);
+	  if (!Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    for (var i = 0; i < size; ++i) {
+	      that[i] = 0;
+	    }
+	  }
+	  return that
+	}
+
+	/**
+	 * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
+	 * */
+	Buffer$f.allocUnsafe = function (size) {
+	  return allocUnsafe(null, size)
+	};
+	/**
+	 * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
+	 */
+	Buffer$f.allocUnsafeSlow = function (size) {
+	  return allocUnsafe(null, size)
+	};
+
+	function fromString (that, string, encoding) {
+	  if (typeof encoding !== 'string' || encoding === '') {
+	    encoding = 'utf8';
+	  }
+
+	  if (!Buffer$f.isEncoding(encoding)) {
+	    throw new TypeError('"encoding" must be a valid string encoding')
+	  }
+
+	  var length = byteLength(string, encoding) | 0;
+	  that = createBuffer(that, length);
+
+	  var actual = that.write(string, encoding);
+
+	  if (actual !== length) {
+	    // Writing a hex string, for example, that contains invalid characters will
+	    // cause everything after the first invalid character to be ignored. (e.g.
+	    // 'abxxcd' will be treated as 'ab')
+	    that = that.slice(0, actual);
+	  }
+
+	  return that
+	}
+
+	function fromArrayLike (that, array) {
+	  var length = array.length < 0 ? 0 : checked(array.length) | 0;
+	  that = createBuffer(that, length);
+	  for (var i = 0; i < length; i += 1) {
+	    that[i] = array[i] & 255;
+	  }
+	  return that
+	}
+
+	function fromArrayBuffer (that, array, byteOffset, length) {
+	  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
+
+	  if (byteOffset < 0 || array.byteLength < byteOffset) {
+	    throw new RangeError('\'offset\' is out of bounds')
+	  }
+
+	  if (array.byteLength < byteOffset + (length || 0)) {
+	    throw new RangeError('\'length\' is out of bounds')
+	  }
+
+	  if (byteOffset === undefined && length === undefined) {
+	    array = new Uint8Array(array);
+	  } else if (length === undefined) {
+	    array = new Uint8Array(array, byteOffset);
+	  } else {
+	    array = new Uint8Array(array, byteOffset, length);
+	  }
+
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    // Return an augmented `Uint8Array` instance, for best performance
+	    that = array;
+	    that.__proto__ = Buffer$f.prototype;
+	  } else {
+	    // Fallback: Return an object instance of the Buffer class
+	    that = fromArrayLike(that, array);
+	  }
+	  return that
+	}
+
+	function fromObject (that, obj) {
+	  if (internalIsBuffer(obj)) {
+	    var len = checked(obj.length) | 0;
+	    that = createBuffer(that, len);
+
+	    if (that.length === 0) {
+	      return that
+	    }
+
+	    obj.copy(that, 0, 0, len);
+	    return that
+	  }
+
+	  if (obj) {
+	    if ((typeof ArrayBuffer !== 'undefined' &&
+	        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
+	      if (typeof obj.length !== 'number' || isnan(obj.length)) {
+	        return createBuffer(that, 0)
+	      }
+	      return fromArrayLike(that, obj)
+	    }
+
+	    if (obj.type === 'Buffer' && isArray$1(obj.data)) {
+	      return fromArrayLike(that, obj.data)
+	    }
+	  }
+
+	  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.')
+	}
+
+	function checked (length) {
+	  // Note: cannot use `length < kMaxLength()` here because that fails when
+	  // length is NaN (which is otherwise coerced to zero.)
+	  if (length >= kMaxLength()) {
+	    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+	                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+	  }
+	  return length | 0
+	}
+
+	function SlowBuffer (length) {
+	  if (+length != length) { // eslint-disable-line eqeqeq
+	    length = 0;
+	  }
+	  return Buffer$f.alloc(+length)
+	}
+	Buffer$f.isBuffer = isBuffer$1;
+	function internalIsBuffer (b) {
+	  return !!(b != null && b._isBuffer)
+	}
+
+	Buffer$f.compare = function compare (a, b) {
+	  if (!internalIsBuffer(a) || !internalIsBuffer(b)) {
+	    throw new TypeError('Arguments must be Buffers')
+	  }
+
+	  if (a === b) return 0
+
+	  var x = a.length;
+	  var y = b.length;
+
+	  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+	    if (a[i] !== b[i]) {
+	      x = a[i];
+	      y = b[i];
+	      break
+	    }
+	  }
+
+	  if (x < y) return -1
+	  if (y < x) return 1
+	  return 0
+	};
+
+	Buffer$f.isEncoding = function isEncoding (encoding) {
+	  switch (String(encoding).toLowerCase()) {
+	    case 'hex':
+	    case 'utf8':
+	    case 'utf-8':
+	    case 'ascii':
+	    case 'latin1':
+	    case 'binary':
+	    case 'base64':
+	    case 'ucs2':
+	    case 'ucs-2':
+	    case 'utf16le':
+	    case 'utf-16le':
+	      return true
+	    default:
+	      return false
+	  }
+	};
+
+	Buffer$f.concat = function concat (list, length) {
+	  if (!isArray$1(list)) {
+	    throw new TypeError('"list" argument must be an Array of Buffers')
+	  }
+
+	  if (list.length === 0) {
+	    return Buffer$f.alloc(0)
+	  }
+
+	  var i;
+	  if (length === undefined) {
+	    length = 0;
+	    for (i = 0; i < list.length; ++i) {
+	      length += list[i].length;
+	    }
+	  }
+
+	  var buffer = Buffer$f.allocUnsafe(length);
+	  var pos = 0;
+	  for (i = 0; i < list.length; ++i) {
+	    var buf = list[i];
+	    if (!internalIsBuffer(buf)) {
+	      throw new TypeError('"list" argument must be an Array of Buffers')
+	    }
+	    buf.copy(buffer, pos);
+	    pos += buf.length;
+	  }
+	  return buffer
+	};
+
+	function byteLength (string, encoding) {
+	  if (internalIsBuffer(string)) {
+	    return string.length
+	  }
+	  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
+	      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+	    return string.byteLength
+	  }
+	  if (typeof string !== 'string') {
+	    string = '' + string;
+	  }
+
+	  var len = string.length;
+	  if (len === 0) return 0
+
+	  // Use a for loop to avoid recursion
+	  var loweredCase = false;
+	  for (;;) {
+	    switch (encoding) {
+	      case 'ascii':
+	      case 'latin1':
+	      case 'binary':
+	        return len
+	      case 'utf8':
+	      case 'utf-8':
+	      case undefined:
+	        return utf8ToBytes(string).length
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return len * 2
+	      case 'hex':
+	        return len >>> 1
+	      case 'base64':
+	        return base64ToBytes(string).length
+	      default:
+	        if (loweredCase) return utf8ToBytes(string).length // assume utf8
+	        encoding = ('' + encoding).toLowerCase();
+	        loweredCase = true;
+	    }
+	  }
+	}
+	Buffer$f.byteLength = byteLength;
+
+	function slowToString (encoding, start, end) {
+	  var loweredCase = false;
+
+	  // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
+	  // property of a typed array.
+
+	  // This behaves neither like String nor Uint8Array in that we set start/end
+	  // to their upper/lower bounds if the value passed is out of range.
+	  // undefined is handled specially as per ECMA-262 6th Edition,
+	  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
+	  if (start === undefined || start < 0) {
+	    start = 0;
+	  }
+	  // Return early if start > this.length. Done here to prevent potential uint32
+	  // coercion fail below.
+	  if (start > this.length) {
+	    return ''
+	  }
+
+	  if (end === undefined || end > this.length) {
+	    end = this.length;
+	  }
+
+	  if (end <= 0) {
+	    return ''
+	  }
+
+	  // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
+	  end >>>= 0;
+	  start >>>= 0;
+
+	  if (end <= start) {
+	    return ''
+	  }
+
+	  if (!encoding) encoding = 'utf8';
+
+	  while (true) {
+	    switch (encoding) {
+	      case 'hex':
+	        return hexSlice(this, start, end)
+
+	      case 'utf8':
+	      case 'utf-8':
+	        return utf8Slice(this, start, end)
+
+	      case 'ascii':
+	        return asciiSlice(this, start, end)
+
+	      case 'latin1':
+	      case 'binary':
+	        return latin1Slice(this, start, end)
+
+	      case 'base64':
+	        return base64Slice(this, start, end)
+
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return utf16leSlice(this, start, end)
+
+	      default:
+	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+	        encoding = (encoding + '').toLowerCase();
+	        loweredCase = true;
+	    }
+	  }
+	}
+
+	// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
+	// Buffer instances.
+	Buffer$f.prototype._isBuffer = true;
+
+	function swap (b, n, m) {
+	  var i = b[n];
+	  b[n] = b[m];
+	  b[m] = i;
+	}
+
+	Buffer$f.prototype.swap16 = function swap16 () {
+	  var len = this.length;
+	  if (len % 2 !== 0) {
+	    throw new RangeError('Buffer size must be a multiple of 16-bits')
+	  }
+	  for (var i = 0; i < len; i += 2) {
+	    swap(this, i, i + 1);
+	  }
+	  return this
+	};
+
+	Buffer$f.prototype.swap32 = function swap32 () {
+	  var len = this.length;
+	  if (len % 4 !== 0) {
+	    throw new RangeError('Buffer size must be a multiple of 32-bits')
+	  }
+	  for (var i = 0; i < len; i += 4) {
+	    swap(this, i, i + 3);
+	    swap(this, i + 1, i + 2);
+	  }
+	  return this
+	};
+
+	Buffer$f.prototype.swap64 = function swap64 () {
+	  var len = this.length;
+	  if (len % 8 !== 0) {
+	    throw new RangeError('Buffer size must be a multiple of 64-bits')
+	  }
+	  for (var i = 0; i < len; i += 8) {
+	    swap(this, i, i + 7);
+	    swap(this, i + 1, i + 6);
+	    swap(this, i + 2, i + 5);
+	    swap(this, i + 3, i + 4);
+	  }
+	  return this
+	};
+
+	Buffer$f.prototype.toString = function toString () {
+	  var length = this.length | 0;
+	  if (length === 0) return ''
+	  if (arguments.length === 0) return utf8Slice(this, 0, length)
+	  return slowToString.apply(this, arguments)
+	};
+
+	Buffer$f.prototype.equals = function equals (b) {
+	  if (!internalIsBuffer(b)) throw new TypeError('Argument must be a Buffer')
+	  if (this === b) return true
+	  return Buffer$f.compare(this, b) === 0
+	};
+
+	Buffer$f.prototype.inspect = function inspect () {
+	  var str = '';
+	  var max = INSPECT_MAX_BYTES;
+	  if (this.length > 0) {
+	    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
+	    if (this.length > max) str += ' ... ';
+	  }
+	  return '<Buffer ' + str + '>'
+	};
+
+	Buffer$f.prototype.compare = function compare (target, start, end, thisStart, thisEnd) {
+	  if (!internalIsBuffer(target)) {
+	    throw new TypeError('Argument must be a Buffer')
+	  }
+
+	  if (start === undefined) {
+	    start = 0;
+	  }
+	  if (end === undefined) {
+	    end = target ? target.length : 0;
+	  }
+	  if (thisStart === undefined) {
+	    thisStart = 0;
+	  }
+	  if (thisEnd === undefined) {
+	    thisEnd = this.length;
+	  }
+
+	  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
+	    throw new RangeError('out of range index')
+	  }
+
+	  if (thisStart >= thisEnd && start >= end) {
+	    return 0
+	  }
+	  if (thisStart >= thisEnd) {
+	    return -1
+	  }
+	  if (start >= end) {
+	    return 1
+	  }
+
+	  start >>>= 0;
+	  end >>>= 0;
+	  thisStart >>>= 0;
+	  thisEnd >>>= 0;
+
+	  if (this === target) return 0
+
+	  var x = thisEnd - thisStart;
+	  var y = end - start;
+	  var len = Math.min(x, y);
+
+	  var thisCopy = this.slice(thisStart, thisEnd);
+	  var targetCopy = target.slice(start, end);
+
+	  for (var i = 0; i < len; ++i) {
+	    if (thisCopy[i] !== targetCopy[i]) {
+	      x = thisCopy[i];
+	      y = targetCopy[i];
+	      break
+	    }
+	  }
+
+	  if (x < y) return -1
+	  if (y < x) return 1
+	  return 0
+	};
+
+	// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
+	// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
+	//
+	// Arguments:
+	// - buffer - a Buffer to search
+	// - val - a string, Buffer, or number
+	// - byteOffset - an index into `buffer`; will be clamped to an int32
+	// - encoding - an optional encoding, relevant is val is a string
+	// - dir - true for indexOf, false for lastIndexOf
+	function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
+	  // Empty buffer means no match
+	  if (buffer.length === 0) return -1
+
+	  // Normalize byteOffset
+	  if (typeof byteOffset === 'string') {
+	    encoding = byteOffset;
+	    byteOffset = 0;
+	  } else if (byteOffset > 0x7fffffff) {
+	    byteOffset = 0x7fffffff;
+	  } else if (byteOffset < -0x80000000) {
+	    byteOffset = -0x80000000;
+	  }
+	  byteOffset = +byteOffset;  // Coerce to Number.
+	  if (isNaN(byteOffset)) {
+	    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
+	    byteOffset = dir ? 0 : (buffer.length - 1);
+	  }
+
+	  // Normalize byteOffset: negative offsets start from the end of the buffer
+	  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
+	  if (byteOffset >= buffer.length) {
+	    if (dir) return -1
+	    else byteOffset = buffer.length - 1;
+	  } else if (byteOffset < 0) {
+	    if (dir) byteOffset = 0;
+	    else return -1
+	  }
+
+	  // Normalize val
+	  if (typeof val === 'string') {
+	    val = Buffer$f.from(val, encoding);
+	  }
+
+	  // Finally, search either indexOf (if dir is true) or lastIndexOf
+	  if (internalIsBuffer(val)) {
+	    // Special case: looking for empty string/buffer always fails
+	    if (val.length === 0) {
+	      return -1
+	    }
+	    return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
+	  } else if (typeof val === 'number') {
+	    val = val & 0xFF; // Search for a byte value [0-255]
+	    if (Buffer$f.TYPED_ARRAY_SUPPORT &&
+	        typeof Uint8Array.prototype.indexOf === 'function') {
+	      if (dir) {
+	        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
+	      } else {
+	        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
+	      }
+	    }
+	    return arrayIndexOf(buffer, [ val ], byteOffset, encoding, dir)
+	  }
+
+	  throw new TypeError('val must be string, number or Buffer')
+	}
+
+	function arrayIndexOf (arr, val, byteOffset, encoding, dir) {
+	  var indexSize = 1;
+	  var arrLength = arr.length;
+	  var valLength = val.length;
+
+	  if (encoding !== undefined) {
+	    encoding = String(encoding).toLowerCase();
+	    if (encoding === 'ucs2' || encoding === 'ucs-2' ||
+	        encoding === 'utf16le' || encoding === 'utf-16le') {
+	      if (arr.length < 2 || val.length < 2) {
+	        return -1
+	      }
+	      indexSize = 2;
+	      arrLength /= 2;
+	      valLength /= 2;
+	      byteOffset /= 2;
+	    }
+	  }
+
+	  function read (buf, i) {
+	    if (indexSize === 1) {
+	      return buf[i]
+	    } else {
+	      return buf.readUInt16BE(i * indexSize)
+	    }
+	  }
+
+	  var i;
+	  if (dir) {
+	    var foundIndex = -1;
+	    for (i = byteOffset; i < arrLength; i++) {
+	      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
+	        if (foundIndex === -1) foundIndex = i;
+	        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
+	      } else {
+	        if (foundIndex !== -1) i -= i - foundIndex;
+	        foundIndex = -1;
+	      }
+	    }
+	  } else {
+	    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
+	    for (i = byteOffset; i >= 0; i--) {
+	      var found = true;
+	      for (var j = 0; j < valLength; j++) {
+	        if (read(arr, i + j) !== read(val, j)) {
+	          found = false;
+	          break
+	        }
+	      }
+	      if (found) return i
+	    }
+	  }
+
+	  return -1
+	}
+
+	Buffer$f.prototype.includes = function includes (val, byteOffset, encoding) {
+	  return this.indexOf(val, byteOffset, encoding) !== -1
+	};
+
+	Buffer$f.prototype.indexOf = function indexOf (val, byteOffset, encoding) {
+	  return bidirectionalIndexOf(this, val, byteOffset, encoding, true)
+	};
+
+	Buffer$f.prototype.lastIndexOf = function lastIndexOf (val, byteOffset, encoding) {
+	  return bidirectionalIndexOf(this, val, byteOffset, encoding, false)
+	};
+
+	function hexWrite (buf, string, offset, length) {
+	  offset = Number(offset) || 0;
+	  var remaining = buf.length - offset;
+	  if (!length) {
+	    length = remaining;
+	  } else {
+	    length = Number(length);
+	    if (length > remaining) {
+	      length = remaining;
+	    }
+	  }
+
+	  // must be an even number of digits
+	  var strLen = string.length;
+	  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string')
+
+	  if (length > strLen / 2) {
+	    length = strLen / 2;
+	  }
+	  for (var i = 0; i < length; ++i) {
+	    var parsed = parseInt(string.substr(i * 2, 2), 16);
+	    if (isNaN(parsed)) return i
+	    buf[offset + i] = parsed;
+	  }
+	  return i
+	}
+
+	function utf8Write (buf, string, offset, length) {
+	  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
+	}
+
+	function asciiWrite (buf, string, offset, length) {
+	  return blitBuffer(asciiToBytes(string), buf, offset, length)
+	}
+
+	function latin1Write (buf, string, offset, length) {
+	  return asciiWrite(buf, string, offset, length)
+	}
+
+	function base64Write (buf, string, offset, length) {
+	  return blitBuffer(base64ToBytes(string), buf, offset, length)
+	}
+
+	function ucs2Write (buf, string, offset, length) {
+	  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
+	}
+
+	Buffer$f.prototype.write = function write (string, offset, length, encoding) {
+	  // Buffer#write(string)
+	  if (offset === undefined) {
+	    encoding = 'utf8';
+	    length = this.length;
+	    offset = 0;
+	  // Buffer#write(string, encoding)
+	  } else if (length === undefined && typeof offset === 'string') {
+	    encoding = offset;
+	    length = this.length;
+	    offset = 0;
+	  // Buffer#write(string, offset[, length][, encoding])
+	  } else if (isFinite(offset)) {
+	    offset = offset | 0;
+	    if (isFinite(length)) {
+	      length = length | 0;
+	      if (encoding === undefined) encoding = 'utf8';
+	    } else {
+	      encoding = length;
+	      length = undefined;
+	    }
+	  // legacy write(string, encoding, offset, length) - remove in v0.13
+	  } else {
+	    throw new Error(
+	      'Buffer.write(string, encoding, offset[, length]) is no longer supported'
+	    )
+	  }
+
+	  var remaining = this.length - offset;
+	  if (length === undefined || length > remaining) length = remaining;
+
+	  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+	    throw new RangeError('Attempt to write outside buffer bounds')
+	  }
+
+	  if (!encoding) encoding = 'utf8';
+
+	  var loweredCase = false;
+	  for (;;) {
+	    switch (encoding) {
+	      case 'hex':
+	        return hexWrite(this, string, offset, length)
+
+	      case 'utf8':
+	      case 'utf-8':
+	        return utf8Write(this, string, offset, length)
+
+	      case 'ascii':
+	        return asciiWrite(this, string, offset, length)
+
+	      case 'latin1':
+	      case 'binary':
+	        return latin1Write(this, string, offset, length)
+
+	      case 'base64':
+	        // Warning: maxLength not taken into account in base64Write
+	        return base64Write(this, string, offset, length)
+
+	      case 'ucs2':
+	      case 'ucs-2':
+	      case 'utf16le':
+	      case 'utf-16le':
+	        return ucs2Write(this, string, offset, length)
+
+	      default:
+	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+	        encoding = ('' + encoding).toLowerCase();
+	        loweredCase = true;
+	    }
+	  }
+	};
+
+	Buffer$f.prototype.toJSON = function toJSON () {
+	  return {
+	    type: 'Buffer',
+	    data: Array.prototype.slice.call(this._arr || this, 0)
+	  }
+	};
+
+	function base64Slice (buf, start, end) {
+	  if (start === 0 && end === buf.length) {
+	    return fromByteArray(buf)
+	  } else {
+	    return fromByteArray(buf.slice(start, end))
+	  }
+	}
+
+	function utf8Slice (buf, start, end) {
+	  end = Math.min(buf.length, end);
+	  var res = [];
+
+	  var i = start;
+	  while (i < end) {
+	    var firstByte = buf[i];
+	    var codePoint = null;
+	    var bytesPerSequence = (firstByte > 0xEF) ? 4
+	      : (firstByte > 0xDF) ? 3
+	      : (firstByte > 0xBF) ? 2
+	      : 1;
+
+	    if (i + bytesPerSequence <= end) {
+	      var secondByte, thirdByte, fourthByte, tempCodePoint;
+
+	      switch (bytesPerSequence) {
+	        case 1:
+	          if (firstByte < 0x80) {
+	            codePoint = firstByte;
+	          }
+	          break
+	        case 2:
+	          secondByte = buf[i + 1];
+	          if ((secondByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F);
+	            if (tempCodePoint > 0x7F) {
+	              codePoint = tempCodePoint;
+	            }
+	          }
+	          break
+	        case 3:
+	          secondByte = buf[i + 1];
+	          thirdByte = buf[i + 2];
+	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F);
+	            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+	              codePoint = tempCodePoint;
+	            }
+	          }
+	          break
+	        case 4:
+	          secondByte = buf[i + 1];
+	          thirdByte = buf[i + 2];
+	          fourthByte = buf[i + 3];
+	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+	            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F);
+	            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+	              codePoint = tempCodePoint;
+	            }
+	          }
+	      }
+	    }
+
+	    if (codePoint === null) {
+	      // we did not generate a valid codePoint so insert a
+	      // replacement char (U+FFFD) and advance only 1 byte
+	      codePoint = 0xFFFD;
+	      bytesPerSequence = 1;
+	    } else if (codePoint > 0xFFFF) {
+	      // encode to utf16 (surrogate pair dance)
+	      codePoint -= 0x10000;
+	      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
+	      codePoint = 0xDC00 | codePoint & 0x3FF;
+	    }
+
+	    res.push(codePoint);
+	    i += bytesPerSequence;
+	  }
+
+	  return decodeCodePointsArray(res)
+	}
+
+	// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+	// the lowest limit is Chrome, with 0x10000 args.
+	// We go 1 magnitude less, for safety
+	var MAX_ARGUMENTS_LENGTH = 0x1000;
+
+	function decodeCodePointsArray (codePoints) {
+	  var len = codePoints.length;
+	  if (len <= MAX_ARGUMENTS_LENGTH) {
+	    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+	  }
+
+	  // Decode in chunks to avoid "call stack size exceeded".
+	  var res = '';
+	  var i = 0;
+	  while (i < len) {
+	    res += String.fromCharCode.apply(
+	      String,
+	      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+	    );
+	  }
+	  return res
+	}
+
+	function asciiSlice (buf, start, end) {
+	  var ret = '';
+	  end = Math.min(buf.length, end);
+
+	  for (var i = start; i < end; ++i) {
+	    ret += String.fromCharCode(buf[i] & 0x7F);
+	  }
+	  return ret
+	}
+
+	function latin1Slice (buf, start, end) {
+	  var ret = '';
+	  end = Math.min(buf.length, end);
+
+	  for (var i = start; i < end; ++i) {
+	    ret += String.fromCharCode(buf[i]);
+	  }
+	  return ret
+	}
+
+	function hexSlice (buf, start, end) {
+	  var len = buf.length;
+
+	  if (!start || start < 0) start = 0;
+	  if (!end || end < 0 || end > len) end = len;
+
+	  var out = '';
+	  for (var i = start; i < end; ++i) {
+	    out += toHex(buf[i]);
+	  }
+	  return out
+	}
+
+	function utf16leSlice (buf, start, end) {
+	  var bytes = buf.slice(start, end);
+	  var res = '';
+	  for (var i = 0; i < bytes.length; i += 2) {
+	    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
+	  }
+	  return res
+	}
+
+	Buffer$f.prototype.slice = function slice (start, end) {
+	  var len = this.length;
+	  start = ~~start;
+	  end = end === undefined ? len : ~~end;
+
+	  if (start < 0) {
+	    start += len;
+	    if (start < 0) start = 0;
+	  } else if (start > len) {
+	    start = len;
+	  }
+
+	  if (end < 0) {
+	    end += len;
+	    if (end < 0) end = 0;
+	  } else if (end > len) {
+	    end = len;
+	  }
+
+	  if (end < start) end = start;
+
+	  var newBuf;
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    newBuf = this.subarray(start, end);
+	    newBuf.__proto__ = Buffer$f.prototype;
+	  } else {
+	    var sliceLen = end - start;
+	    newBuf = new Buffer$f(sliceLen, undefined);
+	    for (var i = 0; i < sliceLen; ++i) {
+	      newBuf[i] = this[i + start];
+	    }
+	  }
+
+	  return newBuf
+	};
+
+	/*
+	 * Need to make sure that buffer isn't trying to write out of bounds.
+	 */
+	function checkOffset (offset, ext, length) {
+	  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
+	  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
+	}
+
+	Buffer$f.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+	  var val = this[offset];
+	  var mul = 1;
+	  var i = 0;
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    val += this[offset + i] * mul;
+	  }
+
+	  return val
+	};
+
+	Buffer$f.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) {
+	    checkOffset(offset, byteLength, this.length);
+	  }
+
+	  var val = this[offset + --byteLength];
+	  var mul = 1;
+	  while (byteLength > 0 && (mul *= 0x100)) {
+	    val += this[offset + --byteLength] * mul;
+	  }
+
+	  return val
+	};
+
+	Buffer$f.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 1, this.length);
+	  return this[offset]
+	};
+
+	Buffer$f.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length);
+	  return this[offset] | (this[offset + 1] << 8)
+	};
+
+	Buffer$f.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length);
+	  return (this[offset] << 8) | this[offset + 1]
+	};
+
+	Buffer$f.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length);
+
+	  return ((this[offset]) |
+	      (this[offset + 1] << 8) |
+	      (this[offset + 2] << 16)) +
+	      (this[offset + 3] * 0x1000000)
+	};
+
+	Buffer$f.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length);
+
+	  return (this[offset] * 0x1000000) +
+	    ((this[offset + 1] << 16) |
+	    (this[offset + 2] << 8) |
+	    this[offset + 3])
+	};
+
+	Buffer$f.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+	  var val = this[offset];
+	  var mul = 1;
+	  var i = 0;
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    val += this[offset + i] * mul;
+	  }
+	  mul *= 0x80;
+
+	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+	  return val
+	};
+
+	Buffer$f.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+	  var i = byteLength;
+	  var mul = 1;
+	  var val = this[offset + --i];
+	  while (i > 0 && (mul *= 0x100)) {
+	    val += this[offset + --i] * mul;
+	  }
+	  mul *= 0x80;
+
+	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+	  return val
+	};
+
+	Buffer$f.prototype.readInt8 = function readInt8 (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 1, this.length);
+	  if (!(this[offset] & 0x80)) return (this[offset])
+	  return ((0xff - this[offset] + 1) * -1)
+	};
+
+	Buffer$f.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length);
+	  var val = this[offset] | (this[offset + 1] << 8);
+	  return (val & 0x8000) ? val | 0xFFFF0000 : val
+	};
+
+	Buffer$f.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 2, this.length);
+	  var val = this[offset + 1] | (this[offset] << 8);
+	  return (val & 0x8000) ? val | 0xFFFF0000 : val
+	};
+
+	Buffer$f.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length);
+
+	  return (this[offset]) |
+	    (this[offset + 1] << 8) |
+	    (this[offset + 2] << 16) |
+	    (this[offset + 3] << 24)
+	};
+
+	Buffer$f.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length);
+
+	  return (this[offset] << 24) |
+	    (this[offset + 1] << 16) |
+	    (this[offset + 2] << 8) |
+	    (this[offset + 3])
+	};
+
+	Buffer$f.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length);
+	  return read(this, offset, true, 23, 4)
+	};
+
+	Buffer$f.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 4, this.length);
+	  return read(this, offset, false, 23, 4)
+	};
+
+	Buffer$f.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 8, this.length);
+	  return read(this, offset, true, 52, 8)
+	};
+
+	Buffer$f.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+	  if (!noAssert) checkOffset(offset, 8, this.length);
+	  return read(this, offset, false, 52, 8)
+	};
+
+	function checkInt (buf, value, offset, ext, max, min) {
+	  if (!internalIsBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance')
+	  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds')
+	  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+	}
+
+	Buffer$f.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) {
+	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+	    checkInt(this, value, offset, byteLength, maxBytes, 0);
+	  }
+
+	  var mul = 1;
+	  var i = 0;
+	  this[offset] = value & 0xFF;
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    this[offset + i] = (value / mul) & 0xFF;
+	  }
+
+	  return offset + byteLength
+	};
+
+	Buffer$f.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  byteLength = byteLength | 0;
+	  if (!noAssert) {
+	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+	    checkInt(this, value, offset, byteLength, maxBytes, 0);
+	  }
+
+	  var i = byteLength - 1;
+	  var mul = 1;
+	  this[offset + i] = value & 0xFF;
+	  while (--i >= 0 && (mul *= 0x100)) {
+	    this[offset + i] = (value / mul) & 0xFF;
+	  }
+
+	  return offset + byteLength
+	};
+
+	Buffer$f.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
+	  if (!Buffer$f.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+	  this[offset] = (value & 0xff);
+	  return offset + 1
+	};
+
+	function objectWriteUInt16 (buf, value, offset, littleEndian) {
+	  if (value < 0) value = 0xffff + value + 1;
+	  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
+	    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+	      (littleEndian ? i : 1 - i) * 8;
+	  }
+	}
+
+	Buffer$f.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value & 0xff);
+	    this[offset + 1] = (value >>> 8);
+	  } else {
+	    objectWriteUInt16(this, value, offset, true);
+	  }
+	  return offset + 2
+	};
+
+	Buffer$f.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 8);
+	    this[offset + 1] = (value & 0xff);
+	  } else {
+	    objectWriteUInt16(this, value, offset, false);
+	  }
+	  return offset + 2
+	};
+
+	function objectWriteUInt32 (buf, value, offset, littleEndian) {
+	  if (value < 0) value = 0xffffffff + value + 1;
+	  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
+	    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff;
+	  }
+	}
+
+	Buffer$f.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset + 3] = (value >>> 24);
+	    this[offset + 2] = (value >>> 16);
+	    this[offset + 1] = (value >>> 8);
+	    this[offset] = (value & 0xff);
+	  } else {
+	    objectWriteUInt32(this, value, offset, true);
+	  }
+	  return offset + 4
+	};
+
+	Buffer$f.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 24);
+	    this[offset + 1] = (value >>> 16);
+	    this[offset + 2] = (value >>> 8);
+	    this[offset + 3] = (value & 0xff);
+	  } else {
+	    objectWriteUInt32(this, value, offset, false);
+	  }
+	  return offset + 4
+	};
+
+	Buffer$f.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) {
+	    var limit = Math.pow(2, 8 * byteLength - 1);
+
+	    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+	  }
+
+	  var i = 0;
+	  var mul = 1;
+	  var sub = 0;
+	  this[offset] = value & 0xFF;
+	  while (++i < byteLength && (mul *= 0x100)) {
+	    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+	      sub = 1;
+	    }
+	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+	  }
+
+	  return offset + byteLength
+	};
+
+	Buffer$f.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) {
+	    var limit = Math.pow(2, 8 * byteLength - 1);
+
+	    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+	  }
+
+	  var i = byteLength - 1;
+	  var mul = 1;
+	  var sub = 0;
+	  this[offset + i] = value & 0xFF;
+	  while (--i >= 0 && (mul *= 0x100)) {
+	    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+	      sub = 1;
+	    }
+	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+	  }
+
+	  return offset + byteLength
+	};
+
+	Buffer$f.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80);
+	  if (!Buffer$f.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+	  if (value < 0) value = 0xff + value + 1;
+	  this[offset] = (value & 0xff);
+	  return offset + 1
+	};
+
+	Buffer$f.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value & 0xff);
+	    this[offset + 1] = (value >>> 8);
+	  } else {
+	    objectWriteUInt16(this, value, offset, true);
+	  }
+	  return offset + 2
+	};
+
+	Buffer$f.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 8);
+	    this[offset + 1] = (value & 0xff);
+	  } else {
+	    objectWriteUInt16(this, value, offset, false);
+	  }
+	  return offset + 2
+	};
+
+	Buffer$f.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value & 0xff);
+	    this[offset + 1] = (value >>> 8);
+	    this[offset + 2] = (value >>> 16);
+	    this[offset + 3] = (value >>> 24);
+	  } else {
+	    objectWriteUInt32(this, value, offset, true);
+	  }
+	  return offset + 4
+	};
+
+	Buffer$f.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
+	  value = +value;
+	  offset = offset | 0;
+	  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+	  if (value < 0) value = 0xffffffff + value + 1;
+	  if (Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    this[offset] = (value >>> 24);
+	    this[offset + 1] = (value >>> 16);
+	    this[offset + 2] = (value >>> 8);
+	    this[offset + 3] = (value & 0xff);
+	  } else {
+	    objectWriteUInt32(this, value, offset, false);
+	  }
+	  return offset + 4
+	};
+
+	function checkIEEE754 (buf, value, offset, ext, max, min) {
+	  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+	  if (offset < 0) throw new RangeError('Index out of range')
+	}
+
+	function writeFloat (buf, value, offset, littleEndian, noAssert) {
+	  if (!noAssert) {
+	    checkIEEE754(buf, value, offset, 4);
+	  }
+	  write(buf, value, offset, littleEndian, 23, 4);
+	  return offset + 4
+	}
+
+	Buffer$f.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
+	  return writeFloat(this, value, offset, true, noAssert)
+	};
+
+	Buffer$f.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
+	  return writeFloat(this, value, offset, false, noAssert)
+	};
+
+	function writeDouble (buf, value, offset, littleEndian, noAssert) {
+	  if (!noAssert) {
+	    checkIEEE754(buf, value, offset, 8);
+	  }
+	  write(buf, value, offset, littleEndian, 52, 8);
+	  return offset + 8
+	}
+
+	Buffer$f.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
+	  return writeDouble(this, value, offset, true, noAssert)
+	};
+
+	Buffer$f.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
+	  return writeDouble(this, value, offset, false, noAssert)
+	};
+
+	// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+	Buffer$f.prototype.copy = function copy (target, targetStart, start, end) {
+	  if (!start) start = 0;
+	  if (!end && end !== 0) end = this.length;
+	  if (targetStart >= target.length) targetStart = target.length;
+	  if (!targetStart) targetStart = 0;
+	  if (end > 0 && end < start) end = start;
+
+	  // Copy 0 bytes; we're done
+	  if (end === start) return 0
+	  if (target.length === 0 || this.length === 0) return 0
+
+	  // Fatal error conditions
+	  if (targetStart < 0) {
+	    throw new RangeError('targetStart out of bounds')
+	  }
+	  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
+	  if (end < 0) throw new RangeError('sourceEnd out of bounds')
+
+	  // Are we oob?
+	  if (end > this.length) end = this.length;
+	  if (target.length - targetStart < end - start) {
+	    end = target.length - targetStart + start;
+	  }
+
+	  var len = end - start;
+	  var i;
+
+	  if (this === target && start < targetStart && targetStart < end) {
+	    // descending copy from end
+	    for (i = len - 1; i >= 0; --i) {
+	      target[i + targetStart] = this[i + start];
+	    }
+	  } else if (len < 1000 || !Buffer$f.TYPED_ARRAY_SUPPORT) {
+	    // ascending copy from start
+	    for (i = 0; i < len; ++i) {
+	      target[i + targetStart] = this[i + start];
+	    }
+	  } else {
+	    Uint8Array.prototype.set.call(
+	      target,
+	      this.subarray(start, start + len),
+	      targetStart
+	    );
+	  }
+
+	  return len
+	};
+
+	// Usage:
+	//    buffer.fill(number[, offset[, end]])
+	//    buffer.fill(buffer[, offset[, end]])
+	//    buffer.fill(string[, offset[, end]][, encoding])
+	Buffer$f.prototype.fill = function fill (val, start, end, encoding) {
+	  // Handle string cases:
+	  if (typeof val === 'string') {
+	    if (typeof start === 'string') {
+	      encoding = start;
+	      start = 0;
+	      end = this.length;
+	    } else if (typeof end === 'string') {
+	      encoding = end;
+	      end = this.length;
+	    }
+	    if (val.length === 1) {
+	      var code = val.charCodeAt(0);
+	      if (code < 256) {
+	        val = code;
+	      }
+	    }
+	    if (encoding !== undefined && typeof encoding !== 'string') {
+	      throw new TypeError('encoding must be a string')
+	    }
+	    if (typeof encoding === 'string' && !Buffer$f.isEncoding(encoding)) {
+	      throw new TypeError('Unknown encoding: ' + encoding)
+	    }
+	  } else if (typeof val === 'number') {
+	    val = val & 255;
+	  }
+
+	  // Invalid ranges are not set to a default, so can range check early.
+	  if (start < 0 || this.length < start || this.length < end) {
+	    throw new RangeError('Out of range index')
+	  }
+
+	  if (end <= start) {
+	    return this
+	  }
+
+	  start = start >>> 0;
+	  end = end === undefined ? this.length : end >>> 0;
+
+	  if (!val) val = 0;
+
+	  var i;
+	  if (typeof val === 'number') {
+	    for (i = start; i < end; ++i) {
+	      this[i] = val;
+	    }
+	  } else {
+	    var bytes = internalIsBuffer(val)
+	      ? val
+	      : utf8ToBytes(new Buffer$f(val, encoding).toString());
+	    var len = bytes.length;
+	    for (i = 0; i < end - start; ++i) {
+	      this[i + start] = bytes[i % len];
+	    }
+	  }
+
+	  return this
+	};
+
+	// HELPER FUNCTIONS
+	// ================
+
+	var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
+
+	function base64clean (str) {
+	  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+	  str = stringtrim(str).replace(INVALID_BASE64_RE, '');
+	  // Node converts strings with length < 2 to ''
+	  if (str.length < 2) return ''
+	  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+	  while (str.length % 4 !== 0) {
+	    str = str + '=';
+	  }
+	  return str
+	}
+
+	function stringtrim (str) {
+	  if (str.trim) return str.trim()
+	  return str.replace(/^\s+|\s+$/g, '')
+	}
+
+	function toHex (n) {
+	  if (n < 16) return '0' + n.toString(16)
+	  return n.toString(16)
+	}
+
+	function utf8ToBytes (string, units) {
+	  units = units || Infinity;
+	  var codePoint;
+	  var length = string.length;
+	  var leadSurrogate = null;
+	  var bytes = [];
+
+	  for (var i = 0; i < length; ++i) {
+	    codePoint = string.charCodeAt(i);
+
+	    // is surrogate component
+	    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+	      // last char was a lead
+	      if (!leadSurrogate) {
+	        // no lead yet
+	        if (codePoint > 0xDBFF) {
+	          // unexpected trail
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	          continue
+	        } else if (i + 1 === length) {
+	          // unpaired lead
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	          continue
+	        }
+
+	        // valid lead
+	        leadSurrogate = codePoint;
+
+	        continue
+	      }
+
+	      // 2 leads in a row
+	      if (codePoint < 0xDC00) {
+	        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	        leadSurrogate = codePoint;
+	        continue
+	      }
+
+	      // valid surrogate pair
+	      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
+	    } else if (leadSurrogate) {
+	      // valid bmp char, but last char was a lead
+	      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+	    }
+
+	    leadSurrogate = null;
+
+	    // encode utf8
+	    if (codePoint < 0x80) {
+	      if ((units -= 1) < 0) break
+	      bytes.push(codePoint);
+	    } else if (codePoint < 0x800) {
+	      if ((units -= 2) < 0) break
+	      bytes.push(
+	        codePoint >> 0x6 | 0xC0,
+	        codePoint & 0x3F | 0x80
+	      );
+	    } else if (codePoint < 0x10000) {
+	      if ((units -= 3) < 0) break
+	      bytes.push(
+	        codePoint >> 0xC | 0xE0,
+	        codePoint >> 0x6 & 0x3F | 0x80,
+	        codePoint & 0x3F | 0x80
+	      );
+	    } else if (codePoint < 0x110000) {
+	      if ((units -= 4) < 0) break
+	      bytes.push(
+	        codePoint >> 0x12 | 0xF0,
+	        codePoint >> 0xC & 0x3F | 0x80,
+	        codePoint >> 0x6 & 0x3F | 0x80,
+	        codePoint & 0x3F | 0x80
+	      );
+	    } else {
+	      throw new Error('Invalid code point')
+	    }
+	  }
+
+	  return bytes
+	}
+
+	function asciiToBytes (str) {
+	  var byteArray = [];
+	  for (var i = 0; i < str.length; ++i) {
+	    // Node's code seems to be doing this and not & 0x7F..
+	    byteArray.push(str.charCodeAt(i) & 0xFF);
+	  }
+	  return byteArray
+	}
+
+	function utf16leToBytes (str, units) {
+	  var c, hi, lo;
+	  var byteArray = [];
+	  for (var i = 0; i < str.length; ++i) {
+	    if ((units -= 2) < 0) break
+
+	    c = str.charCodeAt(i);
+	    hi = c >> 8;
+	    lo = c % 256;
+	    byteArray.push(lo);
+	    byteArray.push(hi);
+	  }
+
+	  return byteArray
+	}
+
+
+	function base64ToBytes (str) {
+	  return toByteArray(base64clean(str))
+	}
+
+	function blitBuffer (src, dst, offset, length) {
+	  for (var i = 0; i < length; ++i) {
+	    if ((i + offset >= dst.length) || (i >= src.length)) break
+	    dst[i + offset] = src[i];
+	  }
+	  return i
+	}
+
+	function isnan (val) {
+	  return val !== val // eslint-disable-line no-self-compare
+	}
+
+
+	// the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
+	// The _isBuffer check is for Safari 5-7 support, because it's missing
+	// Object.prototype.constructor. Remove this eventually
+	function isBuffer$1(obj) {
+	  return obj != null && (!!obj._isBuffer || isFastBuffer(obj) || isSlowBuffer(obj))
+	}
+
+	function isFastBuffer (obj) {
+	  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+	}
+
+	// For Node v0.10 support. Remove this eventually.
+	function isSlowBuffer (obj) {
+	  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer(obj.slice(0, 0))
+	}
+
+	var _polyfillNode_buffer = /*#__PURE__*/Object.freeze({
+		__proto__: null,
+		Buffer: Buffer$f,
+		INSPECT_MAX_BYTES: INSPECT_MAX_BYTES,
+		SlowBuffer: SlowBuffer,
+		isBuffer: isBuffer$1,
+		kMaxLength: _kMaxLength
+	});
+
+	var require$$0$6 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_buffer);
+
+	/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+	(function (module, exports) {
+	  /* eslint-disable node/no-deprecated-api */
+	  var buffer = require$$0$6;
+	  var Buffer = buffer.Buffer; // alternative to using Object.keys for old browsers
+
+	  function copyProps(src, dst) {
+	    for (var key in src) {
+	      dst[key] = src[key];
+	    }
+	  }
+
+	  if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
+	    module.exports = buffer;
+	  } else {
+	    // Copy properties from require('buffer')
+	    copyProps(buffer, exports);
+	    exports.Buffer = SafeBuffer;
+	  }
+
+	  function SafeBuffer(arg, encodingOrOffset, length) {
+	    return Buffer(arg, encodingOrOffset, length);
+	  }
+
+	  SafeBuffer.prototype = Object.create(Buffer.prototype); // Copy static methods from Buffer
+
+	  copyProps(Buffer, SafeBuffer);
+
+	  SafeBuffer.from = function (arg, encodingOrOffset, length) {
+	    if (typeof arg === 'number') {
+	      throw new TypeError('Argument must not be a number');
+	    }
+
+	    return Buffer(arg, encodingOrOffset, length);
+	  };
+
+	  SafeBuffer.alloc = function (size, fill, encoding) {
+	    if (typeof size !== 'number') {
+	      throw new TypeError('Argument must be a number');
+	    }
+
+	    var buf = Buffer(size);
+
+	    if (fill !== undefined) {
+	      if (typeof encoding === 'string') {
+	        buf.fill(fill, encoding);
+	      } else {
+	        buf.fill(fill);
+	      }
+	    } else {
+	      buf.fill(0);
+	    }
+
+	    return buf;
+	  };
+
+	  SafeBuffer.allocUnsafe = function (size) {
+	    if (typeof size !== 'number') {
+	      throw new TypeError('Argument must be a number');
+	    }
+
+	    return Buffer(size);
+	  };
+
+	  SafeBuffer.allocUnsafeSlow = function (size) {
+	    if (typeof size !== 'number') {
+	      throw new TypeError('Argument must be a number');
+	    }
+
+	    return buffer.SlowBuffer(size);
+	  };
+	})(safeBuffer, safeBuffer.exports);
+
+	var readableBrowser = {exports: {}};
+
+	var streamBrowser = require$$0$8.EventEmitter;
 
 	// shim for using process in browser
 	// based off https://github.com/defunctzombie/node-process/blob/master/browser.js
@@ -19026,7 +20518,7 @@
 	  var base = '', array = false, braces = ['{', '}'];
 
 	  // Make Array say that they are Array
-	  if (isArray$1(value)) {
+	  if (isArray(value)) {
 	    array = true;
 	    braces = ['[', ']'];
 	  }
@@ -19205,7 +20697,7 @@
 
 	// NOTE: These type checking functions intentionally don't use `instanceof`
 	// because it is fragile and can be easily faked with `Object.create()`.
-	function isArray$1(ar) {
+	function isArray(ar) {
 	  return Array.isArray(ar);
 	}
 
@@ -19267,8 +20759,8 @@
 	         typeof arg === 'undefined';
 	}
 
-	function isBuffer$1(maybeBuf) {
-	  return Buffer$g.isBuffer(maybeBuf);
+	function isBuffer(maybeBuf) {
+	  return Buffer$f.isBuffer(maybeBuf);
 	}
 
 	function objectToString(o) {
@@ -19318,7 +20810,7 @@
 	  inherits: inherits$c,
 	  _extend: _extend,
 	  log: log,
-	  isBuffer: isBuffer$1,
+	  isBuffer: isBuffer,
 	  isPrimitive: isPrimitive,
 	  isFunction: isFunction,
 	  isError: isError,
@@ -19332,7 +20824,7 @@
 	  isNullOrUndefined: isNullOrUndefined,
 	  isNull: isNull,
 	  isBoolean: isBoolean,
-	  isArray: isArray$1,
+	  isArray: isArray,
 	  inspect: inspect,
 	  deprecate: deprecate$1,
 	  format: format,
@@ -19345,7 +20837,7 @@
 		deprecate: deprecate$1,
 		debuglog: debuglog,
 		inspect: inspect,
-		isArray: isArray$1,
+		isArray: isArray,
 		isBoolean: isBoolean,
 		isNull: isNull,
 		isNullOrUndefined: isNullOrUndefined,
@@ -19359,7 +20851,7 @@
 		isError: isError,
 		isFunction: isFunction,
 		isPrimitive: isPrimitive,
-		isBuffer: isBuffer$1,
+		isBuffer: isBuffer,
 		log: log,
 		inherits: inherits$c,
 		_extend: _extend,
@@ -19446,7 +20938,7 @@
 	    return Constructor;
 	  }
 
-	  var _require = require$$0$7,
+	  var _require = require$$0$6,
 	      Buffer = _require.Buffer;
 	  var _require2 = require$$3$3,
 	      inspect = _require2.inspect;
@@ -20259,16 +21751,16 @@
 	var Stream$2 = streamBrowser;
 	/*</replacement>*/
 
-	var Buffer$f = require$$0$7.Buffer;
+	var Buffer$e = require$$0$6.Buffer;
 
 	var OurUint8Array$1 = global$1.Uint8Array || function () {};
 
 	function _uint8ArrayToBuffer$1(chunk) {
-	  return Buffer$f.from(chunk);
+	  return Buffer$e.from(chunk);
 	}
 
 	function _isUint8Array$1(obj) {
-	  return Buffer$f.isBuffer(obj) || obj instanceof OurUint8Array$1;
+	  return Buffer$e.isBuffer(obj) || obj instanceof OurUint8Array$1;
 	}
 
 	var destroyImpl$1 = require$$5$3;
@@ -20284,7 +21776,7 @@
 	    ERR_STREAM_WRITE_AFTER_END = _require$codes$3.ERR_STREAM_WRITE_AFTER_END,
 	    ERR_UNKNOWN_ENCODING = _require$codes$3.ERR_UNKNOWN_ENCODING;
 	var errorOrDestroy$1 = destroyImpl$1.errorOrDestroy;
-	require$$0$8(Writable$2, Stream$2);
+	require$$0$7(Writable$2, Stream$2);
 
 	function nop$1() {}
 
@@ -20479,7 +21971,7 @@
 
 	  var isBuf = !state.objectMode && _isUint8Array$1(chunk);
 
-	  if (isBuf && !Buffer$f.isBuffer(chunk)) {
+	  if (isBuf && !Buffer$e.isBuffer(chunk)) {
 	    chunk = _uint8ArrayToBuffer$1(chunk);
 	  }
 
@@ -20530,7 +22022,7 @@
 
 	function decodeChunk$1(state, chunk, encoding) {
 	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-	    chunk = Buffer$f.from(chunk, encoding);
+	    chunk = Buffer$e.from(chunk, encoding);
 	  }
 
 	  return chunk;
@@ -20908,7 +22400,7 @@
 	module.exports = Duplex$3;
 	var Readable$2 = require$$0$4;
 	var Writable$1 = require$$1$6;
-	require$$0$8(Duplex$3, Readable$2);
+	require$$0$7(Duplex$3, Readable$2);
 	{
 	  // Allow the keys array to be GC'ed.
 	  var keys$1 = objectKeys(Writable$1.prototype);
@@ -21009,7 +22501,7 @@
 	var require$$2$5 = /*@__PURE__*/getAugmentedNamespace(_stream_duplex);
 
 	// Copyright Joyent, Inc. and other Node contributors.
-	var isBufferEncoding = Buffer$g.isEncoding
+	var isBufferEncoding = Buffer$f.isEncoding
 	  || function(encoding) {
 	       switch (encoding && encoding.toLowerCase()) {
 	         case 'hex': case 'utf8': case 'utf-8': case 'ascii': case 'binary': case 'base64': case 'ucs2': case 'ucs-2': case 'utf16le': case 'utf-16le': case 'raw': return true;
@@ -21058,7 +22550,7 @@
 
 	  // Enough space to store all bytes of a single character. UTF-8 needs 4
 	  // bytes, but CESU-8 may require up to 6 (3 bytes per surrogate).
-	  this.charBuffer = new Buffer$g(6);
+	  this.charBuffer = new Buffer$f(6);
 	  // Number of bytes received for the current incomplete multi-byte character.
 	  this.charReceived = 0;
 	  // Number of bytes expected for the current incomplete multi-byte character.
@@ -21562,7 +23054,7 @@
 	Readable$1.ReadableState = ReadableState$1;
 	/*<replacement>*/
 
-	require$$0$6.EventEmitter;
+	require$$0$8.EventEmitter;
 
 	var EElistenerCount = function EElistenerCount(emitter, type) {
 	  return emitter.listeners(type).length;
@@ -21575,16 +23067,16 @@
 	var Stream$1 = streamBrowser;
 	/*</replacement>*/
 
-	var Buffer$e = require$$0$7.Buffer;
+	var Buffer$d = require$$0$6.Buffer;
 
 	var OurUint8Array = global$1.Uint8Array || function () {};
 
 	function _uint8ArrayToBuffer(chunk) {
-	  return Buffer$e.from(chunk);
+	  return Buffer$d.from(chunk);
 	}
 
 	function _isUint8Array(obj) {
-	  return Buffer$e.isBuffer(obj) || obj instanceof OurUint8Array;
+	  return Buffer$d.isBuffer(obj) || obj instanceof OurUint8Array;
 	}
 	/*<replacement>*/
 
@@ -21612,8 +23104,8 @@
 
 	var StringDecoder$1;
 	var createReadableStreamAsyncIterator;
-	var from$1;
-	require$$0$8(Readable$1, Stream$1);
+	var from;
+	require$$0$7(Readable$1, Stream$1);
 	var errorOrDestroy = destroyImpl.errorOrDestroy;
 	var kProxyEvents = ['error', 'close', 'destroy', 'pause', 'resume'];
 
@@ -21753,7 +23245,7 @@
 	      encoding = encoding || state.defaultEncoding;
 
 	      if (encoding !== state.encoding) {
-	        chunk = Buffer$e.from(chunk, encoding);
+	        chunk = Buffer$d.from(chunk, encoding);
 	        encoding = '';
 	      }
 
@@ -21785,7 +23277,7 @@
 	    if (er) {
 	      errorOrDestroy(stream, er);
 	    } else if (state.objectMode || chunk && chunk.length > 0) {
-	      if (typeof chunk !== 'string' && !state.objectMode && Object.getPrototypeOf(chunk) !== Buffer$e.prototype) {
+	      if (typeof chunk !== 'string' && !state.objectMode && Object.getPrototypeOf(chunk) !== Buffer$d.prototype) {
 	        chunk = _uint8ArrayToBuffer(chunk);
 	      }
 
@@ -22631,11 +24123,11 @@
 
 	if (typeof Symbol === 'function') {
 	  Readable$1.from = function (iterable, opts) {
-	    if (from$1 === undefined) {
-	      from$1 = requireFromBrowser();
+	    if (from === undefined) {
+	      from = requireFromBrowser();
 	    }
 
-	    return from$1(Readable$1, iterable, opts);
+	    return from(Readable$1, iterable, opts);
 	  };
 	}
 
@@ -22660,7 +24152,7 @@
 	    ERR_TRANSFORM_ALREADY_TRANSFORMING = _require$codes$1.ERR_TRANSFORM_ALREADY_TRANSFORMING,
 	    ERR_TRANSFORM_WITH_LENGTH_0 = _require$codes$1.ERR_TRANSFORM_WITH_LENGTH_0;
 	var Duplex$1 = require$$2$5;
-	require$$0$8(Transform$4, Duplex$1);
+	require$$0$7(Transform$4, Duplex$1);
 
 	function afterTransform$1(er, data) {
 	  var ts = this._transformState;
@@ -22791,7 +24283,7 @@
 
 	var _stream_passthrough = PassThrough$1;
 	var Transform$3 = _stream_transform;
-	require$$0$8(PassThrough$1, Transform$3);
+	require$$0$7(PassThrough$1, Transform$3);
 
 	function PassThrough$1(options) {
 	  if (!(this instanceof PassThrough$1)) return new PassThrough$1(options);
@@ -22908,19 +24400,19 @@
 	  exports.pipeline = pipeline_1;
 	})(readableBrowser, readableBrowser.exports);
 
-	var Buffer$d = safeBuffer.exports.Buffer;
+	var Buffer$c = safeBuffer.exports.Buffer;
 	var Transform$2 = readableBrowser.exports.Transform;
-	var inherits$a = require$$0$8;
+	var inherits$a = require$$0$7;
 
 	function throwIfNotStringOrBuffer(val, prefix) {
-	  if (!Buffer$d.isBuffer(val) && typeof val !== 'string') {
+	  if (!Buffer$c.isBuffer(val) && typeof val !== 'string') {
 	    throw new TypeError(prefix + ' must be a string or a buffer');
 	  }
 	}
 
 	function HashBase$2(blockSize) {
 	  Transform$2.call(this);
-	  this._block = Buffer$d.allocUnsafe(blockSize);
+	  this._block = Buffer$c.allocUnsafe(blockSize);
 	  this._blockSize = blockSize;
 	  this._blockOffset = 0;
 	  this._length = [0, 0, 0, 0];
@@ -22956,7 +24448,7 @@
 	HashBase$2.prototype.update = function (data, encoding) {
 	  throwIfNotStringOrBuffer(data, 'Data');
 	  if (this._finalized) throw new Error('Digest already called');
-	  if (!Buffer$d.isBuffer(data)) data = Buffer$d.from(data, encoding); // consume data
+	  if (!Buffer$c.isBuffer(data)) data = Buffer$c.from(data, encoding); // consume data
 
 	  var block = this._block;
 	  var offset = 0;
@@ -23008,9 +24500,9 @@
 
 	var hashBase = HashBase$2;
 
-	var inherits$9 = require$$0$8;
+	var inherits$9 = require$$0$7;
 	var HashBase$1 = hashBase;
-	var Buffer$c = safeBuffer.exports.Buffer;
+	var Buffer$b = safeBuffer.exports.Buffer;
 	var ARRAY16$1 = new Array(16);
 
 	function MD5$1() {
@@ -23124,7 +24616,7 @@
 	  this._update(); // produce result
 
 
-	  var buffer = Buffer$c.allocUnsafe(16);
+	  var buffer = Buffer$b.allocUnsafe(16);
 	  buffer.writeInt32LE(this._a, 0);
 	  buffer.writeInt32LE(this._b, 4);
 	  buffer.writeInt32LE(this._c, 8);
@@ -23154,8 +24646,8 @@
 
 	var md5_js = MD5$1;
 
-	var Buffer$b = require$$0$7.Buffer;
-	var inherits$8 = require$$0$8;
+	var Buffer$a = require$$0$6.Buffer;
+	var inherits$8 = require$$0$7;
 	var HashBase = hashBase;
 	var ARRAY16 = new Array(16);
 	var zl = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8, 3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12, 1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2, 4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13];
@@ -23257,7 +24749,7 @@
 	  this._update(); // produce result
 
 
-	  var buffer = Buffer$b.alloc ? Buffer$b.alloc(20) : new Buffer$b(20);
+	  var buffer = Buffer$a.alloc ? Buffer$a.alloc(20) : new Buffer$a(20);
 	  buffer.writeInt32LE(this._a, 0);
 	  buffer.writeInt32LE(this._b, 4);
 	  buffer.writeInt32LE(this._c, 8);
@@ -23294,10 +24786,10 @@
 
 	var sha_js = {exports: {}};
 
-	var Buffer$a = safeBuffer.exports.Buffer; // prototype class for hash functions
+	var Buffer$9 = safeBuffer.exports.Buffer; // prototype class for hash functions
 
 	function Hash$7(blockSize, finalSize) {
-	  this._block = Buffer$a.alloc(blockSize);
+	  this._block = Buffer$9.alloc(blockSize);
 	  this._finalSize = finalSize;
 	  this._blockSize = blockSize;
 	  this._len = 0;
@@ -23306,7 +24798,7 @@
 	Hash$7.prototype.update = function (data, enc) {
 	  if (typeof data === 'string') {
 	    enc = enc || 'utf8';
-	    data = Buffer$a.from(data, enc);
+	    data = Buffer$9.from(data, enc);
 	  }
 
 	  var block = this._block;
@@ -23381,9 +24873,9 @@
 	 * The difference between SHA-0 and SHA-1 is just a bitwise rotate left
 	 * operation was added.
 	 */
-	var inherits$7 = require$$0$8;
+	var inherits$7 = require$$0$7;
 	var Hash$6 = hash;
-	var Buffer$9 = safeBuffer.exports.Buffer;
+	var Buffer$8 = safeBuffer.exports.Buffer;
 	var K$3 = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0];
 	var W$5 = new Array(80);
 
@@ -23448,7 +24940,7 @@
 	};
 
 	Sha.prototype._hash = function () {
-	  var H = Buffer$9.allocUnsafe(20);
+	  var H = Buffer$8.allocUnsafe(20);
 	  H.writeInt32BE(this._a | 0, 0);
 	  H.writeInt32BE(this._b | 0, 4);
 	  H.writeInt32BE(this._c | 0, 8);
@@ -23467,9 +24959,9 @@
 	 * Distributed under the BSD License
 	 * See http://pajhome.org.uk/crypt/md5 for details.
 	 */
-	var inherits$6 = require$$0$8;
+	var inherits$6 = require$$0$7;
 	var Hash$5 = hash;
-	var Buffer$8 = safeBuffer.exports.Buffer;
+	var Buffer$7 = safeBuffer.exports.Buffer;
 	var K$2 = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0];
 	var W$4 = new Array(80);
 
@@ -23538,7 +25030,7 @@
 	};
 
 	Sha1.prototype._hash = function () {
-	  var H = Buffer$8.allocUnsafe(20);
+	  var H = Buffer$7.allocUnsafe(20);
 	  H.writeInt32BE(this._a | 0, 0);
 	  H.writeInt32BE(this._b | 0, 4);
 	  H.writeInt32BE(this._c | 0, 8);
@@ -23556,9 +25048,9 @@
 	 * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
 	 *
 	 */
-	var inherits$5 = require$$0$8;
+	var inherits$5 = require$$0$7;
 	var Hash$4 = hash;
-	var Buffer$7 = safeBuffer.exports.Buffer;
+	var Buffer$6 = safeBuffer.exports.Buffer;
 	var K$1 = [0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5, 0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5, 0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3, 0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174, 0xE49B69C1, 0xEFBE4786, 0x0FC19DC6, 0x240CA1CC, 0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA, 0x983E5152, 0xA831C66D, 0xB00327C8, 0xBF597FC7, 0xC6E00BF3, 0xD5A79147, 0x06CA6351, 0x14292967, 0x27B70A85, 0x2E1B2138, 0x4D2C6DFC, 0x53380D13, 0x650A7354, 0x766A0ABB, 0x81C2C92E, 0x92722C85, 0xA2BFE8A1, 0xA81A664B, 0xC24B8B70, 0xC76C51A3, 0xD192E819, 0xD6990624, 0xF40E3585, 0x106AA070, 0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3, 0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2];
 	var W$3 = new Array(64);
 
@@ -23646,7 +25138,7 @@
 	};
 
 	Sha256$1.prototype._hash = function () {
-	  var H = Buffer$7.allocUnsafe(32);
+	  var H = Buffer$6.allocUnsafe(32);
 	  H.writeInt32BE(this._a, 0);
 	  H.writeInt32BE(this._b, 4);
 	  H.writeInt32BE(this._c, 8);
@@ -23667,10 +25159,10 @@
 	 * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
 	 *
 	 */
-	var inherits$4 = require$$0$8;
+	var inherits$4 = require$$0$7;
 	var Sha256 = sha256$1;
 	var Hash$3 = hash;
-	var Buffer$6 = safeBuffer.exports.Buffer;
+	var Buffer$5 = safeBuffer.exports.Buffer;
 	var W$2 = new Array(64);
 
 	function Sha224() {
@@ -23695,7 +25187,7 @@
 	};
 
 	Sha224.prototype._hash = function () {
-	  var H = Buffer$6.allocUnsafe(28);
+	  var H = Buffer$5.allocUnsafe(28);
 	  H.writeInt32BE(this._a, 0);
 	  H.writeInt32BE(this._b, 4);
 	  H.writeInt32BE(this._c, 8);
@@ -23708,9 +25200,9 @@
 
 	var sha224 = Sha224;
 
-	var inherits$3 = require$$0$8;
+	var inherits$3 = require$$0$7;
 	var Hash$2 = hash;
-	var Buffer$5 = safeBuffer.exports.Buffer;
+	var Buffer$4 = safeBuffer.exports.Buffer;
 	var K = [0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd, 0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc, 0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019, 0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118, 0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe, 0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2, 0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1, 0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694, 0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3, 0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65, 0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483, 0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5, 0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210, 0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4, 0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725, 0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70, 0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926, 0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df, 0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8, 0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b, 0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001, 0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30, 0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910, 0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8, 0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53, 0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8, 0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb, 0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3, 0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60, 0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec, 0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9, 0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b, 0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207, 0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178, 0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6, 0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b, 0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493, 0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c, 0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a, 0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817];
 	var W$1 = new Array(160);
 
@@ -23888,7 +25380,7 @@
 	};
 
 	Sha512.prototype._hash = function () {
-	  var H = Buffer$5.allocUnsafe(64);
+	  var H = Buffer$4.allocUnsafe(64);
 
 	  function writeInt64BE(h, l, offset) {
 	    H.writeInt32BE(h, offset);
@@ -23908,10 +25400,10 @@
 
 	var sha512 = Sha512;
 
-	var inherits$2 = require$$0$8;
+	var inherits$2 = require$$0$7;
 	var SHA512 = sha512;
 	var Hash$1 = hash;
-	var Buffer$4 = safeBuffer.exports.Buffer;
+	var Buffer$3 = safeBuffer.exports.Buffer;
 	var W = new Array(160);
 
 	function Sha384() {
@@ -23943,7 +25435,7 @@
 	};
 
 	Sha384.prototype._hash = function () {
-	  var H = Buffer$4.allocUnsafe(48);
+	  var H = Buffer$3.allocUnsafe(48);
 
 	  function writeInt64BE(h, l, offset) {
 	    H.writeInt32BE(h, offset);
@@ -24018,9 +25510,9 @@
 	};
 
 	BufferList.prototype.concat = function (n) {
-	  if (this.length === 0) return Buffer$g.alloc(0);
+	  if (this.length === 0) return Buffer$f.alloc(0);
 	  if (this.length === 1) return this.head.data;
-	  var ret = Buffer$g.allocUnsafe(n >>> 0);
+	  var ret = Buffer$f.allocUnsafe(n >>> 0);
 	  var p = this.head;
 	  var i = 0;
 	  while (p) {
@@ -24034,7 +25526,7 @@
 	Readable.ReadableState = ReadableState;
 
 	var debug = debuglog('stream');
-	inherits$c(Readable, EventEmitter);
+	inherits$c(Readable, EventEmitter$1);
 
 	function prependListener(emitter, event, fn) {
 	  // Sadly this is not cacheable as some libraries bundle their own
@@ -24134,7 +25626,7 @@
 
 	  if (options && typeof options.read === 'function') this._read = options.read;
 
-	  EventEmitter.call(this);
+	  EventEmitter$1.call(this);
 	}
 
 	// Manually shove something into the read() buffer.
@@ -24147,7 +25639,7 @@
 	  if (!state.objectMode && typeof chunk === 'string') {
 	    encoding = encoding || state.defaultEncoding;
 	    if (encoding !== state.encoding) {
-	      chunk = Buffer$g.from(chunk, encoding);
+	      chunk = Buffer$f.from(chunk, encoding);
 	      encoding = '';
 	    }
 	  }
@@ -24373,7 +25865,7 @@
 
 	function chunkInvalid(state, chunk) {
 	  var er = null;
-	  if (!Buffer$g.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== null && chunk !== undefined && !state.objectMode) {
+	  if (!Buffer$f.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== null && chunk !== undefined && !state.objectMode) {
 	    er = new TypeError('Invalid non-string/buffer chunk');
 	  }
 	  return er;
@@ -24642,7 +26134,7 @@
 	// set up data events if they are asked for
 	// Ensure readable listeners eventually get something
 	Readable.prototype.on = function (ev, fn) {
-	  var res = EventEmitter.prototype.on.call(this, ev, fn);
+	  var res = EventEmitter$1.prototype.on.call(this, ev, fn);
 
 	  if (ev === 'data') {
 	    // Start flowing on next tick if stream isn't explicitly paused
@@ -24857,7 +26349,7 @@
 	// This function is designed to be inlinable, so please take care when making
 	// changes to the function body.
 	function copyFromBuffer(n, list) {
-	  var ret = Buffer$g.allocUnsafe(n);
+	  var ret = Buffer$f.allocUnsafe(n);
 	  var p = list.head;
 	  var c = 1;
 	  p.data.copy(ret);
@@ -24920,7 +26412,7 @@
 
 	// A bit simpler than readable streams.
 	Writable.WritableState = WritableState;
-	inherits$c(Writable, EventEmitter);
+	inherits$c(Writable, EventEmitter$1);
 
 	function nop() {}
 
@@ -25055,7 +26547,7 @@
 	    if (typeof options.writev === 'function') this._writev = options.writev;
 	  }
 
-	  EventEmitter.call(this);
+	  EventEmitter$1.call(this);
 	}
 
 	// Otherwise people can pipe Writable streams, which is just wrong.
@@ -25083,7 +26575,7 @@
 	  // if it is not a buffer, string, or undefined.
 	  if (chunk === null) {
 	    er = new TypeError('May not write null values to stream');
-	  } else if (!Buffer$g.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
+	  } else if (!Buffer$f.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
 	    er = new TypeError('Invalid non-string/buffer chunk');
 	  }
 	  if (er) {
@@ -25103,7 +26595,7 @@
 	    encoding = null;
 	  }
 
-	  if (Buffer$g.isBuffer(chunk)) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
+	  if (Buffer$f.isBuffer(chunk)) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
 
 	  if (typeof cb !== 'function') cb = nop;
 
@@ -25141,7 +26633,7 @@
 
 	function decodeChunk(state, chunk, encoding) {
 	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-	    chunk = Buffer$g.from(chunk, encoding);
+	    chunk = Buffer$f.from(chunk, encoding);
 	  }
 	  return chunk;
 	}
@@ -25152,7 +26644,7 @@
 	function writeOrBuffer(stream, state, chunk, encoding, cb) {
 	  chunk = decodeChunk(state, chunk, encoding);
 
-	  if (Buffer$g.isBuffer(chunk)) encoding = 'buffer';
+	  if (Buffer$f.isBuffer(chunk)) encoding = 'buffer';
 	  var len = state.objectMode ? 1 : chunk.length;
 
 	  state.length += len;
@@ -25568,7 +27060,7 @@
 	  cb(null, chunk);
 	};
 
-	inherits$c(Stream, EventEmitter);
+	inherits$c(Stream, EventEmitter$1);
 	Stream.Readable = Readable;
 	Stream.Writable = Writable;
 	Stream.Duplex = Duplex;
@@ -25582,7 +27074,7 @@
 	// part of this class) is overridden in the Readable class.
 
 	function Stream() {
-	  EventEmitter.call(this);
+	  EventEmitter$1.call(this);
 	}
 
 	Stream.prototype.pipe = function(dest, options) {
@@ -25632,7 +27124,7 @@
 	  // don't leave dangling pipes when there are errors.
 	  function onerror(er) {
 	    cleanup();
-	    if (EventEmitter.listenerCount(this, 'error') === 0) {
+	    if (EventEmitter$1.listenerCount(this, 'error') === 0) {
 	      throw er; // Unhandled stream error in pipe.
 	    }
 	  }
@@ -25681,10 +27173,10 @@
 
 	var require$$1$5 = /*@__PURE__*/getAugmentedNamespace(_polyfillNode_stream);
 
-	var Buffer$3 = safeBuffer.exports.Buffer;
+	var Buffer$2 = safeBuffer.exports.Buffer;
 	var Transform = require$$1$5.Transform;
 	var StringDecoder = require$$2$4.StringDecoder;
-	var inherits$1 = require$$0$8;
+	var inherits$1 = require$$0$7;
 
 	function CipherBase(hashMode) {
 	  Transform.call(this);
@@ -25709,7 +27201,7 @@
 
 	CipherBase.prototype.update = function (data, inputEnc, outputEnc) {
 	  if (typeof data === 'string') {
-	    data = Buffer$3.from(data, inputEnc);
+	    data = Buffer$2.from(data, inputEnc);
 	  }
 
 	  var outData = this._update(data);
@@ -25766,7 +27258,7 @@
 	};
 
 	CipherBase.prototype._finalOrDigest = function (outputEnc) {
-	  var outData = this.__final() || Buffer$3.alloc(0);
+	  var outData = this.__final() || Buffer$2.alloc(0);
 
 	  if (outputEnc) {
 	    outData = this._toString(outData, outputEnc, true);
@@ -25794,7 +27286,7 @@
 
 	var cipherBase = CipherBase;
 
-	var inherits = require$$0$8;
+	var inherits = require$$0$7;
 	var MD5 = md5_js;
 	var RIPEMD160 = ripemd160$1;
 	var sha = sha_js.exports;
@@ -25867,2032 +27359,6 @@
 	var payments$2 = {};
 
 	var embed = {};
-
-	var lookup = [];
-	var revLookup = [];
-	var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
-	var inited = false;
-
-	function init() {
-	  inited = true;
-	  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-	  for (var i = 0, len = code.length; i < len; ++i) {
-	    lookup[i] = code[i];
-	    revLookup[code.charCodeAt(i)] = i;
-	  }
-
-	  revLookup['-'.charCodeAt(0)] = 62;
-	  revLookup['_'.charCodeAt(0)] = 63;
-	}
-
-	function toByteArray(b64) {
-	  if (!inited) {
-	    init();
-	  }
-
-	  var i, j, l, tmp, placeHolders, arr;
-	  var len = b64.length;
-
-	  if (len % 4 > 0) {
-	    throw new Error('Invalid string. Length must be a multiple of 4');
-	  } // the number of equal signs (place holders)
-	  // if there are two placeholders, than the two characters before it
-	  // represent one byte
-	  // if there is only one, then the three characters before it represent 2 bytes
-	  // this is just a cheap hack to not do indexOf twice
-
-
-	  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0; // base64 is 4/3 + up to two characters of the original data
-
-	  arr = new Arr(len * 3 / 4 - placeHolders); // if there are placeholders, only get up to the last complete 4 chars
-
-	  l = placeHolders > 0 ? len - 4 : len;
-	  var L = 0;
-
-	  for (i = 0, j = 0; i < l; i += 4, j += 3) {
-	    tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
-	    arr[L++] = tmp >> 16 & 0xFF;
-	    arr[L++] = tmp >> 8 & 0xFF;
-	    arr[L++] = tmp & 0xFF;
-	  }
-
-	  if (placeHolders === 2) {
-	    tmp = revLookup[b64.charCodeAt(i)] << 2 | revLookup[b64.charCodeAt(i + 1)] >> 4;
-	    arr[L++] = tmp & 0xFF;
-	  } else if (placeHolders === 1) {
-	    tmp = revLookup[b64.charCodeAt(i)] << 10 | revLookup[b64.charCodeAt(i + 1)] << 4 | revLookup[b64.charCodeAt(i + 2)] >> 2;
-	    arr[L++] = tmp >> 8 & 0xFF;
-	    arr[L++] = tmp & 0xFF;
-	  }
-
-	  return arr;
-	}
-
-	function tripletToBase64(num) {
-	  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F];
-	}
-
-	function encodeChunk(uint8, start, end) {
-	  var tmp;
-	  var output = [];
-
-	  for (var i = start; i < end; i += 3) {
-	    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + uint8[i + 2];
-	    output.push(tripletToBase64(tmp));
-	  }
-
-	  return output.join('');
-	}
-
-	function fromByteArray(uint8) {
-	  if (!inited) {
-	    init();
-	  }
-
-	  var tmp;
-	  var len = uint8.length;
-	  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
-
-	  var output = '';
-	  var parts = [];
-	  var maxChunkLength = 16383; // must be multiple of 3
-	  // go through the array every three bytes, we'll deal with trailing stuff later
-
-	  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-	    parts.push(encodeChunk(uint8, i, i + maxChunkLength > len2 ? len2 : i + maxChunkLength));
-	  } // pad the end with zeros, but make sure to not forget the extra bytes
-
-
-	  if (extraBytes === 1) {
-	    tmp = uint8[len - 1];
-	    output += lookup[tmp >> 2];
-	    output += lookup[tmp << 4 & 0x3F];
-	    output += '==';
-	  } else if (extraBytes === 2) {
-	    tmp = (uint8[len - 2] << 8) + uint8[len - 1];
-	    output += lookup[tmp >> 10];
-	    output += lookup[tmp >> 4 & 0x3F];
-	    output += lookup[tmp << 2 & 0x3F];
-	    output += '=';
-	  }
-
-	  parts.push(output);
-	  return parts.join('');
-	}
-
-	function read(buffer, offset, isLE, mLen, nBytes) {
-	  var e, m;
-	  var eLen = nBytes * 8 - mLen - 1;
-	  var eMax = (1 << eLen) - 1;
-	  var eBias = eMax >> 1;
-	  var nBits = -7;
-	  var i = isLE ? nBytes - 1 : 0;
-	  var d = isLE ? -1 : 1;
-	  var s = buffer[offset + i];
-	  i += d;
-	  e = s & (1 << -nBits) - 1;
-	  s >>= -nBits;
-	  nBits += eLen;
-
-	  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-	  m = e & (1 << -nBits) - 1;
-	  e >>= -nBits;
-	  nBits += mLen;
-
-	  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-	  if (e === 0) {
-	    e = 1 - eBias;
-	  } else if (e === eMax) {
-	    return m ? NaN : (s ? -1 : 1) * Infinity;
-	  } else {
-	    m = m + Math.pow(2, mLen);
-	    e = e - eBias;
-	  }
-
-	  return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
-	}
-	function write(buffer, value, offset, isLE, mLen, nBytes) {
-	  var e, m, c;
-	  var eLen = nBytes * 8 - mLen - 1;
-	  var eMax = (1 << eLen) - 1;
-	  var eBias = eMax >> 1;
-	  var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-	  var i = isLE ? 0 : nBytes - 1;
-	  var d = isLE ? 1 : -1;
-	  var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
-	  value = Math.abs(value);
-
-	  if (isNaN(value) || value === Infinity) {
-	    m = isNaN(value) ? 1 : 0;
-	    e = eMax;
-	  } else {
-	    e = Math.floor(Math.log(value) / Math.LN2);
-
-	    if (value * (c = Math.pow(2, -e)) < 1) {
-	      e--;
-	      c *= 2;
-	    }
-
-	    if (e + eBias >= 1) {
-	      value += rt / c;
-	    } else {
-	      value += rt * Math.pow(2, 1 - eBias);
-	    }
-
-	    if (value * c >= 2) {
-	      e++;
-	      c /= 2;
-	    }
-
-	    if (e + eBias >= eMax) {
-	      m = 0;
-	      e = eMax;
-	    } else if (e + eBias >= 1) {
-	      m = (value * c - 1) * Math.pow(2, mLen);
-	      e = e + eBias;
-	    } else {
-	      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
-	      e = 0;
-	    }
-	  }
-
-	  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-	  e = e << mLen | m;
-	  eLen += mLen;
-
-	  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-	  buffer[offset + i - d] |= s * 128;
-	}
-
-	var toString = {}.toString;
-	var isArray = Array.isArray || function (arr) {
-	  return toString.call(arr) == '[object Array]';
-	};
-
-	var INSPECT_MAX_BYTES = 50;
-	/**
-	 * If `Buffer.TYPED_ARRAY_SUPPORT`:
-	 *   === true    Use Uint8Array implementation (fastest)
-	 *   === false   Use Object implementation (most compatible, even IE6)
-	 *
-	 * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
-	 * Opera 11.6+, iOS 4.2+.
-	 *
-	 * Due to various browser bugs, sometimes the Object implementation will be used even
-	 * when the browser supports typed arrays.
-	 *
-	 * Note:
-	 *
-	 *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
-	 *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
-	 *
-	 *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
-	 *
-	 *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
-	 *     incorrect length in some situations.
-
-	 * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
-	 * get the Object implementation, which is slower but behaves correctly.
-	 */
-
-	Buffer$2.TYPED_ARRAY_SUPPORT = global$1.TYPED_ARRAY_SUPPORT !== undefined ? global$1.TYPED_ARRAY_SUPPORT : true;
-	/*
-	 * Export kMaxLength after typed array support is determined.
-	 */
-
-	kMaxLength();
-
-	function kMaxLength() {
-	  return Buffer$2.TYPED_ARRAY_SUPPORT ? 0x7fffffff : 0x3fffffff;
-	}
-
-	function createBuffer(that, length) {
-	  if (kMaxLength() < length) {
-	    throw new RangeError('Invalid typed array length');
-	  }
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    // Return an augmented `Uint8Array` instance, for best performance
-	    that = new Uint8Array(length);
-	    that.__proto__ = Buffer$2.prototype;
-	  } else {
-	    // Fallback: Return an object instance of the Buffer class
-	    if (that === null) {
-	      that = new Buffer$2(length);
-	    }
-
-	    that.length = length;
-	  }
-
-	  return that;
-	}
-	/**
-	 * The Buffer constructor returns instances of `Uint8Array` that have their
-	 * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
-	 * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
-	 * and the `Uint8Array` methods. Square bracket notation works as expected -- it
-	 * returns a single octet.
-	 *
-	 * The `Uint8Array` prototype remains unmodified.
-	 */
-
-
-	function Buffer$2(arg, encodingOrOffset, length) {
-	  if (!Buffer$2.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer$2)) {
-	    return new Buffer$2(arg, encodingOrOffset, length);
-	  } // Common case.
-
-
-	  if (typeof arg === 'number') {
-	    if (typeof encodingOrOffset === 'string') {
-	      throw new Error('If encoding is specified then the first argument must be a string');
-	    }
-
-	    return allocUnsafe(this, arg);
-	  }
-
-	  return from(this, arg, encodingOrOffset, length);
-	}
-	Buffer$2.poolSize = 8192; // not used by this implementation
-	// TODO: Legacy, not needed anymore. Remove in next major version.
-
-	Buffer$2._augment = function (arr) {
-	  arr.__proto__ = Buffer$2.prototype;
-	  return arr;
-	};
-
-	function from(that, value, encodingOrOffset, length) {
-	  if (typeof value === 'number') {
-	    throw new TypeError('"value" argument must not be a number');
-	  }
-
-	  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-	    return fromArrayBuffer(that, value, encodingOrOffset, length);
-	  }
-
-	  if (typeof value === 'string') {
-	    return fromString(that, value, encodingOrOffset);
-	  }
-
-	  return fromObject(that, value);
-	}
-	/**
-	 * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
-	 * if value is a number.
-	 * Buffer.from(str[, encoding])
-	 * Buffer.from(array)
-	 * Buffer.from(buffer)
-	 * Buffer.from(arrayBuffer[, byteOffset[, length]])
-	 **/
-
-
-	Buffer$2.from = function (value, encodingOrOffset, length) {
-	  return from(null, value, encodingOrOffset, length);
-	};
-
-	if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	  Buffer$2.prototype.__proto__ = Uint8Array.prototype;
-	  Buffer$2.__proto__ = Uint8Array;
-
-	  if (typeof Symbol !== 'undefined' && Symbol.species && Buffer$2[Symbol.species] === Buffer$2) ;
-	}
-
-	function assertSize(size) {
-	  if (typeof size !== 'number') {
-	    throw new TypeError('"size" argument must be a number');
-	  } else if (size < 0) {
-	    throw new RangeError('"size" argument must not be negative');
-	  }
-	}
-
-	function alloc(that, size, fill, encoding) {
-	  assertSize(size);
-
-	  if (size <= 0) {
-	    return createBuffer(that, size);
-	  }
-
-	  if (fill !== undefined) {
-	    // Only pay attention to encoding if it's a string. This
-	    // prevents accidentally sending in a number that would
-	    // be interpretted as a start offset.
-	    return typeof encoding === 'string' ? createBuffer(that, size).fill(fill, encoding) : createBuffer(that, size).fill(fill);
-	  }
-
-	  return createBuffer(that, size);
-	}
-	/**
-	 * Creates a new filled Buffer instance.
-	 * alloc(size[, fill[, encoding]])
-	 **/
-
-
-	Buffer$2.alloc = function (size, fill, encoding) {
-	  return alloc(null, size, fill, encoding);
-	};
-
-	function allocUnsafe(that, size) {
-	  assertSize(size);
-	  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0);
-
-	  if (!Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    for (var i = 0; i < size; ++i) {
-	      that[i] = 0;
-	    }
-	  }
-
-	  return that;
-	}
-	/**
-	 * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
-	 * */
-
-
-	Buffer$2.allocUnsafe = function (size) {
-	  return allocUnsafe(null, size);
-	};
-	/**
-	 * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
-	 */
-
-
-	Buffer$2.allocUnsafeSlow = function (size) {
-	  return allocUnsafe(null, size);
-	};
-
-	function fromString(that, string, encoding) {
-	  if (typeof encoding !== 'string' || encoding === '') {
-	    encoding = 'utf8';
-	  }
-
-	  if (!Buffer$2.isEncoding(encoding)) {
-	    throw new TypeError('"encoding" must be a valid string encoding');
-	  }
-
-	  var length = byteLength(string, encoding) | 0;
-	  that = createBuffer(that, length);
-	  var actual = that.write(string, encoding);
-
-	  if (actual !== length) {
-	    // Writing a hex string, for example, that contains invalid characters will
-	    // cause everything after the first invalid character to be ignored. (e.g.
-	    // 'abxxcd' will be treated as 'ab')
-	    that = that.slice(0, actual);
-	  }
-
-	  return that;
-	}
-
-	function fromArrayLike(that, array) {
-	  var length = array.length < 0 ? 0 : checked(array.length) | 0;
-	  that = createBuffer(that, length);
-
-	  for (var i = 0; i < length; i += 1) {
-	    that[i] = array[i] & 255;
-	  }
-
-	  return that;
-	}
-
-	function fromArrayBuffer(that, array, byteOffset, length) {
-	  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
-
-	  if (byteOffset < 0 || array.byteLength < byteOffset) {
-	    throw new RangeError('\'offset\' is out of bounds');
-	  }
-
-	  if (array.byteLength < byteOffset + (length || 0)) {
-	    throw new RangeError('\'length\' is out of bounds');
-	  }
-
-	  if (byteOffset === undefined && length === undefined) {
-	    array = new Uint8Array(array);
-	  } else if (length === undefined) {
-	    array = new Uint8Array(array, byteOffset);
-	  } else {
-	    array = new Uint8Array(array, byteOffset, length);
-	  }
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    // Return an augmented `Uint8Array` instance, for best performance
-	    that = array;
-	    that.__proto__ = Buffer$2.prototype;
-	  } else {
-	    // Fallback: Return an object instance of the Buffer class
-	    that = fromArrayLike(that, array);
-	  }
-
-	  return that;
-	}
-
-	function fromObject(that, obj) {
-	  if (internalIsBuffer(obj)) {
-	    var len = checked(obj.length) | 0;
-	    that = createBuffer(that, len);
-
-	    if (that.length === 0) {
-	      return that;
-	    }
-
-	    obj.copy(that, 0, 0, len);
-	    return that;
-	  }
-
-	  if (obj) {
-	    if (typeof ArrayBuffer !== 'undefined' && obj.buffer instanceof ArrayBuffer || 'length' in obj) {
-	      if (typeof obj.length !== 'number' || isnan(obj.length)) {
-	        return createBuffer(that, 0);
-	      }
-
-	      return fromArrayLike(that, obj);
-	    }
-
-	    if (obj.type === 'Buffer' && isArray(obj.data)) {
-	      return fromArrayLike(that, obj.data);
-	    }
-	  }
-
-	  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.');
-	}
-
-	function checked(length) {
-	  // Note: cannot use `length < kMaxLength()` here because that fails when
-	  // length is NaN (which is otherwise coerced to zero.)
-	  if (length >= kMaxLength()) {
-	    throw new RangeError('Attempt to allocate Buffer larger than maximum ' + 'size: 0x' + kMaxLength().toString(16) + ' bytes');
-	  }
-
-	  return length | 0;
-	}
-	Buffer$2.isBuffer = isBuffer;
-
-	function internalIsBuffer(b) {
-	  return !!(b != null && b._isBuffer);
-	}
-
-	Buffer$2.compare = function compare(a, b) {
-	  if (!internalIsBuffer(a) || !internalIsBuffer(b)) {
-	    throw new TypeError('Arguments must be Buffers');
-	  }
-
-	  if (a === b) return 0;
-	  var x = a.length;
-	  var y = b.length;
-
-	  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
-	    if (a[i] !== b[i]) {
-	      x = a[i];
-	      y = b[i];
-	      break;
-	    }
-	  }
-
-	  if (x < y) return -1;
-	  if (y < x) return 1;
-	  return 0;
-	};
-
-	Buffer$2.isEncoding = function isEncoding(encoding) {
-	  switch (String(encoding).toLowerCase()) {
-	    case 'hex':
-	    case 'utf8':
-	    case 'utf-8':
-	    case 'ascii':
-	    case 'latin1':
-	    case 'binary':
-	    case 'base64':
-	    case 'ucs2':
-	    case 'ucs-2':
-	    case 'utf16le':
-	    case 'utf-16le':
-	      return true;
-
-	    default:
-	      return false;
-	  }
-	};
-
-	Buffer$2.concat = function concat(list, length) {
-	  if (!isArray(list)) {
-	    throw new TypeError('"list" argument must be an Array of Buffers');
-	  }
-
-	  if (list.length === 0) {
-	    return Buffer$2.alloc(0);
-	  }
-
-	  var i;
-
-	  if (length === undefined) {
-	    length = 0;
-
-	    for (i = 0; i < list.length; ++i) {
-	      length += list[i].length;
-	    }
-	  }
-
-	  var buffer = Buffer$2.allocUnsafe(length);
-	  var pos = 0;
-
-	  for (i = 0; i < list.length; ++i) {
-	    var buf = list[i];
-
-	    if (!internalIsBuffer(buf)) {
-	      throw new TypeError('"list" argument must be an Array of Buffers');
-	    }
-
-	    buf.copy(buffer, pos);
-	    pos += buf.length;
-	  }
-
-	  return buffer;
-	};
-
-	function byteLength(string, encoding) {
-	  if (internalIsBuffer(string)) {
-	    return string.length;
-	  }
-
-	  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' && (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
-	    return string.byteLength;
-	  }
-
-	  if (typeof string !== 'string') {
-	    string = '' + string;
-	  }
-
-	  var len = string.length;
-	  if (len === 0) return 0; // Use a for loop to avoid recursion
-
-	  var loweredCase = false;
-
-	  for (;;) {
-	    switch (encoding) {
-	      case 'ascii':
-	      case 'latin1':
-	      case 'binary':
-	        return len;
-
-	      case 'utf8':
-	      case 'utf-8':
-	      case undefined:
-	        return utf8ToBytes(string).length;
-
-	      case 'ucs2':
-	      case 'ucs-2':
-	      case 'utf16le':
-	      case 'utf-16le':
-	        return len * 2;
-
-	      case 'hex':
-	        return len >>> 1;
-
-	      case 'base64':
-	        return base64ToBytes(string).length;
-
-	      default:
-	        if (loweredCase) return utf8ToBytes(string).length; // assume utf8
-
-	        encoding = ('' + encoding).toLowerCase();
-	        loweredCase = true;
-	    }
-	  }
-	}
-
-	Buffer$2.byteLength = byteLength;
-
-	function slowToString(encoding, start, end) {
-	  var loweredCase = false; // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
-	  // property of a typed array.
-	  // This behaves neither like String nor Uint8Array in that we set start/end
-	  // to their upper/lower bounds if the value passed is out of range.
-	  // undefined is handled specially as per ECMA-262 6th Edition,
-	  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
-
-	  if (start === undefined || start < 0) {
-	    start = 0;
-	  } // Return early if start > this.length. Done here to prevent potential uint32
-	  // coercion fail below.
-
-
-	  if (start > this.length) {
-	    return '';
-	  }
-
-	  if (end === undefined || end > this.length) {
-	    end = this.length;
-	  }
-
-	  if (end <= 0) {
-	    return '';
-	  } // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
-
-
-	  end >>>= 0;
-	  start >>>= 0;
-
-	  if (end <= start) {
-	    return '';
-	  }
-
-	  if (!encoding) encoding = 'utf8';
-
-	  while (true) {
-	    switch (encoding) {
-	      case 'hex':
-	        return hexSlice(this, start, end);
-
-	      case 'utf8':
-	      case 'utf-8':
-	        return utf8Slice(this, start, end);
-
-	      case 'ascii':
-	        return asciiSlice(this, start, end);
-
-	      case 'latin1':
-	      case 'binary':
-	        return latin1Slice(this, start, end);
-
-	      case 'base64':
-	        return base64Slice(this, start, end);
-
-	      case 'ucs2':
-	      case 'ucs-2':
-	      case 'utf16le':
-	      case 'utf-16le':
-	        return utf16leSlice(this, start, end);
-
-	      default:
-	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
-	        encoding = (encoding + '').toLowerCase();
-	        loweredCase = true;
-	    }
-	  }
-	} // The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
-	// Buffer instances.
-
-
-	Buffer$2.prototype._isBuffer = true;
-
-	function swap(b, n, m) {
-	  var i = b[n];
-	  b[n] = b[m];
-	  b[m] = i;
-	}
-
-	Buffer$2.prototype.swap16 = function swap16() {
-	  var len = this.length;
-
-	  if (len % 2 !== 0) {
-	    throw new RangeError('Buffer size must be a multiple of 16-bits');
-	  }
-
-	  for (var i = 0; i < len; i += 2) {
-	    swap(this, i, i + 1);
-	  }
-
-	  return this;
-	};
-
-	Buffer$2.prototype.swap32 = function swap32() {
-	  var len = this.length;
-
-	  if (len % 4 !== 0) {
-	    throw new RangeError('Buffer size must be a multiple of 32-bits');
-	  }
-
-	  for (var i = 0; i < len; i += 4) {
-	    swap(this, i, i + 3);
-	    swap(this, i + 1, i + 2);
-	  }
-
-	  return this;
-	};
-
-	Buffer$2.prototype.swap64 = function swap64() {
-	  var len = this.length;
-
-	  if (len % 8 !== 0) {
-	    throw new RangeError('Buffer size must be a multiple of 64-bits');
-	  }
-
-	  for (var i = 0; i < len; i += 8) {
-	    swap(this, i, i + 7);
-	    swap(this, i + 1, i + 6);
-	    swap(this, i + 2, i + 5);
-	    swap(this, i + 3, i + 4);
-	  }
-
-	  return this;
-	};
-
-	Buffer$2.prototype.toString = function toString() {
-	  var length = this.length | 0;
-	  if (length === 0) return '';
-	  if (arguments.length === 0) return utf8Slice(this, 0, length);
-	  return slowToString.apply(this, arguments);
-	};
-
-	Buffer$2.prototype.equals = function equals(b) {
-	  if (!internalIsBuffer(b)) throw new TypeError('Argument must be a Buffer');
-	  if (this === b) return true;
-	  return Buffer$2.compare(this, b) === 0;
-	};
-
-	Buffer$2.prototype.inspect = function inspect() {
-	  var str = '';
-	  var max = INSPECT_MAX_BYTES;
-
-	  if (this.length > 0) {
-	    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
-	    if (this.length > max) str += ' ... ';
-	  }
-
-	  return '<Buffer ' + str + '>';
-	};
-
-	Buffer$2.prototype.compare = function compare(target, start, end, thisStart, thisEnd) {
-	  if (!internalIsBuffer(target)) {
-	    throw new TypeError('Argument must be a Buffer');
-	  }
-
-	  if (start === undefined) {
-	    start = 0;
-	  }
-
-	  if (end === undefined) {
-	    end = target ? target.length : 0;
-	  }
-
-	  if (thisStart === undefined) {
-	    thisStart = 0;
-	  }
-
-	  if (thisEnd === undefined) {
-	    thisEnd = this.length;
-	  }
-
-	  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
-	    throw new RangeError('out of range index');
-	  }
-
-	  if (thisStart >= thisEnd && start >= end) {
-	    return 0;
-	  }
-
-	  if (thisStart >= thisEnd) {
-	    return -1;
-	  }
-
-	  if (start >= end) {
-	    return 1;
-	  }
-
-	  start >>>= 0;
-	  end >>>= 0;
-	  thisStart >>>= 0;
-	  thisEnd >>>= 0;
-	  if (this === target) return 0;
-	  var x = thisEnd - thisStart;
-	  var y = end - start;
-	  var len = Math.min(x, y);
-	  var thisCopy = this.slice(thisStart, thisEnd);
-	  var targetCopy = target.slice(start, end);
-
-	  for (var i = 0; i < len; ++i) {
-	    if (thisCopy[i] !== targetCopy[i]) {
-	      x = thisCopy[i];
-	      y = targetCopy[i];
-	      break;
-	    }
-	  }
-
-	  if (x < y) return -1;
-	  if (y < x) return 1;
-	  return 0;
-	}; // Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
-	// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
-	//
-	// Arguments:
-	// - buffer - a Buffer to search
-	// - val - a string, Buffer, or number
-	// - byteOffset - an index into `buffer`; will be clamped to an int32
-	// - encoding - an optional encoding, relevant is val is a string
-	// - dir - true for indexOf, false for lastIndexOf
-
-
-	function bidirectionalIndexOf(buffer, val, byteOffset, encoding, dir) {
-	  // Empty buffer means no match
-	  if (buffer.length === 0) return -1; // Normalize byteOffset
-
-	  if (typeof byteOffset === 'string') {
-	    encoding = byteOffset;
-	    byteOffset = 0;
-	  } else if (byteOffset > 0x7fffffff) {
-	    byteOffset = 0x7fffffff;
-	  } else if (byteOffset < -0x80000000) {
-	    byteOffset = -0x80000000;
-	  }
-
-	  byteOffset = +byteOffset; // Coerce to Number.
-
-	  if (isNaN(byteOffset)) {
-	    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
-	    byteOffset = dir ? 0 : buffer.length - 1;
-	  } // Normalize byteOffset: negative offsets start from the end of the buffer
-
-
-	  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
-
-	  if (byteOffset >= buffer.length) {
-	    if (dir) return -1;else byteOffset = buffer.length - 1;
-	  } else if (byteOffset < 0) {
-	    if (dir) byteOffset = 0;else return -1;
-	  } // Normalize val
-
-
-	  if (typeof val === 'string') {
-	    val = Buffer$2.from(val, encoding);
-	  } // Finally, search either indexOf (if dir is true) or lastIndexOf
-
-
-	  if (internalIsBuffer(val)) {
-	    // Special case: looking for empty string/buffer always fails
-	    if (val.length === 0) {
-	      return -1;
-	    }
-
-	    return arrayIndexOf(buffer, val, byteOffset, encoding, dir);
-	  } else if (typeof val === 'number') {
-	    val = val & 0xFF; // Search for a byte value [0-255]
-
-	    if (Buffer$2.TYPED_ARRAY_SUPPORT && typeof Uint8Array.prototype.indexOf === 'function') {
-	      if (dir) {
-	        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset);
-	      } else {
-	        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
-	      }
-	    }
-
-	    return arrayIndexOf(buffer, [val], byteOffset, encoding, dir);
-	  }
-
-	  throw new TypeError('val must be string, number or Buffer');
-	}
-
-	function arrayIndexOf(arr, val, byteOffset, encoding, dir) {
-	  var indexSize = 1;
-	  var arrLength = arr.length;
-	  var valLength = val.length;
-
-	  if (encoding !== undefined) {
-	    encoding = String(encoding).toLowerCase();
-
-	    if (encoding === 'ucs2' || encoding === 'ucs-2' || encoding === 'utf16le' || encoding === 'utf-16le') {
-	      if (arr.length < 2 || val.length < 2) {
-	        return -1;
-	      }
-
-	      indexSize = 2;
-	      arrLength /= 2;
-	      valLength /= 2;
-	      byteOffset /= 2;
-	    }
-	  }
-
-	  function read(buf, i) {
-	    if (indexSize === 1) {
-	      return buf[i];
-	    } else {
-	      return buf.readUInt16BE(i * indexSize);
-	    }
-	  }
-
-	  var i;
-
-	  if (dir) {
-	    var foundIndex = -1;
-
-	    for (i = byteOffset; i < arrLength; i++) {
-	      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
-	        if (foundIndex === -1) foundIndex = i;
-	        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize;
-	      } else {
-	        if (foundIndex !== -1) i -= i - foundIndex;
-	        foundIndex = -1;
-	      }
-	    }
-	  } else {
-	    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
-
-	    for (i = byteOffset; i >= 0; i--) {
-	      var found = true;
-
-	      for (var j = 0; j < valLength; j++) {
-	        if (read(arr, i + j) !== read(val, j)) {
-	          found = false;
-	          break;
-	        }
-	      }
-
-	      if (found) return i;
-	    }
-	  }
-
-	  return -1;
-	}
-
-	Buffer$2.prototype.includes = function includes(val, byteOffset, encoding) {
-	  return this.indexOf(val, byteOffset, encoding) !== -1;
-	};
-
-	Buffer$2.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
-	  return bidirectionalIndexOf(this, val, byteOffset, encoding, true);
-	};
-
-	Buffer$2.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
-	  return bidirectionalIndexOf(this, val, byteOffset, encoding, false);
-	};
-
-	function hexWrite(buf, string, offset, length) {
-	  offset = Number(offset) || 0;
-	  var remaining = buf.length - offset;
-
-	  if (!length) {
-	    length = remaining;
-	  } else {
-	    length = Number(length);
-
-	    if (length > remaining) {
-	      length = remaining;
-	    }
-	  } // must be an even number of digits
-
-
-	  var strLen = string.length;
-	  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string');
-
-	  if (length > strLen / 2) {
-	    length = strLen / 2;
-	  }
-
-	  for (var i = 0; i < length; ++i) {
-	    var parsed = parseInt(string.substr(i * 2, 2), 16);
-	    if (isNaN(parsed)) return i;
-	    buf[offset + i] = parsed;
-	  }
-
-	  return i;
-	}
-
-	function utf8Write(buf, string, offset, length) {
-	  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length);
-	}
-
-	function asciiWrite(buf, string, offset, length) {
-	  return blitBuffer(asciiToBytes(string), buf, offset, length);
-	}
-
-	function latin1Write(buf, string, offset, length) {
-	  return asciiWrite(buf, string, offset, length);
-	}
-
-	function base64Write(buf, string, offset, length) {
-	  return blitBuffer(base64ToBytes(string), buf, offset, length);
-	}
-
-	function ucs2Write(buf, string, offset, length) {
-	  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length);
-	}
-
-	Buffer$2.prototype.write = function write(string, offset, length, encoding) {
-	  // Buffer#write(string)
-	  if (offset === undefined) {
-	    encoding = 'utf8';
-	    length = this.length;
-	    offset = 0; // Buffer#write(string, encoding)
-	  } else if (length === undefined && typeof offset === 'string') {
-	    encoding = offset;
-	    length = this.length;
-	    offset = 0; // Buffer#write(string, offset[, length][, encoding])
-	  } else if (isFinite(offset)) {
-	    offset = offset | 0;
-
-	    if (isFinite(length)) {
-	      length = length | 0;
-	      if (encoding === undefined) encoding = 'utf8';
-	    } else {
-	      encoding = length;
-	      length = undefined;
-	    } // legacy write(string, encoding, offset, length) - remove in v0.13
-
-	  } else {
-	    throw new Error('Buffer.write(string, encoding, offset[, length]) is no longer supported');
-	  }
-
-	  var remaining = this.length - offset;
-	  if (length === undefined || length > remaining) length = remaining;
-
-	  if (string.length > 0 && (length < 0 || offset < 0) || offset > this.length) {
-	    throw new RangeError('Attempt to write outside buffer bounds');
-	  }
-
-	  if (!encoding) encoding = 'utf8';
-	  var loweredCase = false;
-
-	  for (;;) {
-	    switch (encoding) {
-	      case 'hex':
-	        return hexWrite(this, string, offset, length);
-
-	      case 'utf8':
-	      case 'utf-8':
-	        return utf8Write(this, string, offset, length);
-
-	      case 'ascii':
-	        return asciiWrite(this, string, offset, length);
-
-	      case 'latin1':
-	      case 'binary':
-	        return latin1Write(this, string, offset, length);
-
-	      case 'base64':
-	        // Warning: maxLength not taken into account in base64Write
-	        return base64Write(this, string, offset, length);
-
-	      case 'ucs2':
-	      case 'ucs-2':
-	      case 'utf16le':
-	      case 'utf-16le':
-	        return ucs2Write(this, string, offset, length);
-
-	      default:
-	        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
-	        encoding = ('' + encoding).toLowerCase();
-	        loweredCase = true;
-	    }
-	  }
-	};
-
-	Buffer$2.prototype.toJSON = function toJSON() {
-	  return {
-	    type: 'Buffer',
-	    data: Array.prototype.slice.call(this._arr || this, 0)
-	  };
-	};
-
-	function base64Slice(buf, start, end) {
-	  if (start === 0 && end === buf.length) {
-	    return fromByteArray(buf);
-	  } else {
-	    return fromByteArray(buf.slice(start, end));
-	  }
-	}
-
-	function utf8Slice(buf, start, end) {
-	  end = Math.min(buf.length, end);
-	  var res = [];
-	  var i = start;
-
-	  while (i < end) {
-	    var firstByte = buf[i];
-	    var codePoint = null;
-	    var bytesPerSequence = firstByte > 0xEF ? 4 : firstByte > 0xDF ? 3 : firstByte > 0xBF ? 2 : 1;
-
-	    if (i + bytesPerSequence <= end) {
-	      var secondByte, thirdByte, fourthByte, tempCodePoint;
-
-	      switch (bytesPerSequence) {
-	        case 1:
-	          if (firstByte < 0x80) {
-	            codePoint = firstByte;
-	          }
-
-	          break;
-
-	        case 2:
-	          secondByte = buf[i + 1];
-
-	          if ((secondByte & 0xC0) === 0x80) {
-	            tempCodePoint = (firstByte & 0x1F) << 0x6 | secondByte & 0x3F;
-
-	            if (tempCodePoint > 0x7F) {
-	              codePoint = tempCodePoint;
-	            }
-	          }
-
-	          break;
-
-	        case 3:
-	          secondByte = buf[i + 1];
-	          thirdByte = buf[i + 2];
-
-	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
-	            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | thirdByte & 0x3F;
-
-	            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
-	              codePoint = tempCodePoint;
-	            }
-	          }
-
-	          break;
-
-	        case 4:
-	          secondByte = buf[i + 1];
-	          thirdByte = buf[i + 2];
-	          fourthByte = buf[i + 3];
-
-	          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
-	            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | fourthByte & 0x3F;
-
-	            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
-	              codePoint = tempCodePoint;
-	            }
-	          }
-
-	      }
-	    }
-
-	    if (codePoint === null) {
-	      // we did not generate a valid codePoint so insert a
-	      // replacement char (U+FFFD) and advance only 1 byte
-	      codePoint = 0xFFFD;
-	      bytesPerSequence = 1;
-	    } else if (codePoint > 0xFFFF) {
-	      // encode to utf16 (surrogate pair dance)
-	      codePoint -= 0x10000;
-	      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
-	      codePoint = 0xDC00 | codePoint & 0x3FF;
-	    }
-
-	    res.push(codePoint);
-	    i += bytesPerSequence;
-	  }
-
-	  return decodeCodePointsArray(res);
-	} // Based on http://stackoverflow.com/a/22747272/680742, the browser with
-	// the lowest limit is Chrome, with 0x10000 args.
-	// We go 1 magnitude less, for safety
-
-
-	var MAX_ARGUMENTS_LENGTH = 0x1000;
-
-	function decodeCodePointsArray(codePoints) {
-	  var len = codePoints.length;
-
-	  if (len <= MAX_ARGUMENTS_LENGTH) {
-	    return String.fromCharCode.apply(String, codePoints); // avoid extra slice()
-	  } // Decode in chunks to avoid "call stack size exceeded".
-
-
-	  var res = '';
-	  var i = 0;
-
-	  while (i < len) {
-	    res += String.fromCharCode.apply(String, codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH));
-	  }
-
-	  return res;
-	}
-
-	function asciiSlice(buf, start, end) {
-	  var ret = '';
-	  end = Math.min(buf.length, end);
-
-	  for (var i = start; i < end; ++i) {
-	    ret += String.fromCharCode(buf[i] & 0x7F);
-	  }
-
-	  return ret;
-	}
-
-	function latin1Slice(buf, start, end) {
-	  var ret = '';
-	  end = Math.min(buf.length, end);
-
-	  for (var i = start; i < end; ++i) {
-	    ret += String.fromCharCode(buf[i]);
-	  }
-
-	  return ret;
-	}
-
-	function hexSlice(buf, start, end) {
-	  var len = buf.length;
-	  if (!start || start < 0) start = 0;
-	  if (!end || end < 0 || end > len) end = len;
-	  var out = '';
-
-	  for (var i = start; i < end; ++i) {
-	    out += toHex(buf[i]);
-	  }
-
-	  return out;
-	}
-
-	function utf16leSlice(buf, start, end) {
-	  var bytes = buf.slice(start, end);
-	  var res = '';
-
-	  for (var i = 0; i < bytes.length; i += 2) {
-	    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
-	  }
-
-	  return res;
-	}
-
-	Buffer$2.prototype.slice = function slice(start, end) {
-	  var len = this.length;
-	  start = ~~start;
-	  end = end === undefined ? len : ~~end;
-
-	  if (start < 0) {
-	    start += len;
-	    if (start < 0) start = 0;
-	  } else if (start > len) {
-	    start = len;
-	  }
-
-	  if (end < 0) {
-	    end += len;
-	    if (end < 0) end = 0;
-	  } else if (end > len) {
-	    end = len;
-	  }
-
-	  if (end < start) end = start;
-	  var newBuf;
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    newBuf = this.subarray(start, end);
-	    newBuf.__proto__ = Buffer$2.prototype;
-	  } else {
-	    var sliceLen = end - start;
-	    newBuf = new Buffer$2(sliceLen, undefined);
-
-	    for (var i = 0; i < sliceLen; ++i) {
-	      newBuf[i] = this[i + start];
-	    }
-	  }
-
-	  return newBuf;
-	};
-	/*
-	 * Need to make sure that buffer isn't trying to write out of bounds.
-	 */
-
-
-	function checkOffset(offset, ext, length) {
-	  if (offset % 1 !== 0 || offset < 0) throw new RangeError('offset is not uint');
-	  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length');
-	}
-
-	Buffer$2.prototype.readUIntLE = function readUIntLE(offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) checkOffset(offset, byteLength, this.length);
-	  var val = this[offset];
-	  var mul = 1;
-	  var i = 0;
-
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    val += this[offset + i] * mul;
-	  }
-
-	  return val;
-	};
-
-	Buffer$2.prototype.readUIntBE = function readUIntBE(offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-
-	  if (!noAssert) {
-	    checkOffset(offset, byteLength, this.length);
-	  }
-
-	  var val = this[offset + --byteLength];
-	  var mul = 1;
-
-	  while (byteLength > 0 && (mul *= 0x100)) {
-	    val += this[offset + --byteLength] * mul;
-	  }
-
-	  return val;
-	};
-
-	Buffer$2.prototype.readUInt8 = function readUInt8(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 1, this.length);
-	  return this[offset];
-	};
-
-	Buffer$2.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 2, this.length);
-	  return this[offset] | this[offset + 1] << 8;
-	};
-
-	Buffer$2.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 2, this.length);
-	  return this[offset] << 8 | this[offset + 1];
-	};
-
-	Buffer$2.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 4, this.length);
-	  return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 0x1000000;
-	};
-
-	Buffer$2.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 4, this.length);
-	  return this[offset] * 0x1000000 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
-	};
-
-	Buffer$2.prototype.readIntLE = function readIntLE(offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) checkOffset(offset, byteLength, this.length);
-	  var val = this[offset];
-	  var mul = 1;
-	  var i = 0;
-
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    val += this[offset + i] * mul;
-	  }
-
-	  mul *= 0x80;
-	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-	  return val;
-	};
-
-	Buffer$2.prototype.readIntBE = function readIntBE(offset, byteLength, noAssert) {
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-	  if (!noAssert) checkOffset(offset, byteLength, this.length);
-	  var i = byteLength;
-	  var mul = 1;
-	  var val = this[offset + --i];
-
-	  while (i > 0 && (mul *= 0x100)) {
-	    val += this[offset + --i] * mul;
-	  }
-
-	  mul *= 0x80;
-	  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-	  return val;
-	};
-
-	Buffer$2.prototype.readInt8 = function readInt8(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 1, this.length);
-	  if (!(this[offset] & 0x80)) return this[offset];
-	  return (0xff - this[offset] + 1) * -1;
-	};
-
-	Buffer$2.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 2, this.length);
-	  var val = this[offset] | this[offset + 1] << 8;
-	  return val & 0x8000 ? val | 0xFFFF0000 : val;
-	};
-
-	Buffer$2.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 2, this.length);
-	  var val = this[offset + 1] | this[offset] << 8;
-	  return val & 0x8000 ? val | 0xFFFF0000 : val;
-	};
-
-	Buffer$2.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 4, this.length);
-	  return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
-	};
-
-	Buffer$2.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 4, this.length);
-	  return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
-	};
-
-	Buffer$2.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 4, this.length);
-	  return read(this, offset, true, 23, 4);
-	};
-
-	Buffer$2.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 4, this.length);
-	  return read(this, offset, false, 23, 4);
-	};
-
-	Buffer$2.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 8, this.length);
-	  return read(this, offset, true, 52, 8);
-	};
-
-	Buffer$2.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
-	  if (!noAssert) checkOffset(offset, 8, this.length);
-	  return read(this, offset, false, 52, 8);
-	};
-
-	function checkInt(buf, value, offset, ext, max, min) {
-	  if (!internalIsBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
-	  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds');
-	  if (offset + ext > buf.length) throw new RangeError('Index out of range');
-	}
-
-	Buffer$2.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-
-	  if (!noAssert) {
-	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
-	    checkInt(this, value, offset, byteLength, maxBytes, 0);
-	  }
-
-	  var mul = 1;
-	  var i = 0;
-	  this[offset] = value & 0xFF;
-
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    this[offset + i] = value / mul & 0xFF;
-	  }
-
-	  return offset + byteLength;
-	};
-
-	Buffer$2.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  byteLength = byteLength | 0;
-
-	  if (!noAssert) {
-	    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
-	    checkInt(this, value, offset, byteLength, maxBytes, 0);
-	  }
-
-	  var i = byteLength - 1;
-	  var mul = 1;
-	  this[offset + i] = value & 0xFF;
-
-	  while (--i >= 0 && (mul *= 0x100)) {
-	    this[offset + i] = value / mul & 0xFF;
-	  }
-
-	  return offset + byteLength;
-	};
-
-	Buffer$2.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
-	  if (!Buffer$2.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-	  this[offset] = value & 0xff;
-	  return offset + 1;
-	};
-
-	function objectWriteUInt16(buf, value, offset, littleEndian) {
-	  if (value < 0) value = 0xffff + value + 1;
-
-	  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
-	    buf[offset + i] = (value & 0xff << 8 * (littleEndian ? i : 1 - i)) >>> (littleEndian ? i : 1 - i) * 8;
-	  }
-	}
-
-	Buffer$2.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = value & 0xff;
-	    this[offset + 1] = value >>> 8;
-	  } else {
-	    objectWriteUInt16(this, value, offset, true);
-	  }
-
-	  return offset + 2;
-	};
-
-	Buffer$2.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = value >>> 8;
-	    this[offset + 1] = value & 0xff;
-	  } else {
-	    objectWriteUInt16(this, value, offset, false);
-	  }
-
-	  return offset + 2;
-	};
-
-	function objectWriteUInt32(buf, value, offset, littleEndian) {
-	  if (value < 0) value = 0xffffffff + value + 1;
-
-	  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
-	    buf[offset + i] = value >>> (littleEndian ? i : 3 - i) * 8 & 0xff;
-	  }
-	}
-
-	Buffer$2.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset + 3] = value >>> 24;
-	    this[offset + 2] = value >>> 16;
-	    this[offset + 1] = value >>> 8;
-	    this[offset] = value & 0xff;
-	  } else {
-	    objectWriteUInt32(this, value, offset, true);
-	  }
-
-	  return offset + 4;
-	};
-
-	Buffer$2.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = value >>> 24;
-	    this[offset + 1] = value >>> 16;
-	    this[offset + 2] = value >>> 8;
-	    this[offset + 3] = value & 0xff;
-	  } else {
-	    objectWriteUInt32(this, value, offset, false);
-	  }
-
-	  return offset + 4;
-	};
-
-	Buffer$2.prototype.writeIntLE = function writeIntLE(value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-
-	  if (!noAssert) {
-	    var limit = Math.pow(2, 8 * byteLength - 1);
-	    checkInt(this, value, offset, byteLength, limit - 1, -limit);
-	  }
-
-	  var i = 0;
-	  var mul = 1;
-	  var sub = 0;
-	  this[offset] = value & 0xFF;
-
-	  while (++i < byteLength && (mul *= 0x100)) {
-	    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
-	      sub = 1;
-	    }
-
-	    this[offset + i] = (value / mul >> 0) - sub & 0xFF;
-	  }
-
-	  return offset + byteLength;
-	};
-
-	Buffer$2.prototype.writeIntBE = function writeIntBE(value, offset, byteLength, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-
-	  if (!noAssert) {
-	    var limit = Math.pow(2, 8 * byteLength - 1);
-	    checkInt(this, value, offset, byteLength, limit - 1, -limit);
-	  }
-
-	  var i = byteLength - 1;
-	  var mul = 1;
-	  var sub = 0;
-	  this[offset + i] = value & 0xFF;
-
-	  while (--i >= 0 && (mul *= 0x100)) {
-	    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
-	      sub = 1;
-	    }
-
-	    this[offset + i] = (value / mul >> 0) - sub & 0xFF;
-	  }
-
-	  return offset + byteLength;
-	};
-
-	Buffer$2.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80);
-	  if (!Buffer$2.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-	  if (value < 0) value = 0xff + value + 1;
-	  this[offset] = value & 0xff;
-	  return offset + 1;
-	};
-
-	Buffer$2.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = value & 0xff;
-	    this[offset + 1] = value >>> 8;
-	  } else {
-	    objectWriteUInt16(this, value, offset, true);
-	  }
-
-	  return offset + 2;
-	};
-
-	Buffer$2.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = value >>> 8;
-	    this[offset + 1] = value & 0xff;
-	  } else {
-	    objectWriteUInt16(this, value, offset, false);
-	  }
-
-	  return offset + 2;
-	};
-
-	Buffer$2.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = value & 0xff;
-	    this[offset + 1] = value >>> 8;
-	    this[offset + 2] = value >>> 16;
-	    this[offset + 3] = value >>> 24;
-	  } else {
-	    objectWriteUInt32(this, value, offset, true);
-	  }
-
-	  return offset + 4;
-	};
-
-	Buffer$2.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
-	  value = +value;
-	  offset = offset | 0;
-	  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
-	  if (value < 0) value = 0xffffffff + value + 1;
-
-	  if (Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    this[offset] = value >>> 24;
-	    this[offset + 1] = value >>> 16;
-	    this[offset + 2] = value >>> 8;
-	    this[offset + 3] = value & 0xff;
-	  } else {
-	    objectWriteUInt32(this, value, offset, false);
-	  }
-
-	  return offset + 4;
-	};
-
-	function checkIEEE754(buf, value, offset, ext, max, min) {
-	  if (offset + ext > buf.length) throw new RangeError('Index out of range');
-	  if (offset < 0) throw new RangeError('Index out of range');
-	}
-
-	function writeFloat(buf, value, offset, littleEndian, noAssert) {
-	  if (!noAssert) {
-	    checkIEEE754(buf, value, offset, 4);
-	  }
-
-	  write(buf, value, offset, littleEndian, 23, 4);
-	  return offset + 4;
-	}
-
-	Buffer$2.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
-	  return writeFloat(this, value, offset, true, noAssert);
-	};
-
-	Buffer$2.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
-	  return writeFloat(this, value, offset, false, noAssert);
-	};
-
-	function writeDouble(buf, value, offset, littleEndian, noAssert) {
-	  if (!noAssert) {
-	    checkIEEE754(buf, value, offset, 8);
-	  }
-
-	  write(buf, value, offset, littleEndian, 52, 8);
-	  return offset + 8;
-	}
-
-	Buffer$2.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
-	  return writeDouble(this, value, offset, true, noAssert);
-	};
-
-	Buffer$2.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
-	  return writeDouble(this, value, offset, false, noAssert);
-	}; // copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
-
-
-	Buffer$2.prototype.copy = function copy(target, targetStart, start, end) {
-	  if (!start) start = 0;
-	  if (!end && end !== 0) end = this.length;
-	  if (targetStart >= target.length) targetStart = target.length;
-	  if (!targetStart) targetStart = 0;
-	  if (end > 0 && end < start) end = start; // Copy 0 bytes; we're done
-
-	  if (end === start) return 0;
-	  if (target.length === 0 || this.length === 0) return 0; // Fatal error conditions
-
-	  if (targetStart < 0) {
-	    throw new RangeError('targetStart out of bounds');
-	  }
-
-	  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds');
-	  if (end < 0) throw new RangeError('sourceEnd out of bounds'); // Are we oob?
-
-	  if (end > this.length) end = this.length;
-
-	  if (target.length - targetStart < end - start) {
-	    end = target.length - targetStart + start;
-	  }
-
-	  var len = end - start;
-	  var i;
-
-	  if (this === target && start < targetStart && targetStart < end) {
-	    // descending copy from end
-	    for (i = len - 1; i >= 0; --i) {
-	      target[i + targetStart] = this[i + start];
-	    }
-	  } else if (len < 1000 || !Buffer$2.TYPED_ARRAY_SUPPORT) {
-	    // ascending copy from start
-	    for (i = 0; i < len; ++i) {
-	      target[i + targetStart] = this[i + start];
-	    }
-	  } else {
-	    Uint8Array.prototype.set.call(target, this.subarray(start, start + len), targetStart);
-	  }
-
-	  return len;
-	}; // Usage:
-	//    buffer.fill(number[, offset[, end]])
-	//    buffer.fill(buffer[, offset[, end]])
-	//    buffer.fill(string[, offset[, end]][, encoding])
-
-
-	Buffer$2.prototype.fill = function fill(val, start, end, encoding) {
-	  // Handle string cases:
-	  if (typeof val === 'string') {
-	    if (typeof start === 'string') {
-	      encoding = start;
-	      start = 0;
-	      end = this.length;
-	    } else if (typeof end === 'string') {
-	      encoding = end;
-	      end = this.length;
-	    }
-
-	    if (val.length === 1) {
-	      var code = val.charCodeAt(0);
-
-	      if (code < 256) {
-	        val = code;
-	      }
-	    }
-
-	    if (encoding !== undefined && typeof encoding !== 'string') {
-	      throw new TypeError('encoding must be a string');
-	    }
-
-	    if (typeof encoding === 'string' && !Buffer$2.isEncoding(encoding)) {
-	      throw new TypeError('Unknown encoding: ' + encoding);
-	    }
-	  } else if (typeof val === 'number') {
-	    val = val & 255;
-	  } // Invalid ranges are not set to a default, so can range check early.
-
-
-	  if (start < 0 || this.length < start || this.length < end) {
-	    throw new RangeError('Out of range index');
-	  }
-
-	  if (end <= start) {
-	    return this;
-	  }
-
-	  start = start >>> 0;
-	  end = end === undefined ? this.length : end >>> 0;
-	  if (!val) val = 0;
-	  var i;
-
-	  if (typeof val === 'number') {
-	    for (i = start; i < end; ++i) {
-	      this[i] = val;
-	    }
-	  } else {
-	    var bytes = internalIsBuffer(val) ? val : utf8ToBytes(new Buffer$2(val, encoding).toString());
-	    var len = bytes.length;
-
-	    for (i = 0; i < end - start; ++i) {
-	      this[i + start] = bytes[i % len];
-	    }
-	  }
-
-	  return this;
-	}; // HELPER FUNCTIONS
-	// ================
-
-
-	var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
-
-	function base64clean(str) {
-	  // Node strips out invalid characters like \n and \t from the string, base64-js does not
-	  str = stringtrim(str).replace(INVALID_BASE64_RE, ''); // Node converts strings with length < 2 to ''
-
-	  if (str.length < 2) return ''; // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
-
-	  while (str.length % 4 !== 0) {
-	    str = str + '=';
-	  }
-
-	  return str;
-	}
-
-	function stringtrim(str) {
-	  if (str.trim) return str.trim();
-	  return str.replace(/^\s+|\s+$/g, '');
-	}
-
-	function toHex(n) {
-	  if (n < 16) return '0' + n.toString(16);
-	  return n.toString(16);
-	}
-
-	function utf8ToBytes(string, units) {
-	  units = units || Infinity;
-	  var codePoint;
-	  var length = string.length;
-	  var leadSurrogate = null;
-	  var bytes = [];
-
-	  for (var i = 0; i < length; ++i) {
-	    codePoint = string.charCodeAt(i); // is surrogate component
-
-	    if (codePoint > 0xD7FF && codePoint < 0xE000) {
-	      // last char was a lead
-	      if (!leadSurrogate) {
-	        // no lead yet
-	        if (codePoint > 0xDBFF) {
-	          // unexpected trail
-	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	          continue;
-	        } else if (i + 1 === length) {
-	          // unpaired lead
-	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	          continue;
-	        } // valid lead
-
-
-	        leadSurrogate = codePoint;
-	        continue;
-	      } // 2 leads in a row
-
-
-	      if (codePoint < 0xDC00) {
-	        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	        leadSurrogate = codePoint;
-	        continue;
-	      } // valid surrogate pair
-
-
-	      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
-	    } else if (leadSurrogate) {
-	      // valid bmp char, but last char was a lead
-	      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-	    }
-
-	    leadSurrogate = null; // encode utf8
-
-	    if (codePoint < 0x80) {
-	      if ((units -= 1) < 0) break;
-	      bytes.push(codePoint);
-	    } else if (codePoint < 0x800) {
-	      if ((units -= 2) < 0) break;
-	      bytes.push(codePoint >> 0x6 | 0xC0, codePoint & 0x3F | 0x80);
-	    } else if (codePoint < 0x10000) {
-	      if ((units -= 3) < 0) break;
-	      bytes.push(codePoint >> 0xC | 0xE0, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
-	    } else if (codePoint < 0x110000) {
-	      if ((units -= 4) < 0) break;
-	      bytes.push(codePoint >> 0x12 | 0xF0, codePoint >> 0xC & 0x3F | 0x80, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
-	    } else {
-	      throw new Error('Invalid code point');
-	    }
-	  }
-
-	  return bytes;
-	}
-
-	function asciiToBytes(str) {
-	  var byteArray = [];
-
-	  for (var i = 0; i < str.length; ++i) {
-	    // Node's code seems to be doing this and not & 0x7F..
-	    byteArray.push(str.charCodeAt(i) & 0xFF);
-	  }
-
-	  return byteArray;
-	}
-
-	function utf16leToBytes(str, units) {
-	  var c, hi, lo;
-	  var byteArray = [];
-
-	  for (var i = 0; i < str.length; ++i) {
-	    if ((units -= 2) < 0) break;
-	    c = str.charCodeAt(i);
-	    hi = c >> 8;
-	    lo = c % 256;
-	    byteArray.push(lo);
-	    byteArray.push(hi);
-	  }
-
-	  return byteArray;
-	}
-
-	function base64ToBytes(str) {
-	  return toByteArray(base64clean(str));
-	}
-
-	function blitBuffer(src, dst, offset, length) {
-	  for (var i = 0; i < length; ++i) {
-	    if (i + offset >= dst.length || i >= src.length) break;
-	    dst[i + offset] = src[i];
-	  }
-
-	  return i;
-	}
-
-	function isnan(val) {
-	  return val !== val; // eslint-disable-line no-self-compare
-	} // the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
-	// The _isBuffer check is for Safari 5-7 support, because it's missing
-	// Object.prototype.constructor. Remove this eventually
-
-
-	function isBuffer(obj) {
-	  return obj != null && (!!obj._isBuffer || isFastBuffer(obj) || isSlowBuffer(obj));
-	}
-
-	function isFastBuffer(obj) {
-	  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
-	} // For Node v0.10 support. Remove this eventually.
-
-
-	function isSlowBuffer(obj) {
-	  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer(obj.slice(0, 0));
-	}
 
 	// Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 	// NOTE: SIGHASH byte ignored AND restricted, truncate before use
@@ -27984,7 +27450,7 @@
 	  if (s[0] & 0x80) throw new Error('S value is negative');
 	  if (lenR > 1 && r[0] === 0x00 && !(r[1] & 0x80)) throw new Error('R value excessively padded');
 	  if (lenS > 1 && s[0] === 0x00 && !(s[1] & 0x80)) throw new Error('S value excessively padded');
-	  const signature = Buffer$2.allocUnsafe(6 + lenR + lenS); // 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
+	  const signature = Buffer$g.allocUnsafe(6 + lenR + lenS); // 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 
 	  signature[0] = 0x30;
 	  signature[1] = signature.length - 2;
@@ -28253,7 +27719,7 @@
 	function encode$h(_number) {
 	  let value = Math.abs(_number);
 	  const size = scriptNumSize(value);
-	  const buffer = Buffer$2.allocUnsafe(size);
+	  const buffer = Buffer$g.allocUnsafe(size);
 	  const negative = _number < 0;
 
 	  for (let i = 0; i < size; ++i) {
@@ -28419,7 +27885,7 @@
 	var ERRORS$1 = errors;
 
 	function _Buffer$1(value) {
-	  return isBuffer(value);
+	  return isBuffer$2(value);
 	}
 
 	function Hex(value) {
@@ -28808,7 +28274,7 @@
 	    value: true
 	  });
 	  exports.oneOf = exports.Null = exports.BufferN = exports.Function = exports.UInt32 = exports.UInt8 = exports.tuple = exports.maybe = exports.Hex = exports.Buffer = exports.String = exports.Boolean = exports.Array = exports.Number = exports.Hash256bit = exports.Hash160bit = exports.Buffer256bit = exports.Network = exports.ECPoint = exports.Satoshi = exports.Signer = exports.BIP32Path = exports.UInt31 = exports.isPoint = exports.typeforce = void 0;
-	  const buffer_1 = require$$0$7;
+	  const buffer_1 = require$$0$6;
 	  exports.typeforce = typeforce_1;
 	  const ZERO32 = buffer_1.Buffer.alloc(32, 0);
 	  const EC_P = buffer_1.Buffer.from('fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f', 'hex');
@@ -28907,7 +28373,7 @@
 	const {
 	  typeforce: typeforce$5
 	} = types$5;
-	const ZERO$1 = Buffer$2.alloc(1, 0);
+	const ZERO$1 = Buffer$g.alloc(1, 0);
 
 	function toDER(x) {
 	  let i = 0;
@@ -28916,13 +28382,13 @@
 
 	  if (i === x.length) return ZERO$1;
 	  x = x.slice(i);
-	  if (x[0] & 0x80) return Buffer$2.concat([ZERO$1, x], 1 + x.length);
+	  if (x[0] & 0x80) return Buffer$g.concat([ZERO$1, x], 1 + x.length);
 	  return x;
 	}
 
 	function fromDER(x) {
 	  if (x[0] === 0x00) x = x.slice(1);
-	  const buffer = Buffer$2.alloc(32, 0);
+	  const buffer = Buffer$g.alloc(32, 0);
 	  const bstart = Math.max(0, 32 - x.length);
 	  x.copy(buffer, bstart);
 	  return buffer;
@@ -28936,7 +28402,7 @@
 	  const decoded = bip66$1.decode(buffer.slice(0, -1));
 	  const r = fromDER(decoded.r);
 	  const s = fromDER(decoded.s);
-	  const signature = Buffer$2.concat([r, s], 64);
+	  const signature = Buffer$g.concat([r, s], 64);
 	  return {
 	    signature,
 	    hashType
@@ -28955,11 +28421,11 @@
 	  });
 	  const hashTypeMod = hashType & ~0x80;
 	  if (hashTypeMod <= 0 || hashTypeMod >= 4) throw new Error('Invalid hashType ' + hashType);
-	  const hashTypeBuffer = Buffer$2.allocUnsafe(1);
+	  const hashTypeBuffer = Buffer$g.allocUnsafe(1);
 	  hashTypeBuffer.writeUInt8(hashType, 0);
 	  const r = toDER(signature.slice(0, 32));
 	  const s = toDER(signature.slice(32, 64));
-	  return Buffer$2.concat([bip66$1.encode(r, s), hashTypeBuffer]);
+	  return Buffer$g.concat([bip66$1.encode(r, s), hashTypeBuffer]);
 	}
 
 	exports.encode = encode$g;
@@ -29013,7 +28479,7 @@
 	}
 
 	function chunksIsBuffer(buf) {
-	  return isBuffer(buf);
+	  return isBuffer$2(buf);
 	}
 
 	function chunksIsArray(buf) {
@@ -29021,7 +28487,7 @@
 	}
 
 	function singleChunkIsBuffer(buf) {
-	  return isBuffer(buf);
+	  return isBuffer$2(buf);
 	}
 
 	function compile(chunks) {
@@ -29042,7 +28508,7 @@
 
 	    return accum + 1;
 	  }, 0.0);
-	  const buffer = Buffer$2.allocUnsafe(bufferSize);
+	  const buffer = Buffer$g.allocUnsafe(bufferSize);
 	  let offset = 0;
 	  chunks.forEach(chunk => {
 	    // data chunk
@@ -29136,7 +28602,7 @@
 	    if (ops_1.OPS[chunkStr] !== undefined) return ops_1.OPS[chunkStr];
 	    typeforce$4(types$4.Hex, chunkStr); // data!
 
-	    return Buffer$2.from(chunkStr, 'hex');
+	    return Buffer$g.from(chunkStr, 'hex');
 	  }));
 	}
 
@@ -29147,7 +28613,7 @@
 	  typeforce$4(isPushOnly, chunks);
 	  return chunks.map(op => {
 	    if (singleChunkIsBuffer(op)) return op;
-	    if (op === ops_1.OPS.OP_0) return Buffer$2.allocUnsafe(0);
+	    if (op === ops_1.OPS.OP_0) return Buffer$g.allocUnsafe(0);
 	    return scriptNumber.encode(op - OP_INT_BASE$1);
 	  });
 	}
@@ -29169,7 +28635,7 @@
 	exports.isDefinedHashType = isDefinedHashType;
 
 	function isCanonicalScriptSignature(buffer) {
-	  if (!isBuffer(buffer)) return false;
+	  if (!isBuffer$2(buffer)) return false;
 	  if (!isDefinedHashType(buffer[buffer.length - 1])) return false;
 	  return bip66.check(buffer.slice(0, -1));
 	}
@@ -29538,12 +29004,12 @@
 	/** An object mapping tags to their tagged hash prefix of [SHA256(tag) | SHA256(tag)] */
 
 	const TAGGED_HASH_PREFIXES = Object.fromEntries(TAGS.map(tag => {
-	  const tagHash = sha256(Buffer$2.from(tag));
-	  return [tag, Buffer$2.concat([tagHash, tagHash])];
+	  const tagHash = sha256(Buffer$g.from(tag));
+	  return [tag, Buffer$g.concat([tagHash, tagHash])];
 	}));
 
 	function taggedHash(prefix, data) {
-	  return sha256(Buffer$2.concat([TAGGED_HASH_PREFIXES[prefix], data]));
+	  return sha256(Buffer$g.concat([TAGGED_HASH_PREFIXES[prefix], data]));
 	}
 
 	exports.taggedHash = taggedHash;
@@ -29843,7 +29309,7 @@
 	  };
 	  lazy$3.prop(o, 'address', () => {
 	    if (!o.hash) return;
-	    const payload = Buffer$2.allocUnsafe(21);
+	    const payload = Buffer$g.allocUnsafe(21);
 	    payload.writeUInt8(network.pubKeyHash, 0);
 	    o.hash.copy(payload, 1);
 	    return bs58check$2.encode(payload);
@@ -29876,7 +29342,7 @@
 	  }); // extended validation
 
 	  if (opts.validate) {
-	    let hash = Buffer$2.from([]);
+	    let hash = Buffer$g.from([]);
 
 	    if (a.address) {
 	      if (_address().version !== network.pubKeyHash) throw new TypeError('Invalid version or Network mismatch');
@@ -30002,7 +29468,7 @@
 
 	  lazy$2.prop(o, 'address', () => {
 	    if (!o.hash) return;
-	    const payload = Buffer$2.allocUnsafe(21);
+	    const payload = Buffer$g.allocUnsafe(21);
 	    payload.writeUInt8(o.network.scriptHash, 0);
 	    o.hash.copy(payload, 1);
 	    return bs58check$1.encode(payload);
@@ -30037,7 +29503,7 @@
 	  });
 
 	  if (opts.validate) {
-	    let hash = Buffer$2.from([]);
+	    let hash = Buffer$g.from([]);
 
 	    if (a.address) {
 	      if (_address().version !== network.scriptHash) throw new TypeError('Invalid version or Network mismatch');
@@ -30083,7 +29549,7 @@
 	      const chunks = _chunks();
 
 	      if (!chunks || chunks.length < 1) throw new TypeError('Input too short');
-	      if (!isBuffer(_redeem().output)) throw new TypeError('Input is invalid');
+	      if (!isBuffer$2(_redeem().output)) throw new TypeError('Input is invalid');
 	      checkRedeem(_redeem());
 	    }
 
@@ -30309,7 +29775,7 @@
 	const lazy$1 = lazy$7;
 	const bech32_1$2 = dist;
 	const OPS$1 = bscript$4.OPS;
-	const EMPTY_BUFFER$2 = Buffer$2.alloc(0); // witness: {signature} {pubKey}
+	const EMPTY_BUFFER$2 = Buffer$g.alloc(0); // witness: {signature} {pubKey}
 	// input: <>
 	// output: OP_0 {pubKeyHash}
 
@@ -30336,7 +29802,7 @@
 	    return {
 	      version,
 	      prefix: result.prefix,
-	      data: Buffer$2.from(data)
+	      data: Buffer$g.from(data)
 	    };
 	  });
 
@@ -30380,7 +29846,7 @@
 	  }); // extended validation
 
 	  if (opts.validate) {
-	    let hash = Buffer$2.from([]);
+	    let hash = Buffer$g.from([]);
 
 	    if (a.address) {
 	      if (network && network.bech32 !== _address().prefix) throw new TypeError('Invalid prefix or Network mismatch');
@@ -30437,7 +29903,7 @@
 	const lazy = lazy$7;
 	const bech32_1$1 = dist;
 	const OPS = bscript$3.OPS;
-	const EMPTY_BUFFER$1 = Buffer$2.alloc(0);
+	const EMPTY_BUFFER$1 = Buffer$g.alloc(0);
 
 	function stacksEqual(a, b) {
 	  if (a.length !== b.length) return false;
@@ -30447,7 +29913,7 @@
 	}
 
 	function chunkHasUncompressedPubkey(chunk) {
-	  if (isBuffer(chunk) && chunk.length === 65 && chunk[0] === 0x04 && (0, types_1.isPoint)(chunk)) {
+	  if (isBuffer$2(chunk) && chunk.length === 65 && chunk[0] === 0x04 && (0, types_1.isPoint)(chunk)) {
 	    return true;
 	  } else {
 	    return false;
@@ -30484,7 +29950,7 @@
 	    return {
 	      version,
 	      prefix: result.prefix,
-	      data: Buffer$2.from(data)
+	      data: Buffer$g.from(data)
 	    };
 	  });
 
@@ -30552,7 +30018,7 @@
 	  }); // extended validation
 
 	  if (opts.validate) {
-	    let hash = Buffer$2.from([]);
+	    let hash = Buffer$g.from([]);
 
 	    if (a.address) {
 	      if (_address().prefix !== network.bech32) throw new TypeError('Invalid prefix or Network mismatch');
@@ -30733,7 +30199,7 @@
 	  return {
 	    version,
 	    prefix: result.prefix,
-	    data: Buffer$2.from(data)
+	    data: Buffer$g.from(data)
 	  };
 	}
 
@@ -30741,7 +30207,7 @@
 
 	function toBase58Check(hash, version) {
 	  typeforce$3(types$3.tuple(types$3.Hash160bit, types$3.UInt8), arguments);
-	  const payload = Buffer$2.allocUnsafe(21);
+	  const payload = Buffer$g.allocUnsafe(21);
 	  payload.writeUInt8(version, 0);
 	  hash.copy(payload, 1);
 	  return bs58check.encode(payload);
@@ -30972,7 +30438,7 @@
 	exports.reverseBuffer = reverseBuffer$1;
 
 	function cloneBuffer(buffer) {
-	  const clone = Buffer$2.allocUnsafe(buffer.length);
+	  const clone = Buffer$g.allocUnsafe(buffer.length);
 	  buffer.copy(clone);
 	  return clone;
 	}
@@ -30990,7 +30456,7 @@
 	  }
 
 	  static withCapacity(size) {
-	    return new BufferWriter(Buffer$2.alloc(size));
+	    return new BufferWriter(Buffer$g.alloc(size));
 	  }
 
 	  writeUInt8(i) {
@@ -31134,7 +30600,7 @@
 	    for (let i = 0; i < length; i += 2, ++j) {
 	      const left = results[i];
 	      const right = i + 1 === length ? left : results[i + 1];
-	      const data = Buffer$2.concat([left, right]);
+	      const data = Buffer$g.concat([left, right]);
 	      results[j] = digestFn(data);
 	    }
 
@@ -31177,11 +30643,11 @@
 	  }, 0);
 	}
 
-	const EMPTY_BUFFER = Buffer$2.allocUnsafe(0);
+	const EMPTY_BUFFER = Buffer$g.allocUnsafe(0);
 	const EMPTY_WITNESS = [];
-	const ZERO = Buffer$2.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex');
-	const ONE = Buffer$2.from('0000000000000000000000000000000000000000000000000000000000000001', 'hex');
-	const VALUE_UINT64_MAX = Buffer$2.from('ffffffffffffffff', 'hex');
+	const ZERO = Buffer$g.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex');
+	const ONE = Buffer$g.from('0000000000000000000000000000000000000000000000000000000000000001', 'hex');
+	const VALUE_UINT64_MAX = Buffer$g.from('ffffffffffffffff', 'hex');
 	const BLANK_OUTPUT = {
 	  script: EMPTY_BUFFER,
 	  valueBuffer: VALUE_UINT64_MAX
@@ -31250,7 +30716,7 @@
 	  }
 
 	  static fromHex(hex) {
-	    return Transaction.fromBuffer(Buffer$2.from(hex, 'hex'), false);
+	    return Transaction.fromBuffer(Buffer$g.from(hex, 'hex'), false);
 	  }
 
 	  static isCoinbaseHash(buffer) {
@@ -31401,7 +30867,7 @@
 	    } // serialize and hash
 
 
-	    const buffer = Buffer$2.allocUnsafe(txTmp.byteLength(false) + 4);
+	    const buffer = Buffer$g.allocUnsafe(txTmp.byteLength(false) + 4);
 	    buffer.writeInt32LE(hashType, buffer.length - 4);
 
 	    txTmp.__toBuffer(buffer, 0, false);
@@ -31516,19 +30982,19 @@
 	    // https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki#cite_note-19
 
 
-	    return bcrypto$1.taggedHash('TapSighash', Buffer$2.concat([Buffer$2.of(0x00), sigMsgWriter.end()]));
+	    return bcrypto$1.taggedHash('TapSighash', Buffer$g.concat([Buffer$g.of(0x00), sigMsgWriter.end()]));
 	  }
 
 	  hashForWitnessV0(inIndex, prevOutScript, value, hashType) {
 	    typeforce$1(types$1.tuple(types$1.UInt32, types$1.Buffer, types$1.Satoshi, types$1.UInt32), arguments);
-	    let tbuffer = Buffer$2.from([]);
+	    let tbuffer = Buffer$g.from([]);
 	    let bufferWriter;
 	    let hashOutputs = ZERO;
 	    let hashPrevouts = ZERO;
 	    let hashSequence = ZERO;
 
 	    if (!(hashType & Transaction.SIGHASH_ANYONECANPAY)) {
-	      tbuffer = Buffer$2.allocUnsafe(36 * this.ins.length);
+	      tbuffer = Buffer$g.allocUnsafe(36 * this.ins.length);
 	      bufferWriter = new bufferutils_1$2.BufferWriter(tbuffer, 0);
 	      this.ins.forEach(txIn => {
 	        bufferWriter.writeSlice(txIn.hash);
@@ -31538,7 +31004,7 @@
 	    }
 
 	    if (!(hashType & Transaction.SIGHASH_ANYONECANPAY) && (hashType & 0x1f) !== Transaction.SIGHASH_SINGLE && (hashType & 0x1f) !== Transaction.SIGHASH_NONE) {
-	      tbuffer = Buffer$2.allocUnsafe(4 * this.ins.length);
+	      tbuffer = Buffer$g.allocUnsafe(4 * this.ins.length);
 	      bufferWriter = new bufferutils_1$2.BufferWriter(tbuffer, 0);
 	      this.ins.forEach(txIn => {
 	        bufferWriter.writeUInt32(txIn.sequence);
@@ -31550,7 +31016,7 @@
 	      const txOutsSize = this.outs.reduce((sum, output) => {
 	        return sum + 8 + varSliceSize(output.script);
 	      }, 0);
-	      tbuffer = Buffer$2.allocUnsafe(txOutsSize);
+	      tbuffer = Buffer$g.allocUnsafe(txOutsSize);
 	      bufferWriter = new bufferutils_1$2.BufferWriter(tbuffer, 0);
 	      this.outs.forEach(out => {
 	        bufferWriter.writeUInt64(out.value);
@@ -31559,14 +31025,14 @@
 	      hashOutputs = bcrypto$1.hash256(tbuffer);
 	    } else if ((hashType & 0x1f) === Transaction.SIGHASH_SINGLE && inIndex < this.outs.length) {
 	      const output = this.outs[inIndex];
-	      tbuffer = Buffer$2.allocUnsafe(8 + varSliceSize(output.script));
+	      tbuffer = Buffer$g.allocUnsafe(8 + varSliceSize(output.script));
 	      bufferWriter = new bufferutils_1$2.BufferWriter(tbuffer, 0);
 	      bufferWriter.writeUInt64(output.value);
 	      bufferWriter.writeVarSlice(output.script);
 	      hashOutputs = bcrypto$1.hash256(tbuffer);
 	    }
 
-	    tbuffer = Buffer$2.allocUnsafe(156 + varSliceSize(prevOutScript));
+	    tbuffer = Buffer$g.allocUnsafe(156 + varSliceSize(prevOutScript));
 	    bufferWriter = new bufferutils_1$2.BufferWriter(tbuffer, 0);
 	    const input = this.ins[inIndex];
 	    bufferWriter.writeInt32(this.version);
@@ -31585,7 +31051,7 @@
 
 	  getHash(forWitness) {
 	    // wtxid for coinbase is always 32 bytes of 0x00
-	    if (forWitness && this.isCoinbase()) return Buffer$2.alloc(32, 0);
+	    if (forWitness && this.isCoinbase()) return Buffer$g.alloc(32, 0);
 	    return bcrypto$1.hash256(this.__toBuffer(undefined, undefined, forWitness));
 	  }
 
@@ -31613,7 +31079,7 @@
 	  }
 
 	  __toBuffer(buffer, initialOffset, _ALLOW_WITNESS = false) {
-	    if (!buffer) buffer = Buffer$2.allocUnsafe(this.byteLength(_ALLOW_WITNESS));
+	    if (!buffer) buffer = Buffer$g.allocUnsafe(this.byteLength(_ALLOW_WITNESS));
 	    const bufferWriter = new bufferutils_1$2.BufferWriter(buffer, initialOffset || 0);
 	    bufferWriter.writeInt32(this.version);
 
@@ -31734,13 +31200,13 @@
 	  }
 
 	  static fromHex(hex) {
-	    return Block.fromBuffer(Buffer$2.from(hex, 'hex'));
+	    return Block.fromBuffer(Buffer$g.from(hex, 'hex'));
 	  }
 
 	  static calculateTarget(bits) {
 	    const exponent = ((bits & 0xff000000) >> 24) - 3;
 	    const mantissa = bits & 0x007fffff;
-	    const target = Buffer$2.alloc(32, 0);
+	    const target = Buffer$g.alloc(32, 0);
 	    target.writeUIntBE(mantissa, 29 - exponent, 3);
 	    return target;
 	  }
@@ -31753,7 +31219,7 @@
 	    if (forWitness && !txesHaveWitnessCommit(transactions)) throw errorWitnessNotSegwit;
 	    const hashes = transactions.map(transaction => transaction.getHash(forWitness));
 	    const rootHash = (0, merkle_1.fastMerkleRoot)(hashes, bcrypto.hash256);
-	    return forWitness ? bcrypto.hash256(Buffer$2.concat([rootHash, transactions[0].ins[0].witness[0]])) : rootHash;
+	    return forWitness ? bcrypto.hash256(Buffer$g.concat([rootHash, transactions[0].ins[0].witness[0]])) : rootHash;
 	  }
 
 	  getWitnessCommit() {
@@ -31762,16 +31228,16 @@
 	    // The root is prepended with 0xaa21a9ed so check for 0x6a24aa21a9ed
 	    // If multiple commits are found, the output with highest index is assumed.
 
-	    const witnessCommits = this.transactions[0].outs.filter(out => out.script.slice(0, 6).equals(Buffer$2.from('6a24aa21a9ed', 'hex'))).map(out => out.script.slice(6, 38));
+	    const witnessCommits = this.transactions[0].outs.filter(out => out.script.slice(0, 6).equals(Buffer$g.from('6a24aa21a9ed', 'hex'))).map(out => out.script.slice(6, 38));
 	    if (witnessCommits.length === 0) return null; // Use the commit with the highest output (should only be one though)
 
 	    const result = witnessCommits[witnessCommits.length - 1];
-	    if (!(result instanceof Buffer$2 && result.length === 32)) return null;
+	    if (!(result instanceof Buffer$g && result.length === 32)) return null;
 	    return result;
 	  }
 
 	  hasWitnessCommit() {
-	    if (this.witnessCommit instanceof Buffer$2 && this.witnessCommit.length === 32) return true;
+	    if (this.witnessCommit instanceof Buffer$g && this.witnessCommit.length === 32) return true;
 	    if (this.getWitnessCommit() !== null) return true;
 	    return false;
 	  }
@@ -31808,7 +31274,7 @@
 
 
 	  toBuffer(headersOnly) {
-	    const buffer = Buffer$2.allocUnsafe(this.byteLength(headersOnly));
+	    const buffer = Buffer$g.allocUnsafe(this.byteLength(headersOnly));
 	    const bufferWriter = new bufferutils_1$1.BufferWriter(buffer);
 	    bufferWriter.writeInt32(this.version);
 	    bufferWriter.writeSlice(this.prevHash);
@@ -31971,10 +31437,10 @@
 	exports.decode = decode$d;
 
 	function encode$e(data) {
-	  const head = Buffer$2.from([typeFields_1$g.GlobalTypes.GLOBAL_XPUB]);
-	  const key = Buffer$2.concat([head, data.extendedPubkey]);
+	  const head = Buffer$g.from([typeFields_1$g.GlobalTypes.GLOBAL_XPUB]);
+	  const key = Buffer$g.concat([head, data.extendedPubkey]);
 	  const splitPath = data.path.split('/');
-	  const value = Buffer$2.allocUnsafe(splitPath.length * 4);
+	  const value = Buffer$g.allocUnsafe(splitPath.length * 4);
 	  data.masterFingerprint.copy(value, 0);
 	  let offset = 4;
 	  splitPath.slice(1).forEach(level => {
@@ -31997,7 +31463,7 @@
 	  const epk = data.extendedPubkey;
 	  const mfp = data.masterFingerprint;
 	  const p = data.path;
-	  return isBuffer(epk) && epk.length === 78 && [2, 3].indexOf(epk[45]) > -1 && isBuffer(mfp) && mfp.length === 4 && typeof p === 'string' && !!p.match(/^m(\/\d+'?)*$/);
+	  return isBuffer$2(epk) && epk.length === 78 && [2, 3].indexOf(epk[45]) > -1 && isBuffer$2(mfp) && mfp.length === 4 && typeof p === 'string' && !!p.match(/^m(\/\d+'?)*$/);
 	}
 
 	exports.check = check$c;
@@ -32024,7 +31490,7 @@
 
 	function encode$d(data) {
 	  return {
-	    key: Buffer$2.from([typeFields_1$f.GlobalTypes.UNSIGNED_TX]),
+	    key: Buffer$g.from([typeFields_1$f.GlobalTypes.UNSIGNED_TX]),
 	    value: data.toBuffer()
 	  };
 	}
@@ -32053,7 +31519,7 @@
 	exports.decode = decode$c;
 
 	function encode$c(data) {
-	  const key = Buffer$2.from([typeFields_1$e.InputTypes.FINAL_SCRIPTSIG]);
+	  const key = Buffer$g.from([typeFields_1$e.InputTypes.FINAL_SCRIPTSIG]);
 	  return {
 	    key,
 	    value: data
@@ -32064,7 +31530,7 @@
 	exports.expected = 'Buffer';
 
 	function check$b(data) {
-	  return isBuffer(data);
+	  return isBuffer$2(data);
 	}
 
 	exports.check = check$b;
@@ -32097,7 +31563,7 @@
 	exports.decode = decode$b;
 
 	function encode$b(data) {
-	  const key = Buffer$2.from([typeFields_1$d.InputTypes.FINAL_SCRIPTWITNESS]);
+	  const key = Buffer$g.from([typeFields_1$d.InputTypes.FINAL_SCRIPTWITNESS]);
 	  return {
 	    key,
 	    value: data
@@ -32108,7 +31574,7 @@
 	exports.expected = 'Buffer';
 
 	function check$a(data) {
-	  return isBuffer(data);
+	  return isBuffer$2(data);
 	}
 
 	exports.check = check$a;
@@ -32142,7 +31608,7 @@
 
 	function encode$a(data) {
 	  return {
-	    key: Buffer$2.from([typeFields_1$c.InputTypes.NON_WITNESS_UTXO]),
+	    key: Buffer$g.from([typeFields_1$c.InputTypes.NON_WITNESS_UTXO]),
 	    value: data
 	  };
 	}
@@ -32151,7 +31617,7 @@
 	exports.expected = 'Buffer';
 
 	function check$9(data) {
-	  return isBuffer(data);
+	  return isBuffer$2(data);
 	}
 
 	exports.check = check$9;
@@ -32192,9 +31658,9 @@
 	exports.decode = decode$9;
 
 	function encode$9(pSig) {
-	  const head = Buffer$2.from([typeFields_1$b.InputTypes.PARTIAL_SIG]);
+	  const head = Buffer$g.from([typeFields_1$b.InputTypes.PARTIAL_SIG]);
 	  return {
-	    key: Buffer$2.concat([head, pSig.pubkey]),
+	    key: Buffer$g.concat([head, pSig.pubkey]),
 	    value: pSig.signature
 	  };
 	}
@@ -32203,13 +31669,13 @@
 	exports.expected = '{ pubkey: Buffer; signature: Buffer; }';
 
 	function check$8(data) {
-	  return isBuffer(data.pubkey) && isBuffer(data.signature) && [33, 65].includes(data.pubkey.length) && [2, 3, 4].includes(data.pubkey[0]) && isDerSigWithSighash(data.signature);
+	  return isBuffer$2(data.pubkey) && isBuffer$2(data.signature) && [33, 65].includes(data.pubkey.length) && [2, 3, 4].includes(data.pubkey[0]) && isDerSigWithSighash(data.signature);
 	}
 
 	exports.check = check$8;
 
 	function isDerSigWithSighash(buf) {
-	  if (!isBuffer(buf) || buf.length < 9) return false;
+	  if (!isBuffer$2(buf) || buf.length < 9) return false;
 	  if (buf[0] !== 0x30) return false;
 	  if (buf.length !== buf[1] + 3) return false;
 	  if (buf[2] !== 0x02) return false;
@@ -32253,10 +31719,10 @@
 	exports.decode = decode$8;
 
 	function encode$8(data) {
-	  const key = Buffer$2.from([typeFields_1$a.InputTypes.POR_COMMITMENT]);
+	  const key = Buffer$g.from([typeFields_1$a.InputTypes.POR_COMMITMENT]);
 	  return {
 	    key,
-	    value: Buffer$2.from(data, 'utf8')
+	    value: Buffer$g.from(data, 'utf8')
 	  };
 	}
 
@@ -32297,8 +31763,8 @@
 	exports.decode = decode$7;
 
 	function encode$7(data) {
-	  const key = Buffer$2.from([typeFields_1$9.InputTypes.SIGHASH_TYPE]);
-	  const value = Buffer$2.allocUnsafe(4);
+	  const key = Buffer$g.from([typeFields_1$9.InputTypes.SIGHASH_TYPE]);
+	  const value = Buffer$g.allocUnsafe(4);
 	  value.writeUInt32LE(data, 0);
 	  return {
 	    key,
@@ -32347,7 +31813,7 @@
 	exports.decode = decode$6;
 
 	function encode$6(value) {
-	  const key = Buffer$2.from([typeFields_1$8.InputTypes.TAP_KEY_SIG]);
+	  const key = Buffer$g.from([typeFields_1$8.InputTypes.TAP_KEY_SIG]);
 	  return {
 	    key,
 	    value
@@ -32358,7 +31824,7 @@
 	exports.expected = 'Buffer';
 
 	function check$5(data) {
-	  return isBuffer(data) && (data.length === 64 || data.length === 65);
+	  return isBuffer$2(data) && (data.length === 64 || data.length === 65);
 	}
 
 	exports.check = check$5;
@@ -32407,11 +31873,11 @@
 	exports.decode = decode$5;
 
 	function encode$5(tScript) {
-	  const head = Buffer$2.from([typeFields_1$7.InputTypes.TAP_LEAF_SCRIPT]);
-	  const verBuf = Buffer$2.from([tScript.leafVersion]);
+	  const head = Buffer$g.from([typeFields_1$7.InputTypes.TAP_LEAF_SCRIPT]);
+	  const verBuf = Buffer$g.from([tScript.leafVersion]);
 	  return {
-	    key: Buffer$2.concat([head, tScript.controlBlock]),
-	    value: Buffer$2.concat([tScript.script, verBuf])
+	    key: Buffer$g.concat([head, tScript.controlBlock]),
+	    value: Buffer$g.concat([tScript.script, verBuf])
 	  };
 	}
 
@@ -32419,7 +31885,7 @@
 	exports.expected = '{ controlBlock: Buffer; leafVersion: number, script: Buffer; }';
 
 	function check$4(data) {
-	  return isBuffer(data.controlBlock) && (data.controlBlock.length - 1) % 32 === 0 && (data.controlBlock[0] & 0xfe) === data.leafVersion && isBuffer(data.script);
+	  return isBuffer$2(data.controlBlock) && (data.controlBlock.length - 1) % 32 === 0 && (data.controlBlock[0] & 0xfe) === data.leafVersion && isBuffer$2(data.script);
 	}
 
 	exports.check = check$4;
@@ -32459,7 +31925,7 @@
 	exports.decode = decode$4;
 
 	function encode$4(value) {
-	  const key = Buffer$2.from([typeFields_1$6.InputTypes.TAP_MERKLE_ROOT]);
+	  const key = Buffer$g.from([typeFields_1$6.InputTypes.TAP_MERKLE_ROOT]);
 	  return {
 	    key,
 	    value
@@ -32470,7 +31936,7 @@
 	exports.expected = 'Buffer';
 
 	function check$3(data) {
-	  return isBuffer(data) && data.length === 32;
+	  return isBuffer$2(data) && data.length === 32;
 	}
 
 	exports.check = check$3;
@@ -32517,9 +31983,9 @@
 	exports.decode = decode$3;
 
 	function encode$3(tSig) {
-	  const head = Buffer$2.from([typeFields_1$5.InputTypes.TAP_SCRIPT_SIG]);
+	  const head = Buffer$g.from([typeFields_1$5.InputTypes.TAP_SCRIPT_SIG]);
 	  return {
-	    key: Buffer$2.concat([head, tSig.pubkey, tSig.leafHash]),
+	    key: Buffer$g.concat([head, tSig.pubkey, tSig.leafHash]),
 	    value: tSig.signature
 	  };
 	}
@@ -32528,7 +31994,7 @@
 	exports.expected = '{ pubkey: Buffer; leafHash: Buffer; signature: Buffer; }';
 
 	function check$2(data) {
-	  return isBuffer(data.pubkey) && isBuffer(data.leafHash) && isBuffer(data.signature) && data.pubkey.length === 32 && data.leafHash.length === 32 && (data.signature.length === 64 || data.signature.length === 65);
+	  return isBuffer$2(data.pubkey) && isBuffer$2(data.leafHash) && isBuffer$2(data.signature) && data.pubkey.length === 32 && data.leafHash.length === 32 && (data.signature.length === 64 || data.signature.length === 65);
 	}
 
 	exports.check = check$2;
@@ -32560,8 +32026,8 @@
 
 	function encode$2(_number, buffer, offset) {
 	  checkUInt53(_number);
-	  if (!buffer) buffer = Buffer$2.allocUnsafe(encodingLength(_number));
-	  if (!isBuffer(buffer)) throw new TypeError('buffer must be a Buffer instance');
+	  if (!buffer) buffer = Buffer$g.allocUnsafe(encodingLength(_number));
+	  if (!isBuffer$2(buffer)) throw new TypeError('buffer must be a Buffer instance');
 	  if (!offset) offset = 0; // 8 bit
 
 	  if (_number < 0xfd) {
@@ -32596,7 +32062,7 @@
 	exports.encode = encode$2;
 
 	function decode$2(buffer, offset) {
-	  if (!isBuffer(buffer)) throw new TypeError('buffer must be a Buffer instance');
+	  if (!isBuffer$2(buffer)) throw new TypeError('buffer must be a Buffer instance');
 	  if (!offset) offset = 0;
 	  const first = buffer.readUInt8(offset); // 8 bit
 
@@ -32670,8 +32136,8 @@
 
 	function keyValsToBuffer(keyVals) {
 	  const buffers = keyVals.map(keyValToBuffer);
-	  buffers.push(Buffer$2.from([0]));
-	  return Buffer$2.concat(buffers);
+	  buffers.push(Buffer$g.from([0]));
+	  return Buffer$g.concat(buffers);
 	}
 
 	exports.keyValsToBuffer = keyValsToBuffer;
@@ -32681,7 +32147,7 @@
 	  const valLen = keyVal.value.length;
 	  const keyVarIntLen = varuint$5.encodingLength(keyLen);
 	  const valVarIntLen = varuint$5.encodingLength(valLen);
-	  const buffer = Buffer$2.allocUnsafe(keyVarIntLen + keyLen + valVarIntLen + valLen);
+	  const buffer = Buffer$g.allocUnsafe(keyVarIntLen + keyLen + valVarIntLen + valLen);
 	  varuint$5.encode(keyLen, buffer, 0);
 	  keyVal.key.copy(buffer, keyVarIntLen);
 	  varuint$5.encode(valLen, buffer, keyVarIntLen + keyLen);
@@ -32759,12 +32225,12 @@
 	    value
 	  } = data;
 	  const varintLen = varuint$4.encodingLength(script.length);
-	  const result = Buffer$2.allocUnsafe(8 + varintLen + script.length);
+	  const result = Buffer$g.allocUnsafe(8 + varintLen + script.length);
 	  tools_1$2.writeUInt64LE(result, value, 0);
 	  varuint$4.encode(script.length, result, 8);
 	  script.copy(result, 8 + varintLen);
 	  return {
-	    key: Buffer$2.from([typeFields_1$4.InputTypes.WITNESS_UTXO]),
+	    key: Buffer$g.from([typeFields_1$4.InputTypes.WITNESS_UTXO]),
 	    value: result
 	  };
 	}
@@ -32773,7 +32239,7 @@
 	exports.expected = '{ script: Buffer; value: number; }';
 
 	function check$1(data) {
-	  return isBuffer(data.script) && typeof data.value === 'number';
+	  return isBuffer$2(data.script) && typeof data.value === 'number';
 	}
 
 	exports.check = check$1;
@@ -32825,11 +32291,11 @@
 	exports.decode = decode;
 
 	function encode(tree) {
-	  const key = Buffer$2.from([typeFields_1$3.OutputTypes.TAP_TREE]);
-	  const bufs = [].concat(...tree.leaves.map(tapLeaf => [Buffer$2.of(tapLeaf.depth, tapLeaf.leafVersion), varuint$3.encode(tapLeaf.script.length), tapLeaf.script]));
+	  const key = Buffer$g.from([typeFields_1$3.OutputTypes.TAP_TREE]);
+	  const bufs = [].concat(...tree.leaves.map(tapLeaf => [Buffer$g.of(tapLeaf.depth, tapLeaf.leafVersion), varuint$3.encode(tapLeaf.script.length), tapLeaf.script]));
 	  return {
 	    key,
-	    value: Buffer$2.concat(bufs)
+	    value: Buffer$g.concat(bufs)
 	  };
 	}
 
@@ -32837,7 +32303,7 @@
 	exports.expected = '{ leaves: [{ depth: number; leafVersion: number, script: Buffer; }] }';
 
 	function check(data) {
-	  return Array.isArray(data.leaves) && data.leaves.every(tapLeaf => tapLeaf.depth >= 0 && tapLeaf.depth <= 128 && (tapLeaf.leafVersion & 0xfe) === tapLeaf.leafVersion && isBuffer(tapLeaf.script));
+	  return Array.isArray(data.leaves) && data.leaves.every(tapLeaf => tapLeaf.depth >= 0 && tapLeaf.depth <= 128 && (tapLeaf.leafVersion & 0xfe) === tapLeaf.leafVersion && isBuffer$2(tapLeaf.script));
 	}
 
 	exports.check = check;
@@ -32895,10 +32361,10 @@
 	  }
 
 	  function encode(data) {
-	    const head = Buffer$2.from([TYPE_BYTE]);
-	    const key = Buffer$2.concat([head, data.pubkey]);
+	    const head = Buffer$g.from([TYPE_BYTE]);
+	    const key = Buffer$g.concat([head, data.pubkey]);
 	    const splitPath = data.path.split('/');
-	    const value = Buffer$2.allocUnsafe(splitPath.length * 4);
+	    const value = Buffer$g.allocUnsafe(splitPath.length * 4);
 	    data.masterFingerprint.copy(value, 0);
 	    let offset = 4;
 	    splitPath.slice(1).forEach(level => {
@@ -32917,7 +32383,7 @@
 	  const expected = '{ masterFingerprint: Buffer; pubkey: Buffer; path: string; }';
 
 	  function check(data) {
-	    return isBuffer(data.pubkey) && isBuffer(data.masterFingerprint) && typeof data.path === 'string' && isValidPubkey(data.pubkey) && data.masterFingerprint.length === 4;
+	    return isBuffer$2(data.pubkey) && isBuffer$2(data.masterFingerprint) && typeof data.path === 'string' && isValidPubkey(data.pubkey) && data.masterFingerprint.length === 4;
 	  }
 
 	  function canAddToArray(array, item, dupeSet) {
@@ -32984,7 +32450,7 @@
 	  }
 
 	  function encode(data) {
-	    const key = Buffer$2.from([TYPE_BYTE]);
+	    const key = Buffer$g.from([TYPE_BYTE]);
 	    return {
 	      key,
 	      value: data
@@ -32994,7 +32460,7 @@
 	  const expected = 'Buffer';
 
 	  function check(data) {
-	    return isBuffer(data);
+	    return isBuffer$2(data);
 	  }
 
 	  function canAdd(currentData, newData) {
@@ -33050,9 +32516,9 @@
 	  function encode(data) {
 	    const base = parent.encode(data);
 	    const nHashesLen = varuint$2.encodingLength(data.leafHashes.length);
-	    const nHashesBuf = Buffer$2.allocUnsafe(nHashesLen);
+	    const nHashesBuf = Buffer$g.allocUnsafe(nHashesLen);
 	    varuint$2.encode(data.leafHashes.length, nHashesBuf);
-	    const value = Buffer$2.concat([nHashesBuf, ...data.leafHashes, base.value]);
+	    const value = Buffer$g.concat([nHashesBuf, ...data.leafHashes, base.value]);
 	    return Object.assign({}, base, {
 	      value
 	    });
@@ -33061,7 +32527,7 @@
 	  const expected = '{ ' + 'masterFingerprint: Buffer; ' + 'pubkey: Buffer; ' + 'path: string; ' + 'leafHashes: Buffer[]; ' + '}';
 
 	  function check(data) {
-	    return Array.isArray(data.leafHashes) && data.leafHashes.every(leafHash => isBuffer(leafHash) && leafHash.length === 32) && parent.check(data);
+	    return Array.isArray(data.leafHashes) && data.leafHashes.every(leafHash => isBuffer$2(leafHash) && leafHash.length === 32) && parent.check(data);
 	  }
 
 	  return {
@@ -33099,7 +32565,7 @@
 	  }
 
 	  function encode(value) {
-	    const key = Buffer$2.from([TYPE_BYTE]);
+	    const key = Buffer$g.from([TYPE_BYTE]);
 	    return {
 	      key,
 	      value
@@ -33109,7 +32575,7 @@
 	  const expected = 'Buffer';
 
 	  function check(data) {
-	    return isBuffer(data) && data.length === 32;
+	    return isBuffer$2(data) && data.length === 32;
 	  }
 
 	  function canAdd(currentData, newData) {
@@ -33147,7 +32613,7 @@
 	  }
 
 	  function encode(data) {
-	    const key = Buffer$2.from([TYPE_BYTE]);
+	    const key = Buffer$g.from([TYPE_BYTE]);
 	    return {
 	      key,
 	      value: data
@@ -33157,7 +32623,7 @@
 	  const expected = 'Buffer';
 
 	  function check(data) {
-	    return isBuffer(data);
+	    return isBuffer$2(data);
 	  }
 
 	  function canAdd(currentData, newData) {
@@ -33383,7 +32849,7 @@
 	exports.psbtFromBuffer = psbtFromBuffer;
 
 	function checkKeyBuffer(type, keyBuf, keyNum) {
-	  if (!keyBuf.equals(Buffer$2.from([keyNum]))) {
+	  if (!keyBuf.equals(Buffer$g.from([keyNum]))) {
 	    throw new Error(`Format Error: Invalid ${type} key: ${keyBuf.toString('hex')}`);
 	  }
 	}
@@ -33672,13 +33138,13 @@
 	  });
 	  const globalBuffer = tools_1.keyValsToBuffer(globalKeyVals);
 
-	  const keyValsOrEmptyToBuffer = keyVals => keyVals.length === 0 ? [Buffer$2.from([0])] : keyVals.map(tools_1.keyValsToBuffer);
+	  const keyValsOrEmptyToBuffer = keyVals => keyVals.length === 0 ? [Buffer$g.from([0])] : keyVals.map(tools_1.keyValsToBuffer);
 
 	  const inputBuffers = keyValsOrEmptyToBuffer(inputKeyVals);
 	  const outputBuffers = keyValsOrEmptyToBuffer(outputKeyVals);
-	  const header = Buffer$2.allocUnsafe(5);
+	  const header = Buffer$g.allocUnsafe(5);
 	  header.writeUIntBE(0x70736274ff, 0, 5);
-	  return Buffer$2.concat([header, globalBuffer].concat(inputBuffers, outputBuffers));
+	  return Buffer$g.concat([header, globalBuffer].concat(inputBuffers, outputBuffers));
 	}
 
 	exports.psbtToBuffer = psbtToBuffer;
@@ -33957,7 +33423,7 @@
 	exports.addOutputAttributes = addOutputAttributes;
 
 	function defaultVersionSetter(version, txBuf) {
-	  if (!isBuffer(txBuf) || txBuf.length < 4) {
+	  if (!isBuffer$2(txBuf) || txBuf.length < 4) {
 	    throw new Error('Set Version: Invalid Transaction');
 	  }
 
@@ -33968,7 +33434,7 @@
 	exports.defaultVersionSetter = defaultVersionSetter;
 
 	function defaultLocktimeSetter(locktime, txBuf) {
-	  if (!isBuffer(txBuf) || txBuf.length < 4) {
+	  if (!isBuffer$2(txBuf) || txBuf.length < 4) {
 	    throw new Error('Set Locktime: Invalid Transaction');
 	  }
 
@@ -34002,12 +33468,12 @@
 	  }
 
 	  static fromBase64(data, txFromBuffer) {
-	    const buffer = Buffer$2.from(data, 'base64');
+	    const buffer = Buffer$g.from(data, 'base64');
 	    return this.fromBuffer(buffer, txFromBuffer);
 	  }
 
 	  static fromHex(data, txFromBuffer) {
-	    const buffer = Buffer$2.from(data, 'hex');
+	    const buffer = Buffer$g.from(data, 'hex');
 	    return this.fromBuffer(buffer, txFromBuffer);
 	  }
 
@@ -34240,12 +33706,12 @@
 	  }
 
 	  static fromBase64(data, opts = {}) {
-	    const buffer = Buffer$2.from(data, 'base64');
+	    const buffer = Buffer$g.from(data, 'base64');
 	    return this.fromBuffer(buffer, opts);
 	  }
 
 	  static fromHex(data, opts = {}) {
-	    const buffer = Buffer$2.from(data, 'hex');
+	    const buffer = Buffer$g.from(data, 'hex');
 	    return this.fromBuffer(buffer, opts);
 	  }
 
@@ -34771,7 +34237,7 @@
 
 
 	class PsbtTransaction {
-	  constructor(buffer = Buffer$2.from([2, 0, 0, 0, 0, 0, 0, 0, 0, 0])) {
+	  constructor(buffer = Buffer$g.from([2, 0, 0, 0, 0, 0, 0, 0, 0, 0])) {
 	    this.tx = transaction_1.Transaction.fromBuffer(buffer);
 	    checkTxEmpty(this.tx);
 	    Object.defineProperty(this, 'tx', {
@@ -34788,16 +34254,16 @@
 	  }
 
 	  addInput(input) {
-	    if (input.hash === undefined || input.index === undefined || !isBuffer(input.hash) && typeof input.hash !== 'string' || typeof input.index !== 'number') {
+	    if (input.hash === undefined || input.index === undefined || !isBuffer$2(input.hash) && typeof input.hash !== 'string' || typeof input.index !== 'number') {
 	      throw new Error('Error adding input.');
 	    }
 
-	    const hash = typeof input.hash === 'string' ? (0, bufferutils_1.reverseBuffer)(Buffer$2.from(input.hash, 'hex')) : input.hash;
+	    const hash = typeof input.hash === 'string' ? (0, bufferutils_1.reverseBuffer)(Buffer$g.from(input.hash, 'hex')) : input.hash;
 	    this.tx.addInput(hash, input.index, input.sequence);
 	  }
 
 	  addOutput(output) {
-	    if (output.script === undefined || output.value === undefined || !isBuffer(output.script) || typeof output.value !== 'number') {
+	    if (output.script === undefined || output.value === undefined || !isBuffer$2(output.script) || typeof output.value !== 'number') {
 	      throw new Error('Error adding output.');
 	    }
 
@@ -34982,7 +34448,7 @@
 	}
 
 	function checkTxInputCache(cache, input) {
-	  const key = (0, bufferutils_1.reverseBuffer)(Buffer$2.from(input.hash)).toString('hex') + ':' + input.index;
+	  const key = (0, bufferutils_1.reverseBuffer)(Buffer$g.from(input.hash)).toString('hex') + ':' + input.index;
 	  if (cache.__TX_IN_CACHE[key]) throw new Error('Duplicate input detected.');
 	  cache.__TX_IN_CACHE[key] = 1;
 	}
@@ -35177,7 +34643,7 @@
 	  const scriptItems = !input.finalScriptSig ? [] : bscript.decompile(input.finalScriptSig) || [];
 	  const witnessItems = !input.finalScriptWitness ? [] : bscript.decompile(input.finalScriptWitness) || [];
 	  return scriptItems.concat(witnessItems).filter(item => {
-	    return isBuffer(item) && bscript.isCanonicalScriptSignature(item);
+	    return isBuffer$2(item) && bscript.isCanonicalScriptSignature(item);
 	  }).map(sig => ({
 	    signature: sig
 	  }));
@@ -35312,16 +34778,16 @@
 	}
 
 	function witnessStackToScriptWitness(witness) {
-	  let buffer = Buffer$2.allocUnsafe(0);
+	  let buffer = Buffer$g.allocUnsafe(0);
 
 	  function writeSlice(slice) {
-	    buffer = Buffer$2.concat([buffer, Buffer$2.from(slice)]);
+	    buffer = Buffer$g.concat([buffer, Buffer$g.from(slice)]);
 	  }
 
 	  function writeVarInt(i) {
 	    const currentLen = buffer.length;
 	    const varintLen = varuint.encodingLength(i);
-	    buffer = Buffer$2.concat([buffer, Buffer$2.allocUnsafe(varintLen)]);
+	    buffer = Buffer$g.concat([buffer, Buffer$g.allocUnsafe(varintLen)]);
 	    varuint.encode(i, buffer, currentLen);
 	  }
 
@@ -35442,7 +34908,7 @@
 	  const decomp = bscript.decompile(finalScript);
 	  if (!decomp) return;
 	  const lastItem = decomp[decomp.length - 1];
-	  if (!isBuffer(lastItem) || isPubkeyLike(lastItem) || isSigLike(lastItem)) return;
+	  if (!isBuffer$2(lastItem) || isPubkeyLike(lastItem) || isSigLike(lastItem)) return;
 	  const sDecomp = bscript.decompile(lastItem);
 	  if (!sDecomp) return;
 	  return lastItem;
@@ -35599,19 +35065,36 @@
 	    /* this.wallet = new Wallet({
 	      network: this.settings.network
 	    }); */
-	    // this.key = new Key(this.settings);
+
+	    let getRandomBytes = (typeof self !== 'undefined' && (self.crypto || self.msCrypto) ? function () {
+	      // Browsers
+	      var crypto = self.crypto || self.msCrypto,
+	          QUOTA = 65536;
+	      return function (n) {
+	        var a = new Uint8Array(n);
+
+	        for (var i = 0; i < n; i += QUOTA) {
+	          crypto.getRandomValues(a.subarray(i, i + Math.min(n - i, QUOTA)));
+	        }
+
+	        return a;
+	      };
+	    } : function () {
+	      // Node
+	      return require("crypto").randomBytes;
+	    })(); // this.key = new Key(this.settings);
 	    // this._key = new bcoin.hd.key();
 	    // TODO: prepare Fabric
 	    // i.e., use _state here, then import from getter and apply properties
 	    // _from_ @react
 
-	    this.state = merge$1({
+	    this.state = merge__namespace.merge({
 	      address: null,
 	      content: {
 	        requests: []
 	      },
 	      requests: {},
-	      secret: Actor__namespace.randomBytes(32),
+	      secret: getRandomBytes(32),
 	      // solution hash (revealed on trade)
 	      status: 'LOADING'
 	    }, props.state);
@@ -35876,9 +35359,9 @@
 	  constructor(settings) {
 	    super(settings);
 	    const state = store.getState();
-	    this.settings = merge$1({}, state, settings); // this.fabric = new Fabric();
+	    this.settings = merge__namespace.merge({}, state, settings); // this.fabric = new Fabric();
 
-	    this.state = merge$1({
+	    this.state = merge__namespace.merge({
 	      actor: null,
 	      host: 'localhost',
 	      integrity: null,
@@ -35892,7 +35375,7 @@
 	  }
 
 	  componentDidMount() {
-	    new Actor__namespace(this.state);
+	    new Actor$1(this.state);
 	    return this;
 	  }
 
@@ -35944,4 +35427,4 @@
 	  console.log('[PORTAL:FEED] Main Process Output:', output);
 	});
 
-})(Actor, fomanticUIReact, FabricComponent);
+})(merge, fomanticUIReact, FabricComponent);

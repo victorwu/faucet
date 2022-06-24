@@ -51,7 +51,7 @@
     "file-loader": "^6.2.0",
     "fomantic-ui": "^2.8.8",
     "fomantic-ui-css": "^2.8.8",
-    "fomantic-ui-react": "^0.0.1-alpha.12",
+    "fomantic-ui-react": "FabricLabs/fomantic-ui-react#dumi",
     "mocha": "^9.2.0",
     "node-loader": "^2.0.0",
     "postcss": "^8.4.8",
