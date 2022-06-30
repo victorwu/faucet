@@ -33,6 +33,7 @@ const builds = [
           'lodash.merge': 'merge',
           'fomantic-ui-react': 'fomanticUIReact',
           'react': 'React',
+          'react-dom': 'reactDom',
           'react-dom/client': 'client',
           'react-redux': 'reactRedux',
         }
@@ -41,6 +42,12 @@ const builds = [
     external: [
       '@fabric/core/types/environment',
       '@fabric/http',
+      'lodash.merge',
+      'react',
+      'react-dom',
+      'react-redux',
+      /@babel\/runtime/,
+      'react-dom/client',
       'fomantic-ui-react',
       'lodash.merge'
     ],
@@ -50,24 +57,34 @@ const builds = [
     },
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+        preventAssignment: true
       }),
       css(),
       // json(),
       // url(),
       nodeGlobals(),
       nodePolyfills(),
-      commonjs({
-        include: 'node_modules/**',
-        transformMixedEsModules: true
-      }),
+      jsx( {factory: 'React.createElement'} ),
       resolve({
+        extensions: [".js", , ".jsx", ".ts", ".tsx"],
         preferBuiltins: true,
-        browser: true
+        browser: true,
+        // resolveOnly: [
+        //   /^(?!react$)/,
+        //   /^(?!react-dom$)/,
+        //   /^(?!prop-types)/,
+        // ],
       }),
       babel({
-        presets: ['@babel/preset-react'],
+        plugins: ['transform-class-properties'],
+        include: ['node_modules/react-router-dom/**'],
+        presets: ['@babel/env', '@babel/preset-react'],
         babelHelpers: 'bundled',
+      }),
+      commonjs({
+        include: /node_modules/,
+        transformMixedEsModules: true
       }),
     ],
     onwarn: handleWarning,

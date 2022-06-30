@@ -1,3 +1,6 @@
+
+import * as React from 'react';
+
 import { configureStore } from '@reduxjs/toolkit';
 import faucetReducer from '../features/faucet/faucetSlice';
 

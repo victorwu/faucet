@@ -4,6 +4,7 @@ import * as merge from 'lodash.merge';
 
 // React
 import React, { Component } from 'react';
+window.React = React;
 import { store } from './app/store'
 
 import {
