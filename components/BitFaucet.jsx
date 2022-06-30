@@ -4,6 +4,7 @@ import * as merge from 'lodash.merge';
 // React
 import * as React from 'react';
 import { store } from '../stores/redux';
+window.React = React;
 
 import {
   BrowserRouter as Router,
@@ -26,7 +27,7 @@ import Actor from '@fabric/core/types/actor';
 // import FabricTransactionList from '@fabric/http';
 
 // Portal
-import Faucet from './Faucet';
+import Faucet from './Faucet.jsx';
 
 /**
  * The Portal web application.

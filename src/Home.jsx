@@ -1,16 +1,15 @@
 // State
-import * as defaults from '../settings/state';
+import * as defaults from './settings/state';
 
 // Dependencies
-import React, { Component } from 'react';
+import * as React from 'react';
+window.React = React;
 import { connect } from 'react-redux';
 import { 
-  recipientAddressClear,
-  recipientAddressUpdate,
+  recipientAddressClear, 
+  recipientAddressUpdate, 
   statusUpdate
-} from '../features/faucet/faucetSlice';
-
-const mapStateToProps = require('../functions/mapStateToProps');
+} from './features/faucet/faucetSlice';
 
 // Components
 import {
@@ -25,11 +24,11 @@ import {
 // import FabricBridge from '@fabric/http';
 // import FabricDebugger from '@fabric/http';
 
-import FaucetDripForm from './FaucetDripForm';
+import FaucetDripForm from './components/FaucetDripForm';
 // import FabricIdentityManager from '@fabric/http';
 // import PortalMenu from './components/PortalMenu';
 
-class Faucet extends Component {
+class Home extends React.Component {
   constructor (props) {
     super(props);
 
@@ -85,11 +84,12 @@ class Faucet extends Component {
         if (self.settings.debug) console.log('Message sent over bridge, result:', result);
         self.field.current.value = '';
         self.props.recipientAddressClear();
-        // self.field.current.setState({ address: '' });
+          // self.field.current.setState({ address: '' });
 
         self.props.statusUpdate("LOADED");
-        // self.form.current.setState({ status: 'LOADED' });
-        // self.button.current.setState({ status: 'LOADED '});
+          // self.form.current.setState({ status: 'LOADED' });
+          // self.button.current.setState({ status: 'LOADED '});
+        
       });
     }, 1000);
   }
@@ -138,8 +138,13 @@ class Faucet extends Component {
   }
 }
 
-export default connect(mapStateToProps, {
-  recipientAddressClear,
-  recipientAddressUpdate,
-  statusUpdate
-}, null, { forwardRef: true })(Faucet);
+
+const mapStateToProps = (state) => ({
+  state: state
+});
+
+const mapDispatchToProps = { recipientAddressClear, 
+                             recipientAddressUpdate,
+                             statusUpdate };
+
+export default connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true})(Home);
