@@ -1,6 +1,8 @@
 /**
  * # Sample Rollup for Fabric
  */
+import * as react from 'react';
+ 
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
@@ -77,7 +79,7 @@ const builds = [
       }),
       commonjs({
         include: /node_modules/,
-        // transformMixedEsModules: true
+        // transformMixedEsModules: true,
       }),
       babel({
         plugins: ['transform-class-properties'],
