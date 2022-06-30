@@ -1,15 +1,14 @@
 /**
  * # Sample Rollup for Fabric
  */
+import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import css from 'rollup-plugin-import-css';
 // import url from '@rollup/plugin-url';
 import nodeGlobals from 'rollup-plugin-node-globals';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
-import jsx from 'rollup-plugin-jsx'
 // import json from '@rollup/plugin-json';
 
 function handleWarning (warning, warn) {
@@ -66,9 +65,8 @@ const builds = [
       // url(),
       nodeGlobals(),
       nodePolyfills(),
-      jsx( {factory: 'React.createElement'} ),
       resolve({
-        extensions: [".js", , ".jsx", ".ts", ".tsx"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
         preferBuiltins: true,
         browser: true,
         // resolveOnly: [
@@ -77,15 +75,15 @@ const builds = [
         //   /^(?!prop-types)/,
         // ],
       }),
+      commonjs({
+        include: /node_modules/,
+        // transformMixedEsModules: true
+      }),
       babel({
         plugins: ['transform-class-properties'],
         include: ['node_modules/react-router-dom/**'],
         presets: ['@babel/env', '@babel/preset-react'],
         babelHelpers: 'bundled',
-      }),
-      commonjs({
-        include: /node_modules/,
-        transformMixedEsModules: true
       }),
     ],
     onwarn: handleWarning,
