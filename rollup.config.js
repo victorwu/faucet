@@ -13,11 +13,7 @@ import nodeGlobals from 'rollup-plugin-node-globals';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 // import json from '@rollup/plugin-json';
 
-function handleWarning (warning, warn) {
-  const { code, importer } = warning;
-  if (code === 'CIRCULAR_DEPENDENCY' && importer.includes('fomantic-ui-react')) return;
-  warn(warning);
-}
+import handleRollupWarning from './functions/handleRollupWarning';
 
 const builds = [
   {
@@ -53,10 +49,6 @@ const builds = [
       'fomantic-ui-react',
       'lodash.merge'
     ],
-    onwarn(warning, warn) {
-        if (warning.code === 'THIS_IS_UNDEFINED') return;
-        warn(warning);
-    },
     plugins: [
       replace({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
@@ -88,7 +80,7 @@ const builds = [
         babelHelpers: 'bundled',
       }),
     ],
-    onwarn: handleWarning,
+    onwarn: handleRollupWarning,
     context: 'null',
     moduleContext: 'null',
   }

@@ -24,13 +24,11 @@ const root = createRoot(container); // createRoot(container!) if TypeScript
 
 // Main Process Definition
 async function main (input = {}) {
-  const container = document.getElementById('root');
-  const root = createRoot(container);
-
   root.render(
     <Provider store={store}>
       <BitFaucet state={input} />
-    </Provider>
+    </Provider>,
+    document.getElementById('root')
   );
 
   return {

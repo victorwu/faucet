@@ -1,8 +1,13 @@
 'use strict';
 
-const playnet = require('@fabric/core/settings/playnet');
+// import * as playnet from '@fabric/core/settings/playnet';
+const playnet = {
+  key: {
+    seed: null
+  }
+};
 
-module.exports = {
+export default {
   host: 'faucet.playnet.portaldefi.com',
   port: 443,
   secure: true,

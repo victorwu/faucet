@@ -7,7 +7,7 @@ import {
   recipientAddressUpdate,
   setState,
   statusUpdate,
-} from '../features/faucet/faucetSlice'
+} from '../features/faucet/faucetSlice';
 // import FabricStateMapper from '../StateMapper';
 import * as merge from 'lodash.merge';
 
@@ -18,10 +18,10 @@ import createHash from 'create-hash';
 import * as bitcoin from 'bitcoinjs-lib';
 
 // Fabric Types
-import FabricComponent from '@fabric/http';
+// import FabricComponent from '@fabric/http';
 
 // Fabric Components
-import FabricModal from '@fabric/http';
+// import FabricModal from '@fabric/http';
 
 // Fabric Services
 // import Bitcoin from '@fabric/core/services/bitcoin';
@@ -37,11 +37,11 @@ import {
 // import FabricKeyPair from './FabricKeyPair';
 
 // Fabric Types
-import * as Actor from '@fabric/core/types/actor';
+// import * as Actor from '@fabric/core/types/actor';
 // import * as Key from '@fabric/core/types/key';
 // import * as Signer from '@fabric/core/types/signer';
 
-class FaucetDripForm extends FabricComponent {
+class FaucetDripForm extends React.Component {
   constructor (props) {
     super(props);
 
@@ -53,22 +53,6 @@ class FaucetDripForm extends FabricComponent {
       network: this.settings.network
     }); */
 
-    let getRandomBytes = (
-      (typeof self !== 'undefined' && (self.crypto || self.msCrypto))
-        ? function() { // Browsers
-            var crypto = (self.crypto || self.msCrypto), QUOTA = 65536;
-            return function(n) {
-              var a = new Uint8Array(n);
-              for (var i = 0; i < n; i += QUOTA) {
-                crypto.getRandomValues(a.subarray(i, i + Math.min(n - i, QUOTA)));
-              }
-              return a;
-            };
-          }
-        : function() { // Node
-            return require("crypto").randomBytes;
-          }
-    )();
     // this.key = new Key(this.settings);
     // this._key = new bcoin.hd.key();
 
@@ -81,7 +65,7 @@ class FaucetDripForm extends FabricComponent {
         requests: []
       },
       requests: {},
-      secret: getRandomBytes(32), // solution hash (revealed on trade)
+      secret: Buffer.alloc(32), // Actor.randomBytes(32), // solution hash (revealed on trade)
       status: 'LOADING'
     }, props.state);
 
@@ -166,7 +150,7 @@ class FaucetDripForm extends FabricComponent {
                 disabled={(this.props.state.status === 'REQUESTING') || (this.props.state.status === 'PAUSED') || (this.props.state.status === 'ERROR')}
                 color='green' content='Request' icon='right chevron' labelPosition='right' onClick={this.props.onSubmit.bind(this)} />
             </div>
-            <FabricModal />
+            {/* <FabricModal /> */}
           </Form.Field>
         </Form>
       </>
