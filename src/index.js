@@ -4,7 +4,8 @@
 
 // React
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
+window.React = React;
 
 // Redux
 import { store } from './app/store'
@@ -28,12 +29,14 @@ import App from './App';
 // const sagas = createSagaMiddleware();
 // sagas.run(RPCRequest);
 
-ReactDOM.render(
-  <React.StrictMode>
+
+const root = createRoot(container); // createRoot(container!) if TypeScript
+root.render(
+  <React>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React>,
   document.getElementById('root')
 );
 

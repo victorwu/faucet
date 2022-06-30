@@ -3,8 +3,9 @@
  */
 
 // React
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import {createRoot} from 'react-dom/client';
+window.React = React;
 
 // Redux
 import { Provider } from 'react-redux';
@@ -14,14 +15,16 @@ import { store } from '../stores/redux';
 import '../styles/index.css';
 
 // Components
-import BitFaucet from '../components/BitFaucet';
+import BitFaucet from '../components/BitFaucet.jsx';
 
 // Settings
 const settings = {}; // TODO: canonicalize settings / state
 
+const root = createRoot(container); // createRoot(container!) if TypeScript
+
 // Main Process Definition
 async function main (input = {}) {
-  ReactDOM.render(
+  root.render(
     <Provider store={store}>
       <BitFaucet state={input} />
     </Provider>,
