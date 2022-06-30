@@ -6,10 +6,11 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import css from 'rollup-plugin-import-css';
-// import json from '@rollup/plugin-json';
 // import url from '@rollup/plugin-url';
 import nodeGlobals from 'rollup-plugin-node-globals';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
+import jsx from 'rollup-plugin-jsx'
+// import json from '@rollup/plugin-json';
 
 function handleWarning (warning, warn) {
   const { code, importer } = warning;

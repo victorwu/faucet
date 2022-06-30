@@ -1,5 +1,6 @@
 // React
 import * as React from 'react';
+window.React = React;
 import { connect } from 'react-redux';
 import { 
   recipientAddressClear, 
