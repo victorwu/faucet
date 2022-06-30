@@ -64,7 +64,7 @@ class FaucetDripForm extends FabricComponent {
         requests: []
       },
       requests: {},
-      secret: Actor.randomBytes(32), // solution hash (revealed on trade)
+      secret: Buffer.alloc(32), // solution hash (revealed on trade)
       status: 'LOADING'
     }, props.state);
 
