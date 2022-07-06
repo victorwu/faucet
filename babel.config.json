@@ -2,9 +2,7 @@
   "env": {
     "test": {
       "presets": [
-        [
-          "@babel/preset-env"
-        ],
+        [ "@babel/preset-env" ],
         ["@babel/preset-react", {"runtime": "automatic"}]
       ]
     }
@@ -13,29 +11,20 @@
     "react-app",
     [
       "@babel/preset-env",
-      {
-        "modules": false
-      }
+      { "modules": false }
     ],
     ["@babel/preset-react", {"runtime": "automatic"}]
   ],
-  // "ignore": [
-  //   "node_modules/**"
-  // ],
   "plugins": [
-    ["@babel/plugin-transform-runtime",
-      {
-        "regenerator": true
-      }
+    [ "@babel/plugin-transform-runtime",
+      { "regenerator": true }
     ],
-    "@babel/plugin-proposal-class-properties",
+    [ "@babel/plugin-proposal-class-properties",
+      { loose: true }
+    ],
     [
       "@babel/plugin-transform-react-jsx",
-      {
-        "throwIfNamespace": false, // defaults to true
-        "runtime": "automatic", // defaults to classic
-        // "importSource": "custom-jsx-library" // defaults to react
-      }
+      { "throwIfNamespace": false, "runtime": "automatic" }
     ]
   ]
 }
