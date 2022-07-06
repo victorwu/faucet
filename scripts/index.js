@@ -20,6 +20,7 @@ import BitFaucet from '../components/BitFaucet.jsx';
 // Settings
 const settings = {}; // TODO: canonicalize settings / state
 
+const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if TypeScript
 
 // Main Process Definition
@@ -27,8 +28,7 @@ async function main (input = {}) {
   root.render(
     <Provider store={store}>
       <BitFaucet state={input} />
-    </Provider>,
-    document.getElementById('root')
+    </Provider>
   );
 
   return {
