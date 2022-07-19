@@ -1,8 +1,5 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('fomantic-ui-react')) :
-	typeof define === 'function' && define.amd ? define(['fomantic-ui-react'], factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.fomanticUIReact));
-})(this, (function (fomanticUiReact) { 'use strict';
+(function (fomanticUiReact) {
+	'use strict';
 
 	function _mergeNamespaces(n, m) {
 		m.forEach(function (e) {
@@ -32055,4 +32052,4 @@
 	  console.log('[PORTAL:FEED] Main Process Output:', output);
 	});
 
-}));
+})(fomanticUIReact);

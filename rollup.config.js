@@ -16,7 +16,7 @@ export default {
   input: 'scripts/index.js',
   output: {
     file: 'assets/index.js',
-    format: 'umd',
+    format: 'iife',
     globals: {
       'fomantic-ui-react': 'fomanticUIReact'
     }
