@@ -1,5 +1,5 @@
 // Cryptography
-import createHash from 'create-hash';
+// import createHash from 'create-hash';
 
 // Dependencies
 import * as bitcoin from 'bitcoinjs-lib';
@@ -165,8 +165,8 @@ class FaucetDripForm extends FabricComponent {
   }
 
   sync () {
-    const preimage = createHash('sha256').update(this.state.secret).digest('hex');
-    this.setState({ preimage: preimage });
+    // const preimage = createHash('sha256').update(this.state.secret).digest('hex');
+    // this.setState({ preimage: preimage });
     return this;
   }
 

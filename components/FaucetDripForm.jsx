@@ -12,7 +12,7 @@ import {
 import * as merge from 'lodash.merge';
 
 // Cryptography
-import createHash from 'create-hash';
+// import createHash from 'create-hash/browser';
 
 // Dependencies
 import * as bitcoin from 'bitcoinjs-lib';
@@ -165,8 +165,9 @@ class FaucetDripForm extends React.Component {
   }
 
   sync () {
-    const preimage = createHash('sha256').update(this.state.secret).digest('hex');
-    this.setState({ preimage: preimage });
+    // var hash = createHash('sha256');
+    // const preimage = hash.update(this.state.secret).digest('hex');
+    // this.setState({ preimage: preimage });
     return this;
   }
 
