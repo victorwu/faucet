@@ -1,7 +1,6 @@
 
 // Dependencies
 import * as React from 'react';
-window.React = React;
 import { connect } from 'react-redux';
 import { 
   recipientAddressClear,
@@ -12,7 +11,7 @@ import {
 // State
 import * as defaults from '../settings/state';
 
-const mapStateToProps = require('../functions/mapStateToProps');
+// import * as mapStateToProps from '../functions/mapStateToProps';
 
 // Components
 import {
@@ -30,6 +29,9 @@ import {
 import FaucetDripForm from './FaucetDripForm.jsx';
 // import FabricIdentityManager from '@fabric/http';
 // import PortalMenu from './components/PortalMenu';
+
+// React Hack
+window.React = React;
 
 class Faucet extends React.Component {
   constructor (props) {
@@ -139,6 +141,10 @@ class Faucet extends React.Component {
     this.form.current.setState({ status: 'READY' });
   }
 }
+
+const mapStateToProps = (state) => ({
+  state: state
+});
 
 export default connect(mapStateToProps, {
   recipientAddressClear,
