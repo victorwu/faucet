@@ -54,6 +54,8 @@
     "@babel/plugin-transform-runtime": "^7.18.6",
     "@babel/preset-env": "^7.18.6",
     "@babel/preset-react": "^7.18.6",
+    "@fabric/core": "FabricLabs/fabric#feature/federation",
+    "@fabric/http": "FabricLabs/fabric-http#feature/federation",
     "@reduxjs/toolkit": "^1.7.2",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",
@@ -74,8 +76,6 @@
     "rollup-plugin-polyfill-node": "^0.9.0"
   },
   "peerDependencies": {
-    "@fabric/core": "FabricLabs/fabric#feature/node-16",
-    "@fabric/http": "FabricLabs/fabric-http#build/upgrade-deps"
   },
   "browserslist": {
     "production": [
