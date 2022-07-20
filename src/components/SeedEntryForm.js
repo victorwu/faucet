@@ -13,7 +13,7 @@ import {
   // Grid,
   // Menu,
   // Segment
-} from 'fomantic-ui-react';
+} from 'semantic-ui-react';
 
 class SeedEntryForm extends React.Component {
   constructor (props) {
