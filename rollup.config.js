@@ -9,6 +9,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import replace from '@rollup/plugin-replace';
+import nodeGlobals from 'rollup-plugin-node-globals';
 // import semanticUIReact from 'semantic-ui-react';
 
 import handleRollupWarning from './functions/handleRollupWarning';
@@ -17,20 +18,48 @@ export default {
   input: 'scripts/index.js',
   output: {
     file: 'assets/index.js',
-    format: 'iife'
+    format: 'iife',
+    globals: {
+      'react': 'React',
+      'react-redux': 'reactRedux',
+      'react-router-dom': 'reactRouterDom',
+      'react/jsx-runtime': 'jsxRuntime',
+      '@reduxjs/toolkit': 'toolkit',
+      'react-dom/client': 'client',
+      'semantic-ui-react': 'semanticUIReact',
+      'bitcoinjs-lib': 'bitcoin'
+    }
   },
+  external: [
+    'react',
+    'react-redux',
+    'react/jsx-runtime',
+    'react-router-dom',
+    'react-dom/client',
+    '@reduxjs/toolkit',
+    'semantic-ui-react',
+    'bitcoinjs-lib'
+  ],
   plugins: [
-    babel({ babelHelpers: 'runtime' }),
     css(),
-    resolve({ preferBuiltins: false }),
-    commonjs(),
+    resolve(),
+    nodeGlobals(),
     nodePolyfills(),
+    babel({ 
+      presets: ['@babel/env', '@babel/preset-react'],
+      babelHelpers: 'bundled',
+      exclude: ['node_modules/**','**/node_modules/**']
+    }),
+    commonjs({
+      include: 'node_modules/**',
+      transformMixedEsModules: true
+    }),
     replace({
       preventAssignment: true,
       values: {
         'process.env.NODE_ENV': `"${process.env.NODE_ENV || 'development'}"`
       }
-    })
+    }),
   ],
   onwarn: handleRollupWarning,
   context: 'null',
