@@ -1,10 +1,9 @@
 // Dependencies
-import * as merge from 'lodash.merge';
+// import * as merge from 'lodash.merge';
 
 // React
 import * as React from 'react';
 import { store } from '../stores/redux';
-window.React = React;
 
 import {
   BrowserRouter as Router,
@@ -17,7 +16,7 @@ import '../libraries/fomantic/dist/semantic.css';
 import '../styles/index.css';
 
 // Fabric Types
-import * as Actor from '@fabric/core/types/actor';
+// import * as Actor from '@fabric/core/types/actor';
 
 // Fabric Components
 // import FabricBridge from './FabricBridge';
@@ -29,6 +28,9 @@ import * as Actor from '@fabric/core/types/actor';
 // Portal
 import Faucet from './Faucet.jsx';
 
+// React Hack
+window.React = React;
+
 /**
  * The Portal web application.
  */
@@ -38,12 +40,12 @@ class App extends React.Component {
 
     const state = store.getState();
 
-    this.settings = merge.merge({
+    this.settings = Object.assign({
 
     }, state, settings);
 
     // this.fabric = new Fabric();
-    this.state = merge.merge({
+    this.state = Object.assign({
       actor: null,
       host: 'localhost',
       integrity: null,
@@ -58,7 +60,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    const proof = new Actor(this.state);
+    // const proof = new Actor(this.state);
     return this;
   }
 
@@ -68,7 +70,7 @@ class App extends React.Component {
         <Router>
           <div className='pusher'>
             <Routes>
-              <Route path='/' exact element={<Home state={this.state} balances={this.state.balances} keys={this.state.keys} host={this.state.host} />} />
+              <Route path='/' exact element={<Faucet state={this.state} balances={this.state.balances} keys={this.state.keys} host={this.state.host} />} />
               {/* <Route path='/transactions' element={<FabricTransactionList state={this.state} balances={this.state.balances} keys={this.state.keys} />} /> */ }
             </Routes>
             {/*

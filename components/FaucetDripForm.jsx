@@ -1,6 +1,5 @@
 // React
 import * as React from 'react';
-window.React = React;
 import { connect } from 'react-redux';
 import { 
   recipientAddressClear, 
@@ -9,13 +8,13 @@ import {
   statusUpdate,
 } from '../features/faucet/faucetSlice';
 // import FabricStateMapper from '../StateMapper';
-import * as merge from 'lodash.merge';
 
 // Cryptography
 // import createHash from 'create-hash/browser';
 
 // Dependencies
-import * as bitcoin from 'bitcoinjs-lib';
+import bitcoin from 'bitcoinjs-lib';
+import merge from '../functions/_merge';
 
 // Fabric Types
 // import FabricComponent from '@fabric/http';
@@ -41,6 +40,9 @@ import {
 // import * as Key from '@fabric/core/types/key';
 // import * as Signer from '@fabric/core/types/signer';
 
+// React Hack
+window.React = React;
+
 class FaucetDripForm extends React.Component {
   constructor (props) {
     super(props);
@@ -59,7 +61,7 @@ class FaucetDripForm extends React.Component {
     // TODO: prepare Fabric
     // i.e., use _state here, then import from getter and apply properties
     // _from_ @react
-    this.state = merge.merge({
+    this.state = merge({
       address: null,
       content: {
         requests: []

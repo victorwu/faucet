@@ -5,7 +5,6 @@
 // React
 import * as React from 'react';
 import {createRoot} from 'react-dom/client';
-window.React = React;
 
 // Redux
 import { Provider } from 'react-redux';
@@ -16,6 +15,9 @@ import '../styles/index.css';
 
 // Components
 import BitFaucet from '../components/BitFaucet.jsx';
+
+// React Hack
+window.React = React;
 
 // Settings
 const settings = {}; // TODO: canonicalize settings / state
