@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
-  createSlice,
-  createAsyncThunk
+  createSlice
+  // , createAsyncThunk
 } from '@reduxjs/toolkit';
 
 import * as initialState from '../../settings/state';
