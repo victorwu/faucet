@@ -1,8 +1,8 @@
-import React from 'react';
 import {
   createSlice
   // , createAsyncThunk
 } from '@reduxjs/toolkit';
+import * as React from 'react';
 
 import * as initialState from '../../settings/state';
 

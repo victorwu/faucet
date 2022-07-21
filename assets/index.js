@@ -3,7 +3,28 @@
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+  function _interopNamespace(e) {
+    if (e && e.__esModule) return e;
+    var n = Object.create(null);
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        if (k !== 'default') {
+          var d = Object.getOwnPropertyDescriptor(e, k);
+          Object.defineProperty(n, k, d.get ? d : {
+            enumerable: true,
+            get: function () { return e[k]; }
+          });
+        }
+      });
+    }
+    n["default"] = e;
+    return Object.freeze(n);
+  }
+
+  var React__namespace = /*#__PURE__*/_interopNamespace(React);
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+  var client__default = /*#__PURE__*/_interopDefaultLegacy(client);
+  var toolkit__namespace = /*#__PURE__*/_interopNamespace(toolkit);
   var bitcoin__default = /*#__PURE__*/_interopDefaultLegacy(bitcoin);
 
   const playnet = {
@@ -28,7 +49,7 @@
     'default': state
   });
 
-  const faucetSlice = toolkit.createSlice({
+  const faucetSlice = toolkit__namespace.createSlice({
     name: 'faucet',
     initialState: defaults,
     reducers: {
@@ -91,9 +112,9 @@
   // import * as Signer from '@fabric/core/types/signer';
   // React Hack
 
-  window.React = React__default["default"];
+  window.React = React__namespace;
 
-  class FaucetDripForm extends React__default["default"].Component {
+  class FaucetDripForm extends React__namespace.Component {
     constructor(props) {
       super(props);
       this.settings = Object.assign({
@@ -176,21 +197,21 @@
     }
 
     render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Form, {
+      return /*#__PURE__*/React__namespace.createElement(React__namespace.Fragment, null, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Form, {
         ref: this.props.form,
         loading: this.props.state.status === 'LOADING',
         disabled: this.props.state.status === 'LOADING',
         onSubmit: this.props.onSubmit.bind(this)
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Form.Field, null, /*#__PURE__*/React__default["default"].createElement("label", null, "Request a deposit to\u2026"), /*#__PURE__*/React__default["default"].createElement("div", {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Form.Field, null, /*#__PURE__*/React__namespace.createElement("label", null, "Request a deposit to\u2026"), /*#__PURE__*/React__namespace.createElement("div", {
         className: "ui input"
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Input, {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Input, {
         ref: this.props.field,
         action: true,
         type: "text",
         placeholder: "Enter a Bitcoin address here",
         value: this.props.state.recipient || '',
         onChange: this.handleChange.bind(this)
-      }), /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Button, {
+      }), /*#__PURE__*/React__namespace.createElement(semanticUiReact.Button, {
         ref: this.props.button,
         attached: true,
         type: "submit",
@@ -248,9 +269,9 @@
   // import PortalMenu from './components/PortalMenu';
   // React Hack
 
-  window.React = React__default["default"];
+  window.React = React__namespace;
 
-  class Faucet extends React__default["default"].Component {
+  class Faucet extends React__namespace.Component {
     constructor(props) {
       super(props);
       this.settings = Object.assign({
@@ -264,11 +285,11 @@
       // _from_ @react
 
       this.state = Object.assign({}, this.settings);
-      this.bridge = /*#__PURE__*/React__default["default"].createRef();
-      this.button = /*#__PURE__*/React__default["default"].createRef();
-      this.field = /*#__PURE__*/React__default["default"].createRef();
-      this.form = /*#__PURE__*/React__default["default"].createRef();
-      this.modal = /*#__PURE__*/React__default["default"].createRef();
+      this.bridge = /*#__PURE__*/React__namespace.createRef();
+      this.button = /*#__PURE__*/React__namespace.createRef();
+      this.field = /*#__PURE__*/React__namespace.createRef();
+      this.form = /*#__PURE__*/React__namespace.createRef();
+      this.modal = /*#__PURE__*/React__namespace.createRef();
       return;
     }
 
@@ -308,36 +329,36 @@
     }
 
     render() {
-      return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement("fabric-faucet-home", {
+      return /*#__PURE__*/React__namespace.createElement("div", null, /*#__PURE__*/React__namespace.createElement("fabric-faucet-home", {
         ref: this.ref
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Visibility, {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Visibility, {
         onBottomPassed: this._handleMastheadBottomPassed.bind(this)
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Segment, {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Segment, {
         className: "ui inverted vertical masthead center aligned segment"
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Container, {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Container, {
         className: "ui text container"
-      }, /*#__PURE__*/React__default["default"].createElement("h1", {
+      }, /*#__PURE__*/React__namespace.createElement("h1", {
         className: "ui inverted header"
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Icon, {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Icon, {
         name: "tint"
-      }), " bitfaucet"), /*#__PURE__*/React__default["default"].createElement("h2", null, "The official ", /*#__PURE__*/React__default["default"].createElement("code", null, "@fabric/playnet"), " faucet."), /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Container, {
+      }), " bitfaucet"), /*#__PURE__*/React__namespace.createElement("h2", null, "The official ", /*#__PURE__*/React__namespace.createElement("code", null, "@fabric/playnet"), " faucet."), /*#__PURE__*/React__namespace.createElement(semanticUiReact.Container, {
         className: "left aligned",
         style: {
           marginTop: '5em'
         }
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Card, {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Card, {
         fluid: true
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Card.Content, null, /*#__PURE__*/React__default["default"].createElement(FaucetDripForm$1, {
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Card.Content, null, /*#__PURE__*/React__namespace.createElement(FaucetDripForm$1, {
         ref: this.form,
         button: this.button,
         field: this.field,
         onSubmit: this.onSubmit.bind(this)
-      }))), /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Card, {
+      }))), /*#__PURE__*/React__namespace.createElement(semanticUiReact.Card, {
         fluid: true,
         style: this.state.debug ? {} : {
           display: 'none'
         }
-      }, /*#__PURE__*/React__default["default"].createElement(semanticUiReact.Card.Content, null))))))));
+      }, /*#__PURE__*/React__namespace.createElement(semanticUiReact.Card.Content, null))))))));
     }
 
     _handleBridgeChange(event) {
@@ -376,12 +397,12 @@
 
   // Dependencies
 
-  window.React = React__default["default"];
+  window.React = React__namespace;
   /**
    * The Portal web application.
    */
 
-  class App extends React__default["default"].Component {
+  class App extends React__namespace.Component {
     constructor(settings) {
       super(settings);
       const state = store.getState();
@@ -406,14 +427,14 @@
     }
 
     render() {
-      return /*#__PURE__*/React__default["default"].createElement("react-application", {
+      return /*#__PURE__*/React__namespace.createElement("react-application", {
         id: "root"
-      }, /*#__PURE__*/React__default["default"].createElement(reactRouterDom.BrowserRouter, null, /*#__PURE__*/React__default["default"].createElement("div", {
+      }, /*#__PURE__*/React__namespace.createElement(reactRouterDom.BrowserRouter, null, /*#__PURE__*/React__namespace.createElement("div", {
         className: "pusher"
-      }, /*#__PURE__*/React__default["default"].createElement(reactRouterDom.Routes, null, /*#__PURE__*/React__default["default"].createElement(reactRouterDom.Route, {
+      }, /*#__PURE__*/React__namespace.createElement(reactRouterDom.Routes, null, /*#__PURE__*/React__namespace.createElement(reactRouterDom.Route, {
         path: "/",
         exact: true,
-        element: /*#__PURE__*/React__default["default"].createElement(Faucet$1, {
+        element: /*#__PURE__*/React__namespace.createElement(Faucet$1, {
           state: this.state,
           balances: this.state.balances,
           keys: this.state.keys,
@@ -433,7 +454,7 @@
   const settings = {}; // TODO: canonicalize settings / state
 
   const container = document.getElementById('root');
-  const root = client.createRoot(container); // createRoot(container!) if TypeScript
+  const root = client__default["default"].createRoot(container); // createRoot(container!) if TypeScript
   // Main Process Definition
 
   async function main(input = {}) {
