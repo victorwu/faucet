@@ -14,59 +14,64 @@ import nodeGlobals from 'rollup-plugin-node-globals';
 
 import handleRollupWarning from './functions/handleRollupWarning';
 
-export default {
-  input: 'scripts/index.js',
-  output: {
-    file: 'assets/index.js',
-    format: 'iife',
-    name: 'faucet',
-    globals: {
-      'react': 'React',
-      'react-redux': 'reactRedux',
-      'react-router-dom': 'reactRouterDom',
-      'react/jsx-runtime': 'jsxRuntime',
-      '@reduxjs/toolkit': 'toolkit',
-      'react-dom/client': 'client',
-      'semantic-ui-react': 'semanticUIReact',
-      'bitcoinjs-lib': 'bitcoin'
-    }
-  },
-  external: [
-    'react',
-    'react-redux',
-    'react/jsx-runtime',
-    'react-router-dom',
-    'react-dom/client',
-    '@reduxjs/toolkit',
-    'semantic-ui-react',
-    'bitcoinjs-lib'
-  ],
-  plugins: [
-    css(),
-    json(),
-    url(),
-    nodeGlobals(),
-    nodePolyfills(),
-    // resolve({
-    //   extensions: ['.js', '.jsx']
-    // }),
-    babel({ 
-      presets: [
-        // '@babel/env', 
-        '@babel/preset-react'],
-      babelHelpers: 'bundled',
-      exclude: ['node_modules/**','**/node_modules/**']
-    }),
-    commonjs({
-      include: 'node_modules/**',
-      transformMixedEsModules: true
-    }),
-    replace({
-      preventAssignment: true,
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    }),
-  ],
-  onwarn: handleRollupWarning,
-  context: 'null',
-  moduleContext: 'null'
-}
+const plugins = [
+  css(),
+  json(),
+  url(),
+  nodeGlobals(),
+  nodePolyfills(),
+  // resolve({
+  //   extensions: ['.js', '.jsx']
+  // }),
+  babel({ 
+    presets: [
+      // '@babel/env', 
+      '@babel/preset-react'],
+    babelHelpers: 'bundled',
+    exclude: ['node_modules/**','**/node_modules/**']
+  }),
+  commonjs({
+    include: 'node_modules/**',
+    transformMixedEsModules: true
+  }),
+  replace({
+    preventAssignment: true,
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+  })
+];
+
+
+export default [
+  {
+    input: 'scripts/index.js',
+    output: {
+      file: 'assets/index.js',
+      format: 'iife',
+      name: 'Faucet',
+      globals: {
+        'react': 'React',
+        'react-redux': 'reactRedux',
+        'react-router-dom': 'reactRouterDom',
+        'react/jsx-runtime': 'jsxRuntime',
+        '@reduxjs/toolkit': 'toolkit',
+        'react-dom/client': 'client',
+        'semantic-ui-react': 'semanticUIReact',
+        'bitcoinjs-lib': 'bitcoin'
+      }
+    },
+    external: [
+      'react',
+      'react-redux',
+      'react/jsx-runtime',
+      'react-router-dom',
+      'react-dom/client',
+      '@reduxjs/toolkit',
+      'semantic-ui-react',
+      'bitcoinjs-lib'
+    ],
+    plugins,
+    onwarn: handleRollupWarning,
+    context: 'null',
+    moduleContext: 'null'
+  }
+];
