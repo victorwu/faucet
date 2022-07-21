@@ -1,8 +1,10 @@
+
+import React from 'react';
+
 // State
 import * as defaults from './settings/state';
 
 // Dependencies
-import * as React from 'react';
 window.React = React;
 import { connect } from 'react-redux';
 import { 

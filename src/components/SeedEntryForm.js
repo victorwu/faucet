@@ -1,7 +1,7 @@
 import merge from 'lodash.merge';
 import * as bip39 from 'bip39';
 // import * as Wallet from '@fabric/core/types/wallet';
-import * as React from 'react';
+import React from 'react';
 window.React = React;
 
 // Components

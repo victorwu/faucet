@@ -2,7 +2,7 @@
 // import * as merge from 'lodash.merge';
 
 // React
-import * as React from 'react';
+import React from 'react';
 import { store } from '../stores/redux';
 
 import {

@@ -1,3 +1,5 @@
+const React = require('react');
+
 export default function handleRollupWarning (warning, warn) {
   const { code, importer } = warning;
   if (code === 'THIS_IS_UNDEFINED') return;
