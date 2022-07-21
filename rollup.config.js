@@ -46,7 +46,7 @@ export default [
     input: 'scripts/index.js',
     output: {
       file: 'assets/index.js',
-      format: 'iife',
+      format: 'umd',
       name: 'Faucet',
       globals: {
         'react': 'React',

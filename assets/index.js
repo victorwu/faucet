@@ -1,5 +1,8 @@
-(function (React, client, reactRedux, toolkit, reactRouterDom, semanticUiReact, bitcoin) {
-  'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('react'), require('react-dom/client'), require('react-redux'), require('@reduxjs/toolkit'), require('react-router-dom'), require('semantic-ui-react'), require('bitcoinjs-lib')) :
+  typeof define === 'function' && define.amd ? define(['react', 'react-dom/client', 'react-redux', '@reduxjs/toolkit', 'react-router-dom', 'semantic-ui-react', 'bitcoinjs-lib'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.React, global.client, global.reactRedux, global.toolkit, global.reactRouterDom, global.semanticUIReact, global.bitcoin));
+})(this, (function (React, client, reactRedux, toolkit, reactRouterDom, semanticUiReact, bitcoin) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -477,4 +480,4 @@
     console.log('[PORTAL:FEED] Main Process Output:', output);
   });
 
-})(React, client, reactRedux, toolkit, reactRouterDom, semanticUIReact, bitcoin);
+}));

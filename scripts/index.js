@@ -4,7 +4,7 @@
 
 // React
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import client from 'react-dom/client';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -23,7 +23,7 @@ window.React = React;
 const settings = {}; // TODO: canonicalize settings / state
 
 const container = document.getElementById('root');
-const root = createRoot(container); // createRoot(container!) if TypeScript
+const root = client.createRoot(container); // createRoot(container!) if TypeScript
 
 // Main Process Definition
 async function main (input = {}) {
