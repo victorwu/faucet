@@ -1,10 +1,10 @@
 /**
  * # Sample Rollup for Fabric
  */
-import * as react from 'react';
-
 import babel from '@rollup/plugin-babel';
 import css from 'rollup-plugin-import-css';
+import json from '@rollup/plugin-json';
+import url from '@rollup/plugin-url';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
@@ -19,6 +19,7 @@ export default {
   output: {
     file: 'assets/index.js',
     format: 'iife',
+    name: 'faucet',
     globals: {
       'react': 'React',
       'react-redux': 'reactRedux',
@@ -42,11 +43,17 @@ export default {
   ],
   plugins: [
     css(),
-    resolve(),
+    json(),
+    url(),
     nodeGlobals(),
     nodePolyfills(),
+    // resolve({
+    //   extensions: ['.js', '.jsx']
+    // }),
     babel({ 
-      presets: ['@babel/env', '@babel/preset-react'],
+      presets: [
+        // '@babel/env', 
+        '@babel/preset-react'],
       babelHelpers: 'bundled',
       exclude: ['node_modules/**','**/node_modules/**']
     }),
@@ -56,9 +63,7 @@ export default {
     }),
     replace({
       preventAssignment: true,
-      values: {
-        'process.env.NODE_ENV': `"${process.env.NODE_ENV || 'development'}"`
-      }
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
   ],
   onwarn: handleRollupWarning,
