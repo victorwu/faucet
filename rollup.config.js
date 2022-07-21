@@ -15,14 +15,18 @@ import nodeGlobals from 'rollup-plugin-node-globals';
 import handleRollupWarning from './functions/handleRollupWarning';
 
 const plugins = [
+  replace({
+    preventAssignment: true,
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+  }),
   css(),
   json(),
   url(),
   nodeGlobals(),
   nodePolyfills(),
-  // resolve({
-  //   extensions: ['.js', '.jsx']
-  // }),
+  resolve({
+    extensions: ['.jsx']
+  }),
   babel({ 
     presets: [
       // '@babel/env', 
@@ -33,10 +37,6 @@ const plugins = [
   commonjs({
     include: 'node_modules/**',
     transformMixedEsModules: true
-  }),
-  replace({
-    preventAssignment: true,
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   })
 ];
 
@@ -46,29 +46,9 @@ export default [
     input: 'scripts/index.js',
     output: {
       file: 'assets/index.js',
-      format: 'umd',
-      name: 'Faucet',
-      globals: {
-        'react': 'React',
-        'react-redux': 'reactRedux',
-        'react-router-dom': 'reactRouterDom',
-        'react/jsx-runtime': 'jsxRuntime',
-        '@reduxjs/toolkit': 'toolkit',
-        'react-dom/client': 'client',
-        'semantic-ui-react': 'semanticUIReact',
-        'bitcoinjs-lib': 'bitcoin'
-      }
+      format: 'iife',
+      name: 'Faucet'
     },
-    external: [
-      'react',
-      'react-redux',
-      'react/jsx-runtime',
-      'react-router-dom',
-      'react-dom/client',
-      '@reduxjs/toolkit',
-      'semantic-ui-react',
-      'bitcoinjs-lib'
-    ],
     plugins,
     onwarn: handleRollupWarning,
     context: 'null',
