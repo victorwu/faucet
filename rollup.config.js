@@ -11,6 +11,7 @@ import nodePolyfills from 'rollup-plugin-polyfill-node';
 import replace from '@rollup/plugin-replace';
 import nodeGlobals from 'rollup-plugin-node-globals';
 // import semanticUIReact from 'semantic-ui-react';
+import alias from '@rollup/plugin-alias';
 import typescript from 'rollup-plugin-typescript2';
 
 import handleRollupWarning from './functions/handleRollupWarning';
@@ -26,8 +27,17 @@ const plugins = [
   nodeGlobals(),
   nodePolyfills(),
   resolve({
-    extensions: ['.jsx']
+    browser: true,
+    extensions: ['.jsx'],
+    preferBuiltins: false
+  }),
   typescript({target: "es6"}),
+  alias({
+    entries: [
+      { find: 'shim', replacement: 'use-sync-external-store/shim'}
+      // , { find: 'objectAssign', replacement: 'object-assign'}
+    ]
+  }),
   commonjs({
     include: 'node_modules/**',
     transformMixedEsModules: true
