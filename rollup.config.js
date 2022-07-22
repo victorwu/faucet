@@ -25,7 +25,9 @@ const plugins = [
   json(),
   url(),
   nodeGlobals(),
-  nodePolyfills(),
+  nodePolyfills({
+    // crypto: true
+  }),
   resolve({
     browser: true,
     extensions: ['.jsx'],
@@ -58,8 +60,31 @@ export default [
     output: {
       file: 'assets/index.js',
       format: 'iife',
-      name: 'Faucet'
+      name: 'Faucet',
+      globals: {
+        'use-sync-external-store/shim': 'shim',
+        // 'react': 'React',
+        // 'react-redux': 'reactRedux',
+        'react-router-dom': 'reactRouterDom',
+        'react/jsx-runtime': 'jsxRuntime',
+        '@reduxjs/toolkit': 'toolkit',
+        // 'react-dom/client': 'client',
+        'semantic-ui-react': 'semanticUIReact',
+        'bitcoinjs-lib': 'bitcoin',
+        'object-assign': 'objectAssign'
+      }
     },
+    external: [
+      'react/jsx-runtime',
+      'react-router-dom',
+      '@reduxjs/toolkit',
+      'semantic-ui-react',
+      'bitcoinjs-lib',
+      'lodash-es',
+      'use-sync-external-store/shim',
+      'use-sync-external-store/shim/with-selector',
+      'object-assign'
+    ],
     plugins,
     onwarn: handleRollupWarning,
     context: 'null',
