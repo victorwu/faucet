@@ -11,6 +11,7 @@ import nodePolyfills from 'rollup-plugin-polyfill-node';
 import replace from '@rollup/plugin-replace';
 import nodeGlobals from 'rollup-plugin-node-globals';
 // import semanticUIReact from 'semantic-ui-react';
+import typescript from 'rollup-plugin-typescript2';
 
 import handleRollupWarning from './functions/handleRollupWarning';
 
@@ -26,6 +27,7 @@ const plugins = [
   nodePolyfills(),
   resolve({
     extensions: ['.jsx']
+  typescript({target: "es6"}),
   }),
   babel({ 
     presets: [
