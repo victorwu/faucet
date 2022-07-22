@@ -28,17 +28,16 @@ const plugins = [
   resolve({
     extensions: ['.jsx']
   typescript({target: "es6"}),
+  commonjs({
+    include: 'node_modules/**',
+    transformMixedEsModules: true
   }),
   babel({ 
     presets: [
       // '@babel/env', 
       '@babel/preset-react'],
-    babelHelpers: 'bundled',
-    exclude: ['node_modules/**','**/node_modules/**']
-  }),
-  commonjs({
-    include: 'node_modules/**',
-    transformMixedEsModules: true
+    babelHelpers: 'runtime',
+    // exclude: ['**/node_modules/**']
   })
 ];
 
